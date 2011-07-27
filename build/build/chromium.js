@@ -21,7 +21,6 @@ module.exports = function (src, baton) {
     baton.take();
 
     var copy = 'cp -r ' + _c.EXT + "chromium " + _c.DEPLOY + " && " +
-               'cp -r ' + _c.ASSETS + "sounds " + _c.DEPLOY + "chromium/ &&" +
                'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chromium/ &&" +
                'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chromium/ &&" +
                'cp -r ' + _c.ASSETS + "styles " + _c.DEPLOY + "chromium/";
