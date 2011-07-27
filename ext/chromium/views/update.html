@@ -1,0 +1,46 @@
+<!--
+ *  Copyright 2011 Research In Motion Limited.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ripple Update</title>
+        <link media="screen" rel="stylesheet" type="text/css" href="../styles/extension.css" />
+        <link media="screen" rel="stylesheet" type="text/css" href="../themes/dark/theme.css" />
+    </head>
+    <body>
+        <div class="update-container" style="color: #F0F0F0">
+            <img src="../images/Icon_48x48.png" class="notification-icon" alt="" />
+
+            <h2><script type="text/javascript" charset="utf-8">
+                var metaData = chrome.extension.getBackgroundPage().tinyHippos.Background.metaData();
+                document.write(metaData.justInstalled ? "Welcome to Ripple" : "Ripple has been updated");
+            </script></h2>
+
+            <p><script type="text/javascript" charset="utf-8">
+                var html = "";
+                if (metaData.justInstalled) {
+                    html = "Visit our <a href=\"http://rippledocs.tinyhippos.com\" target=\"_blank\">documentation site</a> to get started.";
+                } else {
+                    html = "See what's new in <a href=\"http://rippledocs.tinyhippos.com/index.html#changelog\"" +
+                        " target=\"_blank\">v" + metaData.version + "</a>.";
+                }
+                document.write(html);
+            </script></p>
+
+            <p>Join the Ripple <a href="http://ripple.tinyhippos.com/signup" target="_blank">Community</a></p>
+        </div>
+    </body>
+</html>

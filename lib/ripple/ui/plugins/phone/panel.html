@@ -1,0 +1,54 @@
+<!--
+ *  Copyright 2011 Research In Motion Limited.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<section id="phone-container" class="ui-box ui-state-default ui-corner-all">
+    <section class="h2 info-header">
+        <section class="collapse-handle">Phone</section>
+        <section class="drag-handle ui-state-default ui-corner-all ui-state-hover">
+            <span class="ui-icon ui-icon-arrow-4"></span>
+        </section>
+    </section>
+
+    <section class="info ui-widget-content ui-corner-all" style="display: none">
+        <table class="panel-table">
+            <tr>
+                <td><label class="ui-text-label">Type</label></td>
+                <td><select id="phone-event-types" class="ui-state-default ui-corner-all"></select></td>
+            </tr>
+            <tr>
+                <td><label class="ui-text-label">Call id</label></td>
+                <td><input id="phone-call-id" type="text" class="ui-state-default ui-corner-all"></td>
+            </tr>
+            <tr id="phone-event-error-container" style="display: none">
+                <td><label class="ui-text-label">Error</label></td>
+                <td><select id="phone-event-error-types" class="ui-state-default ui-corner-all"></select></td>
+            </tr>
+       </table>
+       <table class="panel-table">
+            <tr>
+                <td>
+                    <button id="phone-logs-clear" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span class="ui-button-text">Clear Logs</span>
+                    </button>
+                </td>
+                <td>
+                    <button id="phone-event-send" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span class="ui-button-text">Fire Event</span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </section>
+</section>

@@ -1,0 +1,52 @@
+/*
+ *  Copyright 2011 Research In Motion Limited.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* ------------------------------>
+    Bold9900 (726x1258) offset (41x196)*/
+
+.viewport-wrapper-Bold9900 {
+    width:640px;
+    height:480px;
+    border: none;
+}
+
+.menu-button-wrapper-Bold9900{
+    position: relative;
+    display: inline-block;
+    margin: 30px 0 0 145px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+}
+
+.back-button-wrapper-Bold9900 {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 0 170px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+}
+
+.device-wrapper-Bold9900 {
+    position: relative;
+    padding: 196px 0 0 41px;
+    width: 685px;
+    height:1062px;
+    margin: 0 auto;
+    border: none;
+    -webkit-box-shadow: none;
+    background: url('../images/Bold9900.png') no-repeat;
+}

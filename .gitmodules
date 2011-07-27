@@ -1,0 +1,12 @@
+[submodule "thirdparty/jasmine"]
+	path = thirdparty/jasmine
+	url = http://github.com/pivotal/jasmine.git
+[submodule "thirdparty/node-XMLHttpRequest"]
+	path = thirdparty/node-XMLHttpRequest
+	url = http://github.com/tinyhippos/node-XMLHttpRequest.git
+[submodule "thirdparty/browser-require"]
+	path = thirdparty/browser-require
+	url = https://github.com/rsms/browser-require.git
+[submodule "thirdparty/jWorkflow"]
+	path = thirdparty/jWorkflow
+	url = https://github.com/tinyhippos/jWorkflow.git

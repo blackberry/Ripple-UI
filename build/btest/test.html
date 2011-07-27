@@ -1,0 +1,145 @@
+<!--
+ *  Copyright 2011 Research In Motion Limited.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>I Am The Law!</title>
+
+        <!-- backwards compat -->
+        <script type="text/javascript" charset="utf-8">
+          var global = window;
+        </script>
+
+        <!-- jasmine -->
+        <link rel="stylesheet" type="text/css" href="thirdparty/jasmine/lib/jasmine.css">
+        <script type="text/javascript" src="thirdparty/jasmine/lib/jasmine.js"></script>
+        <script type="text/javascript" src="thirdparty/jasmine/lib/jasmine-html.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            // also mocked out in node runner
+            global.describeBrowser = function () {
+                return global.describe.apply(global, Array.prototype.slice.call(arguments));
+            }
+            global.itBrowser = function () {
+                return global.it.apply(global, Array.prototype.slice.call(arguments));
+            }
+
+            //HACK: our custom toThrow (can be taken out if our pull request is accepted)
+            jasmine.Matchers.prototype.toThrow = function(expected) {
+              var result = false;
+              var exception;
+              if (typeof this.actual != 'function') {
+                throw new Error('Actual is not a function');
+              }
+              try {
+                this.actual();
+              } catch (e) {
+                exception = e;
+              }
+              if (exception) {
+                if (typeof expected === 'function') {
+                  result = expected(exception);
+                }
+                else {
+                  result = (expected === jasmine.undefined || this.env.equals_(exception.message || exception, expected.message || expected));
+                }
+              }
+
+              var not = this.isNot ? "not " : "";
+
+              this.message = function() {
+                if (exception && (expected === jasmine.undefined || !this.env.equals_(exception.message || exception, expected.message || expected))) {
+                  return ["Expected function " + not + "to throw", expected ? expected.message || expected : "an exception", ", but it threw", exception.message || exception].join(' ');
+                } else {
+                  return "Expected function to throw an exception.";
+                }
+              };
+
+              return result;
+            };
+        </script>
+
+        <!-- sinonjs -->
+        <script src="thirdparty/sinon.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- jWorkflow -->
+        <script src="thirdparty/jWorkflow/jworkflow-min-0.4.0.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- thirdparty -->
+        <script src="thirdparty/browser-require/require.js" type="text/javascript" charset="utf-8"></script>
+        <script src="thirdparty/Math.uuid.js" type="text/javascript" charset="utf-8"></script>
+        <script src="thirdparty/jquery.js" type="text/javascript" charset="utf-8"></script>
+        <script src="thirdparty/aop.js" type="text/javascript" charset="utf-8"></script>
+        <script src="thirdparty/jquery.ui.js" type="text/javascript" charset="utf-8"></script>
+        <script src="thirdparty/jquery.dimensions.js" type="text/javascript" charset="utf-8"></script>
+        <script src="thirdparty/jquery.tooltip.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- define Math.uuid as a ghost -->
+        <script type="text/javascript" charset="utf-8">
+            require.define('thirdparty/Math.uuid', function (require, module, exports) {});
+        </script>
+
+        <!-- define sinon as module -->
+        <script type="text/javascript" charset="utf-8">
+            require.define('sinon', function (require, module, exports) {
+                module.exports = window.sinon;
+            });
+        </script>
+
+        <!-- define jWorkflow as module -->
+        <script type="text/javascript" charset="utf-8">
+            require.define('jWorkflow', function (require, module, exports) {
+                module.exports = window.jWorkflow;
+            });
+        </script>
+    </head>
+    <body>
+
+       <!-- load in layout.html -->
+        <section style="display: none;">
+            <script type="text/javascript" charset="utf-8">
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "ext/assets/index.html", false);
+                xhr.send(null);
+                // lazy hack
+                document.write(
+                    xhr.responseText
+                        .replace(/\n/g, '')
+                        .match(/<body>(.*)<\/body>/g)[0]
+                        .replace(/<script.*<\/script>/g, '')
+                );
+            </script>
+        </section>
+
+        <!-- load in lib modules -->
+        <script type="text/javascript" charset="utf-8">
+            [
+"##FILES##"
+            ].forEach(function (module) {
+                require.load(module + ".js");
+            });
+        </script>
+
+        <!-- test specs -->
+<!-- SPECS -->
+
+        <!-- run tests -->
+        <script type="text/javascript" charset="utf-8">
+                jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+                jasmine.getEnv().execute();
+        </script>
+    </body>
+</html>

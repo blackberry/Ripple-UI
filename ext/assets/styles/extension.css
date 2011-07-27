@@ -1,0 +1,81 @@
+/*
+ *  Copyright 2011 Research In Motion Limited.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+body {
+    font-size: 0.75em;
+    margin: 0;
+    border: 0;
+}
+
+.layout {
+    color: #F0F0F0;
+}
+
+a {
+  outline: none;
+  color: #EEEEEE;
+  cursor: pointer;
+}
+
+a:hover { text-decoration: none; }
+
+img { border: 0; margin: 0; padding: 0; }
+
+tr, td, th{ border: 0; margin: 0; padding: 0; }
+
+textarea:focus, input:focus {
+  border: none;
+  background: transparent;
+  color: #333333;
+}
+
+p:first-letter, th, li:first-letter, label, button, h1, h2, h3{ text-transform: capitalize; }
+
+h1{ font-size: 2em; font-weight: bold; }
+
+h2{ font-size: 1em; font-weight: bold;}
+
+h3{ font-style: italic; font-size: 1.07em; font-weight: normal; }
+
+.irrelevant{  display: none; }
+
+hr { color: #1e1e1e; }
+
+.popup-body {
+    width:300px;
+    padding: 0 .5em;
+}
+
+#popup-enable-container button {
+    width: 100%;
+    margin: 5px 0 10px 0;
+}
+
+.update-container {
+  padding: 0 0.5em;
+}
+
+  .update-container h2 {
+      text-transform: none;
+  }
+
+  .update-container .notification-icon {
+      float: left;
+      margin: 0 0.5em 1em 0;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+  }
+

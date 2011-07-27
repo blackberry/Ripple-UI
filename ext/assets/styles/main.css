@@ -1,0 +1,919 @@
+/*
+ *  Copyright 2011 Research In Motion Limited.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* ------------------------------>
+    Global */
+
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    width : 100%;
+    height : 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+input, textarea, keygen, select, button, isindex, datagrid {
+    font-size: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    resize: none;
+}
+
+.logo {
+    background-size: 40%;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 395px;
+    top: 8px;
+    width: 200px;
+    height: 70px;
+}
+
+.beta{
+    -webkit-transform: rotate(-35deg);
+    position: absolute;
+    left: 390px;
+    top: 7px;
+}
+
+.main{
+    font-size: 12px !important;
+}
+
+/* TODO: better css for this specificity */
+.main a {
+    text-decoration: underline !important;
+    outline: none;
+    cursor: pointer;
+}
+
+.main img{ border: 0; margin: 0; padding: 0; }
+
+.main table, .main tr, .main td, .main th{
+    border: 0;
+}
+
+.main table{
+    font-size: 1.00em;
+}
+
+.main input[type^=text], .main input[type^=number], .main select, .main textarea{
+    -webkit-appearance: none;
+    padding: 0.4em 1em !important;
+}
+
+.main option {
+  background-color: transparent;
+}
+
+input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
+    outline: none;
+}
+
+.main input[type^=checkbox] {
+    margin: 6px 10px;
+    padding: 0;
+}
+
+.main label {
+    padding: 0.4em 0.5em 0.4em 0;
+}
+
+.main button:hover, .main select, .main input[type^=submit]:hover, .main input[type^=checkbox]:hover{
+    cursor: pointer;
+}
+
+.h1, .main h1{ font-size: 1.25em; font-weight: bold; }
+
+.h2, .main h2{ font-size: 1.14em; font-weight: bold;}
+
+.h3, .main h3{ font-size: 1.07em; font-weight: bold; }
+
+.h4, .main h4{ font-size: 1em; font-weight: normal; }
+
+.irrelevant{  display: none; }
+
+section, header, footer, aside, nav{ display: block; }
+
+/* ------------------------------>
+    Top Section */
+
+.top-content{
+    margin: 0 auto;
+    position: relative;
+    width: 1px;
+}
+
+.top-content img{
+    position: absolute;
+    top: 0;
+    left: -160px;
+    width: 200px;
+}
+
+.irrelevant {
+    display: none;
+}
+
+
+/* ------------------------------>
+    Middle/Device Wrapper Section */
+
+section.middle{
+    margin: 0 auto;
+    top: 75px;
+    position: relative;
+}
+
+.viewport-wrapper {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.device-wrapper {
+    position: relative;
+    padding: 144px 0 0 41px;
+    padding: 55px 25px 105px 25px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+
+#document {
+    background: white;
+    border: 0 none;
+    width: inherit;
+    height: inherit;
+}
+
+.device-wrapper-landscape {
+    padding: 25px 105px 25px 55px;
+}
+
+/* ------------------------------>
+    Panel (left/right) Section */
+
+section.right, section.left{
+    position: absolute;
+    top: 0px;
+    min-height: 100%;
+    padding: 0;
+    width: 344px;
+}
+
+section.right { right: 0; }
+
+section.left { left: 0; }
+
+.sortable > section:not(.ui-box-open):hover {
+    opacity: 0.9;
+}
+
+.ui-box {
+    margin: 5px;
+    z-index: 50;
+    position: relative;
+    padding: 0 2px 0 2px;
+    border: none !important;
+}
+
+
+.ui-box-open {
+    background-image: none !important;
+    padding: 0 2px 2px 2px;
+}
+
+.range-label-right {
+    padding: 4px 0 0 0.75em;
+    float: right;
+    font-weight: bold;
+}
+
+.range-label-left {
+    margin-top: 1px;
+    right: 150px;
+    font-weight: bold;
+    position: absolute;
+}
+
+.info > h3 {
+    margin-bottom: 0.25em;
+}
+
+.panel-label {
+    width: 40%;
+    float: left;
+    position: relative;
+    top: 0.4em;
+}
+
+.panel-bug-textarea {
+    width: 90%;
+}
+
+#info{
+    overflow: auto;
+}
+
+.info{
+    padding: 0.5em 8px 1em 8px;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.info-header{
+    padding: 0;
+    position: relative;
+    cursor: pointer;    
+}
+
+.info section > span{
+    font-style: normal;
+    font-weight: bold;
+    display: inline;
+    padding-right: 8px;
+}
+
+#preferences-list {
+    overflow: auto ;
+    max-height: 300px;
+}
+
+.preferences-count {
+    float: right;
+    font-size: 1.08em;
+    padding-top: .5em;
+}
+
+.preferences-note{
+    margin-top: .5em;
+    float: right;
+    clear: right;
+}
+
+.preferences-table td {
+    width: 30%;
+    vertical-align: top;
+}
+
+.preferences-table th {
+    text-align: left;
+}
+
+.preferences-table td:nth-child(2), .preferences-table th:nth-child(2){
+    width: 70%;
+    word-break: break-all;
+}
+
+/* Panel UI */
+.collapse-handle{
+    padding: 5px 9px;
+}
+
+.drag-handle:hover{
+    opacity: 0.75;
+}
+
+.drag-handle:active{
+    opacity: 1.0;
+}
+
+.drag-handle{
+    position: absolute;
+    z-index: 900;
+    right: 7px;
+    top: 4px;
+    opacity: 0.4;
+    cursor: pointer;
+}
+
+.ui-sortable-highlight {
+    height: 26px;
+    margin: 5px;
+    opacity: 0.9;
+}
+
+/* overlay UI */
+.overlay {
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    display: none;
+    overflow-y: auto;
+    background-color: white;
+}
+
+.overlay-dialog {
+    z-index: 10001;
+    position: absolute;
+    display: none;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.overlay-dialog-box {
+    max-height: 70%;
+    max-width: 70%;
+    padding: 5%;
+    overflow: hidden;
+    color: #FFF;
+    -webkit-border-radius: 8px;
+    background: rgba(0,0,0,1.0);
+}
+
+.overlay-dialog-message{
+    width: 100%;
+    max-height: 50%;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.overlay-dialog-buttons{
+    padding-top: 10px;
+    width:100%;
+    text-align: center;
+}
+
+.overlay-dialog-buttons > input{
+    -webkit-border-radius: 4px;
+    margin: 5px;
+}
+
+.overlay-menu {
+    z-index: 1000;
+    position: absolute;
+    display: none;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.overlay-menu-box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    max-height: 80%;
+    max-width: 50%;
+    padding: 3% 0.5% 3% 0.5%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: #FFF;
+    -webkit-border-top-right-radius: 8px;
+    background: rgba(0,0,0,1.0);
+}
+
+.overlay-menu-box::-webkit-scrollbar {  
+    width: 0.50ex;
+    -webkit-border-radius: 1ex;  
+}  
+  
+.overlay-menu-box::-webkit-scrollbar-thumb {  
+    background: #0f55ad;
+    -webkit-border-radius: 1ex;  
+}
+
+.overlay-menu-item, .overlay-menu-item-default{
+    width: 100%;
+    display:block;
+    font-size: 1.65em;
+}
+
+.overlay-menu-item:hover,  .overlay-menu-item-default:hover{
+    background-color: #0f55ad;
+    cursor: pointer;
+}
+
+.overlay-menu-item-default{
+    background-color: #1F1F1F;
+}
+
+.overlay-menu-buttons > table{
+    color: #FFF;
+}
+
+/* ------------------------------>
+    Notifications */
+
+#panel-notification{
+    position: absolute;
+    width: 40%;
+    min-height: 100px;
+    top: 20%;
+    left: 30%;
+    padding: .5em 1em;
+    font-size: 0.92em;
+    -webkit-box-shadow: 0px 1px 10px rgb(0,0,0);
+    -moz-box-shadow: 0px 1px 10px rgb(0,0,0);
+    box-shadow: 0px 1px 10px rgb(0,0,0);
+    z-index: 1100;
+}
+
+.panel-notification-closebtn{
+    position: relative;
+    float: right;
+    z-index: 999;
+    cursor: pointer;
+    padding: 3px 5px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.panel-notification-closebtn:hover{
+    text-decoration: underline;
+}
+
+#panel-notification-text{
+    word-wrap: break-word;
+}
+
+/* ------------------------------>
+    UI.Devices */
+#layout-portrait, #layout-landscape {
+    display: inline-block;
+    width:16px;
+    height:28px;
+    cursor: pointer;
+    padding: 0 10px 0 10px;
+}
+
+#layout-landscape {
+    -webkit-transform: rotate(-90deg);
+}
+
+.layout-selected {
+    opacity: 1.0;
+}
+
+.layout-not-selected {
+    opacity: 0.4;
+}
+
+/* ------------------------------>
+    UI.Geo */
+
+#geo-map{
+    position: relative;
+    padding: 10px 0;
+    width: 316px;
+    height: 316px;
+    overflow: hidden;
+}
+
+#geo-map-img {
+    top: -80px;
+    left: -80px;
+    position: relative;
+}
+
+#geo-map-arrow {
+    width: 32px;
+    height: 32px;
+    background: url(../images/compass.png);
+    float: left;
+    margin-top: 5px;
+}
+
+#geo-map-direction-label {
+    margin-left: 35px;
+}
+
+#geo-map-direction {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 90px;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #000;
+    background-color: rgba(180,180,180,0.7);
+    -webkit-border-radius: 5px;
+    padding: 5px;
+}
+
+#geo-map-marker {
+    position: absolute;
+    top: 158px;
+    left: 148px;
+    background: url(../images/circle.png);
+    width: 20px;
+    height: 20px;
+}
+
+.geo-map-zoom-btn {
+    font-weight: bold;
+}
+
+.geo-map-zoom-controls {
+    position: relative;
+    margin-top: 10px;
+}
+
+.geo-map-zoomlevel {
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+
+
+/* ------------------------------>
+    UI.WidgetConfig */
+
+.ui-accordion-icons .ui-accordion-header a {
+    padding: .25em .5em !important;
+}
+
+#widget-config div > h3:hover{
+    cursor: pointer;
+}
+
+#widget-config h3 a{
+    text-decoration: none !important;
+}
+#widget-config h3 a:hover{
+    text-decoration: none !important;
+}
+
+.configPass, .configFail{
+    height: auto !important;
+}
+
+.configPass:hover, .configFail:hover {
+    opacity: 0.6;
+}
+
+.config-accordion-node-content-value {
+    padding-bottom: .5em;
+}
+
+.config-attributes-name-value {
+    padding-bottom: .5em;
+}
+
+.config-accordion-node-content-attributes-title {
+    padding-bottom: .25em;
+    font-style: italic;
+}
+
+.config-attributes-message {
+    font-style: italic;
+}
+
+.config-accordion-node-content-value-message > span,
+.config-accordion-node-content-value > span,
+.config-accordion-node-content-attributes-title {
+    padding-right: 1em;
+    font-weight: bold;
+}
+
+.config-accordion-node-content-value-message {
+    margin: 0.5em 0;
+}
+
+
+/* ------------------------------>
+    UI.Information Table */
+
+#information-sub-container {
+    line-height: 20px;
+}
+
+.information-widgeticon {
+    float: right;
+    clear: both;
+}
+
+.information-widgetname{
+    font-weight: bold;
+}
+
+.information-widgetversion{
+}
+
+#emulator-booting {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1200;
+    background: #FFFFFF url("../images/load2.gif") center no-repeat;
+}
+
+/* ------------------------------>
+    Panel Table */
+
+.panel-table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+.panel-table th {
+    text-align: left;
+}
+
+.panel-table td input[type^=text], .panel-table td input[type^=number] {
+    width: 100px;
+}
+
+.panel-table td:nth-child(2) {
+    text-align: right;
+}
+
+.panel-table td {
+    vertical-align: middle;
+    height: 30px;
+}
+
+
+/* ------------------------------>
+    UI.Platform */
+
+#device-select {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+#change-platform {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+/* ------------------------------>
+    UI.Telephony */
+
+.call-number {
+    width: 100px;
+}
+
+.call-name {
+    width: 130px !important;
+}
+
+/* ------------------------------>
+    UI.PhotoGrid */
+
+#photogrid-window {
+    font-size: 5em;
+    text-align: center;
+    color: #1E1E1E;
+    vertical-align: middle;    
+    background-color: #000000;
+}
+
+.photogrid-photo {
+    position: relative;
+    float: left;
+}
+
+.photogrid-item {
+    width: 100px;
+}
+
+#photogallery-window {
+    font-size: 5em;
+    text-align:center;
+    color: #1E1E1E;
+    background-color: #000000;
+}
+
+#photogallery-container {
+    height: 100%;
+    /* flexbox, por favor */
+    display: -webkit-box;
+    /* this could be vertical, too */
+    -webkit-box-orient: horizontal;
+    /* these centers do the hard work */
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+
+.photogallery-photo {
+    vertical-align: middle;
+    border: 2px groove #000000;
+}
+
+/* ------------------------------>
+    UI.Multimedia Table */
+
+.audio-table td:nth-child(2) {
+    word-wrap: break-word;
+    max-width: 200px;
+}
+.video-table td:nth-child(2) {
+    word-wrap: break-word;
+    max-width: 200px;
+}
+
+/* ------------------------------>
+    UI.Security Settings */
+
+#security-level-select {
+    width: 90%;
+}
+
+/* ------------------------------>
+    Device Wrapper */
+
+.device-wrapper {
+    background: #1e1e1e;
+    border: solid rgba(204, 204, 204, 0.9);
+    -webkit-box-shadow: 0 0 15px rgba(153, 153, 153, 0.75);
+}
+
+.viewport-wrapper {
+    background: url(../images/ui-bg-hashed.png) repeat;
+    border: 2px solid rgba(204, 204, 204, 0.75);
+}
+/* ------------------------------>
+    Panel collapse icons */
+
+.right-panel-collapse, .left-panel-collapse {
+    position: absolute;
+    top: 5px;
+    opacity: 0.8;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.right-panel-collapse:hover, .left-panel-collapse:hover {
+    opacity: 0.5;
+}
+
+.right-panel-collapse:active, .left-panel-collapse:active {
+    opacity: 1;
+}
+
+.left-panel-collapse {
+    left: 345px;
+}
+
+.right-panel-collapse {
+    right: 345px;
+}
+
+/* ------------------------------>
+    Error Window */
+    
+.error-window {
+    z-index: 10000;
+    width: 100%;
+    height: 100%;    
+    position: absolute;
+    top: 0px;
+    text-align:center;
+    vertical-align: middle;    
+    display: none;
+    background-color: #2B0000;    
+}
+
+.error-dialog {
+    z-index: 10001;        
+    position: absolute;
+    top: 250px;
+    padding: 20px 0 20px 130px;
+    opacity: 1;
+    width: 425px;
+    height: auto;
+    text-align: center;    
+    vertical-align: middle;
+    margin: 0 auto;    
+    display: none;
+    color: #F0F0F0;    
+    font-family: Helevetica, Arial;
+}
+
+    .error-logo {
+        background: url("../images/ripplelogo_large.png") no-repeat 10px 10px;
+        background-size: 100% 100%;
+        position: absolute;
+        width: 122px;
+        height: 200px;
+        top: 0;
+        left: 0;
+    }
+
+    .error-hippo {
+        background: url("../images/dontPanic.png") no-repeat center;
+        background-size: 100% 100%;
+        position: absolute;
+        width: 230px;
+        height: 284px;
+        top: -242px;
+        left: 268px;
+    }
+
+    .error-dialog > button {
+        margin: 0 .25em;
+    }
+
+    .error-text h2 {
+        font-size: 1.25em;
+    }
+
+    .error-text p {
+        font-size: 1.17em;
+        text-align: left;
+    }
+
+/* ------------------------------>
+    First Run Window */
+    
+.first-run-window {
+    z-index: 9000;
+    width: 100%;
+    height: 100%;    
+    position: absolute;
+    top: 0px;
+    text-align:center;
+    vertical-align: middle;    
+    display: none;
+}
+
+.platform-select-dialog {
+    z-index: 9001;        
+    position: absolute;
+    top: 250px;
+    padding: 20px 0 20px 130px;
+    opacity: 1;
+    width: 450px;
+    height: auto;
+    text-align: center;    
+    vertical-align: middle;
+    margin: 0 auto;    
+    display: none;
+}
+
+    .platform-select-logo {
+        background: url("../images/ripplelogo_large.png") no-repeat 10px 10px;
+        background-size: 100% 100%;
+        position: absolute;
+        width: 122px;
+        height: 200px;
+        top: 0;
+        left: 0;
+    }
+
+    .platform-select-dialog > button {
+        margin: 0 .25em;
+    }
+
+    .platform-select-text h2 {
+        font-size: 1.25em;
+    }
+
+    .platform-select-text p {
+        font-size: 1.17em;
+    }
+
+
+/* ------------------------------>
+    Main Scrolling */
+
+::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+    background-color: #222222;
+    opacity: 0.5;
+}
+
+::-webkit-scrollbar:hover {}
+
+::-webkit-resizer {
+    -webkit-border-radius: 4px;
+    background-color: #333333;
+}
+
+::-webkit-scrollbar-thumb {
+    min-height: 0.8em;
+    min-width: 0.8em;
+    margin: 0 .25em;
+    -webkit-border-radius: 4px;
+    background-color: #333333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #444444;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #555555;
+}

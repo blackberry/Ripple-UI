@@ -1,0 +1,38 @@
+<!--
+ *  Copyright 2011 Research In Motion Limited.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<section id="preferences" class="ui-box ui-state-default ui-corner-all">
+    <section class="h2 info-header">
+        <section class="collapse-handle">Storage</section>
+        <section class="drag-handle ui-state-default ui-corner-all ui-state-hover">
+            <span class="ui-icon ui-icon-arrow-4"></span>
+        </section>
+    </section>
+
+    <section id="preferences-list" class="info ui-widget-content ui-corner-all" style="display: none;">
+        <table class="preferences-table ui-widget-content">
+            <thead><tr><th><label class="ui-text-label">Key</label></th><th><label class="ui-text-label">Value</label></th></tr></thead>
+            <tbody id="preferences-list-body"></tbody>
+        </table>
+
+        <section class="preferences-count" id="preferences-count"></section>
+        <span class="preferences-count">Total:&nbsp;</span>
+        <span class="ui-text-highlight preferences-note">(read-only preference colour)</span><br/>
+
+        <button id="preferences-clear-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">Clear All</span>
+        </button>
+    </section>
+</section>

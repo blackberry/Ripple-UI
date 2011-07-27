@@ -1,0 +1,102 @@
+<!--
+ *  Copyright 2011 Research In Motion Limited.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html>
+    <head>
+        <link href="#URL_PREFIX#styles/main.css" type="text/css" rel="stylesheet" />
+    </head>
+    <body>
+        <section id="ui">
+            <section id="emulator-booting"></section>
+
+            <section class="logo"></section>
+
+            <section id="extension-url" class="irrelevant">#URL_PREFIX#</section>
+
+            <div class="beta ui-text-beta">beta</div>
+
+            <section class="top main">
+            </section>
+
+            <section class="left-panel-collapse ui-state-default ui-corner-all ui-state-hover">
+                <span class="ui-icon ui-icon-arrowthick-1-w"></span>
+            </section>
+            <section id="left" class="left sortable main"></section>
+
+            <section class="middle">
+                <section id="device-container" class="device-wrapper">
+                    <section id="viewport-container" class="viewport-wrapper">
+                        <section id="overlay-views">#OVERLAY_VIEWS#</section>
+                    </section>
+                    <div id="menu-button" class="menu-button-wrapper" title="Click to press menu key"></div>
+                    <div id="back-button" class="back-button-wrapper" title="Click to press back key"></div>
+                </section>
+            </section>
+
+            <section class="main ui-widget" id="panel-notification" style="display: none;">
+                <section class="panel-notification-closebtn">X</section>
+                <section id="panel-notification-text"></section>
+            </section>
+
+            <section class="right-panel-collapse ui-state-default ui-corner-all ui-state-hover">
+                <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+            </section>
+            <section class="right sortable main"></section>
+
+            <section class="error-window">
+            </section>
+
+            <section class="error-dialog main ui-corner-all">
+                <section class="error-logo"></section>
+                <section class="error-text">
+                    <h1>Looks like what we have here is a failure to... emulate</h1>
+                    <p>You're seeing this window because it looks like the zombie apocalypse has started.</p>
+                    <p>For some strange reason it looks like we are unable to load. This could be a problem
+                        with your application, with ours or that you may require more time to finish loading.
+                        Hit "Wait" to give your application more time. Hit "FIRE!!" to pick up a shotgun and blow away all
+                        all of Ripple's settings in an attempt to purge out the bad stuff.</p>
+                    <br />
+                    <button id="error-wait" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span class="ui-button-text">Wait</span>
+                    </button>
+                    
+                    <button id="error-panic" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span class="ui-button-text">FIRE!!</span>
+                    </button>
+
+                    <p>If you want to help make things better, drop us a line at <a style="color: #F0F0F0" href="mailto:bugs@tinyhippos.com">bugs@tinyhippos.com</a></p>
+                </section>
+                <section class="error-hippo"></section>
+            </section>
+
+            <!-- Divs for overlay and platform select dialog -->
+            <div class="first-run-window"></div>
+
+            <section id="panel-views" class="irrelevant">#PANEL_VIEWS#</section>
+
+            <div class="platform-select-dialog main ui-corner-all">
+                <section class="platform-select-logo"></section>
+                <section class="platform-select-text">
+                    <h2>Are you ready for this?!?!</h2>
+                    <p>You're seeing this window because this is the first time you've enabled for this specific URL. Please select the platform/runtime you wish to start testing with.</p>
+                    <br />
+                    <section class="platform-select-buttons">
+                    </section>
+                </section>
+            </div>
+        </section>
+        <script src="#URL_PREFIX#ripple.js" type="text/javascript"></script>
+    </body>
+</html>

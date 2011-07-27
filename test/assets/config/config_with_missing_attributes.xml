@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget  xmlns="http://www.w3.org/ns/widgets"
+         xmlns:JIL="http://www.jil.org/ns/widgets1.2"
+         viewmodes="floating">
+    <JIL:maximum_display_mode height="450" width="320"/>
+    <JIL:update href="http://www.jil.org/widgets/" period="2"/>
+    <JIL:access network="true" localfs="true" remote_scripts="false"/>
+    <JIL:billing required="false"/>
+    <feature name="http://jil.org/jil/api/1.2/widget"/>
+    <icon>foo</icon>
+    <content src="ConfigTest.html" encoding="UTF-8" type="text/html"/>
+    <preference name="apikey" value="ea31ad3a23fd2f" readonly="true"/>
+    <name short="ConfigTest">ConfigTest</name>
+    <description>This is my first Widget.</description>
+    <license  href="http://license.example.org/">Example license Copyright (c) 2008.</license>
+    <author  email="myname@host"
+		href="http://foo-bar.example.org/">myname</author>
+</widget>
