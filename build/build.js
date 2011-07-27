@@ -22,7 +22,6 @@ var sys = require('sys'),
     compress = require('./build/compress'),
     chromium = require('./build/chromium'),
     web = require('./build/web');
-    console.log(__dirname);
 
 function _done(error) {
     if (error) {
