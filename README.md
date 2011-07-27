@@ -4,7 +4,7 @@ A browser based, platform agnostic mobile application development and testing to
  
 All source code (excluding third party libraries) are subject to:
 
-Copyright (c) 2011 Research In Motion. All Rights Reserved
+Copyright (c) 2011 Research In Motion Limited
 
 ## Build Requirements
 
