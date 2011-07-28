@@ -17,6 +17,7 @@ describe("platform", function () {
 
     var platform = require('ripple/platform'),
         db = require('ripple/db'),
+        app = require('ripple/app'),
         builder = require('ripple/platform/builder'),
         event = require('ripple/event'),
         _console = require('ripple/console'),
@@ -34,7 +35,7 @@ describe("platform", function () {
         platform.initialize();
     });
 
-    it("getPlatformNameValues should return correct value", function () {
+    it("getList should return correct value", function () {
         var returnedPlatforms = platform.getList();
 
         expect(typeof returnedPlatforms["wac"]["1.0"].id).toEqual("string");
@@ -42,45 +43,65 @@ describe("platform", function () {
         expect(typeof returnedPlatforms["wac"]["1.0"].type).toEqual("string");
     });
 
-    it("changeEnvironment should persist successfully", function () {
-        spyOn(platform, "initialize");
-        spyOn(db, "saveObject").andCallFake(function (a, b, c, baton) {
-            baton();
-        });
-        spyOn(db, "save").andCallFake(function (a, b, c, baton) {
-            return baton && baton();
-        });
-        spyOn(event, "trigger");
-        spyOn(resizer, "resize");
-
+    describe("when changing the environment", function () {
         var platformSpec = {
                 name: "someplatform",
                 version: "1.0"
             },
             deviceId = "some_id";
 
-        platform.changeEnvironment(platformSpec, deviceId);
+        beforeEach(function () {
+            spyOn(db, "saveObject").andCallFake(function (a, b, c, baton) {
+                baton();
+            });
 
-        expect(db.saveObject.argsForCall[0][0]).toEqual("api-key");
-        expect(db.save.argsForCall[0][0]).toEqual("device-key");
+            spyOn(db, "save").andCallFake(function (a, b, c, baton) {
+                return baton && baton();
+            });
 
-        //Expected layout to be set to null in persistence
-        expect(db.save.argsForCall[1][0]).toEqual(constants.ENCAPSULATOR.LAYOUT);
-        expect(db.save.argsForCall[1][1]).toEqual(null);
+            spyOn(event, "trigger");
+        });
 
-        expect(event.trigger.argsForCall[0][0]).toEqual("PlatformChangedEvent");
+        it("saves the platform", function () {
+            platform.changeEnvironment(platformSpec, deviceId, function () {
+                expect(db.saveObject.argsForCall[0][0]).toEqual("api-key");
+                expect(db.saveObject.argsForCall[0][1]).toEqual(platformSpec);
+            });
+        });
+
+        it("saves the device", function () {
+            platform.changeEnvironment(platformSpec, deviceId, function () {
+                expect(db.save.argsForCall[0][0]).toEqual("device-key");
+                expect(db.save.argsForCall[0][1]).toEqual("some_id");
+            });
+        });
+
+        it("removes the persisted value for the layout", function () {
+            platform.changeEnvironment(platformSpec, deviceId, function () {
+                expect(db.save.argsForCall[1][0]).toEqual("layout");
+                expect(db.save.argsForCall[1][1]).toBe(null);
+            });
+        });
+
+        it("triggers the platform changed event", function () {
+            platform.changeEnvironment(platformSpec, deviceId, function () {
+                expect(event.trigger).toHaveBeenCalledWith("PlatformChangedEvent", true);
+            });
+        });
     });
 
-    it("getID should return a string", function () {
-        expect(typeof platform.current().id).toEqual("string");
+    it("returns the current platform", function () {
+        expect(platform.current()).toBeDefined();
     });
 
-    it("getVersion should return a string", function () {
-        expect(typeof platform.current().version).toEqual("string");
-    });
+    describe("when getting the persistence prefix", function () {
+        it("appends the provided id to the value from the platform", function () {
+            expect(platform.getPersistencePrefix("foo")).toBe(platform.current().persistencePrefix + "foo-");
+        });
 
-    it("getDeviceSettings should return an object", function () {
-        expect(typeof platform.current().device).toEqual("object");
+        it("gets the id from the app info if no id provided", function () {
+            spyOn(app, "getInfo").andReturn({ id: "w00t" });
+            expect(platform.getPersistencePrefix()).toBe(platform.current().persistencePrefix + "w00t-");
+        });
     });
-
 });
