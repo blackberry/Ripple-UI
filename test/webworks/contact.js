@@ -95,7 +95,7 @@ describe("webworks contact", function () {
             describe("find", function () {
                 it("calls the transport with proper args", function () {
                     var contacts = [];
-                    spyOn(transport, "call").andReturn({data: contacts});
+                    spyOn(transport, "call").andReturn(contacts);
                     expect(Contact.find(1, 2, 3, 4, 5)).toEqual(contacts);
                     expect(transport.call).toHaveBeenCalledWith("blackberry/pim/contact/find", {
                         post: {
@@ -117,7 +117,7 @@ describe("webworks contact", function () {
                     item.birthday = new Date();
                     item.anniversary = new Date();
 
-                    spyOn(transport, "call").andReturn({data: [JSON.parse(JSON.stringify(item))]});
+                    spyOn(transport, "call").andReturn([JSON.parse(JSON.stringify(item))]);
 
                     contacts = Contact.find();
 

@@ -57,7 +57,7 @@ describe("webworks pim.category", function () {
 
         describe("getCategories", function () {
             it("calls the transport with proper args", function () {
-                spyOn(transport, "call").andReturn({data: "z"});
+                spyOn(transport, "call").andReturn("z");
                 expect(pim.getCategories()).toEqual("z");
                 expect(transport.call)
                     .toHaveBeenCalledWith("blackberry/pim/category/getCategories");

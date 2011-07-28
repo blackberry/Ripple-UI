@@ -61,7 +61,7 @@ describe("webworks audio.Player", function () {
 
         beforeEach(function () {
             spyOn(transport, "call").andCallFake(function (uri) {
-                return {data: uri.match(/\/create$/) ? id : data};
+                return uri.match(/\/create$/) ? id : data;
             });
         });
 

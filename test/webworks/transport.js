@@ -50,7 +50,7 @@ describe("webworks transport", function () {
 
             beforeEach(function () {
                 spyOn(global, "XMLHttpRequest").andReturn(xhr = {
-                    responseText: "4",
+                    responseText: JSON.stringify({data: 4}),
                     open: jasmine.createSpy(),
                     send: jasmine.createSpy(),
                     setRequestHeader: jasmine.createSpy()
@@ -97,7 +97,68 @@ describe("webworks transport", function () {
                 xhr.onreadystatechange();
 
                 expect(xhr.open).toHaveBeenCalledWith("POST", "webworks://some/uri", true);
-                expect(callback).toHaveBeenCalledWith(JSON.parse(xhr.responseText));
+                expect(callback).toHaveBeenCalledWith(4);
+            });
+
+        });
+
+        describe("when handling errors", function () {
+            var xhr;
+
+            beforeEach(function () {
+                spyOn(global, "XMLHttpRequest").andReturn(xhr = {
+                    responseText: JSON.stringify({data: 4}),
+                    open: jasmine.createSpy(),
+                    send: jasmine.createSpy(),
+                    setRequestHeader: jasmine.createSpy()
+                });
+            });
+
+            it("calls the error callback for async", function () {
+                var success = jasmine.createSpy(),
+                    error = jasmine.createSpy();
+
+                xhr.readyState = 4;
+                xhr.status = 200;
+
+                xhr.responseText = JSON.stringify({code: -1, data: "woot", msg: "bad moon"});
+
+                transport.call("some/uri", {async: true}, success, error);
+                xhr.onreadystatechange();
+
+                expect(success).not.toHaveBeenCalled();
+                expect(error).toHaveBeenCalledWith("bad moon");
+            });
+
+            it("calls the error callback for sync", function () {
+                var success = jasmine.createSpy(),
+                    error = jasmine.createSpy();
+
+                xhr.readyState = 4;
+                xhr.status = 200;
+
+                xhr.responseText = JSON.stringify({code: -1, data: "woot", msg: "bad moon"});
+
+                transport.call("some/uri", {async: false}, success, error);
+
+                expect(success).not.toHaveBeenCalled();
+                expect(error).toHaveBeenCalledWith("bad moon");
+            });
+
+            it("throws an exception for sync calls with no error callback", function () {
+
+                var success = jasmine.createSpy(),
+                    error = jasmine.createSpy();
+
+                xhr.readyState = 4;
+                xhr.status = 200;
+
+                xhr.responseText = JSON.stringify({code: -5, data: "ddd", msg: "mer"});
+
+                expect(function () {
+                    transport.call("some/uri");
+                }).toThrow("mer");
+                
             });
         });
     });

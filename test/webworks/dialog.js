@@ -42,7 +42,7 @@ describe("webworks dialog", function () {
     describe("client", function () {
         describe("customAskAsync", function () {
             it("calls the transport appropriately", function () {
-                spyOn(transport, "call").andReturn({data: "data"});
+                spyOn(transport, "call").andReturn("data");
 
                 expect(dialogClient.customAskAsync("msg", "choices")).toEqual("data");
                 expect(transport.call.argsForCall[0][0]).toEqual("blackberry/ui/dialog/ask");
@@ -59,7 +59,7 @@ describe("webworks dialog", function () {
                 var callback = jasmine.createSpy();
 
                 spyOn(transport, "call").andCallFake(function (a, b, callback) {
-                    var response = {data: "data"};
+                    var response = "data";
                     if (callback) {
                         callback(response);
                     }
@@ -73,7 +73,7 @@ describe("webworks dialog", function () {
 
         describe("customAskAsync", function () {
             it("calls the transport appropriately", function () {
-                spyOn(transport, "call").andReturn({data: "data"});
+                spyOn(transport, "call").andReturn("data");
 
                 expect(dialogClient.standardAskAsync("msg", dialogClient.D_YES_NO)).toEqual("data");
                 expect(transport.call.argsForCall[0][0]).toEqual("blackberry/ui/dialog/ask");
@@ -90,7 +90,7 @@ describe("webworks dialog", function () {
                 var callback = jasmine.createSpy();
 
                 spyOn(transport, "call").andCallFake(function (a, b, callback) {
-                    var response = {data: "data"};
+                    var response = "data";
                     if (callback) {
                         callback(response);
                     }

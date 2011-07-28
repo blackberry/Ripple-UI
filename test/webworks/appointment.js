@@ -34,7 +34,7 @@ describe("webworks pim appointment", function () {
     describe("client", function () {
         describe("save", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: 2});
+                spyOn(transport, "call").andReturn(2);
                 spyOn(Math, "uuid").andReturn("33");
 
                 var app = new Appointment();
@@ -49,7 +49,7 @@ describe("webworks pim appointment", function () {
 
         describe("remove", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: 2});
+                spyOn(transport, "call").andReturn(2);
 
                 var app = new Appointment();
                 app.uid = 345;
@@ -64,7 +64,7 @@ describe("webworks pim appointment", function () {
         describe("when finding appointments", function () {
             it("calls the transport with proper args", function () {
                 var apps = [];
-                spyOn(transport, "call").andReturn({data: apps});
+                spyOn(transport, "call").andReturn(apps);
                 expect(Appointment.find(1, 2, 3, 4, 5)).toEqual(apps);
                 expect(transport.call).toHaveBeenCalledWith("blackberry/pim/appointment/find", {
                     post: {
@@ -90,7 +90,7 @@ describe("webworks pim appointment", function () {
                 appointment.reminder = new Reminder();
                 appointment.reminder.date = new Date();
 
-                spyOn(transport, "call").andReturn({data: [JSON.parse(JSON.stringify(appointment))]});
+                spyOn(transport, "call").andReturn([JSON.parse(JSON.stringify(appointment))]);
 
                 appointments = Appointment.find();
 
