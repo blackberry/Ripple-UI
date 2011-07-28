@@ -29,11 +29,11 @@ describe("webworks transport", function () {
         describe("poll", function () {
             it("calls a uri with callback", function () {
                 var callback = jasmine.createSpy().andReturn(false),
-                    response = "txt",
+                    response = {code: 0, data: "txt"},
                     uri = "uri";
 
                 spyOn(transport, "call").andCallFake(function (uri, opts, func) {
-                    func(response);
+                    func(response.data, response);
                 });
 
                 transport.poll(uri, {get: {}}, callback);
@@ -41,7 +41,7 @@ describe("webworks transport", function () {
                 expect(transport.call.argsForCall[0][0]).toEqual(uri);
                 expect(transport.call.argsForCall[0][1]).toEqual({async: true, get: {}});
                 expect(typeof transport.call.argsForCall[0][2]).toEqual("function");
-                expect(callback).toHaveBeenCalledWith(response);
+                expect(callback).toHaveBeenCalledWith("txt", response);
             });
         });
 
@@ -88,77 +88,78 @@ describe("webworks transport", function () {
             });
 
             it("passes a callback for an asynchronous call", function () {
-                var callback = jasmine.createSpy();
+                var success = jasmine.createSpy();
 
                 xhr.readyState = 4;
                 xhr.status = 200;
 
-                transport.call("some/uri", {async: true}, callback);
+                transport.call("some/uri", {async: true}, success);
                 xhr.onreadystatechange();
 
                 expect(xhr.open).toHaveBeenCalledWith("POST", "webworks://some/uri", true);
-                expect(callback).toHaveBeenCalledWith(4);
+                expect(success).toHaveBeenCalledWith(4, {data: 4});
             });
 
         });
 
         describe("when handling errors", function () {
-            var xhr;
+            describe("when calling errr 'call'", function () {
+                var xhr;
 
-            beforeEach(function () {
-                spyOn(global, "XMLHttpRequest").andReturn(xhr = {
-                    responseText: JSON.stringify({data: 4}),
-                    open: jasmine.createSpy(),
-                    send: jasmine.createSpy(),
-                    setRequestHeader: jasmine.createSpy()
+                beforeEach(function () {
+                    spyOn(global, "XMLHttpRequest").andReturn(xhr = {
+                        responseText: JSON.stringify({data: 4}),
+                        open: jasmine.createSpy(),
+                        send: jasmine.createSpy(),
+                        setRequestHeader: jasmine.createSpy()
+                    });
                 });
-            });
 
-            it("calls the error callback for async", function () {
-                var success = jasmine.createSpy(),
-                    error = jasmine.createSpy();
+                it("calls the error callback for async", function () {
+                    var success = jasmine.createSpy(),
+                        error = jasmine.createSpy();
 
-                xhr.readyState = 4;
-                xhr.status = 200;
+                    xhr.readyState = 4;
+                    xhr.status = 200;
 
-                xhr.responseText = JSON.stringify({code: -1, data: "woot", msg: "bad moon"});
+                    xhr.responseText = JSON.stringify({code: -1, data: "woot", msg: "bad moon"});
 
-                transport.call("some/uri", {async: true}, success, error);
-                xhr.onreadystatechange();
+                    transport.call("some/uri", {async: true}, success, error);
+                    xhr.onreadystatechange();
 
-                expect(success).not.toHaveBeenCalled();
-                expect(error).toHaveBeenCalledWith("bad moon");
-            });
+                    expect(success).not.toHaveBeenCalled();
+                    expect(error).toHaveBeenCalledWith("bad moon", JSON.parse(xhr.responseText));
+                });
 
-            it("calls the error callback for sync", function () {
-                var success = jasmine.createSpy(),
-                    error = jasmine.createSpy();
+                it("calls the error callback for sync", function () {
+                    var success = jasmine.createSpy(),
+                        error = jasmine.createSpy();
 
-                xhr.readyState = 4;
-                xhr.status = 200;
+                    xhr.readyState = 4;
+                    xhr.status = 200;
 
-                xhr.responseText = JSON.stringify({code: -1, data: "woot", msg: "bad moon"});
+                    xhr.responseText = JSON.stringify({code: -1, data: "woot", msg: "bad moon"});
 
-                transport.call("some/uri", {async: false}, success, error);
+                    transport.call("some/uri", {async: false}, success, error);
 
-                expect(success).not.toHaveBeenCalled();
-                expect(error).toHaveBeenCalledWith("bad moon");
-            });
+                    expect(success).not.toHaveBeenCalled();
+                    expect(error).toHaveBeenCalledWith("bad moon", JSON.parse(xhr.responseText));
+                });
 
-            it("throws an exception for sync calls with no error callback", function () {
+                it("throws an exception for sync calls with no error callback", function () {
 
-                var success = jasmine.createSpy(),
-                    error = jasmine.createSpy();
+                    var success = jasmine.createSpy(),
+                        error = jasmine.createSpy();
 
-                xhr.readyState = 4;
-                xhr.status = 200;
+                    xhr.readyState = 4;
+                    xhr.status = 200;
 
-                xhr.responseText = JSON.stringify({code: -5, data: "ddd", msg: "mer"});
+                    xhr.responseText = JSON.stringify({code: -5, data: "ddd", msg: "mer"});
 
-                expect(function () {
-                    transport.call("some/uri");
-                }).toThrow("mer");
-                
+                    expect(function () {
+                        transport.call("some/uri");
+                    }).toThrow("mer");
+                });
             });
         });
     });
