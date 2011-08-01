@@ -16,12 +16,13 @@
 (function () {
     function _subscribeToEnableDisable() {
         chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
-            switch (request.action)
-            {
+            var uri = location.href;
+            switch (request.action) {
             case "enable":
                 break;
             case "disable":
                 localStorage.removeItem("tinyhippos-enabled-uri");
+                uri = uri.toLowerCase().replace("?enableripple=true", "").replace("&enableripple=true", "");
                 break;
 
             default:
@@ -29,7 +30,7 @@
             }
 
             sendResponse({});
-            location.assign(location.href);
+            location.assign(uri);
         });
     }
 
