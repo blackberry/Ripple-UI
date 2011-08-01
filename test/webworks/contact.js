@@ -147,7 +147,7 @@ describe("webworks contact", function () {
 
                 it("calls select module with filter expression", function () {
                     var filter = new FilterExpression();
-                    contact.find({}, {filterField: filter});
+                    contact.find({}, {fieldFilter: filter});
                     expect(chain.where).toHaveBeenCalledWith(filter);
                 });
 

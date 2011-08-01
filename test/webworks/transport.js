@@ -74,7 +74,7 @@ describe("webworks transport", function () {
                     };
 
                 transport.call("some/uri", {post: params});
-                expect(xhr.send).toHaveBeenCalledWith('key="value"&key2="value2"');
+                expect(xhr.send).toHaveBeenCalledWith('key=%22value%22&key2=%22value2%22');
             });
 
             it("can make a synchronous call", function () {
