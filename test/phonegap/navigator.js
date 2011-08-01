@@ -31,7 +31,6 @@ describe("phonegap_navigator", function () {
         spyOn(emulatorBridge, "getWidgetDocument").andReturn(document);
         spyOn(document, "dispatchEvent");
         spyOn(_console, "log");
-        spyOn(platform, "current").andReturn({name: "whatup"});
 
         event.trigger("TinyHipposLoaded");
 
@@ -39,7 +38,6 @@ describe("phonegap_navigator", function () {
         runs(function () {
             expect(document.dispatchEvent.callCount).toEqual(1);
             expect(_console.log.callCount).toEqual(1);
-            expect(platform.current.callCount).toEqual(1);
         });
     });
 
