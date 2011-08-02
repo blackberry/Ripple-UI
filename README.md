@@ -11,6 +11,12 @@ Copyright (c) 2011 Research In Motion Limited
 * nodejs, npm
 * OSX or linux (windows is not currently supported for development)
 
+## Reference Material &amp; Community
+You can also find associated reference material for the Ripple tool as well as contributor forums at the following locations.
+
+* [Contributor Forums](http://supportforums.blackberry.com/t5/Ripple-Contributions/bd-p/ripple)
+* [Documentation](http://rippledocs.tinyhippos.com/index.html)
+
 ## Getting Started
 
     ./configure
