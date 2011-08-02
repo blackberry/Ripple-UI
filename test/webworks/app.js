@@ -38,7 +38,7 @@ describe("webworks_app", function () {
         var data = "data";
 
         beforeEach(function () {
-            spyOn(transport, "call").andReturn({data: data});
+            spyOn(transport, "call").andReturn(data);
         });
 
         describe("exit", function () {

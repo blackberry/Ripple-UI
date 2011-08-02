@@ -37,7 +37,7 @@ describe("webworks identity.phone", function () {
     describe("in client/phone", function () {
         describe("getLineIds", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: "need more coffee"});
+                spyOn(transport, "call").andReturn("need more coffee");
                 expect(phoneClient.getLineIds()).toEqual("need more coffee");
                 expect(transport.call).toHaveBeenCalledWith("blackberry/identity/phone/getLineIds");
             });
@@ -45,7 +45,7 @@ describe("webworks identity.phone", function () {
 
         describe("getLineLabel", function () {
             it("calls the transport with proper args", function () {
-                spyOn(transport, "call").andReturn({data: "your face"});
+                spyOn(transport, "call").andReturn("your face");
                 expect(phoneClient.getLineLabel(1)).toEqual("your face");
                 expect(transport.call).toHaveBeenCalledWith("blackberry/identity/phone/getLineLabel", {get: {id: 1}});
             });
@@ -53,7 +53,7 @@ describe("webworks identity.phone", function () {
 
         describe("getLineNumber", function () {
             it("calls the transport with proper args", function () {
-                spyOn(transport, "call").andReturn({data: "where in the world"});
+                spyOn(transport, "call").andReturn("where in the world");
                 expect(phoneClient.getLineNumber(3)).toEqual("where in the world");
                 expect(transport.call).toHaveBeenCalledWith("blackberry/identity/phone/getLineNumber", {get: {id: 3}});
             });
@@ -61,7 +61,7 @@ describe("webworks identity.phone", function () {
 
         describe("getLineType", function () {
             it("calls the transport with proper args", function () {
-                spyOn(transport, "call").andReturn({data: "is carmen sandiego"});
+                spyOn(transport, "call").andReturn("is carmen sandiego");
                 expect(phoneClient.getLineType(2)).toEqual("is carmen sandiego");
                 expect(transport.call).toHaveBeenCalledWith("blackberry/identity/phone/getLineType", {get: {id: 2}});
             });

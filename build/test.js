@@ -46,8 +46,7 @@ function _setupEnv(ready) {
         layout = fs.readFileSync(__dirname + "/../ext/assets/index.html", "utf-8"),
         thirdparty = [
             __dirname + "/../thirdparty/jquery.js",
-            __dirname + "/../thirdparty/jquery.ui.js",
-            __dirname + "/../thirdparty/aop.js"
+            __dirname + "/../thirdparty/jquery.ui.js"
         ];
 
     jsdom.env(layout, thirdparty, function (error, window) {

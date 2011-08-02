@@ -37,7 +37,7 @@ describe("webworks system", function () {
     describe("client", function () {
         describe("hasCapability", function () {
             it("calls the transport with id and properties", function () {
-                spyOn(transport, "call").andReturn({data: 2});
+                spyOn(transport, "call").andReturn(2);
 
                 expect(client.hasCapability("epic")).toEqual(2);
                 expect(transport.call).toHaveBeenCalledWith("blackberry/system/hasCapability", {
@@ -48,7 +48,7 @@ describe("webworks system", function () {
 
         describe("hasDataCoverage", function () {
             it("calls the transport with id and properties", function () {
-                spyOn(transport, "call").andReturn({data: 4});
+                spyOn(transport, "call").andReturn(4);
                 expect(client.hasDataCoverage()).toEqual(4);
                 expect(transport.call).toHaveBeenCalledWith("blackberry/system/hasDataCoverage");
             });
@@ -56,7 +56,7 @@ describe("webworks system", function () {
 
         describe("hasPermission", function () {
             it("calls the transport with id and properties", function () {
-                spyOn(transport, "call").andReturn({data: 2});
+                spyOn(transport, "call").andReturn(2);
 
                 expect(client.hasPermission("something")).toEqual(2);
                 expect(transport.call).toHaveBeenCalledWith("blackberry/system/hasPermission", {
@@ -67,7 +67,7 @@ describe("webworks system", function () {
 
         describe("isMassStorageActive", function () {
             it("calls the transport with id and properties", function () {
-                spyOn(transport, "call").andReturn({data: true});
+                spyOn(transport, "call").andReturn(true);
                 expect(client.isMassStorageActive()).toEqual(true);
                 expect(transport.call).toHaveBeenCalledWith("blackberry/system/isMassStorageActive");
             });

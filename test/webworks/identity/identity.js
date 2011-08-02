@@ -40,7 +40,7 @@ describe("webworks identity", function () {
     describe("using client/identity", function () {
         describe("IMEI", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: "into eternity"});
+                spyOn(transport, "call").andReturn("into eternity");
                 expect(identityClient.IMEI).toEqual("into eternity");
                 expect(transport.call).toHaveBeenCalledWith("blackberry/identity/IMEI");
             });
@@ -48,7 +48,7 @@ describe("webworks identity", function () {
 
         describe("IMSI", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: "the oblivion"});
+                spyOn(transport, "call").andReturn("the oblivion");
                 expect(identityClient.IMSI).toEqual("the oblivion");
                 expect(transport.call).toHaveBeenCalledWith("blackberry/identity/IMSI");
             });
@@ -56,7 +56,7 @@ describe("webworks identity", function () {
 
         describe("PIN", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: "takes all"});
+                spyOn(transport, "call").andReturn("takes all");
                 expect(identityClient.PIN).toEqual("takes all");
                 expect(transport.call).toHaveBeenCalledWith("blackberry/identity/PIN");
             });
@@ -64,7 +64,7 @@ describe("webworks identity", function () {
 
         describe("getServiceList", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: "the conqueror worm"});
+                spyOn(transport, "call").andReturn("the conqueror worm");
                 expect(identityClient.getServiceList()).toEqual("the conqueror worm");
                 expect(transport.call)
                     .toHaveBeenCalledWith("blackberry/identity/getServiceList");
@@ -73,7 +73,7 @@ describe("webworks identity", function () {
 
         describe("getDefaultService", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: "the tragedy"});
+                spyOn(transport, "call").andReturn("the tragedy");
                 expect(identityClient.getDefaultService()).toEqual("the tragedy");
                 expect(transport.call)
                     .toHaveBeenCalledWith("blackberry/identity/getDefaultService");
@@ -82,7 +82,7 @@ describe("webworks identity", function () {
 
         describe("getTransportList", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: "is man"});
+                spyOn(transport, "call").andReturn("is man");
                 expect(identityClient.getTransportList()).toEqual("is man");
                 expect(transport.call)
                     .toHaveBeenCalledWith("blackberry/identity/getTransportList");

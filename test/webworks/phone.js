@@ -88,7 +88,7 @@ describe("webworks phone", function () {
 
                     log.date = new Date();
 
-                    spyOn(transport, "call").andReturn({data: JSON.parse(JSON.stringify(log))});
+                    spyOn(transport, "call").andReturn(JSON.parse(JSON.stringify(log)));
 
                     expect(PhoneLogs.callAt(opts.get.index, opts.get.folderID)).toEqual(log);
                     expect(transport.call).toHaveBeenCalledWith("blackberry/phone/logs/callAt", opts);
@@ -102,7 +102,7 @@ describe("webworks phone", function () {
                             folderID: "ID"
                         };
 
-                    spyOn(transport, "call").andReturn({data: "boolean"});
+                    spyOn(transport, "call").andReturn("boolean");
 
                     expect(PhoneLogs.deleteCallAt(get.index, get.folderID)).toEqual("boolean");
                     expect(transport.call).toHaveBeenCalledWith("blackberry/phone/logs/deleteCallAt", {get: get});
@@ -112,7 +112,7 @@ describe("webworks phone", function () {
             describe("find", function () {
                 it("calls the transport with proper args", function () {
                     var logs = [];
-                    spyOn(transport, "call").andReturn({data: logs});
+                    spyOn(transport, "call").andReturn(logs);
                     expect(PhoneLogs.find(1, 2, 3, 4, 5)).toEqual(logs);
                     expect(transport.call).toHaveBeenCalledWith("blackberry/phone/logs/find", {
                         post: {
@@ -132,7 +132,7 @@ describe("webworks phone", function () {
                     log.date = new Date();
                     log.name = "test";
 
-                    spyOn(transport, "call").andReturn({data: [JSON.parse(JSON.stringify(log))]});
+                    spyOn(transport, "call").andReturn([JSON.parse(JSON.stringify(log))]);
 
                     logs = PhoneLogs.find();
 
@@ -150,7 +150,7 @@ describe("webworks phone", function () {
                         }
                     };
 
-                    spyOn(transport, "call").andReturn({data: 3});
+                    spyOn(transport, "call").andReturn(3);
 
                     expect(PhoneLogs.numberOfCalls(opts.get.folderID)).toEqual(3);
                     expect(transport.call).toHaveBeenCalledWith("blackberry/phone/logs/numberOfCalls", opts);
@@ -161,7 +161,6 @@ describe("webworks phone", function () {
         describe("Phone", function () {
             describe("addPhoneListener", function () {
                 it("polls the transport", function () {
-                    var response = {data: "array of active calls"};
                     spyOn(transport, "poll");
                     expect(Phone.addPhoneListener(function () {}, "random type")); // sticks around..
                     expect(transport.poll.argsForCall[0][0]).toEqual("blackberry/phone/onPhoneEvent");
@@ -173,16 +172,16 @@ describe("webworks phone", function () {
 
             describe("activeCalls", function () {
                 it("calls the transport", function () {
-                    var response = {data: "array of active calls"};
+                    var response = "array of active calls";
                     spyOn(transport, "call").andReturn(response);
-                    expect(Phone.activeCalls()).toEqual(response.data);
+                    expect(Phone.activeCalls()).toEqual(response);
                     expect(transport.call).toHaveBeenCalledWith("blackberry/phone/activeCalls");
                 });
             });
 
             describe("inActiveCall", function () {
                 it("calls the transport", function () {
-                    var response = {data: "boolean"};
+                    var response = "boolean";
                     spyOn(transport, "call").andReturn(response);
                     expect(Phone.inActiveCall()).toEqual("boolean");
                     expect(transport.call).toHaveBeenCalledWith("blackberry/phone/inActiveCall");

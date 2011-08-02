@@ -110,7 +110,7 @@ describe("webworks Task", function () {
             describe("find", function () {
                 it("calls the transport with proper args", function () {
                     var tasks = [];
-                    spyOn(transport, "call").andReturn({data: tasks});
+                    spyOn(transport, "call").andReturn(tasks);
                     expect(TaskClient.find(1, 2, 3, 4)).toEqual(tasks);
                     expect(transport.call).toHaveBeenCalledWith("blackberry/pim/Task/find", {
                         post: {
@@ -134,7 +134,7 @@ describe("webworks Task", function () {
                     task.reminder = new Reminder();
                     task.reminder.date = new Date();
 
-                    spyOn(transport, "call").andReturn({data: [JSON.parse(JSON.stringify(task))]});
+                    spyOn(transport, "call").andReturn([JSON.parse(JSON.stringify(task))]);
 
                     tasks = TaskClient.find();
 

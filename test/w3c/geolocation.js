@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 describe("w3c_geolocation", function () {
-
     var sinon = require('sinon'),
         s,
         geo = require('ripple/geo'),
@@ -41,7 +40,6 @@ describe("w3c_geolocation", function () {
     });
 
     it("position info is updated on PositionInfoUpdatedEvent", function () {
-
         var stamp = new Date();
 
         event.trigger("PositionInfoUpdatedEvent", [{
@@ -49,8 +47,9 @@ describe("w3c_geolocation", function () {
             longitude: 2,
             altitude: 3,
             altitudeAccuracy: 4,
-            heading: 0,
-            speed: 0,
+            accuracy: 5,
+            heading: 6,
+            speed: 7,
             timeStamp: stamp
         }]);
 
@@ -59,8 +58,9 @@ describe("w3c_geolocation", function () {
             expect(2).toBe(pos.coords.longitude);
             expect(3).toBe(pos.coords.altitude);
             expect(4).toBe(pos.coords.altitudeAccuracy);
-            expect(0).toBe(pos.coords.heading);
-            expect(0).toBe(pos.coords.speed);
+            expect(5).toBe(pos.coords.accuracy);
+            expect(6).toBe(pos.coords.heading);
+            expect(7).toBe(pos.coords.speed);
             expect(stamp.getTime()).toBe(pos.timestamp);
         });
     });
@@ -99,7 +99,6 @@ describe("w3c_geolocation", function () {
     });
 
     it("watchPosition calls the callback on the given interval", function () {
-
         var watch = geolocation.watchPosition(
                     s.mock().thrice(),
                     s.mock().never(),
@@ -110,5 +109,4 @@ describe("w3c_geolocation", function () {
             geolocation.clearWatch(watch);
         });
     });
-
 });

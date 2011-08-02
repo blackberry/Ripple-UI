@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /* ------------------------------>
-    Torch Skin (446x782) offset (41x144)*/
+    Torch Skin (444x779) offset (40x142)*/
 .viewport-wrapper-Torch {
     width:360px;
     height:480px;
@@ -23,9 +24,9 @@
 
 .device-wrapper-Torch {
     position: relative;
-    padding: 144px 0 0 41px;
-    width:405px;
-    height:638px;
+    padding: 142px 0 0 40px;
+    width:404px;
+    height:637px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
@@ -35,7 +36,7 @@
 .menu-button-wrapper-Torch {
     position: relative;
     display: inline-block;
-    margin: 30px 0 0 75px;
+    margin: 32px 0 0 75px;
     width: 55px;
     height: 65px;
     cursor: pointer;
@@ -44,14 +45,14 @@
 .back-button-wrapper-Torch {
     position: relative;
     display: inline-block;
-    margin: 0 0 0 95px;
+    margin: 0 0 0 92px;
     width: 55px;
     height: 65px;
     cursor: pointer;
 }
 
 .viewport-wrapper-landscape-Torch {
-    margin: -99px 0 0 104px;
+    margin: -99px 0 0 103px;
     width:480px;
     height:360px;
     border: none;
@@ -60,9 +61,9 @@
 
 .device-wrapper-landscape-Torch {
     position: relative;
-    padding: 144px 0 0 41px;
-    width:740px;
-    height:300px;
+    padding: 142px 0 0 40px;
+    width:739px;
+    height:302px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
@@ -86,3 +87,4 @@
     height: 65px;
     cursor: pointer;
 }
+ 
