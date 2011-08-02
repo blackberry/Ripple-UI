@@ -116,9 +116,13 @@ describeBrowser("emulator_bridge", function () {
     });
 
     it("it marshals over everything in the sandbox", function () {
-        platform.sandbox.foo = {a: 1};
-        platform.sandbox.bar = {b: 1};
-        platform.sandbox.woot = [1, 2, 3, 4, 5];
+        var sandbox = {
+            foo: {a: 1},
+            bar: {b: 1},
+            woot: [1, 2, 3, 4, 5]
+        };
+
+        spyOn(platform, "current").andReturn({objects: sandbox});
 
         emulatorBridge.link(_emulatedFrame);
 
