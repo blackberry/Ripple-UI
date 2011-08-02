@@ -16,6 +16,10 @@
 describe("console", function () {
     var _console = require('ripple/console');
 
+    beforeEach(function () {
+        _console.prefix = null;
+    });
+
     describe("when logging", function () {
         it("calls the log method", function () {
             spyOn(console, "log");
@@ -43,10 +47,6 @@ describe("console", function () {
     describe("when setting the prefix", function () {
         beforeEach(function () {
             _console.prefix = "PLATFORM";
-        });
-
-        afterEach(function () {
-            _console.prefix = null;
         });
 
         it("uses the prefix when logging", function () {
