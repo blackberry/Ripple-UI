@@ -23,8 +23,8 @@ desc("test and lint before building (with js compression)");
 task('deploy', [], require('./build/deploy'));
 
 desc("run all tests in node with an emulated dom - jake test [path,path2]");
-task('test', [], function (custom) {
-    require('./build/test')(null, custom);
+task('test', [], function () {
+    require('./build/test')(null, process.argv.length >= 4 ? process.argv[3] : null);
 });
 
 desc("boot test server for running all tests in the browser");

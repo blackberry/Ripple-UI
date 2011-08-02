@@ -16,23 +16,63 @@
 describe("console", function () {
     var _console = require('ripple/console');
 
-    it("is an object", function () {
-        expect(typeof _console).toBe("object");
+    beforeEach(function () {
+        _console.prefix = null;
     });
 
-    it("log is a function", function () {
-        expect(typeof _console.log).toBe("function");
+    describe("when logging", function () {
+        it("calls the log method", function () {
+            spyOn(console, "log");
+            _console.log("beavers!!!");
+            expect(console.log).toHaveBeenCalledWith("beavers!!!");
+        });
     });
 
-    it("warn is a function", function () {
-        expect(typeof _console.warn).toBe("function");
+    describe("when erroring", function () {
+        it("calls the error method", function () {
+            spyOn(console, "error");
+            _console.error("this is teh broken");
+            expect(console.error).toHaveBeenCalledWith("this is teh broken");
+        });
     });
 
-    it("error is a function", function () {
-        expect(typeof _console.error).toBe("function");
+    describe("when warning", function () {
+        it("calls the warn method", function () {
+            spyOn(console, "warn");
+            _console.warn("Thundercats Hoooo");
+            expect(console.warn).toHaveBeenCalledWith("Thundercats Hoooo");
+        });
     });
 
-    it("clear is a function", function () {
-        expect(typeof _console.clear).toBe("function");
+    describe("when setting the prefix", function () {
+        beforeEach(function () {
+            _console.prefix = "PLATFORM";
+        });
+
+        it("uses the prefix when logging", function () {
+            spyOn(console, "log");
+            _console.log("Thundercats Hoooo");
+            expect(console.log).toHaveBeenCalledWith("PLATFORM :: Thundercats Hoooo");
+        });
+        
+        it("uses the prefix when erroring", function () {
+            spyOn(console, "error");
+            _console.error("Carebears Stare");
+            expect(console.error).toHaveBeenCalledWith("PLATFORM :: Carebears Stare");
+        });
+
+        it("uses the prefix when warning", function () {
+            spyOn(console, "warn");
+            _console.warn("Danger Will Robinson");
+            expect(console.warn).toHaveBeenCalledWith("PLATFORM :: Danger Will Robinson");
+        });
+
+        it("will not use a falsy prefix", function () {
+            _console.prefix = false;
+            spyOn(console, "log");
+            _console.log("EX-TERM-IN-ATE");
+            expect(console.log).toHaveBeenCalledWith("EX-TERM-IN-ATE");
+        });
     });
+
 });

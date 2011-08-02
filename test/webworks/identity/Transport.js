@@ -34,17 +34,15 @@ describe("webworks identity.Transport", function () {
 
         describe("name", function () {
             it("is readonly", function () {
-                expect(function () {
-                    new Transport().name = "";
-                }).toThrow();
+                expect(new Transport().__lookupGetter__("name")).toBeDefined();
+                expect(new Transport().__lookupSetter__("name")).not.toBeDefined();
             });
         });
 
         describe("type", function () {
             it("is readonly", function () {
-                expect(function () {
-                    new Transport().type = "";
-                }).toThrow();
+                expect(new Transport().__lookupGetter__("type")).toBeDefined();
+                expect(new Transport().__lookupSetter__("type")).not.toBeDefined();
             });
         });
     });

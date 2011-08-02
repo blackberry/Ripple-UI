@@ -33,7 +33,7 @@ describe("blackberry.pim.memo", function () {
         describe("find", function () {
             it("calls the transport with proper args", function () {
                 var memos = [];
-                spyOn(transport, "call").andReturn({data: memos});
+                spyOn(transport, "call").andReturn(memos);
                 expect(Memo.find(1, 2, 3, 4, 5)).toEqual(memos);
                 expect(transport.call).toHaveBeenCalledWith("blackberry/pim/memo/find", {
                     post: {

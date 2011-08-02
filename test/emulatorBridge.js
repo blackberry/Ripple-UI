@@ -60,6 +60,12 @@ describeBrowser("emulator_bridge", function () {
         _emulatedDocument.appendChild(_emulatedHtml);
         _emulatedViewport.appendChild(_emulatedDocument);
 
+        spyOn(platform, "current").andReturn({objects: {
+            foo: {a: 1},
+            bar: {b: 1},
+            woot: [1, 2, 3, 4, 5]
+        }});
+
         emulatorBridge.link(_emulatedFrame);
     });
 
@@ -116,12 +122,6 @@ describeBrowser("emulator_bridge", function () {
     });
 
     it("it marshals over everything in the sandbox", function () {
-        platform.sandbox.foo = {a: 1};
-        platform.sandbox.bar = {b: 1};
-        platform.sandbox.woot = [1, 2, 3, 4, 5];
-
-        emulatorBridge.link(_emulatedFrame);
-
         expect(window.foo).toBeDefined();
         expect(window.bar).toBeDefined();
         expect(window.woot).toBeDefined();

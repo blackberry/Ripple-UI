@@ -29,7 +29,7 @@ describe("blackberry", function () {
     describe("using client/identity", function () {
         describe("network", function () {
             it("calls the transport", function () {
-                spyOn(transport, "call").andReturn({data: "the network"});
+                spyOn(transport, "call").andReturn("the network");
                 expect(blackberry.network).toEqual("the network");
                 expect(transport.call).toHaveBeenCalledWith("blackberry/system/network");
             });

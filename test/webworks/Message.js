@@ -165,7 +165,7 @@ describe("webworks Message", function () {
         describe("find", function () {
             it("calls the transport with proper args", function () {
                 var messages = [];
-                spyOn(transport, "call").andReturn({data: messages});
+                spyOn(transport, "call").andReturn(messages);
                 expect(Message.find(1, 2, 3)).toEqual(messages);
                 expect(transport.call).toHaveBeenCalledWith("blackberry/message/message/find", {
                     post: {
