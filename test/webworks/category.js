@@ -15,8 +15,8 @@
  */
 describe("webworks pim.category", function () {
 
-    var pim = require('ripple/platform/webworks/2.0.0/client/pim'),
-        category = require('ripple/platform/webworks/2.0.0/server/category'),
+    var categoryClient = require('ripple/platform/webworks/2.0.0/client/category'),
+        categoryServer = require('ripple/platform/webworks/2.0.0/server/category'),
         spec = require('ripple/platform/webworks/2.0.0/spec'),
         transport = require('ripple/platform/webworks/2.0.0/client/transport'),
         webworks = require('ripple/platform/webworks/2.0.0/server'),
@@ -25,14 +25,14 @@ describe("webworks pim.category", function () {
 
     describe("server index", function () {
         it("exposes the category module", function () {
-            expect(webworks.blackberry.pim.category).toEqual(category);
+            expect(webworks.blackberry.pim.category).toEqual(categoryServer);
         });
     });
 
     describe("platform spec", function () {
         it("includes the module according to proper object structure", function () {
-            expect(spec.objects.blackberry.children.pim.path)
-                .toEqual("webworks/2.0.0/client/pim");
+            expect(spec.objects.blackberry.children.pim.children.category.path)
+                .toEqual("webworks/2.0.0/client/category");
         });
     });
 
@@ -40,7 +40,7 @@ describe("webworks pim.category", function () {
         describe("addCategory", function () {
             it("calls the transport with proper args", function () {
                 spyOn(transport, "call");
-                pim.addCategory("x");
+                categoryClient.addCategory("x");
                 expect(transport.call)
                     .toHaveBeenCalledWith("blackberry/pim/category/addCategory", {get: {categoryName: "x"}});
             });
@@ -49,7 +49,7 @@ describe("webworks pim.category", function () {
         describe("deleteCategory", function () {
             it("calls the transport with proper args", function () {
                 spyOn(transport, "call");
-                pim.deleteCategory("y");
+                categoryClient.deleteCategory("y");
                 expect(transport.call)
                     .toHaveBeenCalledWith("blackberry/pim/category/deleteCategory", {get: {categoryName: "y"}});
             });
@@ -58,7 +58,7 @@ describe("webworks pim.category", function () {
         describe("getCategories", function () {
             it("calls the transport with proper args", function () {
                 spyOn(transport, "call").andReturn("z");
-                expect(pim.getCategories()).toEqual("z");
+                expect(categoryClient.getCategories()).toEqual("z");
                 expect(transport.call)
                     .toHaveBeenCalledWith("blackberry/pim/category/getCategories");
             });
@@ -71,7 +71,7 @@ describe("webworks pim.category", function () {
             it("returns the current list of categories", function () {
                 var categories = [];
                 spyOn(db, "retrieveObject").andReturn(categories);
-                expect(category.getCategories().data).toEqual(categories);
+                expect(categoryServer.getCategories().data).toEqual(categories);
             });
         });
 
@@ -85,14 +85,14 @@ describe("webworks pim.category", function () {
             });
 
             it("adds categories", function () {
-                category.addCategory({categoryName: "people"});
-                category.addCategory({categoryName: "fun people"});
+                categoryServer.addCategory({categoryName: "people"});
+                categoryServer.addCategory({categoryName: "fun people"});
                 expect(categories.length).toEqual(2);
                 expect(categories).toEqual(["people", "fun people"]);
             });
 
             it("persists the category", function () {
-                category.addCategory({categoryName: "more fun people"});
+                categoryServer.addCategory({categoryName: "more fun people"});
                 expect(db.saveObject).toHaveBeenCalledWith("blackberry-pim-category", ["more fun people"]);
             });
         });
@@ -107,15 +107,15 @@ describe("webworks pim.category", function () {
             });
 
             it("deletes a category", function () {
-                category.addCategory({categoryName: "the beautiful people"});
-                category.deleteCategory({categoryName: "the beautiful people"});
+                categoryServer.addCategory({categoryName: "the beautiful people"});
+                categoryServer.deleteCategory({categoryName: "the beautiful people"});
                 expect(categories.length).toEqual(0);
                 expect(categories).toEqual([]);
             });
 
             it("persists the new category list", function () {
-                category.addCategory({categoryName: "name"});
-                category.deleteCategory({categoryName: "name"});
+                categoryServer.addCategory({categoryName: "name"});
+                categoryServer.deleteCategory({categoryName: "name"});
                 expect(db.saveObject).toHaveBeenCalledWith("blackberry-pim-category", []);
             });
         });
