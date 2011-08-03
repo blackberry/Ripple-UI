@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 describe("webworks menu", function () {
-    var menu = require('ripple/platform/webworks/2.0.0/server/menu'),
-        client = require('ripple/platform/webworks/2.0.0/client/menu'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport'),
-        MenuItem = require('ripple/platform/webworks/2.0.0/client/MenuItem'),
-        events = require('ripple/platform/webworks/2.0.0/client/events'),
+    var menu = require('ripple/platform/webworks.core/2.0.0/server/menu'),
+        client = require('ripple/platform/webworks.core/2.0.0/client/menu'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
+        MenuItem = require('ripple/platform/webworks.core/2.0.0/client/MenuItem'),
+        events = require('ripple/platform/webworks.core/2.0.0/client/events'),
         event = require('ripple/event'),
         ui = require('ripple/ui'),
         MockBaton = function () {
@@ -28,14 +28,14 @@ describe("webworks menu", function () {
 
     describe("using server", function () {
         it("exposes the menu module", function () {
-            var webworks = require('ripple/platform/webworks/2.0.0/server');
+            var webworks = require('ripple/platform/webworks.core/2.0.0/server');
             expect(webworks.blackberry.ui.menu).toEqual(menu);
         });
     });
 
     describe("in spec", function () {
         it("includes ui module according to proper object structure", function () {
-            var spec = require('ripple/platform/webworks/2.0.0/spec');
+            var spec = require('ripple/platform/webworks.core/2.0.0/spec');
             expect(spec.objects.blackberry.children.ui.children.menu.path)
                 .toEqual("webworks/2.0.0/client/menu");
         });

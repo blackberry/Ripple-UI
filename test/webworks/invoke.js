@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 describe("webworks_invoke", function () {
-    var webworks = require('ripple/platform/webworks/2.0.0/server'),
-        Invoke = require('ripple/platform/webworks/2.0.0/client/invoke'),
+    var webworks = require('ripple/platform/webworks.core/2.0.0/server'),
+        Invoke = require('ripple/platform/webworks.core/2.0.0/client/invoke'),
         notifications = require('ripple/notifications'),
         constants = require('ripple/constants'),
         sinon = require('sinon'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         s;
 
     beforeEach(function () {

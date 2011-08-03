@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("webworks_sms", function () {
-    var sms = require('ripple/platform/webworks/2.0.0/server/sms'),
-        smsClient = require('ripple/platform/webworks/2.0.0/client/sms'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport'),
+    var sms = require('ripple/platform/webworks.core/2.0.0/server/sms'),
+        smsClient = require('ripple/platform/webworks.core/2.0.0/client/sms'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         event = require('ripple/event'),
         sinon = require('sinon'),
         platform = require('ripple/platform'),
@@ -40,14 +40,14 @@ describe("webworks_sms", function () {
 
     describe("in server", function () {
         it("exposes the sms module", function () {
-            var webworks = require('ripple/platform/webworks/2.0.0/server');
+            var webworks = require('ripple/platform/webworks.core/2.0.0/server');
             expect(webworks.blackberry.message.sms).toEqual(sms);
         });
     });
 
     describe("in spec", function () {
         it("includes sms module according to proper object structure", function () {
-            var spec = require('ripple/platform/webworks/2.0.0/spec');
+            var spec = require('ripple/platform/webworks.core/2.0.0/spec');
             expect(spec.objects.blackberry.children.message.children.sms.path)
                 .toEqual("webworks/2.0.0/client/sms");
         });

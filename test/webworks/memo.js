@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 describe("blackberry.pim.memo", function () {
-    var memo = require('ripple/platform/webworks/2.0.0/server/memo'),
-        Memo = require('ripple/platform/webworks/2.0.0/client/Memo'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport'),
+    var memo = require('ripple/platform/webworks.core/2.0.0/server/memo'),
+        Memo = require('ripple/platform/webworks.core/2.0.0/client/Memo'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         db = require('ripple/db'),
         utils = require('ripple/utils'),
-        FilterExpression = require('ripple/platform/webworks/2.0.0/client/FilterExpression'),
-        select = require('ripple/platform/webworks/2.0.0/select'),
-        webworks = require('ripple/platform/webworks/2.0.0/server');
+        FilterExpression = require('ripple/platform/webworks.core/2.0.0/client/FilterExpression'),
+        select = require('ripple/platform/webworks.core/2.0.0/select'),
+        webworks = require('ripple/platform/webworks.core/2.0.0/server');
 
     describe("using server", function () {
         it("exposes the memo module", function () {

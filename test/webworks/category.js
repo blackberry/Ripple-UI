@@ -15,12 +15,11 @@
  */
 describe("webworks pim.category", function () {
 
-    var categoryClient = require('ripple/platform/webworks/2.0.0/client/category'),
-        categoryServer = require('ripple/platform/webworks/2.0.0/server/category'),
-        spec = require('ripple/platform/webworks/2.0.0/spec'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport'),
-        webworks = require('ripple/platform/webworks/2.0.0/server'),
-        utils = require('ripple/utils'),
+    var categoryClient = require('ripple/platform/webworks.core/2.0.0/client/category'),
+        categoryServer = require('ripple/platform/webworks.core/2.0.0/server/category'),
+        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
+        webworks = require('ripple/platform/webworks.core/2.0.0/server'),
         db = require('ripple/db');
 
     describe("server index", function () {

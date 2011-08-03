@@ -15,11 +15,11 @@
  */
 describe("webworks identity.phone", function () {
 
-    var phoneClient = require('ripple/platform/webworks/2.0.0/client/identity/phone'),
-        phone = require('ripple/platform/webworks/2.0.0/server/identity/phone'),
-        spec = require('ripple/platform/webworks/2.0.0/spec'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport'),
-        webworks = require('ripple/platform/webworks/2.0.0/server');
+    var phoneClient = require('ripple/platform/webworks.core/2.0.0/client/identity/phone'),
+        phone = require('ripple/platform/webworks.core/2.0.0/server/identity/phone'),
+        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
+        webworks = require('ripple/platform/webworks.core/2.0.0/server');
 
     describe("using server", function () {
         it("exposes the phone module", function () {

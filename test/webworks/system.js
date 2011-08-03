@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 describe("webworks system", function () {
-    var system = require('ripple/platform/webworks/2.0.0/server/system'),
-        client = require('ripple/platform/webworks/2.0.0/client/system'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport'),
-        deviceSpec = require('ripple/platform/webworks/2.0.0/spec/device'),
+    var system = require('ripple/platform/webworks.core/2.0.0/server/system'),
+        client = require('ripple/platform/webworks.core/2.0.0/client/system'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
+        deviceSpec = require('ripple/platform/webworks.core/2.0.0/spec/device'),
         app = require('ripple/app'),
         utils = require('ripple/utils'),
         deviceSettings = require('ripple/deviceSettings'),
@@ -29,7 +29,7 @@ describe("webworks system", function () {
 
     describe("using server", function () {
         it("exposes the system module", function () {
-            var webworks = require('ripple/platform/webworks/2.0.0/server');
+            var webworks = require('ripple/platform/webworks.core/2.0.0/server');
             expect(webworks.blackberry.system).toEqual(system);
         });
     });

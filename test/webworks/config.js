@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("webworks_config", function () {
-    var config = require('ripple/platform/webworks/2.0.0/spec/config'),
+    var config = require('ripple/platform/webworks.core/2.0.0/spec/config'),
         utils = require('ripple/utils'),
         stub = {
             widget: {

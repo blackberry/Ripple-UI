@@ -15,17 +15,17 @@
  */
 describe("webworks Task", function () {
 
-    var Task = require('ripple/platform/webworks/2.0.0/server/Task'),
-        TaskClient = require('ripple/platform/webworks/2.0.0/client/Task'),
-        Recurrence = require('ripple/platform/webworks/2.0.0/client/Recurrence'),
-        Reminder = require('ripple/platform/webworks/2.0.0/client/Reminder'),
-        webworks = require('ripple/platform/webworks/2.0.0/server'),
+    var Task = require('ripple/platform/webworks.core/2.0.0/server/Task'),
+        TaskClient = require('ripple/platform/webworks.core/2.0.0/client/Task'),
+        Recurrence = require('ripple/platform/webworks.core/2.0.0/client/Recurrence'),
+        Reminder = require('ripple/platform/webworks.core/2.0.0/client/Reminder'),
+        webworks = require('ripple/platform/webworks.core/2.0.0/server'),
         utils = require('ripple/utils'),
         db = require('ripple/db'),
-        select = require('ripple/platform/webworks/2.0.0/select'),
-        FilterExpression = require('ripple/platform/webworks/2.0.0/client/FilterExpression'),
-        spec = require('ripple/platform/webworks/2.0.0/spec'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport');
+        select = require('ripple/platform/webworks.core/2.0.0/select'),
+        FilterExpression = require('ripple/platform/webworks.core/2.0.0/client/FilterExpression'),
+        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
     describe("server index", function () {
         it("exposes the module", function () {

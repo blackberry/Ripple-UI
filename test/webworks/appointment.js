@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 describe("webworks pim appointment", function () {
-    var appointment = require('ripple/platform/webworks/2.0.0/server/appointment'),
-        Appointment = require('ripple/platform/webworks/2.0.0/client/Appointment'),
-        Recurrence = require('ripple/platform/webworks/2.0.0/client/Recurrence'),
-        Reminder = require('ripple/platform/webworks/2.0.0/client/Reminder'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport'),
+    var appointment = require('ripple/platform/webworks.core/2.0.0/server/appointment'),
+        Appointment = require('ripple/platform/webworks.core/2.0.0/client/Appointment'),
+        Recurrence = require('ripple/platform/webworks.core/2.0.0/client/Recurrence'),
+        Reminder = require('ripple/platform/webworks.core/2.0.0/client/Reminder'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         db = require('ripple/db'),
         utils = require('ripple/utils'),
-        select = require('ripple/platform/webworks/2.0.0/select'),
-        FilterExpression = require('ripple/platform/webworks/2.0.0/client/FilterExpression'),
-        webworks = require('ripple/platform/webworks/2.0.0/server');
+        select = require('ripple/platform/webworks.core/2.0.0/select'),
+        FilterExpression = require('ripple/platform/webworks.core/2.0.0/client/FilterExpression'),
+        webworks = require('ripple/platform/webworks.core/2.0.0/server');
 
     describe("using server", function () {
         it("exposes the appointment module", function () {

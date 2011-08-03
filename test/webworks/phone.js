@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 describe("webworks phone", function () {
-    var phone = require('ripple/platform/webworks/2.0.0/server/phone'),
-        Phone = require('ripple/platform/webworks/2.0.0/client/Phone'),
-        PhoneCall = require('ripple/platform/webworks/2.0.0/client/PhoneCall'),
-        CallLog = require('ripple/platform/webworks/2.0.0/client/CallLog'),
-        PhoneLogs = require('ripple/platform/webworks/2.0.0/client/PhoneLogs'),
-        FilterExpression = require('ripple/platform/webworks/2.0.0/client/FilterExpression'),
-        webworks = require('ripple/platform/webworks/2.0.0/server'),
-        spec = require('ripple/platform/webworks/2.0.0/spec'),
-        select = require('ripple/platform/webworks/2.0.0/select'),
+    var phone = require('ripple/platform/webworks.core/2.0.0/server/phone'),
+        Phone = require('ripple/platform/webworks.core/2.0.0/client/Phone'),
+        PhoneCall = require('ripple/platform/webworks.core/2.0.0/client/PhoneCall'),
+        CallLog = require('ripple/platform/webworks.core/2.0.0/client/CallLog'),
+        PhoneLogs = require('ripple/platform/webworks.core/2.0.0/client/PhoneLogs'),
+        FilterExpression = require('ripple/platform/webworks.core/2.0.0/client/FilterExpression'),
+        webworks = require('ripple/platform/webworks.core/2.0.0/server'),
+        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        select = require('ripple/platform/webworks.core/2.0.0/select'),
         event = require('ripple/event'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
             this.pass = jasmine.createSpy("baton.pass");
         },
         db = require('ripple/db'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport');
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
     describe("server index", function () {
         it("exposes phone", function () {

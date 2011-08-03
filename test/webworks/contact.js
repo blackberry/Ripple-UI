@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 describe("webworks contact", function () {
-    var contact = require('ripple/platform/webworks/2.0.0/server/contact'),
-        Contact = require('ripple/platform/webworks/2.0.0/client/Contact'),
-        Address = require('ripple/platform/webworks/2.0.0/client/Address'),
-        webworks = require('ripple/platform/webworks/2.0.0/server'),
+    var contact = require('ripple/platform/webworks.core/2.0.0/server/contact'),
+        Contact = require('ripple/platform/webworks.core/2.0.0/client/Contact'),
+        Address = require('ripple/platform/webworks.core/2.0.0/client/Address'),
+        webworks = require('ripple/platform/webworks.core/2.0.0/server'),
         utils = require('ripple/utils'),
         db = require('ripple/db'),
-        select = require('ripple/platform/webworks/2.0.0/select'),
-        FilterExpression = require('ripple/platform/webworks/2.0.0/client/FilterExpression'),
-        spec = require('ripple/platform/webworks/2.0.0/spec'),
-        transport = require('ripple/platform/webworks/2.0.0/client/transport');
+        select = require('ripple/platform/webworks.core/2.0.0/select'),
+        FilterExpression = require('ripple/platform/webworks.core/2.0.0/client/FilterExpression'),
+        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
     describe("server index", function () {
         it("exposes the module", function () {
