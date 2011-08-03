@@ -35,9 +35,9 @@ describe("webworks Message", function () {
 
         describe("in spec", function () {
             it("includes module according to proper object structure", function () {
-                var spec = require('ripple/platform/webworks.core/2.0.0/spec');
+                var spec = require('ripple/platform/webworks/2.0.0/spec');
                 expect(spec.objects.blackberry.children.message.children.Message.path)
-                    .toEqual("webworks/2.0.0/client/Message");
+                    .toEqual("webworks.core/2.0.0/client/Message");
             });
         });
 

@@ -21,7 +21,7 @@ describe("webworks identity", function () {
         platform = require('ripple/platform'),
         utils = require('ripple/utils'),
         deviceSettings = require('ripple/deviceSettings'),
-        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        spec = require('ripple/platform/webworks/2.0.0/spec'),
         webworks = require('ripple/platform/webworks.core/2.0.0/server');
 
     describe("using server", function () {
@@ -33,7 +33,7 @@ describe("webworks identity", function () {
     describe("in spec", function () {
         it("includes identity module according to proper object structure", function () {
             expect(spec.objects.blackberry.children.identity.path)
-                .toEqual("webworks/2.0.0/client/identity");
+                .toEqual("webworks.core/2.0.0/client/identity");
         });
     });
 

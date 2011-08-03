@@ -193,7 +193,7 @@ describeBrowser("widgetConfig", function () {
         var configXML,
             widget;
 
-        spyOn(platform, "current").andReturn(require('ripple/platform/webworks.core/2.0.0/spec'));
+        spyOn(platform, "current").andReturn(require('ripple/platform/webworks/2.0.0/spec'));
         configXML = _getConfig("test/assets/config/config_multiple_nested_features.xml");
         widget = widgetConfig.validate(configXML).widget;
         expect(widget.children.feature.validationResult.length).toBe(1);

@@ -47,9 +47,9 @@ describe("webworks_sms", function () {
 
     describe("in spec", function () {
         it("includes sms module according to proper object structure", function () {
-            var spec = require('ripple/platform/webworks.core/2.0.0/spec');
+            var spec = require('ripple/platform/webworks/2.0.0/spec');
             expect(spec.objects.blackberry.children.message.children.sms.path)
-                .toEqual("webworks/2.0.0/client/sms");
+                .toEqual("webworks.core/2.0.0/client/sms");
         });
     });
 

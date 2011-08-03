@@ -35,9 +35,9 @@ describe("webworks menu", function () {
 
     describe("in spec", function () {
         it("includes ui module according to proper object structure", function () {
-            var spec = require('ripple/platform/webworks.core/2.0.0/spec');
+            var spec = require('ripple/platform/webworks/2.0.0/spec');
             expect(spec.objects.blackberry.children.ui.children.menu.path)
-                .toEqual("webworks/2.0.0/client/menu");
+                .toEqual("webworks.core/2.0.0/client/menu");
         });
     });
 

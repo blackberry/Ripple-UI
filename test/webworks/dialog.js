@@ -33,9 +33,9 @@ describe("webworks dialog", function () {
 
     describe("in spec", function () {
         it("includes ui module according to proper object structure", function () {
-            var spec = require('ripple/platform/webworks.core/2.0.0/spec');
+            var spec = require('ripple/platform/webworks/2.0.0/spec');
             expect(spec.objects.blackberry.children.ui.children.dialog.path)
-                .toEqual("webworks/2.0.0/client/dialog");
+                .toEqual("webworks.core/2.0.0/client/dialog");
         });
     });
 

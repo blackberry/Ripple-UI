@@ -17,7 +17,7 @@ describe("webworks identity.phone", function () {
 
     var phoneClient = require('ripple/platform/webworks.core/2.0.0/client/identity/phone'),
         phone = require('ripple/platform/webworks.core/2.0.0/server/identity/phone'),
-        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        spec = require('ripple/platform/webworks/2.0.0/spec'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         webworks = require('ripple/platform/webworks.core/2.0.0/server');
 
@@ -30,7 +30,7 @@ describe("webworks identity.phone", function () {
     describe("in spec", function () {
         it("includes phone module according to proper object structure", function () {
             expect(spec.objects.blackberry.children.identity.children.phone.path)
-                .toEqual("webworks/2.0.0/client/identity/phone");
+                .toEqual("webworks.core/2.0.0/client/identity/phone");
         });
     });
 

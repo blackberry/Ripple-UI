@@ -21,7 +21,7 @@ describe("webworks phone", function () {
         PhoneLogs = require('ripple/platform/webworks.core/2.0.0/client/PhoneLogs'),
         FilterExpression = require('ripple/platform/webworks.core/2.0.0/client/FilterExpression'),
         webworks = require('ripple/platform/webworks.core/2.0.0/server'),
-        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        spec = require('ripple/platform/webworks/2.0.0/spec'),
         select = require('ripple/platform/webworks.core/2.0.0/select'),
         event = require('ripple/event'),
         MockBaton = function () {
@@ -44,17 +44,17 @@ describe("webworks phone", function () {
 
         it("includes Phone according to proper api structure", function () {
             expect(spec.objects.blackberry.children.phone.children.Phone.path)
-                .toEqual("webworks/2.0.0/client/Phone");
+                .toEqual("webworks.core/2.0.0/client/Phone");
         });
 
         it("includes PhoneLogs according to proper api structure", function () {
             expect(spec.objects.blackberry.children.phone.children.PhoneLogs.path)
-                .toEqual("webworks/2.0.0/client/PhoneLogs");
+                .toEqual("webworks.core/2.0.0/client/PhoneLogs");
         });
 
         it("includes PhoneFilterExpression according to proper api structure", function () {
             expect(spec.objects.blackberry.children.phone.children.Find.children.FilterExpression.path)
-                .toEqual("webworks/2.0.0/client/FilterExpression");
+                .toEqual("webworks.core/2.0.0/client/FilterExpression");
         });
     });
 

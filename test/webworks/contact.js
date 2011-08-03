@@ -22,7 +22,7 @@ describe("webworks contact", function () {
         db = require('ripple/db'),
         select = require('ripple/platform/webworks.core/2.0.0/select'),
         FilterExpression = require('ripple/platform/webworks.core/2.0.0/client/FilterExpression'),
-        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        spec = require('ripple/platform/webworks/2.0.0/spec'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
     describe("server index", function () {
@@ -34,7 +34,7 @@ describe("webworks contact", function () {
     describe("spec index", function () {
         it("includes module according to proper object structure", function () {
             expect(spec.objects.blackberry.children.pim.children.Contact.path)
-                .toEqual("webworks/2.0.0/client/Contact");
+                .toEqual("webworks.core/2.0.0/client/Contact");
         });
     });
 

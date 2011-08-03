@@ -15,13 +15,13 @@
  */
 describe("webworks transport", function () {
     var webworks = require('ripple/platform/webworks.core/2.0.0/server'),
-        spec = require('ripple/platform/webworks.core/2.0.0/spec'),
+        spec = require('ripple/platform/webworks/2.0.0/spec'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
     describe("spec index", function () {
         it("includes module according to proper object structure", function () {
             expect(spec.objects.blackberry.children.transport.path)
-                .toEqual("webworks/2.0.0/client/transport");
+                .toEqual("webworks.core/2.0.0/client/transport");
         });
     });
 
