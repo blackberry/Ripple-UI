@@ -15,8 +15,8 @@
  */
 describe("webworks dialog", function () {
 
-    var dialog = require('ripple/platform/webworks.core/2.0.0/server/dialog'),
-        dialogClient = require('ripple/platform/webworks.core/2.0.0/client/dialog'),
+    var dialog = require('ripple/platform/webworks.tablet/2.0.0/server/dialog'),
+        dialogClient = require('ripple/platform/webworks.tablet/2.0.0/client/dialog'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
@@ -26,16 +26,16 @@ describe("webworks dialog", function () {
 
     describe("using server", function () {
         it("exposes the dialog module", function () {
-            var webworks = require('ripple/platform/webworks/2.0.0/server');
+            var webworks = require('ripple/platform/webworks.tablet/2.0.0/server');
             expect(webworks.blackberry.ui.dialog).toEqual(dialog);
         });
     });
 
     describe("in spec", function () {
         it("includes ui module according to proper object structure", function () {
-            var spec = require('ripple/platform/webworks/2.0.0/spec');
+            var spec = require('ripple/platform/webworks.tablet/2.0.0/spec');
             expect(spec.objects.blackberry.children.ui.children.dialog.path)
-                .toEqual("webworks.core/2.0.0/client/dialog");
+                .toEqual("webworks.tablet/2.0.0/client/dialog");
         });
     });
 
