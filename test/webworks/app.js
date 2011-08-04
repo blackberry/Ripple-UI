@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("webworks_app", function () {
-    var appServer = require('ripple/platform/webworks.core/2.0.0/server/app'),
-        appClient = require('ripple/platform/webworks.core/2.0.0/client/app'),
+    var appServer = require('ripple/platform/webworks.handset/2.0.0/server/app'),
+        appClient = require('ripple/platform/webworks.handset/2.0.0/client/app'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         ui = require('ripple/ui'),
         event = require('ripple/event'),

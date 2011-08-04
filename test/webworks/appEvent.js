@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("webworks_appEvent", function () {
-    var appEvent = require('ripple/platform/webworks.core/2.0.0/server/appEvent'),
-        client = require('ripple/platform/webworks.core/2.0.0/client/appEvent'),
+    var appEvent = require('ripple/platform/webworks.handset/2.0.0/server/appEvent'),
+        client = require('ripple/platform/webworks.handset/2.0.0/client/appEvent'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         event = require('ripple/event'),
         MockBaton = function () {
