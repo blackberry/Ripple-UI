@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("webworks dialog", function () {
-    var dialogClient = require('ripple/platform/webworks/2.0.0/client/dialog');
+    var dialogClient = require('ripple/platform/webworks.handset/2.0.0/client/dialog');
 
     describe("client", function () {
         describe("customAsk", function () {

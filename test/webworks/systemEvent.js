@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 describe("webworks system event", function () {
-    var sysEvent = require('ripple/platform/webworks/2.0.0/server/systemEvent'),
-        client = require('ripple/platform/webworks/2.0.0/client/systemEvent'),
+    var sysEvent = require('ripple/platform/webworks.handset/2.0.0/server/systemEvent'),
+        client = require('ripple/platform/webworks.handset/2.0.0/client/systemEvent'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        menu = require("ripple/platform/webworks/2.0.0/server/menu"),
+        menu = require("ripple/platform/webworks.handset/2.0.0/server/menu"),
         event = require('ripple/event'),
         MockBaton = function () {
             this.take = jasmine.createSpy('baton.take');
@@ -26,7 +26,7 @@ describe("webworks system event", function () {
 
     describe("using server", function () {
         it("exposes the system event module", function () {
-            var webworks = require('ripple/platform/webworks/2.0.0/server');
+            var webworks = require('ripple/platform/webworks.handset/2.0.0/server');
             expect(webworks.blackberry.system.event).toEqual(sysEvent);
         });
     });

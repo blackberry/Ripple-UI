@@ -16,7 +16,7 @@
 describe("webworks finder", function () {
     var select = require('ripple/platform/webworks.core/2.0.0/select'),
         utils = require('ripple/utils'),
-        FilterExpression = require('ripple/platform/webworks/2.0.0/client/FilterExpression');
+        FilterExpression = require('ripple/platform/webworks.handset/2.0.0/client/FilterExpression');
 
     describe("when searching properties that are equal", function () {
         var items = [

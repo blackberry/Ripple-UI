@@ -29,7 +29,7 @@ describe("webworks system", function () {
 
     describe("using server", function () {
         it("exposes the system module", function () {
-            var webworks = require('ripple/platform/webworks/2.0.0/server');
+            var webworks = require('ripple/platform/webworks.handset/2.0.0/server');
             expect(webworks.blackberry.system).toEqual(system);
         });
     });

@@ -17,13 +17,13 @@ describe("webworks XMLHttpRequest", function () {
     // TODO: will be switched for real module once completed
     var XHR_orig = global.XMLHttpRequest = window.XMLHttpRequest,
         XHR_base = require('ripple/xhr/base'),
-        webworks = require('ripple/platform/webworks/2.0.0/server'),
+        webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
         XHR;
 
     beforeEach(function () {
         global.XMLHttpRequest = window.XMLHttpRequest = XHR_base;
         var core = require('ripple/platform/webworks.core/2.0.0/XMLHttpRequest');
-        XHR = core.create('ripple/platform/webworks/2.0.0/server');
+        XHR = core.create('ripple/platform/webworks.handset/2.0.0/server');
     });
 
     afterEach(function () {

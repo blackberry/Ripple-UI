@@ -15,13 +15,13 @@
  */
 describe("webworks identity.Transport", function () {
 
-    var Transport = require('ripple/platform/webworks/2.0.0/client/identity/Transport'),
-        spec = require('ripple/platform/webworks/2.0.0/spec');
+    var Transport = require('ripple/platform/webworks.handset/2.0.0/client/identity/Transport'),
+        spec = require('ripple/platform/webworks.handset/2.0.0/spec');
 
     describe("in spec", function () {
         it("includes Transport module according to proper object structure", function () {
             expect(spec.objects.blackberry.children.identity.children.Transport.path)
-                .toEqual("webworks/2.0.0/client/identity/Transport");
+                .toEqual("webworks.handset/2.0.0/client/identity/Transport");
         });
     });
 

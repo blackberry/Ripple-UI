@@ -15,13 +15,13 @@
  */
 describe("webworks pim.Address", function () {
 
-    var Address = require('ripple/platform/webworks/2.0.0/client/Address'),
-        spec = require('ripple/platform/webworks/2.0.0/spec');
+    var Address = require('ripple/platform/webworks.handset/2.0.0/client/Address'),
+        spec = require('ripple/platform/webworks.handset/2.0.0/spec');
 
     describe("in spec", function () {
         it("includes module according to proper object structure", function () {
             expect(spec.objects.blackberry.children.pim.children.Address.path)
-                .toEqual("webworks/2.0.0/client/Address");
+                .toEqual("webworks.handset/2.0.0/client/Address");
         });
     });
 
