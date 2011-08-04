@@ -31,7 +31,7 @@ describe("webworks Message", function () {
     });
 
     describe("client side code", function () {
-        var identity = require('ripple/platform/webworks.core/2.0.0/client/identity');
+        var identity = require('ripple/platform/webworks/2.0.0/client/identity');
 
         describe("in spec", function () {
             it("includes module according to proper object structure", function () {

@@ -22,7 +22,8 @@ describe("webworks XMLHttpRequest", function () {
 
     beforeEach(function () {
         global.XMLHttpRequest = window.XMLHttpRequest = XHR_base;
-        XHR = require('ripple/platform/webworks.core/2.0.0/XMLHttpRequest');
+        var core = require('ripple/platform/webworks.core/2.0.0/XMLHttpRequest');
+        XHR = core.create('ripple/platform/webworks/2.0.0/server');
     });
 
     afterEach(function () {
