@@ -22,7 +22,7 @@ describe("webworks identity", function () {
         utils = require('ripple/utils'),
         deviceSettings = require('ripple/deviceSettings'),
         spec = require('ripple/platform/webworks/2.0.0/spec'),
-        webworks = require('ripple/platform/webworks.core/2.0.0/server');
+        webworks = require('ripple/platform/webworks/2.0.0/server');
 
     describe("using server", function () {
         it("exposes the identity module", function () {

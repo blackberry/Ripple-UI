@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 describe("blackberry", function () {
-    var blackberry = require('ripple/platform/webworks.core/2.0.0/client/blackberry'),
+    var blackberry = require('ripple/platform/webworks/2.0.0/client/blackberry'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         spec = require('ripple/platform/webworks/2.0.0/spec'),
-        webworks = require('ripple/platform/webworks.core/2.0.0/server');
+        webworks = require('ripple/platform/webworks/2.0.0/server');
 
     describe("in spec/index", function () {
         it("includes blackberry module according to proper object structure", function () {
             expect(spec.objects.blackberry.path)
-                .toEqual("webworks.core/2.0.0/client/blackberry");
+                .toEqual("webworks/2.0.0/client/blackberry");
         });
     });
 

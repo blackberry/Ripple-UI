@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("webworks audio.Player", function () {
-    var player = require('ripple/platform/webworks.core/2.0.0/server/audioPlayer'),
-        Player = require('ripple/platform/webworks.core/2.0.0/client/AudioPlayer'),
+    var player = require('ripple/platform/webworks/2.0.0/server/audioPlayer'),
+        Player = require('ripple/platform/webworks/2.0.0/client/AudioPlayer'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         utils = require('ripple/utils'),
         MockBaton = function () {
@@ -50,7 +50,7 @@ describe("webworks audio.Player", function () {
 
     describe("in spec", function () {
         it("includes module in correct spot", function () {
-            var webworks = require('ripple/platform/webworks.core/2.0.0/server');
+            var webworks = require('ripple/platform/webworks/2.0.0/server');
             expect(webworks.blackberry.audio.player).toBe(player);
         });
     });

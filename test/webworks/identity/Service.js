@@ -15,13 +15,13 @@
  */
 describe("webworks identity.Service", function () {
 
-    var Service = require('ripple/platform/webworks.core/2.0.0/client/identity/Service'),
+    var Service = require('ripple/platform/webworks/2.0.0/client/identity/Service'),
         spec = require('ripple/platform/webworks/2.0.0/spec');
 
     describe("in spec", function () {
         it("includes Service module according to proper object structure", function () {
             expect(spec.objects.blackberry.children.identity.children.Service.path)
-                .toEqual("webworks.core/2.0.0/client/identity/Service");
+                .toEqual("webworks/2.0.0/client/identity/Service");
         });
     });
 

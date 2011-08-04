@@ -16,10 +16,10 @@
 describe("webworks Message", function () {
     var s,
         sinon = require('sinon'),
-        Message = require('ripple/platform/webworks.core/2.0.0/client/Message'),
-        Service = require('ripple/platform/webworks.core/2.0.0/client/identity/Service'),
+        Message = require('ripple/platform/webworks/2.0.0/client/Message'),
+        Service = require('ripple/platform/webworks/2.0.0/client/identity/Service'),
         select = require('ripple/platform/webworks.core/2.0.0/select'),
-        FilterExpression = require('ripple/platform/webworks.core/2.0.0/client/FilterExpression'),
+        FilterExpression = require('ripple/platform/webworks/2.0.0/client/FilterExpression'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
     beforeEach(function () {
@@ -37,7 +37,7 @@ describe("webworks Message", function () {
             it("includes module according to proper object structure", function () {
                 var spec = require('ripple/platform/webworks/2.0.0/spec');
                 expect(spec.objects.blackberry.children.message.children.Message.path)
-                    .toEqual("webworks.core/2.0.0/client/Message");
+                    .toEqual("webworks/2.0.0/client/Message");
             });
         });
 
@@ -224,8 +224,8 @@ describe("webworks Message", function () {
     });
 
     describe("server side code", function () {
-        var message = require('ripple/platform/webworks.core/2.0.0/server/message'),
-            webworks = require('ripple/platform/webworks.core/2.0.0/server'),
+        var message = require('ripple/platform/webworks/2.0.0/server/message'),
+            webworks = require('ripple/platform/webworks/2.0.0/server'),
             db = require('ripple/db');
 
         describe("using server", function () {

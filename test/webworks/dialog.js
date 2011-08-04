@@ -26,7 +26,7 @@ describe("webworks dialog", function () {
 
     describe("using server", function () {
         it("exposes the dialog module", function () {
-            var webworks = require('ripple/platform/webworks.core/2.0.0/server');
+            var webworks = require('ripple/platform/webworks/2.0.0/server');
             expect(webworks.blackberry.ui.dialog).toEqual(dialog);
         });
     });

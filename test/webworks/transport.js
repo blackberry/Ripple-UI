@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("webworks transport", function () {
-    var webworks = require('ripple/platform/webworks.core/2.0.0/server'),
+    var webworks = require('ripple/platform/webworks/2.0.0/server'),
         spec = require('ripple/platform/webworks/2.0.0/spec'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 

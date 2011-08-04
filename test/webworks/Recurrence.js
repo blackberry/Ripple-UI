@@ -15,13 +15,13 @@
  */
 describe("webworks pim.Recurrence", function () {
 
-    var Recurrence = require('ripple/platform/webworks.core/2.0.0/client/Recurrence'),
+    var Recurrence = require('ripple/platform/webworks/2.0.0/client/Recurrence'),
         spec = require('ripple/platform/webworks/2.0.0/spec');
 
     describe("in spec", function () {
         it("includes module according to proper object structure", function () {
             expect(spec.objects.blackberry.children.pim.children.Recurrence.path)
-                .toEqual("webworks.core/2.0.0/client/Recurrence");
+                .toEqual("webworks/2.0.0/client/Recurrence");
         });
     });
 

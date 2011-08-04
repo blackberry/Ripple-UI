@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 describe("webworks push", function () {
-    var push = require('ripple/platform/webworks.core/2.0.0/server/push'),
-        client = require('ripple/platform/webworks.core/2.0.0/client/push'),
+    var push = require('ripple/platform/webworks/2.0.0/server/push'),
+        client = require('ripple/platform/webworks/2.0.0/client/push'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        PushData = require('ripple/platform/webworks.core/2.0.0/client/PushData'),
+        PushData = require('ripple/platform/webworks/2.0.0/client/PushData'),
         event = require('ripple/event'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
@@ -33,7 +33,7 @@ describe("webworks push", function () {
 
     describe("using server", function () {
         it("exposes the push module", function () {
-            var webworks = require('ripple/platform/webworks.core/2.0.0/server');
+            var webworks = require('ripple/platform/webworks/2.0.0/server');
             expect(webworks.blackberry.push).toEqual(push);
         });
     });
@@ -42,7 +42,7 @@ describe("webworks push", function () {
         it("includes push module according to proper object structure", function () {
             var spec = require('ripple/platform/webworks/2.0.0/spec');
             expect(spec.objects.blackberry.children.push.path)
-                .toEqual("webworks.core/2.0.0/client/push");
+                .toEqual("webworks/2.0.0/client/push");
         });
     });
 
