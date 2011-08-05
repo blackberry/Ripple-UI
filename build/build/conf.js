@@ -25,7 +25,7 @@ module.exports = {
     UI: __dirname + "/../../lib/ripple/ui/",
     DEVICES: __dirname + "/../../lib/ripple/devices/",
     THIRDPARTY: __dirname + "/../../thirdparty/",
-    DEPLOY: __dirname + "/../../../ripple_build/",
+    DEPLOY: __dirname + "/../../pkg/",
     SPACES_AND_TABS: /\n+|\s+|\t{2,}/g,
     ESCAPED_QUOTES: '\'+"\'"+\'',
     thirdpartyIncludes: [
