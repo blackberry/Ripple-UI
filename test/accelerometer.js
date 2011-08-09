@@ -37,9 +37,9 @@ describe("accelerometer", function () {
     it("test getInfo should return a valid set of values", function () {
         var info = accelerometer.getInfo();
 
-        expect(typeof info.x).toBe("number");
-        expect("number", info.y, "expected y to be a number");
-        expect("number", info.z, "expected z to be a number");
+        expect(typeof info.accelerationIncludingGravity.x).toBe("number");
+        expect("number", info.accelerationIncludingGravity.y, "expected y to be a number");
+        expect("number", info.accelerationIncludingGravity.z, "expected z to be a number");
     });
 
     it("test getInfo should return a copied object", function () {
@@ -56,13 +56,17 @@ describe("accelerometer", function () {
 
     it("setInfo should update successfully", function () {
         s.stub(db, "saveObject");
-        accelerometer.setInfo(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z);
+        accelerometer.setInfo({
+            x: MOCK_POSITIONINFO.x,
+            y: MOCK_POSITIONINFO.y,
+            z: MOCK_POSITIONINFO.z
+        });
 
         var info = accelerometer.getInfo();
 
-        expect(MOCK_POSITIONINFO.x).toBe(info.x);
-        expect(MOCK_POSITIONINFO.y).toBe(info.y);
-        expect(MOCK_POSITIONINFO.z).toBe(info.z);
+        expect(MOCK_POSITIONINFO.x).toBe(info.accelerationIncludingGravity.x);
+        expect(MOCK_POSITIONINFO.y).toBe(info.accelerationIncludingGravity.y);
+        expect(MOCK_POSITIONINFO.z).toBe(info.accelerationIncludingGravity.z);
     });
 
     it("test should return a valid cached object when specified", function () {
