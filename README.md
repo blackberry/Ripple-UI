@@ -6,6 +6,12 @@ All source code (excluding third party libraries) are subject to:
 
 Copyright (c) 2011 Research In Motion Limited
 
+## License
+
+All assets in this repository, unless otherwise stated through sub-directory LICENSE or NOTICE files, are subject to the Apache Software License v.2.0.
+
+In particular, the assets under ext/assets/images are excluded from the Apache Software License v.2.0.  Please see the [NOTICE](/ext/assets/images/NOTICE) file for more details.
+
 ## Build Requirements
 
 * nodejs, npm
