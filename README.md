@@ -10,7 +10,7 @@ Copyright (c) 2011 Research In Motion Limited
 
 All assets in this repository, unless otherwise stated through sub-directory LICENSE or NOTICE files, are subject to the Apache Software License v.2.0.
 
-In particular, the assets under ext/assets/images are excluded from the Apache Software License v.2.0.  Please see the [NOTICE](https://github.com/blackberry/Ripple-UI/blob/master/ext/assets/images/NOTICE) file for more details.
+In particular, the assets under ext/assets/images are excluded from the Apache Software License v.2.0.  Please see the [NOTICE](https://github.com/blackberry/Ripple-UI/tree/master/ext/assets/images) file for more details.
 
 ## Build Requirements
 
