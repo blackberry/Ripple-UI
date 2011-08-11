@@ -14,99 +14,92 @@
  * limitations under the License.
  */
 describe("w3c_geolocation", function () {
-    var sinon = require('sinon'),
-        s,
-        geo = require('ripple/geo'),
-        event = require('ripple/event'),
+    var geo = require('ripple/geo'),
         geolocation = require('ripple/platform/w3c/1.0/geolocation'),
-        PositionError = require('ripple/platform/w3c/1.0/PositionError');
+        PositionError = require('ripple/platform/w3c/1.0/PositionError'),
+        success,
+        error;
 
     beforeEach(function () {
-        s = sinon.sandbox.create();
-        //HACK: reset the state
         geo.delay = 0;
         geo.timeout = false;
-    });
+        success = jasmine.createSpy("success_callback");
+        error = jasmine.createSpy("error_callback");
 
-    afterEach(function () {
-        s.verifyAndRestore();
-    });
-
-    it("getCurrentPosition calls the success callback", function () {
-        geolocation.getCurrentPosition(
-            s.mock().once(),
-            s.mock().never());
-        waits(1);
-    });
-
-    it("position info is updated on PositionInfoUpdatedEvent", function () {
-        var stamp = new Date();
-
-        event.trigger("PositionInfoUpdatedEvent", [{
-            latitude: 1,
-            longitude: 2,
-            altitude: 3,
-            altitudeAccuracy: 4,
-            accuracy: 5,
-            heading: 6,
-            speed: 7,
-            timeStamp: stamp
-        }]);
-
-        geolocation.getCurrentPosition(function (pos) {
-            expect(1).toBe(pos.coords.latitude);
-            expect(2).toBe(pos.coords.longitude);
-            expect(3).toBe(pos.coords.altitude);
-            expect(4).toBe(pos.coords.altitudeAccuracy);
-            expect(5).toBe(pos.coords.accuracy);
-            expect(6).toBe(pos.coords.heading);
-            expect(7).toBe(pos.coords.speed);
-            expect(stamp.getTime()).toBe(pos.timestamp);
+        spyOn(window, "setTimeout").andCallFake(function (func) { 
+            func(); 
         });
     });
 
-    it("getCurrentPosition calls the error callback if geolocation is set to timeout", function () {
-        geo.timeout = true;
-
-        geolocation.getCurrentPosition(s.mock().never(), function (error) {
-            expect(error).toBeDefined();
-            expect(PositionError.TIMEOUT).toBe(error.code);
+    describe("getCurrentPosition", function () {
+        it("calls the success callback", function () {
+            geolocation.getCurrentPosition(success, error);
+            expect(success).toHaveBeenCalled();
         });
 
+        it("uses the value from geo.getPositionInfo", function () {
+            var stamp = new Date();
+
+            spyOn(geo, "getPositionInfo").andReturn({
+                latitude: 1,
+                longitude: 2,
+                altitude: 3,
+                altitudeAccuracy: 4,
+                accuracy: 5,
+                heading: 6,
+                speed: 7,
+                timeStamp: stamp
+            });
+
+            geolocation.getCurrentPosition(function (pos) {
+                expect(1).toBe(pos.coords.latitude);
+                expect(2).toBe(pos.coords.longitude);
+                expect(3).toBe(pos.coords.altitude);
+                expect(4).toBe(pos.coords.altitudeAccuracy);
+                expect(5).toBe(pos.coords.accuracy);
+                expect(6).toBe(pos.coords.heading);
+                expect(7).toBe(pos.coords.speed);
+                expect(stamp.getTime()).toBe(pos.timestamp);
+            });
+        });
+
+        it("calls the error callback if geolocation is set to timeout", function () {
+            geo.timeout = true;
+
+            geolocation.getCurrentPosition(success, function (error) {
+                expect(error).toBeDefined();
+                expect(PositionError.TIMEOUT).toBe(error.code);
+            });
+
+            expect(success).not.toHaveBeenCalled();
+        });
     });
 
-    it("watchPosition calls the error callback if options not provided", function () {
-        geolocation.watchPosition(
-            s.mock().never(),
-            s.mock().once());
-        waits(1);
-    });
+    describe("watchPosition", function () {
+        describe("calls the error callback when", function () {
+            it("doesn't provide any options", function () {
+                geolocation.watchPosition(success, error);
+                expect(error).toHaveBeenCalled();
+            });
 
-    it("watchPosition calls the error callback if options is missing frequency", function () {
-        geolocation.watchPosition(
-            s.mock().never(),
-            s.mock().once(),
-            {});
-        waits(1);
-    });
+            it("provides options with a missing frequency", function () {
+                geolocation.watchPosition(success, error, {});
+                expect(error).toHaveBeenCalled();
+            });
 
-    it("watchPosition calls the error callback if frequency isn't a number", function () {
-        geolocation.watchPosition(
-            s.mock().never(),
-            s.mock().once(),
-            {frequency: "w00t"});
-        waits(1);
-    });
+            it("has a frequency that isn't a number", function () {
+                geolocation.watchPosition(success, error, {frequency: "w00t"});
+                expect(error).toHaveBeenCalled();
+            });
+        });
 
-    it("watchPosition calls the callback on the given interval", function () {
-        var watch = geolocation.watchPosition(
-                    s.mock().thrice(),
-                    s.mock().never(),
-                    {frequency: 10});
-
-        waits(39);
-        runs(function () {
-            geolocation.clearWatch(watch);
+        it("calls the success callback on the given interval", function () {
+            var watch = geolocation.watchPosition(success, error, {frequency: 10});
+            waits(39);
+            runs(function () {
+                expect(success.callCount).toBe(3);
+                geolocation.clearWatch(watch);
+            });
         });
     });
 });
