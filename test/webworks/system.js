@@ -15,6 +15,7 @@
  */
 describe("webworks system", function () {
     var system = require('ripple/platform/webworks.core/2.0.0/server/system'),
+        systemEvent = require('ripple/platform/webworks.handset/2.0.0/server/systemEvent'),
         client = require('ripple/platform/webworks.core/2.0.0/client/system'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         deviceSpec = require('ripple/platform/webworks.core/2.0.0/spec/device'),
@@ -27,10 +28,14 @@ describe("webworks system", function () {
         devices = require('ripple/devices'),
         platform = require('ripple/platform');
 
+    // this only tests handset (not tablet)
     describe("using server", function () {
         it("exposes the system module", function () {
-            var webworks = require('ripple/platform/webworks.handset/2.0.0/server');
-            expect(webworks.blackberry.system).toEqual(system);
+            var webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
+                obj = {};
+            obj.event = systemEvent;
+            utils.mixin(system, obj);
+            expect(webworks.blackberry.system).toEqual(obj);
         });
     });
 

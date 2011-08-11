@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-describe("webworks system event", function () {
+describe("webworks.handset system event", function () {
     var sysEvent = require('ripple/platform/webworks.handset/2.0.0/server/systemEvent'),
         client = require('ripple/platform/webworks.handset/2.0.0/client/systemEvent'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
