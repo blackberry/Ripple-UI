@@ -69,7 +69,7 @@ describe("webworks system event", function () {
             var baton = new MockBaton();
             sysEvent.onCoverageChange({}, {}, baton);
             event.trigger("CoverageChange", [], true);
-            expect(baton.pass).toHaveBeenCalled();
+            expect(baton.pass).toHaveBeenCalledWith({code: 1});
         });
 
         it("only passes the baton once", function () {
@@ -100,7 +100,7 @@ describe("webworks system event", function () {
             var baton = new MockBaton();
             sysEvent.onHardwareKey({key: 1}, {}, baton);
             trigger("HardwareKey", ['1'], true);
-            expect(baton.pass).toHaveBeenCalled();
+            expect(baton.pass).toHaveBeenCalledWith({code: 1});
         });
 
         xit("only passes the baton once", function () {
