@@ -53,12 +53,6 @@ describe("accelerometer", function () {
         expect(accelerometer.getInfo().x).not.toBe(info.x);
     });
 
-    it("test setInfo should throw an exception when given invalid input", function () {
-        expect(function () {
-            accelerometer.setInfo("fdfsfd", false, "43");
-        }).toThrow();
-    });
-
     it("setInfo should update successfully", function () {
         s.stub(db, "saveObject");
         accelerometer.setInfo({
