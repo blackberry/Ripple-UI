@@ -52,6 +52,11 @@ describe("webworks phone", function () {
                 .toEqual("webworks.handset/2.0.0/client/PhoneLogs");
         });
 
+        it("includes CallLog according to proper api structure", function () {
+            expect(spec.objects.blackberry.children.phone.children.PhoneLogs.children.CallLog.path)
+                .toEqual("webworks.handset/2.0.0/client/CallLog");
+        });
+
         it("includes PhoneFilterExpression according to proper api structure", function () {
             expect(spec.objects.blackberry.children.phone.children.Find.children.FilterExpression.path)
                 .toEqual("webworks.handset/2.0.0/client/FilterExpression");
@@ -162,10 +167,10 @@ describe("webworks phone", function () {
             describe("addPhoneListener", function () {
                 it("polls the transport", function () {
                     spyOn(transport, "poll");
-                    expect(Phone.addPhoneListener(function () {}, "random type")); // sticks around..
+                    expect(Phone.addPhoneListener(function () {}, 0)).toBe(true); // sticks around..
                     expect(transport.poll.argsForCall[0][0]).toEqual("blackberry/phone/onPhoneEvent");
                     expect(transport.poll.argsForCall[0][1]).toEqual({
-                        get: {eventType: "random type"}
+                        get: {eventType: 0}
                     });
                 });
             });

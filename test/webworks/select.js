@@ -409,8 +409,8 @@ describe("webworks finder", function () {
             {name: "Snowball", awesome: true},
             {name: "Gandalf", awesome: true}
         ];
-        it("limit will cap the number of results", function () {
 
+        it("limit will cap the number of results", function () {
             var fe = new FilterExpression("awesome", "==", true),
                 result = select.from(cats).max(3).where(fe);
 
@@ -424,6 +424,12 @@ describe("webworks finder", function () {
             expect(result.length).toBe(1);
         });
 
+        it("limit returns all results when given -1", function () {
+            var fe = new FilterExpression("awesome", "==", true),
+                result = select.from(cats).max(-1).where(fe);
+
+            expect(result.length).toBe(cats.length);
+        });
     });
 
     it("can use subproperties of the field", function () {
