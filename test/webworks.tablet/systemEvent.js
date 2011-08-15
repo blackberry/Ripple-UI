@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 describe("webworks.tablet system event", function () {
-    var sysEvent = require('ripple/platform/webworks.tablet/2.0.0/server/systemEvent'),
+    var server = require('ripple/platform/webworks.tablet/2.0.0/server/systemEvent'),
         client = require('ripple/platform/webworks.tablet/2.0.0/client/systemEvent'),
-        transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
+        spec = require('ripple/platform/webworks.tablet/2.0.0/spec/device'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
+        event = require('ripple/event'),
+        MockBaton = function () {
+            this.take = jasmine.createSpy('baton.take');
+            this.pass = jasmine.createSpy('baton.pass');
+        };
 
     describe("platform spec", function () {
         it("includes the module according to proper object structure", function () {
@@ -29,12 +35,50 @@ describe("webworks.tablet system event", function () {
     describe("server index", function () {
         it("exposes the system event module", function () {
             var webworks = require('ripple/platform/webworks.tablet/2.0.0/server');
-            expect(webworks.blackberry.system.event).toEqual(sysEvent);
+            expect(webworks.blackberry.system.event).toEqual(server);
+        });
+    });
+
+    describe("in the device spec", function () {
+        it("includes setting to togger handset charging on and off", function () {
+            expect(typeof spec.battery.state.name).toEqual("string");
+            expect(spec.battery.state.control.type).toEqual("checkbox");
+
+            expect(typeof spec.battery.level.callback).toEqual("function");
+            spyOn(event, "trigger");
+            spec.battery.state.callback(false);
+            expect(event.trigger).toHaveBeenCalledWith("DeviceBatteryStateChanged", [false]);
+        });
+
+        it("includes setting to set charge level of the handset", function () {
+            expect(typeof spec.battery.level.name).toEqual("string");
+            expect(spec.battery.level.control.type).toEqual("select");
+            expect(typeof spec.battery.level.options === "object").toEqual(true);
+
+            expect(typeof spec.battery.level.callback).toEqual("function");
+            spyOn(event, "trigger");
+            spec.battery.level.callback(87);
+            expect(event.trigger).toHaveBeenCalledWith("DeviceBatteryLevelChanged", [87]);
         });
     });
 
     // TODO: test the callback logic when polling
     describe("client", function () {
+        describe("deviceBatteryStateChange", function () {
+            it("polls the transport appropriately", function () {
+                var listener = function () {},
+                    args;
+
+                spyOn(transport, "poll");
+                client.deviceBatteryStateChange(listener);
+                args = transport.poll.argsForCall[0];
+
+                expect(args[0]).toEqual("blackberry/system/event/deviceBatteryStateChange");
+                expect(args[1]).toEqual({});
+                expect(typeof args[2]).toEqual("function");
+            });
+        });
+
         describe("deviceBatteryLevelChange", function () {
             it("polls the transport appropriately", function () {
                 var listener = function () {},
@@ -45,8 +89,88 @@ describe("webworks.tablet system event", function () {
                 args = transport.poll.argsForCall[0];
 
                 expect(args[0]).toEqual("blackberry/system/event/deviceBatteryLevelChange");
-                expect(args[1]).toEqual({get: {}});
+                expect(args[1]).toEqual({});
                 expect(typeof args[2]).toEqual("function");
+            });
+        });
+    });
+
+    describe("server", function () {
+        beforeEach(function () {
+            spyOn(console, "log");
+        });
+
+        describe("deviceBatteryStateChange", function () {
+            it("takes the baton when polled", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryStateChange({}, {}, baton);
+                expect(baton.take).toHaveBeenCalled();
+            });
+
+            it("passes the baton when DeviceBatteryStateChanged is emitted", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryStateChange({}, {}, baton);
+                event.trigger("DeviceBatteryStateChanged", [], true);
+                expect(baton.pass).toHaveBeenCalled();
+            });
+
+            it("only passed the baton once", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryStateChange({}, {}, baton);
+                event.trigger("DeviceBatteryStateChanged", [], true);
+                event.trigger("DeviceBatteryStateChanged", [], true);
+                expect(baton.pass).toHaveBeenCalled();
+            });
+
+            it("passes state UNPLUGGED when charging is false", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryStateChange({}, {}, baton);
+                event.trigger("DeviceBatteryStateChanged", [false], true);
+                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 3}); // state CHARGING
+            });
+
+            it("passes state CHARGING when charging is false", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryStateChange({}, {}, baton);
+                event.trigger("DeviceBatteryStateChanged", [true], true);
+                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 2}); // state UNPLUGGED
+            });
+
+            it("passes state FULL when battery levl is 100", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryStateChange({}, {}, baton);
+                event.trigger("DeviceBatteryLevelChanged", [100], true);
+                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 1}); // state FULL
+            });
+        });
+
+        describe("deviceBatteryLevelChange", function () {
+            it("takes the baton when polled", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryLevelChange({}, {}, baton);
+                expect(baton.take).toHaveBeenCalled();
+            });
+
+            it("passes the baton when DeviceBatteryLevelChanged is emitted", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryLevelChange({}, {}, baton);
+                event.trigger("DeviceBatteryLevelChanged", [], true);
+                expect(baton.pass).toHaveBeenCalled();
+            });
+
+            it("only passed the baton once", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryLevelChange({}, {}, baton);
+                event.trigger("DeviceBatteryLevelChanged", [], true);
+                event.trigger("DeviceBatteryLevelChanged", [], true);
+                expect(baton.pass).toHaveBeenCalled();
+            });
+
+            it("passes baton when battery level changes", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryLevelChange({}, {}, baton);
+                event.trigger("DeviceBatteryLevelChanged", [80], true);
+                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 80});
             });
         });
     });

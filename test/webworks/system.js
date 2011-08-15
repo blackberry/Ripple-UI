@@ -18,7 +18,7 @@ describe("webworks system", function () {
         systemEvent = require('ripple/platform/webworks.handset/2.0.0/server/systemEvent'),
         client = require('ripple/platform/webworks.core/2.0.0/client/system'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        deviceSpec = require('ripple/platform/webworks.core/2.0.0/spec/device'),
+        deviceSpec = require('ripple/platform/webworks.handset/2.0.0/spec/device'),
         app = require('ripple/app'),
         utils = require('ripple/utils'),
         deviceSettings = require('ripple/deviceSettings'),
