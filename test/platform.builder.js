@@ -178,6 +178,52 @@ describeBrowser("platform builder", function () {
 
             expect(target.stooges).toBeDefined();
         });
+    });
+
+    it("can include a submodule when the parent module isn't allowed", function () {
+        var target = {};
+
+        spyOn(app, "getInfo").andReturn({
+            features: {
+                hampsters: {}
+            }
+        });
+
+        builder.build({
+            foo: {
+                feature: "chickens",
+                children: {
+                    bar: {
+                        feature: "hampsters"
+                    }
+                }
+            }
+        }).into(target);
+
+        expect(target.foo.bar).toBeDefined();
+    });
+
+    it("doesn't create a module if none of the submodules are allowed ether", function () {
+        var target = {};
+
+        spyOn(app, "getInfo").andReturn({
+            features: {
+                bacon: {}
+            }
+        });
+
+        builder.build({
+            John: {
+                feature: "chickens",
+                children: {
+                    Smith: {
+                        feature: "hampsters"
+                    }
+                }
+            }
+        }).into(target);
+
+        expect(target.John).not.toBeDefined();
 
     });
 });
