@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 describe("wac_PowerInfo", function () {
-
     var PowerInfo = require('ripple/platform/wac/1.0/PowerInfo'),
         Widget = require('ripple/platform/wac/1.0/Widget'),
         devices = require('ripple/devices'),
@@ -25,6 +24,8 @@ describe("wac_PowerInfo", function () {
         platform = require('ripple/platform');
 
     beforeEach(function () {
+        spyOn(_console, "error");
+        spyOn(_console, "log");
         spyOn(platform, "current").andReturn({
             name: "whatup",
             device: {
@@ -35,22 +36,16 @@ describe("wac_PowerInfo", function () {
             }
         });
     });
-    // --------- isCharging
 
     it("isCharging should return default control value", function () {
         expect(PowerInfo.isCharging).toEqual(false);
     });
 
-    // --------- percentRemaining
-
     it("percentRemaining returns default control value", function () {
         expect(PowerInfo.percentRemaining).toEqual(98);
     });
 
-    // --------- onChargeStateChange
-
     it("isCharging state change invokes onChargeStateChange", function () {
-        spyOn(_console, "log");
         spyOn(deviceSettings, "retrieve").andReturn(50);
         PowerInfo.onChargeStateChange = jasmine.createSpy();
 
@@ -61,7 +56,6 @@ describe("wac_PowerInfo", function () {
     });
 
     it("isCharging state change invokes onChargeStateChange with discharging", function () {
-        spyOn(_console, "log");
         spyOn(deviceSettings, "retrieve").andReturn(30);
         PowerInfo.onChargeStateChange = jasmine.createSpy();
 
@@ -72,7 +66,6 @@ describe("wac_PowerInfo", function () {
     });
 
     it("onChargeStateChange invokes properly when changing to 100 percent battery level", function () {
-        spyOn(_console, "log");
         spyOn(deviceSettings, "retrieve").andReturn(100);
         PowerInfo.onChargeStateChange = jasmine.createSpy();
 
@@ -83,7 +76,6 @@ describe("wac_PowerInfo", function () {
     });
 
     it("onChargeStateChange invokes properly when changing from 100 percent battery level", function () {
-        spyOn(_console, "log");
         spyOn(deviceSettings, "retrieve").andReturn(99);
         PowerInfo.onChargeStateChange = jasmine.createSpy();
 
@@ -93,10 +85,7 @@ describe("wac_PowerInfo", function () {
         delete PowerInfo.onChargeStateChange;
     });
 
-    // --------- onChargeLevelChange
-
     it("percentRemaining update invokes onChargeLevelChange with proper args", function () {
-        spyOn(_console, "log");
         spyOn(deviceSettings, "retrieve").andReturn(99);
         PowerInfo.onChargeLevelChange = jasmine.createSpy();
 
@@ -106,10 +95,7 @@ describe("wac_PowerInfo", function () {
         delete PowerInfo.onChargeLevelChange;
     });
 
-    // ---------- onLowBattery
-
     it("percentRemaining should invoke onLowBattery when below ten percent", function () {
-        spyOn(_console, "log");
         spyOn(deviceSettings, "retrieve").andReturn(99);
         PowerInfo.onLowBattery = jasmine.createSpy();
 

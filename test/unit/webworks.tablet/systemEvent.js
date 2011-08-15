@@ -25,6 +25,7 @@ describe("webworks.tablet system event", function () {
         };
 
     describe("platform spec", function () {
+        // NOTE: system and system.event for Playbook do not require feature declarations (see docs)
         it("includes the module according to proper object structure", function () {
             var spec = require('ripple/platform/webworks.tablet/2.0.0/spec');
             expect(spec.objects.blackberry.children.system.children.event.path)
@@ -62,7 +63,6 @@ describe("webworks.tablet system event", function () {
         });
     });
 
-    // TODO: test the callback logic when polling
     describe("client", function () {
         describe("deviceBatteryStateChange", function () {
             it("polls the transport appropriately", function () {
@@ -76,6 +76,23 @@ describe("webworks.tablet system event", function () {
                 expect(args[0]).toEqual("blackberry/system/event/deviceBatteryStateChange");
                 expect(args[1]).toEqual({});
                 expect(typeof args[2]).toEqual("function");
+            });
+
+            it("invokes handler upon successfull response from server", function () {
+                var listener = jasmine.createSpy(),
+                    res = {
+                        code: 1,
+                        data: 3 // state UNPLUGGED
+                    },
+                    returnPoll;
+
+                spyOn(transport, "poll");
+                client.deviceBatteryStateChange(listener);
+
+                returnPoll = transport.poll.argsForCall[0][2];
+                returnPoll(res.data, JSON.stringify(res));
+
+                expect(listener).toHaveBeenCalledWith(res.data);
             });
         });
 
@@ -91,6 +108,23 @@ describe("webworks.tablet system event", function () {
                 expect(args[0]).toEqual("blackberry/system/event/deviceBatteryLevelChange");
                 expect(args[1]).toEqual({});
                 expect(typeof args[2]).toEqual("function");
+            });
+
+            it("invokes handler upon successfull response from server", function () {
+                var listener = jasmine.createSpy(),
+                    res = {
+                        code: 1,
+                        data: 80
+                    },
+                    returnPoll;
+
+                spyOn(transport, "poll");
+                client.deviceBatteryLevelChange(listener);
+
+                returnPoll = transport.poll.argsForCall[0][2];
+                returnPoll(res.data, JSON.stringify(res));
+
+                expect(listener).toHaveBeenCalledWith(res.data);
             });
         });
     });
@@ -136,11 +170,18 @@ describe("webworks.tablet system event", function () {
                 expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 2}); // state UNPLUGGED
             });
 
-            it("passes state FULL when battery levl is 100", function () {
+            it("passes state FULL when battery level is 100", function () {
                 var baton = new MockBaton();
                 server.deviceBatteryStateChange({}, {}, baton);
                 event.trigger("DeviceBatteryLevelChanged", [100], true);
                 expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 1}); // state FULL
+            });
+
+            it("also passes state FULL when given a String for battery level", function () {
+                var baton = new MockBaton();
+                server.deviceBatteryStateChange({}, {}, baton);
+                event.trigger("DeviceBatteryLevelChanged", ["100"], true);
+                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 1});
             });
         });
 
