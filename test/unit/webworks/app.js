@@ -82,6 +82,26 @@ describe("webworks_app", function () {
             });
         });
 
+        describe("showBannerIndicator", function () {
+            it("calls the transport appropriately", function () {
+                appClient.showBannerIndicator("icon", 2);
+                expect(transport.call).toHaveBeenCalledWith("blackberry/app/showBannerIndicator", {
+                    get: {
+                        icon: "icon",
+                        count: 2
+                    },
+                    async: true
+                });
+            });
+        });
+
+        describe("removeBannerIndicator", function () {
+            it("calls the transport appropriately", function () {
+                appClient.removeBannerIndicator();
+                expect(transport.call).toHaveBeenCalledWith("blackberry/app/removeBannerIndicator", {async: true});
+            });
+        });
+
         describe("author", function () {
             it("calls the transport appropriately", function () {
                 expect(appClient.author).toEqual("data");
@@ -272,5 +292,22 @@ describe("webworks_app", function () {
         });
         expect(notifications.openNotification).toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL,
                                                                     "The application set the home screen name to Awesometown");
+    });
+
+    it("triggers an event when showing the banner indicator", function () {
+        spyOn(event, "trigger");
+        appServer.showBannerIndicator({
+            icon:"i", 
+            count:5
+        });
+        expect(event.trigger).toHaveBeenCalledWith("BannerUpdated", ["i", 5]);
+        expect(event.trigger.callCount).toBe(1);
+    });
+
+    it("triggers an event when removing the banner indicator", function () {
+        spyOn(event, "trigger");
+        appServer.removeBannerIndicator();
+        expect(event.trigger).toHaveBeenCalledWith("BannerUpdated", ["", 0]);
+        expect(event.trigger.callCount).toBe(1);
     });
 });
