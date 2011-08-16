@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 describe("phonegap_compass", function () {
-
-    var compass = require('ripple/platform/phonegap/0.9/compass'),
+    var compass = require('ripple/platform/phonegap/1.0/compass'),
         geo = require('ripple/geo'),
         event = require('ripple/event');
 
@@ -85,5 +84,4 @@ describe("phonegap_compass", function () {
         expect(success).toHaveBeenCalledWith(info.heading);
         compass.clearWatch(watchId);
     });
-
 });

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 describe("phonegap_device", function () {
-
-    var device = require('ripple/platform/phonegap/0.9/device'),
+    var device = require('ripple/platform/phonegap/1.0/device'),
         devices = require('ripple/devices');
 
     it("asks the device for the name", function () {
@@ -45,5 +44,4 @@ describe("phonegap_device", function () {
 
         expect(device.version).toEqual("0.1");
     });
-
 });

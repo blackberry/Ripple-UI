@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 describe("phonegap_accelerometer", function () {
-
-    var accel = require('ripple/platform/phonegap/0.9/accelerometer'),
+    var accel = require('ripple/platform/phonegap/1.0/accelerometer'),
         event = require('ripple/event'),
         platform = require('ripple/platform');
 
@@ -109,7 +108,5 @@ describe("phonegap_accelerometer", function () {
             expect(success.callCount).toEqual(3);
             expect(failure).not.toHaveBeenCalled();
         });
-
     });
-
 });

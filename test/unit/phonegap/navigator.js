@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 describe("phonegap_navigator", function () {
-
     var event = require('ripple/event'),
         platform = require('ripple/platform'),
         devices = require('ripple/devices'),
@@ -24,10 +23,10 @@ describe("phonegap_navigator", function () {
 
     beforeEach(function () {
         spyOn(devices, "getCurrentDevice").andReturn("WTF");
-        navigator = require('ripple/platform/phonegap/0.9/navigator');
+        navigator = require('ripple/platform/phonegap/1.0/navigator');
     });
-    it("it fires device ready and logs when tinyHippos Loaded event is raised", function () {
 
+    it("it fires device ready and logs when tinyHippos Loaded event is raised", function () {
         spyOn(emulatorBridge, "getWidgetDocument").andReturn(document);
         spyOn(document, "dispatchEvent");
         spyOn(_console, "log");
@@ -40,5 +39,4 @@ describe("phonegap_navigator", function () {
             expect(_console.log.callCount).toEqual(1);
         });
     });
-
 });

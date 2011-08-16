@@ -169,7 +169,7 @@ describe("webworks identity", function () {
             });
 
             it("returns a persisted device setting", function () {
-                deviceSettings.register("identity.PIN", "wine");
+                spyOn(deviceSettings, "retrieve").andReturn("wine");
                 expect(identity.PIN().data).toEqual("wine");
             });
         });
