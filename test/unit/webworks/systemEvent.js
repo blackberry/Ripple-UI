@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-describe("webworks system event", function () {
+describe("webworks.handset system event", function () {
     var sysEvent = require('ripple/platform/webworks.handset/2.0.0/server/systemEvent'),
         client = require('ripple/platform/webworks.handset/2.0.0/client/systemEvent'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
@@ -69,7 +69,7 @@ describe("webworks system event", function () {
             var baton = new MockBaton();
             sysEvent.onCoverageChange({}, {}, baton);
             event.trigger("CoverageChange", [], true);
-            expect(baton.pass).toHaveBeenCalled();
+            expect(baton.pass).toHaveBeenCalledWith({code: 1});
         });
 
         it("only passes the baton once", function () {
@@ -100,7 +100,7 @@ describe("webworks system event", function () {
             var baton = new MockBaton();
             sysEvent.onHardwareKey({key: 1}, {}, baton);
             trigger("HardwareKey", ['1'], true);
-            expect(baton.pass).toHaveBeenCalled();
+            expect(baton.pass).toHaveBeenCalledWith({code: 1});
         });
 
         xit("only passes the baton once", function () {

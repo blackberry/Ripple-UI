@@ -18,7 +18,7 @@ describeBrowser("widgetConfig", function () {
 
     function _getConfig(filePath) {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", filePath, false);
+        xmlHttp.open("GET", "test/assets/config/" + filePath, false);
         xmlHttp.send();
         return xmlHttp.responseXML;
     }
@@ -37,7 +37,7 @@ describeBrowser("widgetConfig", function () {
     });
 
     it("load_config_file", function () {
-        var configXML = _getConfig("test/assets/config/config.xml");
+        var configXML = _getConfig("config.xml");
         expect(typeof configXML === "object");
     });
 
@@ -48,7 +48,7 @@ describeBrowser("widgetConfig", function () {
             results,
             configNodes;
 
-        configXML = _getConfig("test/assets/config/config_no_namespaces.xml");
+        configXML = _getConfig("config_no_namespaces.xml");
 
         evaluator = new XPathEvaluator();
         resolver = evaluator.createNSResolver(configXML);
@@ -66,7 +66,7 @@ describeBrowser("widgetConfig", function () {
             resolver,
             configNodes;
 
-        configXML = _getConfig("test/assets/config/config.xml");
+        configXML = _getConfig("config.xml");
 
         evaluator = new XPathEvaluator();
         resolver = evaluator.createNSResolver(configXML);
@@ -82,7 +82,7 @@ describeBrowser("widgetConfig", function () {
             resolver,
             configNodes;
 
-        configXML = _getConfig("test/assets/config/config.xml");
+        configXML = _getConfig("config.xml");
         expect(widgetConfig.validate(configXML).widget.validationResult[0].valid).toEqual(true);
     });
 
@@ -93,7 +93,7 @@ describeBrowser("widgetConfig", function () {
             configNodes,
             result;
 
-        configXML = _getConfig("test/assets/config/config.xml");
+        configXML = _getConfig("config.xml");
 
         result = widgetConfig.validate(configXML).widget;
 
@@ -118,7 +118,7 @@ describeBrowser("widgetConfig", function () {
             configNodes,
             result;
 
-        configXML = _getConfig("test/assets/config/config_no_widet_node.xml");
+        configXML = _getConfig("config_no_widet_node.xml");
 
         result = widgetConfig.validate(configXML).widget;
 
@@ -133,7 +133,7 @@ describeBrowser("widgetConfig", function () {
             configNodes,
             result;
 
-        configXML = _getConfig("test/assets/config/config_multiple_name_nodes.xml");
+        configXML = _getConfig("config_multiple_name_nodes.xml");
 
         result = widgetConfig.validate(configXML).widget;
 
@@ -149,7 +149,7 @@ describeBrowser("widgetConfig", function () {
             configNodes,
             result;
 
-        configXML = _getConfig("test/assets/config/config_multiple_name_nodes_unique.xml");
+        configXML = _getConfig("config_multiple_name_nodes_unique.xml");
         result = widgetConfig.validate(configXML).widget;
         expect(result.children.name.validationResult[0].valid).toEqual(true);
     });
@@ -161,7 +161,7 @@ describeBrowser("widgetConfig", function () {
             configNodes,
             result;
 
-        configXML = _getConfig("test/assets/config/config_with_missing_attributes.xml");
+        configXML = _getConfig("config_with_missing_attributes.xml");
 
         result = widgetConfig.validate(configXML).widget;
 
@@ -179,7 +179,7 @@ describeBrowser("widgetConfig", function () {
             configNodes,
             result;
 
-        configXML = _getConfig("test/assets/config/config_with_bad_url_email_attributes.xml");
+        configXML = _getConfig("config_with_bad_url_email_attributes.xml");
         result = widgetConfig.validate(configXML).widget;
 
         expect("author.email value does not match expected format. Value should pass this regular expression validation: " + (/^([^@\s]+)@((?:[\-a-z0-9]+\.)+[a-z]{2,})$/))
@@ -194,7 +194,7 @@ describeBrowser("widgetConfig", function () {
             widget;
 
         spyOn(platform, "current").andReturn(require('ripple/platform/webworks.handset/2.0.0/spec'));
-        configXML = _getConfig("test/assets/config/config_multiple_nested_features.xml");
+        configXML = _getConfig("config_multiple_nested_features.xml");
         widget = widgetConfig.validate(configXML).widget;
         expect(widget.children.feature.validationResult.length).toBe(1);
         expect(widget.children.access.children.feature.validationResult.length).toBe(2);
