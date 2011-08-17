@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 describe("phonegap_notifications", function () {
-
     var s,
         sinon = require('sinon'),
-        notification = require('ripple/platform/phonegap/0.9/notification'),
+        notification = require('ripple/platform/phonegap/1.0/notification'),
         goodVibrations = require('ripple/ui/plugins/goodVibrations'),
         ui = require('ripple/ui'),
         constants = require('ripple/constants'),

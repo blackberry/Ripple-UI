@@ -18,11 +18,11 @@ describe("phonegap_contacts", function () {
         _contactDB = [],
         sinon = require('sinon'),
         db = require('ripple/db'),
-        Contact = require('ripple/platform/phonegap/0.9/Contact'),
-        ContactError = require('ripple/platform/phonegap/0.9/ContactError'),
-        ContactField = require('ripple/platform/phonegap/0.9/ContactField'),
-        ContactFindOptions = require('ripple/platform/phonegap/0.9/ContactFindOptions'),
-        contacts = require('ripple/platform/phonegap/0.9/contacts');
+        Contact = require('ripple/platform/phonegap/1.0/Contact'),
+        ContactError = require('ripple/platform/phonegap/1.0/ContactError'),
+        ContactField = require('ripple/platform/phonegap/1.0/ContactField'),
+        ContactFindOptions = require('ripple/platform/phonegap/1.0/ContactFindOptions'),
+        contacts = require('ripple/platform/phonegap/1.0/contacts');
 
     function _propertyCount(obj) {
         var prop, count = 0;
@@ -42,6 +42,55 @@ describe("phonegap_contacts", function () {
     afterEach(function () {
         s.verifyAndRestore();
         _contactDB.splice(0, _contactDB.length);
+    });
+
+    describe("spec", function () {
+        var spec = require('ripple/platform/phonegap/1.0/spec');
+
+        it("includes contacts module according to proper object structure", function () {
+            expect(spec.objects.navigator.children.contacts.path)
+                .toEqual("phonegap/1.0/contacts");
+        });
+
+        it("includes ContactError module according to proper object structure", function () {
+            expect(spec.objects.ContactError.path)
+                .toEqual("phonegap/1.0/ContactError");
+        });
+
+        it("includes Contact module according to proper object structure", function () {
+            expect(spec.objects.Contact.path)
+                .toEqual("phonegap/1.0/Contact");
+        });
+
+        it("includes ContactName module according to proper object structure", function () {
+            expect(spec.objects.ContactName.path)
+                .toEqual("phonegap/1.0/ContactName");
+        });
+
+        it("includes ContactAccount module according to proper object structure", function () {
+            expect(spec.objects.ContactAccount.path)
+                .toEqual("phonegap/1.0/ContactAccount");
+        });
+
+        it("includes ContactAddress module according to proper object structure", function () {
+            expect(spec.objects.ContactAddress.path)
+                .toEqual("phonegap/1.0/ContactAddress");
+        });
+
+        it("includes ContactOrganization module according to proper object structure", function () {
+            expect(spec.objects.ContactOrganization.path)
+                .toEqual("phonegap/1.0/ContactOrganization");
+        });
+
+        it("includes ContactFindOptions module according to proper object structure", function () {
+            expect(spec.objects.ContactFindOptions.path)
+                .toEqual("phonegap/1.0/ContactFindOptions");
+        });
+
+        it("includes ContactField module according to proper object structure", function () {
+            expect(spec.objects.ContactField.path)
+                .toEqual("phonegap/1.0/ContactField");
+        });
     });
 
     it("can create a contact", function () {

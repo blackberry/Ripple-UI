@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("phonegap_camera", function () {
-    var camera = require('ripple/platform/phonegap/0.9/camera');
+    var camera = require('ripple/platform/phonegap/1.0/camera');
 
     it("it calls the error callback ALL the time", function () {
         var success = jasmine.createSpy(),
