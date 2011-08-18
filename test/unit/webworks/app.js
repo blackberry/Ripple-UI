@@ -297,8 +297,8 @@ describe("webworks_app", function () {
     it("triggers an event when showing the banner indicator", function () {
         spyOn(event, "trigger");
         appServer.showBannerIndicator({
-            icon:"i", 
-            count:5
+            icon: "i",
+            count: 5
         });
         expect(event.trigger).toHaveBeenCalledWith("BannerUpdated", ["i", 5]);
         expect(event.trigger.callCount).toBe(1);
