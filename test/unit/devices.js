@@ -62,7 +62,7 @@ describe("devices", function () {
                     back: jasmine.createSpy("window.history.back")
                 }
             };
-            spyOn(emulatorBridge, "getWidgetWindow").andReturn(_window);
+            spyOn(emulatorBridge, "window").andReturn(_window);
         });
 
         it("calls history.back when the key is 0", function () {
