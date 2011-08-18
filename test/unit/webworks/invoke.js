@@ -15,7 +15,7 @@
  */
 describe("webworks_invoke", function () {
     var webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
-        Invoke = require('ripple/platform/webworks.core/2.0.0/client/invoke'),
+        Invoke = require('ripple/platform/webworks.handset/2.0.0/client/invoke'),
         notifications = require('ripple/notifications'),
         constants = require('ripple/constants'),
         sinon = require('sinon'),
