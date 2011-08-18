@@ -82,11 +82,11 @@ describe("accelerometer", function () {
         });
 
         expect(event.trigger).toHaveBeenCalledWith("DeviceMotionEvent", [{
-                acceleration: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
-                accelerationIncludingGravity: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y , MOCK_POSITIONINFO.z),
-                rotationRate: new Rotation(0, 0, 0),
-                orientation: new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma),
-                timestamp: new Date().getTime()
+            acceleration: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
+            accelerationIncludingGravity: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
+            rotationRate: new Rotation(0, 0, 0),
+            orientation: new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma),
+            timestamp: new Date().getTime()
         }]);
     });
 
@@ -104,11 +104,11 @@ describe("accelerometer", function () {
         });
 
         expect(event.trigger).toHaveBeenCalledWith("DeviceMotionEvent", [{
-                acceleration: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
-                accelerationIncludingGravity: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y , MOCK_POSITIONINFO.z),
-                rotationRate: new Rotation(0, 0, 0),
-                orientation: new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma),
-                timestamp: new Date().getTime()
+            acceleration: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
+            accelerationIncludingGravity: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
+            rotationRate: new Rotation(0, 0, 0),
+            orientation: new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma),
+            timestamp: new Date().getTime()
         }]);
     });
 
@@ -126,11 +126,11 @@ describe("accelerometer", function () {
         });
 
         expect(event.trigger).toHaveBeenCalledWith("DeviceOrientationEvent", [{
-                acceleration: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
-                accelerationIncludingGravity: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y , MOCK_POSITIONINFO.z),
-                rotationRate: new Rotation(0, 0, 0),
-                orientation: new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma),
-                timestamp: new Date().getTime()
+            acceleration: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
+            accelerationIncludingGravity: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
+            rotationRate: new Rotation(0, 0, 0),
+            orientation: new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma),
+            timestamp: new Date().getTime()
         }]);
     });
 
