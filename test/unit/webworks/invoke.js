@@ -33,7 +33,7 @@ describe("webworks_invoke", function () {
     it("raises a notification when calling invoke", function () {
         s.mock(notifications)
             .expects("openNotification")
-            .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL, "Application requested to launch: http://www.google.com")
+            .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL, "Requested to launch: Browser application.")
             .once();
 
         webworks.blackberry.invoke.invoke({
