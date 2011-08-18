@@ -43,7 +43,7 @@ input, textarea, keygen, select, button, isindex, datagrid {
     height: 70px;
 }
 
-.beta{
+.beta {
     -webkit-transform: rotate(-35deg);
     position: absolute;
     left: 390px;
@@ -175,6 +175,12 @@ section.right, section.left{
     min-height: 100%;
     padding: 0;
     width: 344px;
+}
+
+section.top {
+    position: absolute;
+    margin: inherit auto inherit auto;
+    top: 0;
 }
 
 section.right { right: 0; }
@@ -917,3 +923,23 @@ section.left { left: 0; }
 ::-webkit-scrollbar-thumb:active {
     background-color: #555555;
 }
+
+/* ------------------------------>
+    Omni Bar */
+
+.omni-bar {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
+    .omni-bar .ui-icon {
+      display: inline-block;
+    }
+
+        .omni-bar .ui-icon:hover {
+            cursor: pointer;
+        }
+
+    .omni-bar input {
+      width: 95%;
+    }

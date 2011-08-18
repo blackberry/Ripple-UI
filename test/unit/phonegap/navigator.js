@@ -27,7 +27,7 @@ describe("phonegap_navigator", function () {
     });
 
     it("it fires device ready and logs when tinyHippos Loaded event is raised", function () {
-        spyOn(emulatorBridge, "getWidgetDocument").andReturn(document);
+        spyOn(emulatorBridge, "document").andReturn(document);
         spyOn(document, "dispatchEvent");
         spyOn(_console, "log");
 

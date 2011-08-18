@@ -85,7 +85,7 @@ describe("platform", function () {
 
         it("triggers the platform changed event", function () {
             platform.changeEnvironment(platformSpec, deviceId, function () {
-                expect(event.trigger).toHaveBeenCalledWith("PlatformChangedEvent", true);
+                expect(event.trigger).toHaveBeenCalledWith("PlatformChangedEvent", [], true);
             });
         });
     });
