@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 describe("webworks_invoke", function () {
-    var webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
+    describe("for handset", function () {
+        var webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
         Invoke = require('ripple/platform/webworks.handset/2.0.0/client/invoke'),
         notifications = require('ripple/notifications'),
         constants = require('ripple/constants'),
@@ -22,35 +23,77 @@ describe("webworks_invoke", function () {
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         s;
 
-    beforeEach(function () {
-        s = sinon.sandbox.create();
-    });
+        beforeEach(function () {
+            s = sinon.sandbox.create();
+        });
 
-    afterEach(function () {
-        s.verifyAndRestore();
-    });
+        afterEach(function () {
+            s.verifyAndRestore();
+        });
 
-    it("raises a notification when calling invoke", function () {
-        s.mock(notifications)
+        it("raises a notification when calling invoke", function () {
+            s.mock(notifications)
             .expects("openNotification")
             .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL, "Requested to launch: Browser application.")
             .once();
 
-        webworks.blackberry.invoke.invoke({
-            appType: "http://www.google.com"
+            webworks.blackberry.invoke.invoke({
+                appType: "http://www.google.com"
+            });
+        });
+
+        it("calls the correct invoke URI", function () {
+            spyOn(transport, "call");
+
+            Invoke.invoke(Invoke.APP_BROWSER);
+
+            expect(transport.call).toHaveBeenCalledWith("blackberry/invoke/invoke", {
+                get: {
+                    appType: "http://"
+                },
+                    async: true
+            });
         });
     });
+    describe("for tablet", function () {
+        var webworks = require('ripple/platform/webworks.tablet/2.0.0/server'),
+        Invoke = require('ripple/platform/webworks.tablet/2.0.0/client/invoke'),
+        notifications = require('ripple/notifications'),
+        constants = require('ripple/constants'),
+        sinon = require('sinon'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
+        s;
 
-    it("calls the correct invoke URI", function () {
-        spyOn(transport, "call");
+        beforeEach(function () {
+            s = sinon.sandbox.create();
+        });
 
-        Invoke.invoke(Invoke.APP_BROWSER);
+        afterEach(function () {
+            s.verifyAndRestore();
+        });
 
-        expect(transport.call).toHaveBeenCalledWith("blackberry/invoke/invoke", {
-            get: {
-                appType: "http://"
-            },
-            async: true
+        it("raises a notification when calling invoke", function () {
+            s.mock(notifications)
+            .expects("openNotification")
+            .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL, "Requested to launch: Browser application.")
+            .once();
+
+            webworks.blackberry.invoke.invoke({
+                appType: "http://www.google.com"
+            });
+        });
+
+        it("calls the correct invoke URI", function () {
+            spyOn(transport, "call");
+
+            Invoke.invoke(Invoke.APP_BROWSER);
+
+            expect(transport.call).toHaveBeenCalledWith("blackberry/invoke/invoke", {
+                get: {
+                    appType: "http://"
+                },
+                    async: true
+            });
         });
     });
 });
