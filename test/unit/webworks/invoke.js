@@ -51,7 +51,7 @@ describe("webworks_invoke", function () {
                 get: {
                     appType: "http://"
                 },
-                    async: true
+                async: true
             });
         });
     });
@@ -92,7 +92,7 @@ describe("webworks_invoke", function () {
                 get: {
                     appType: "http://"
                 },
-                    async: true
+                async: true
             });
         });
     });
