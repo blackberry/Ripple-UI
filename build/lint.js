@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 module.exports = function (done, files) {
-    var args = files && files.length > 0 ? files : ["test/", "lib/", "build/", "ext/"],
-        options = ["--reporter", "build/lint/reporter.js"],
+    var args = files && files.length > 0 ? files : ["."],
+        options = ["--reporter", "build/lint/reporter.js", "--show-non-errors"],
         spawn = require('child_process').spawn,
         cmd = spawn('jshint', args.concat(options)),
         sys = require('sys');
