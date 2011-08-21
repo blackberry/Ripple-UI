@@ -63,8 +63,7 @@ describe("blackberry.pim.memo", function () {
                 spyOn(Math, "uuid").andReturn("234");
                 spyOn(transport, "call");
 
-                var item = new Memo(),
-                    properties = {};
+                var item = new Memo();
 
                 item.save(null, {});
 

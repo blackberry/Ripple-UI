@@ -18,10 +18,8 @@ describe("phonegap_notifications", function () {
         sinon = require('sinon'),
         notification = require('ripple/platform/phonegap/1.0/notification'),
         goodVibrations = require('ripple/ui/plugins/goodVibrations'),
-        ui = require('ripple/ui'),
         constants = require('ripple/constants'),
-        notifications = require('ripple/notifications'),
-        platform = require('ripple/platform');
+        notifications = require('ripple/notifications');
 
     beforeEach(function () {
         spyOn(console, "log");

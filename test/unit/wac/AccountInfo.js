@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 describe("wac_AccountInfo", function () {
-
     var AccountInfo = require('ripple/platform/wac/1.0/AccountInfo'),
-        Device = require('ripple/platform/wac/1.0/Device'),
         deviceSettings = require('ripple/deviceSettings'),
         platform = require('ripple/platform');
 

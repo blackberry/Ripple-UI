@@ -15,7 +15,6 @@
  */
 describe("phonegap_navigator", function () {
     var event = require('ripple/event'),
-        platform = require('ripple/platform'),
         devices = require('ripple/devices'),
         emulatorBridge = require('ripple/emulatorBridge'),
         navigator,

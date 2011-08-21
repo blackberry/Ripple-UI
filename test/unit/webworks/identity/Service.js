@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 describe("webworks identity.Service", function () {
-
-    var Service = require('ripple/platform/webworks.handset/2.0.0/client/identity/Service'),
-        spec = require('ripple/platform/webworks.handset/2.0.0/spec');
+    var spec = require('ripple/platform/webworks.handset/2.0.0/spec');
 
     describe("in spec", function () {
         it("includes Service module according to proper object structure", function () {
@@ -24,5 +22,4 @@ describe("webworks identity.Service", function () {
                 .toEqual("webworks.handset/2.0.0/client/identity/Service");
         });
     });
-
 });

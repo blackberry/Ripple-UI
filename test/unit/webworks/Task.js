@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 describe("webworks Task", function () {
-
     var Task = require('ripple/platform/webworks.handset/2.0.0/server/Task'),
         TaskClient = require('ripple/platform/webworks.handset/2.0.0/client/Task'),
         Recurrence = require('ripple/platform/webworks.handset/2.0.0/client/Recurrence'),
         Reminder = require('ripple/platform/webworks.handset/2.0.0/client/Reminder'),
         webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
-        utils = require('ripple/utils'),
         db = require('ripple/db'),
         select = require('ripple/platform/webworks.core/2.0.0/select'),
         FilterExpression = require('ripple/platform/webworks.handset/2.0.0/client/FilterExpression'),
@@ -282,5 +280,4 @@ describe("webworks Task", function () {
             });
         });
     });
-
 });

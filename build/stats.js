@@ -36,8 +36,7 @@ module.exports = function () {
 
     function parseFile(file, callback) {
         var lines = 0,
-            loc = 0,
-            text;
+            loc = 0;
 
         if (file.match(/\.js$/)) {
             // hack!

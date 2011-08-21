@@ -17,7 +17,6 @@ describe("webworks.handset system event", function () {
     var sysEvent = require('ripple/platform/webworks.handset/2.0.0/server/systemEvent'),
         client = require('ripple/platform/webworks.handset/2.0.0/client/systemEvent'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        menu = require("ripple/platform/webworks.handset/2.0.0/server/menu"),
         event = require('ripple/event'),
         MockBaton = function () {
             this.take = jasmine.createSpy('baton.take');

@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 describe("wac_Account", function () {
-
     var Account = require('ripple/platform/wac/1.0/Account'),
-        Device = require('ripple/platform/wac/1.0/Device'),
         deviceSettings = require('ripple/deviceSettings'),
         platform = require('ripple/platform');
 
@@ -50,5 +48,4 @@ describe("wac_Account", function () {
         deviceSettings.register("Account.accountId", "whatup");
         expect(Account.accountId).toEqual("whatup");
     });
-
 });

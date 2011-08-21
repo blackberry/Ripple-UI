@@ -14,15 +14,8 @@
  * limitations under the License.
  */
 describe("wac_Device", function () {
-
-
     var Device = require('ripple/platform/wac/1.0/Device'),
-        ExceptionTypes = require('ripple/platform/wac/1.0/ExceptionTypes'),
-        deviceSettings = require('ripple/deviceSettings'),
-        platform = require('ripple/platform'),
-        devices = require('ripple/devices'),
-        exception = require('ripple/exception'),
-        HVGA = require('ripple/devices/HVGA');
+        ExceptionTypes = require('ripple/platform/wac/1.0/ExceptionTypes');
 
     function anInvalidParameterException(e) {
         return e.type === ExceptionTypes.INVALID_PARAMETER;
@@ -35,7 +28,6 @@ describe("wac_Device", function () {
     });
 
     it("vibrate should throw exception when not passed a valid start time", function () {
-
         expect(function () {
             Device.vibrate();
         }).toThrow(anInvalidParameterException);
@@ -46,5 +38,4 @@ describe("wac_Device", function () {
             Device.vibrate(50);
         }).not.toThrow();
     });
-
 });

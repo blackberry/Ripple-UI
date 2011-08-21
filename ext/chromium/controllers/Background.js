@@ -32,8 +32,7 @@ tinyHippos.Background = (function () {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 var manifest = JSON.parse(xhr.responseText),
-                    currentVersion = manifest.version,
-                    updatePage = chrome.extension.getURL("views/update.html");
+                    currentVersion = manifest.version;
 
                 if (!version) {
                     _wasJustInstalled = true;

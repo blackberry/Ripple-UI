@@ -18,7 +18,6 @@ describe("webworks menu", function () {
         client = require('ripple/platform/webworks.handset/2.0.0/client/menu'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         MenuItem = require('ripple/platform/webworks.handset/2.0.0/client/MenuItem'),
-        events = require('ripple/platform/webworks.core/2.0.0/client/events'),
         event = require('ripple/event'),
         ui = require('ripple/ui'),
         MockBaton = function () {
@@ -107,13 +106,13 @@ describe("webworks menu", function () {
 
         it("throws an exception if MenuItem is created with an ordinal less than 0", function () {
             expect(function () {
-                var item = new MenuItem(false, -1, "Hello World", function () {});
+                new MenuItem(false, -1, "Hello World", function () {});
             }).toThrow();
         });
 
         it("throws an exception if caption is not provided and seperator is false", function () {
             expect(function () {
-                var item = new MenuItem(false, 1);
+                new MenuItem(false, 1);
             }).toThrow();
         });
     });
@@ -172,8 +171,6 @@ describe("webworks menu", function () {
     });
 
     describe("menu events", function () {
-        var menuItem = new MenuItem(false, 1, "Menu item 1", function () {});
-
         it("open request shows the menu overlay", function () {
             spyOn(ui, "showOverlay");
             menu.open();

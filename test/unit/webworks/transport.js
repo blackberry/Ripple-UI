@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 describe("webworks transport", function () {
-    var webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
-        spec = require('ripple/platform/webworks.handset/2.0.0/spec'),
+    var spec = require('ripple/platform/webworks.handset/2.0.0/spec'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
     describe("spec index", function () {
@@ -147,10 +146,6 @@ describe("webworks transport", function () {
                 });
 
                 it("throws an exception for sync calls with no error callback", function () {
-
-                    var success = jasmine.createSpy(),
-                        error = jasmine.createSpy();
-
                     xhr.readyState = 4;
                     xhr.status = 200;
 

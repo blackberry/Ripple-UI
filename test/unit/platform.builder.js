@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 describeBrowser("platform builder", function () {
-
     var sinon = require('sinon'),
         builder = require('ripple/platform/builder'),
         app = require('ripple/app'),
-        db = require('ripple/db'),
-        platform = require('ripple/platform'),
         s;
 
     beforeEach(function () {
@@ -31,7 +28,6 @@ describeBrowser("platform builder", function () {
     });
 
     it("it requires in the module for the path", function () {
-
         var target = {};
         require.define('ripple/platform/xmen/1.0/cyclops', s.mock().once());
 
@@ -46,8 +42,7 @@ describeBrowser("platform builder", function () {
     });
 
     it("it creates the children", function () {
-        var target = {},
-            magneto = {};
+        var target = {};
 
         require.define('ripple/platform/xmen/1.0/magneto', s.mock().once());
         require.define('ripple/platform/xmen/1.0/scarletWitch', s.mock().once());
@@ -75,9 +70,7 @@ describeBrowser("platform builder", function () {
         delete require.modules['ripple/platform/xmen/1.0/quicksilver'];
     });
 
-
     it("when a path is not given it creates an empty object literal in its place", function () {
-
         var target = {};
 
         builder.build({
@@ -118,7 +111,6 @@ describeBrowser("platform builder", function () {
         });
 
         it("includes the object if the app info contains the feature", function () {
-
             var target = {};
 
             spyOn(app, "getInfo").andReturn({
@@ -153,7 +145,6 @@ describeBrowser("platform builder", function () {
         });
 
         it("can search in a pipe delimited list of features", function () {
-
             var target = {};
 
             spyOn(app, "getInfo").andReturn({
@@ -224,6 +215,5 @@ describeBrowser("platform builder", function () {
         }).into(target);
 
         expect(target.John).not.toBeDefined();
-
     });
 });

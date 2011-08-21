@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 describe("wac_Accelerometer", function () {
-
     // TODO: fix some of these things, should just be mocking Accelerometer
-    var AccelerometerInfo = require('ripple/platform/wac/1.0/AccelerometerInfo'),
-        DeviceStateInfo = require('ripple/platform/wac/1.0/DeviceStateInfo'),
-        devices = require('ripple/devices');
+    var AccelerometerInfo = require('ripple/platform/wac/1.0/AccelerometerInfo');
 
     it("returns x,y,z coordinates on poll", function () {
         var x = AccelerometerInfo.xAxis,
@@ -29,5 +26,4 @@ describe("wac_Accelerometer", function () {
         expect(typeof y).toEqual("number");
         expect(typeof z).toEqual("number");
     });
-
 });

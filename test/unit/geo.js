@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 describe("geo", function () {
-
     var geo = require('ripple/geo'),
         db = require('ripple/db'),
         event = require('ripple/event'),
@@ -53,8 +52,7 @@ describe("geo", function () {
     });
 
     it("updatePositionInfo throws exception when invalid input", function () {
-        var caught = false,
-            positionInfo = {
+        var positionInfo = {
                 latitude: "12",
                 longitude: false,
                 altitudeAccuracy: true,
