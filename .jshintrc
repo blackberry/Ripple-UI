@@ -69,7 +69,7 @@
     "boss" : false,
     "curly": false,
     "bitwise" : true,
-    "white": false,
+    "white": true,
     "indent": 4,
     "evil": false,
     "devel": true,
