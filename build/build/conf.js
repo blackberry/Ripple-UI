@@ -1,6 +1,6 @@
 /*
  *  Copyright 2011 Research In Motion Limited.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -25,7 +25,7 @@ module.exports = {
     UI: __dirname + "/../../lib/ripple/ui/",
     DEVICES: __dirname + "/../../lib/ripple/devices/",
     THIRDPARTY: __dirname + "/../../thirdparty/",
-    DEPLOY: __dirname + "/../../../ripple_build/",
+    DEPLOY: __dirname + "/../../pkg/",
     SPACES_AND_TABS: /\n+|\s+|\t{2,}/g,
     ESCAPED_QUOTES: '\'+"\'"+\'',
     thirdpartyIncludes: [
