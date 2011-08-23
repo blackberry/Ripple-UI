@@ -1,6 +1,6 @@
 /*
  *  Copyright 2011 Research In Motion Limited.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 module.exports = function (done, files) {
-    var args = files && files.length > 0 ? files : ["test/", "lib/", "build/", "ext/"],
-        options = ["--reporter", "build/lint/reporter.js"],
+    var args = files && files.length > 0 ? files : ["."],
+        options = ["--reporter", "build/lint/reporter.js", "--show-non-errors"],
         spawn = require('child_process').spawn,
         cmd = spawn('jshint', args.concat(options)),
         sys = require('sys');

@@ -1,6 +1,6 @@
 /*
  *  Copyright 2011 Research In Motion Limited.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,8 +32,7 @@ tinyHippos.Background = (function () {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 var manifest = JSON.parse(xhr.responseText),
-                    currentVersion = manifest.version,
-                    updatePage = chrome.extension.getURL("views/update.html");
+                    currentVersion = manifest.version;
 
                 if (!version) {
                     _wasJustInstalled = true;

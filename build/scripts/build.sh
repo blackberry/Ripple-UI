@@ -14,12 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#cd to root of the repo
-cd ../..
-
 #declare the paths relative to the root
-BUILD_OUTPUT=build_output
-RIPPLE_BUILD=../ripple_build
+BUILD_OUTPUT=../../build_output
+RIPPLE_BUILD=../../pkg
 
 #clear build_output directory
 rm -fr $BUILD_OUTPUT 
