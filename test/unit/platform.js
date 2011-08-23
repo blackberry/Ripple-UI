@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 describe("platform", function () {
-
     var platform = require('ripple/platform'),
         db = require('ripple/db'),
         app = require('ripple/app'),
         builder = require('ripple/platform/builder'),
         event = require('ripple/event'),
-        _console = require('ripple/console'),
-        resizer = require('ripple/resizer'),
-        constants = require('ripple/constants'),
-        HVGA = require('ripple/devices/HVGA'),
-        _platformChangeEventTriggered;
+        _console = require('ripple/console');
 
     beforeEach(function () {
         spyOn(db, "retrieveObject");

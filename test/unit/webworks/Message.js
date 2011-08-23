@@ -48,12 +48,12 @@ describe("webworks Message", function () {
 
             it("test when constructing without a service it gets the default email service", function () {
                 s.mock(identity).expects("getDefaultService").once().returns([]);
-                var m = new Message();
+                new Message();
             });
 
             it("when constructing with a service it doesn't get the defeault email service", function () {
                 s.mock(identity).expects("getDefaultService").never();
-                var m = new Message(new Service());
+                new Message(new Service());
             });
 
             it("that the default values are set correctly on a new message", function () {
@@ -183,8 +183,7 @@ describe("webworks Message", function () {
                 spyOn(identity, "getDefaultService").andReturn([{type: 0}]);
                 spyOn(transport, "call");
 
-                var item = new Message(),
-                    service = new Service();
+                var item = new Message();
                 item.save();
 
                 expect(item.uid).toEqual(45);

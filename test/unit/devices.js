@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 describe("devices", function () {
-
     var devices = require('ripple/devices'),
         platform = require('ripple/platform'),
         event = require('ripple/event'),
@@ -42,7 +41,7 @@ describe("devices", function () {
 
     it("getDevice should return overridden device values for platform and version", function () {
         //HACK this is a integration test
-        var device = devices.getDevice("iPhone3", "phonegap", "0.9");
+        devices.getDevice("iPhone3", "phonegap", "0.9");
     });
 
     it("getDevice should return device with device.overrides if API param not provided", function () {
@@ -55,7 +54,6 @@ describe("devices", function () {
     });
 
     describe("when HardwareKeyDefault is raised", function () {
-
         var _window;
 
         beforeEach(function () {

@@ -77,10 +77,7 @@ describeBrowser("widgetConfig", function () {
     });
 
     it("config_file_validation_returns_true_for_a_valid_config_file", function () {
-        var configXML,
-            evaluator,
-            resolver,
-            configNodes;
+        var configXML;
 
         configXML = _getConfig("config.xml");
         expect(widgetConfig.validate(configXML).widget.validationResult[0].valid).toEqual(true);
@@ -88,9 +85,6 @@ describeBrowser("widgetConfig", function () {
 
     it("config_file_validation_returns_returns_proper_nodes_as_being_validated", function () {
         var configXML,
-            evaluator,
-            resolver,
-            configNodes,
             result;
 
         configXML = _getConfig("config.xml");
@@ -113,9 +107,6 @@ describeBrowser("widgetConfig", function () {
 
     it("config_file_validation_validates_for_required_widget_and_icon_nodes", function () {
         var configXML,
-            evaluator,
-            resolver,
-            configNodes,
             result;
 
         configXML = _getConfig("config_no_widet_node.xml");
@@ -128,9 +119,6 @@ describeBrowser("widgetConfig", function () {
 
     it("config_file_validation_validates_that_only_one_name_node_can_exist", function () {
         var configXML,
-            evaluator,
-            resolver,
-            configNodes,
             result;
 
         configXML = _getConfig("config_multiple_name_nodes.xml");
@@ -144,9 +132,6 @@ describeBrowser("widgetConfig", function () {
 
     it("config_file_validation_validates_that_multiple_unique_name_node_can_exist", function () {
         var configXML,
-            evaluator,
-            resolver,
-            configNodes,
             result;
 
         configXML = _getConfig("config_multiple_name_nodes_unique.xml");
@@ -156,9 +141,6 @@ describeBrowser("widgetConfig", function () {
 
     it("config_file_validation_fails_for_bad_attributes", function () {
         var configXML,
-            evaluator,
-            resolver,
-            configNodes,
             result;
 
         configXML = _getConfig("config_with_missing_attributes.xml");
@@ -174,9 +156,6 @@ describeBrowser("widgetConfig", function () {
 
     it("config_file_validation_catches_bad_urls_and_emails_in_attributes", function () {
         var configXML,
-            evaluator,
-            resolver,
-            configNodes,
             result;
 
         configXML = _getConfig("config_with_bad_url_email_attributes.xml");

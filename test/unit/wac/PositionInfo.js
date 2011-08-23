@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 describe("wac_PositionInfo", function () {
-
     var PositionInfo = require('ripple/platform/wac/1.0/PositionInfo'),
         db = require('ripple/db'),
-        event = require('ripple/event'),
         geo = require('ripple/geo'),
         stub = {
             "latitude": 43.465187,

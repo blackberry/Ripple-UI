@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 describe("wac_Config", function () {
-
     var Config = require('ripple/platform/wac/1.0/Config'),
-        sinon = require('sinon'),
-        s,
         ExceptionTypes = require('ripple/platform/wac/1.0/ExceptionTypes'),
         deviceSettings = require('ripple/deviceSettings'),
         platform = require('ripple/platform');

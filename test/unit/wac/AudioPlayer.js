@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 describe("wac_AudioPlayer", function () {
-
     var platform = require('ripple/platform'),
-        utils = require('ripple/utils'),
         event = require('ripple/event'),
         _console = require('ripple/console'),
-        exception = require('ripple/exception'),
         fileSystem = require('ripple/fileSystem'),
-        ExceptionTypes = require('ripple/platform/wac/1.0/ExceptionTypes'),
         AudioPlayer = require('ripple/platform/wac/1.0/AudioPlayer'),
         sinon = require('sinon'),
         s,
@@ -146,7 +142,6 @@ describe("wac_AudioPlayer", function () {
     });
 
     it("play throws invalid param when given invalid number of arguments", function () {
-
         expect(function () {
             AudioPlayer.open(AUDIO_FILE);
             AudioPlayer.play(1, 2);
@@ -295,5 +290,4 @@ describe("wac_AudioPlayer", function () {
         s.mock(_console).expects("warn").never();
         AudioPlayer.open("audio.mp3");
     });
-
 });

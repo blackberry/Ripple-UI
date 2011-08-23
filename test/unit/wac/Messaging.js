@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 describe("wac_Messaging", function () {
-
     var messaging = require('ripple/platform/wac/1.0/Messaging'),
         Message = require('ripple/platform/wac/1.0/Message'),
         platform = require('ripple/platform'),
         notifications = require('ripple/notifications'),
         constants = require('ripple/constants'),
         _console = require('ripple/console'),
-        ExceptionTypes = require('ripple/platform/wac/1.0/ExceptionTypes'),
         MessageTypes = require('ripple/platform/wac/1.0/MessageTypes'),
         sinon = require('sinon'),
         s;
@@ -31,14 +29,12 @@ describe("wac_Messaging", function () {
         spyOn(_console, "log");
     });
 
-
     afterEach(function () {
         s.verifyAndRestore();
     });
 
     it("is a message returned on create", function () {
         var msg = messaging.createMessage(MessageTypes.SMSMessage);
-
         expect(msg.messageType).toEqual(MessageTypes.SMSMessage, "The message isn't the right type");
     });
 
@@ -117,5 +113,4 @@ describe("wac_Messaging", function () {
         expect(msg.bccAddress.length).toEqual(1);
         expect(msg.bccAddress[0]).toEqual("5199541707");
     });
-
 });

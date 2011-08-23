@@ -521,7 +521,6 @@ describe("webworks finder", function () {
                     "2": {name: "Nino"},
                     "6": {name: "Nukul"}
                 },
-                fe = new FilterExpression("name", "==", "Dan"),
                 result = select.from(team).orderBy("name").max(10).where();
 
             expect(result.length).toEqual(utils.count(team));

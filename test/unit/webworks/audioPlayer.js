@@ -167,8 +167,7 @@ describe("webworks audio.Player", function () {
 
         describe("addPlayerListener", function () {
             it("polls for audio player events", function () {
-                var callback = function () {},
-                    events = [
+                var events = [
                         "onStart", "onStopped", "onBufferingStarted", "onBufferingStopped",
                         "onDurationUpdated", "onEnd", "onError", "onVolumeChange", "onClose"
                     ];

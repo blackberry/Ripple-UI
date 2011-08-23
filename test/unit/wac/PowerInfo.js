@@ -15,12 +15,9 @@
  */
 describe("wac_PowerInfo", function () {
     var PowerInfo = require('ripple/platform/wac/1.0/PowerInfo'),
-        Widget = require('ripple/platform/wac/1.0/Widget'),
-        devices = require('ripple/devices'),
         deviceSettings = require('ripple/deviceSettings'),
         event = require('ripple/event'),
         _console = require('ripple/console'),
-        HVGA = require('ripple/devices/HVGA'),
         platform = require('ripple/platform');
 
     beforeEach(function () {

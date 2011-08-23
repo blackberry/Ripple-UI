@@ -16,9 +16,7 @@
 describe("webworks contact", function () {
     var contact = require('ripple/platform/webworks.handset/2.0.0/server/contact'),
         Contact = require('ripple/platform/webworks.handset/2.0.0/client/Contact'),
-        Address = require('ripple/platform/webworks.handset/2.0.0/client/Address'),
         webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
-        utils = require('ripple/utils'),
         db = require('ripple/db'),
         select = require('ripple/platform/webworks.core/2.0.0/select'),
         FilterExpression = require('ripple/platform/webworks.handset/2.0.0/client/FilterExpression'),
@@ -155,9 +153,6 @@ describe("webworks contact", function () {
                     var _contact = {
                             uid: "id",
                             prop: "value"
-                        },
-                        contacts = {
-                            "id": _contact
                         };
 
                     chain.where.andReturn([_contact]);
@@ -207,11 +202,7 @@ describe("webworks contact", function () {
 
             describe("remove", function () {
                 it("can remove a contact", function () {
-                    var item = {
-                            uid: "42",
-                            prop: "value"
-                        },
-                        contacts = {
+                    var contacts = {
                             "42": contact
                         };
 

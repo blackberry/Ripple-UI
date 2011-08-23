@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 describe("wac_Widget", function () {
-
     var Widget = require('ripple/platform/wac/1.0/Widget'),
         Exception = require('ripple/platform/wac/1.0/Exception'),
         event = require('ripple/event'),
@@ -34,8 +33,6 @@ describe("wac_Widget", function () {
         s.verifyAndRestore();
     });
 
-    // --------- Tests -------- \\
-
     it("Exception_can_be_thrown_properly", function () {
         // TODO: look into more, so does this mean you can have race conditions where this Static Exception object is used around the same time?
         var exception = Exception;
@@ -50,8 +47,6 @@ describe("wac_Widget", function () {
             expect(e.type).toBe("testype");
         }
     });
-
-    // -------- Widget
 
     it("setPreferenceForKey_throws_INVALID_PARAMETER_exception_when_invalid_argument_types", function () {
         expect(function () {
@@ -81,7 +76,6 @@ describe("wac_Widget", function () {
         Widget.setPreferenceForKey("a", "b");
     });
 
-
     it("setPreferenceForKey_adds_and_removes_key_properly", function () {
         s.mock(db).expects("remove").once();
         Widget.setPreferenceForKey(null, "removes_key");
@@ -91,8 +85,6 @@ describe("wac_Widget", function () {
         expect(Widget.preferenceForKey("nonexistentkey")).not.toBeDefined();
     });
 
-    // -------- Widget.preferenceForKey
-
     it("preferenceForKey_throws_INVALID_PARAMETER_exception_when_invalid_argument_types", function () {
         expect(function () {
             Widget.preferenceForKey(5);
@@ -100,8 +92,6 @@ describe("wac_Widget", function () {
     });
 
     it("preferenceForKey_throws_INVALID_PARAMETER_exception_when_invalid_argument_lengths", function () {
-        var msg = "INVALID_PARAMETER exception was expected but one was not thrown or another was encountered.";
-
         expect(function () {
             Widget.preferenceForKey(false, new Date());
         }).toThrow();
@@ -109,6 +99,5 @@ describe("wac_Widget", function () {
         expect(function () {
             Widget.preferenceForKey();
         }).toThrow();
-
     });
 });

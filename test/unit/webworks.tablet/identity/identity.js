@@ -18,7 +18,6 @@ describe("webworks identity", function () {
         deviceSpec = require('ripple/platform/webworks.handset/2.0.0/spec/device'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         identityClient = require('ripple/platform/webworks.tablet/2.0.0/client/identity'),
-        platform = require('ripple/platform'),
         deviceSettings = require('ripple/deviceSettings'),
         spec = require('ripple/platform/webworks.tablet/2.0.0/spec'),
         webworks = require('ripple/platform/webworks.tablet/2.0.0/server');

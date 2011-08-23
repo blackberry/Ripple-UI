@@ -15,8 +15,7 @@
  */
 describe("phonegap_compass", function () {
     var compass = require('ripple/platform/phonegap/1.0/compass'),
-        geo = require('ripple/geo'),
-        event = require('ripple/event');
+        geo = require('ripple/geo');
 
     it("clearWatch clears interval", function () {
         spyOn(global, "clearInterval");
@@ -54,8 +53,7 @@ describe("phonegap_compass", function () {
     });
 
     it("can watch the heading with custom frequency", function () {
-        var watchId,
-            options = {frequency: 10},
+        var options = {frequency: 10},
             failure = jasmine.createSpy("failure"),
             success = jasmine.createSpy("success");
 

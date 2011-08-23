@@ -238,7 +238,7 @@ describe("phonegap_contacts", function () {
         it("returns default contacts when none persisted", function () {
             waits(1);
             contacts.find(["name", "displayName", "emails"], function (items) {
-                var prop, count, i;
+                var i;
                 expect(items.length, 5, "expected five default contacts");
                 for (i = 0; i < items.length; i++) {
                     expect(typeof items[i].id).toEqual("string");
