@@ -1,6 +1,7 @@
 {
     "predef": [ 
         "webkitNotifications",
+        "FileError",
         "DOMDocument",
         "$", "it", "describe",
         "xit", "xdescribe",
