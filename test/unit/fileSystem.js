@@ -1,4 +1,5 @@
-var fileSystem = require('ripple/fileSystem');
+var fileSystem = require('ripple/fileSystem'),
+    utils = require('ripple/utils');
 
 describe("fileSystem", function () {
     var _resultEntries,
@@ -18,8 +19,8 @@ describe("fileSystem", function () {
 
         _fs = {
             root: {
-                getDirectory: function (path, options, callback) {
-                    callback(_dirEntry);
+                getDirectory: function (path, options, success, error) {
+                    success(_dirEntry);
                 }
             }
         };
@@ -28,6 +29,9 @@ describe("fileSystem", function () {
         window.PERSISTENT = 1;
         window.webkitRequestFileSystem = window.requestFileSystem = function (persistenceMethod, fsSize, success, failure) {
             success(_fs);
+        };
+
+        window.webkitResolveLocalFileSystemURL = window.resolveLocalFileSystemURL = function (url, success, failure) {
         };
 
         fileSystem.initialize();
@@ -64,8 +68,8 @@ describe("fileSystem", function () {
             var error = jasmine.createSpy(),
                 success = jasmine.createSpy();
 
-            _fs.root.getDirectory = function (path, options, callback) {
-                callback(_resultEntries[0]);
+            _fs.root.getDirectory = function (path, options, success, error) {
+                success(_resultEntries[0]);
             };
 
             spyOn(_fs.root, "getDirectory").andCallThrough();
@@ -90,8 +94,8 @@ describe("fileSystem", function () {
             var error = jasmine.createSpy(),
                 success = jasmine.createSpy();
 
-            _fs.root.getFile = function (path, options, callback) {
-                callback(_resultEntries[0]);
+            _fs.root.getFile = function (path, options, success, error) {
+                success(_resultEntries[0]);
             };
 
             spyOn(_fs.root, "getFile").andCallThrough();
@@ -157,5 +161,115 @@ describe("fileSystem", function () {
         });
 
         // it does not return empty array when found values
+    });
+
+    describe("rm", function () {
+        it("removes la file from the root", function () {
+            var error = jasmine.createSpy(),
+                remove = jasmine.createSpy().andCallFake(function (callback) {
+                    callback();
+                }),
+                success = jasmine.createSpy();
+
+            _fs.root.getFile = function (path, options, success, error) {
+                success(_resultEntries[0]);
+            };
+
+            spyOn(_fs.root, "getFile").andCallThrough();
+
+            _resultEntries = [
+                {name: "/foo", isDirectory: false, remove: remove}
+            ];
+
+            fileSystem.rm("/foo", success, error);
+
+            expect(_fs.root.getFile.argsForCall[0][0]).toEqual("/foo");
+            expect(_fs.root.getFile.argsForCall[0][1]).toEqual({create: false});
+            expect(typeof _fs.root.getFile.argsForCall[0][2]).toEqual("function");
+            expect(_fs.root.getFile.argsForCall[0][3]).toEqual(error);
+            expect(success).toHaveBeenCalledWith(_resultEntries[0]);
+            expect(typeof remove.argsForCall[0][0]).toEqual("function");
+            expect(remove.argsForCall[0][1]).toEqual(error);
+            expect(error).not.toHaveBeenCalled();
+        });
+
+        it("removes a directory recursively", function () {
+            var error = jasmine.createSpy(),
+                removeRecursively = jasmine.createSpy().andCallFake(function (callback) {
+                    callback();
+                }),
+                success = jasmine.createSpy();
+
+            _fs.root.getDirectory = function (path, options, success, error) {
+                success(_resultEntries[0]);
+            };
+
+            spyOn(_fs.root, "getDirectory").andCallThrough();
+
+            _resultEntries = [
+                {name: "/foo", isDirectory: true, removeRecursively: removeRecursively}
+            ];
+
+            fileSystem.rm("/foo", success, error, {recursive: true});
+
+            expect(_fs.root.getDirectory.argsForCall[0][0]).toEqual("/foo");
+            expect(_fs.root.getDirectory.argsForCall[0][1]).toEqual({create: false});
+            expect(typeof _fs.root.getDirectory.argsForCall[0][2]).toEqual("function");
+            expect(_fs.root.getDirectory.argsForCall[0][3]).toEqual(error);
+            expect(success).toHaveBeenCalledWith(_resultEntries[0]);
+            expect(typeof removeRecursively.argsForCall[0][0]).toEqual("function");
+            expect(removeRecursively.argsForCall[0][1]).toEqual(error);
+            expect(error).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("rmdir", function () {
+        it("removes a directory", function () {
+            var error = jasmine.createSpy(),
+                success = jasmine.createSpy();
+                
+            spyOn(fileSystem, "rm");
+            fileSystem.rmdir("/foo", success, error);
+            expect(fileSystem.rm).toHaveBeenCalledWith("/foo", success, error, {recursive: false});
+        });
+    });
+
+    describe("stat", function () {
+        it("retrieves the status of a file", function () {
+            var entry = {
+                    name: "/bob",
+                    isDirectory: false
+                },
+                domain = "http://dude.com",
+                error = jasmine.createSpy(),
+                success = jasmine.createSpy();
+
+            spyOn(window, "resolveLocalFileSystemURL").andCallFake(function (url, success, error) {
+                success(entry);
+            });
+
+            spyOn(utils, "location").andReturn({origin: domain}); 
+
+            fileSystem.stat("/bob", success, error);
+
+            expect(window.resolveLocalFileSystemURL.argsForCall[0][0])
+                .toEqual("filesystem:" + domain + "/temporary//bob");
+            expect(typeof window.resolveLocalFileSystemURL.argsForCall[0][1]).toEqual("function");
+            expect(window.resolveLocalFileSystemURL.argsForCall[0][2]).toEqual(error);
+            expect(success).toHaveBeenCalledWith(entry);
+        });
+    });
+
+    xdescribe("mv", function () {
+        it("can move a file from one location to another", function () {
+            var entry = {
+                name: "sherman",
+                isDirectory: true
+            };
+
+            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+                success(entry);
+            });
+        });
     });
 });
