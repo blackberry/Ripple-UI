@@ -43,14 +43,18 @@ input, textarea, keygen, select, button, isindex, datagrid {
     height: 70px;
 }
 
-.beta{
+.beta {
     -webkit-transform: rotate(-35deg);
+    -moz-transform: rotate(-35deg);
+    -ms-transform: rotate(-35deg);
+    -o-transform: rotate(-35deg);
+    transform: rotate(-35deg);
     position: absolute;
     left: 390px;
     top: 7px;
 }
 
-.main{
+.main {
     font-size: 12px !important;
 }
 
@@ -61,17 +65,17 @@ input, textarea, keygen, select, button, isindex, datagrid {
     cursor: pointer;
 }
 
-.main img{ border: 0; margin: 0; padding: 0; }
+.main img { border: 0; margin: 0; padding: 0; }
 
-.main table, .main tr, .main td, .main th{
+.main table, .main tr, .main td, .main th {
     border: 0;
 }
 
 .main table{
     font-size: 1.00em;
-}
+ }
 
-.main input[type^=text], .main input[type^=number], .main select, .main textarea{
+.main input[type^=text], .main input[type^=number], .main select, .main textarea {
     -webkit-appearance: none;
     padding: 0.4em 1em !important;
 }
@@ -93,21 +97,21 @@ input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
     padding: 0.4em 0.5em 0.4em 0;
 }
 
-.main button:hover, .main select, .main input[type^=submit]:hover, .main input[type^=checkbox]:hover{
+.main button:hover, .main select, .main input[type^=submit]:hover, .main input[type^=checkbox]:hover {
     cursor: pointer;
 }
 
-.h1, .main h1{ font-size: 1.25em; font-weight: bold; }
+.h1, .main h1 { font-size: 1.25em; font-weight: bold; }
 
-.h2, .main h2{ font-size: 1.14em; font-weight: bold;}
+.h2, .main h2 { font-size: 1.14em; font-weight: bold; }
 
-.h3, .main h3{ font-size: 1.07em; font-weight: bold; }
+.h3, .main h3 { font-size: 1.07em; font-weight: bold; }
 
-.h4, .main h4{ font-size: 1em; font-weight: normal; }
+.h4, .main h4 { font-size: 1em; font-weight: normal; }
 
-.irrelevant{  display: none; }
+.irrelevant { display: none; }
 
-section, header, footer, aside, nav{ display: block; }
+section, header, footer, aside, nav { display: block; }
 
 /* ------------------------------>
     Top Section */
@@ -276,21 +280,23 @@ section.left { left: 0; }
     text-align: left;
 }
 
-.preferences-table td:nth-child(2), .preferences-table th:nth-child(2){
+.preferences-table td:nth-child(2), .preferences-table th:nth-child(2) {
     width: 70%;
     word-break: break-all;
 }
 
-/* Panel UI */
-.collapse-handle{
+/* ------------------------------>
+    Panel UI */
+
+.collapse-handle {
     padding: 5px 9px;
 }
 
-.drag-handle:hover{
+.drag-handle:hover {
     opacity: 0.75;
 }
 
-.drag-handle:active{
+.drag-handle:active {
     opacity: 1.0;
 }
 
@@ -309,7 +315,9 @@ section.left { left: 0; }
     opacity: 0.9;
 }
 
-/* overlay UI */
+/* ------------------------------>
+    overlay UI */
+
 .overlay {
     z-index: 10000;
     width: 100%;
@@ -340,7 +348,7 @@ section.left { left: 0; }
     background: rgba(0,0,0,1.0);
 }
 
-.overlay-dialog-message{
+.overlay-dialog-message {
     width: 100%;
     max-height: 50%;
     display: block;
@@ -348,7 +356,7 @@ section.left { left: 0; }
     overflow-x: hidden;
 }
 
-.overlay-dialog-buttons{
+.overlay-dialog-buttons {
     padding-top: 10px;
     width:100%;
     text-align: center;
@@ -391,29 +399,29 @@ section.left { left: 0; }
     -webkit-border-radius: 1ex;  
 }
 
-.overlay-menu-item, .overlay-menu-item-default{
+.overlay-menu-item, .overlay-menu-item-default {
     width: 100%;
     display:block;
     font-size: 1.65em;
 }
 
-.overlay-menu-item:hover,  .overlay-menu-item-default:hover{
+.overlay-menu-item:hover, .overlay-menu-item-default:hover {
     background-color: #0f55ad;
     cursor: pointer;
 }
 
-.overlay-menu-item-default{
+.overlay-menu-item-default {
     background-color: #1F1F1F;
 }
 
-.overlay-menu-buttons > table{
+.overlay-menu-buttons > table {
     color: #FFF;
 }
 
 /* ------------------------------>
     Notifications */
 
-#panel-notification{
+#panel-notification {
     position: absolute;
     width: 40%;
     min-height: 100px;
@@ -427,7 +435,7 @@ section.left { left: 0; }
     z-index: 1100;
 }
 
-.panel-notification-closebtn{
+.panel-notification-closebtn {
     position: relative;
     float: right;
     z-index: 999;
@@ -437,16 +445,17 @@ section.left { left: 0; }
     border-radius: 6px;
 }
 
-.panel-notification-closebtn:hover{
+.panel-notification-closebtn:hover {
     text-decoration: underline;
 }
 
-#panel-notification-text{
+#panel-notification-text {
     word-wrap: break-word;
 }
 
 /* ------------------------------>
     UI.Devices */
+
 #layout-portrait, #layout-landscape {
     display: inline-block;
     width:16px;
@@ -457,6 +466,7 @@ section.left { left: 0; }
 
 #layout-landscape {
     -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
 .layout-selected {
@@ -470,7 +480,7 @@ section.left { left: 0; }
 /* ------------------------------>
     UI.Geo */
 
-#geo-map{
+#geo-map {
     position: relative;
     padding: 10px 0;
     width: 316px;
@@ -541,18 +551,18 @@ section.left { left: 0; }
     padding: .25em .5em !important;
 }
 
-#widget-config div > h3:hover{
+#widget-config div > h3:hover {
     cursor: pointer;
 }
 
 #widget-config h3 a{
     text-decoration: none !important;
 }
-#widget-config h3 a:hover{
+#widget-config h3 a:hover {
     text-decoration: none !important;
 }
 
-.configPass, .configFail{
+.configPass, .configFail {
     height: auto !important;
 }
 
@@ -601,11 +611,11 @@ section.left { left: 0; }
     clear: both;
 }
 
-.information-widgetname{
+.information-widgetname {
     font-weight: bold;
 }
 
-.information-widgetversion{
+.information-widgetversion {
 }
 
 #emulator-booting {
@@ -655,79 +665,6 @@ section.left { left: 0; }
 #change-platform {
     width: 100%;
     margin: 0.5em 0;
-}
-
-/* ------------------------------>
-    UI.Telephony */
-
-.call-number {
-    width: 100px;
-}
-
-.call-name {
-    width: 130px !important;
-}
-
-/* ------------------------------>
-    UI.PhotoGrid */
-
-#photogrid-window {
-    font-size: 5em;
-    text-align: center;
-    color: #1E1E1E;
-    vertical-align: middle;    
-    background-color: #000000;
-}
-
-.photogrid-photo {
-    position: relative;
-    float: left;
-}
-
-.photogrid-item {
-    width: 100px;
-}
-
-#photogallery-window {
-    font-size: 5em;
-    text-align:center;
-    color: #1E1E1E;
-    background-color: #000000;
-}
-
-#photogallery-container {
-    height: 100%;
-    /* flexbox, por favor */
-    display: -webkit-box;
-    /* this could be vertical, too */
-    -webkit-box-orient: horizontal;
-    /* these centers do the hard work */
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
-}
-
-.photogallery-photo {
-    vertical-align: middle;
-    border: 2px groove #000000;
-}
-
-/* ------------------------------>
-    UI.Multimedia Table */
-
-.audio-table td:nth-child(2) {
-    word-wrap: break-word;
-    max-width: 200px;
-}
-.video-table td:nth-child(2) {
-    word-wrap: break-word;
-    max-width: 200px;
-}
-
-/* ------------------------------>
-    UI.Security Settings */
-
-#security-level-select {
-    width: 90%;
 }
 
 /* ------------------------------>
@@ -894,8 +831,6 @@ section.left { left: 0; }
     background-color: #222222;
     opacity: 0.5;
 }
-
-::-webkit-scrollbar:hover {}
 
 ::-webkit-resizer {
     -webkit-border-radius: 4px;

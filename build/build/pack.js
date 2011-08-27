@@ -26,7 +26,6 @@ module.exports = function () {
         src = {
             info: JSON.parse(fs.readFileSync(_c.PACKAGE_JSON, "utf-8")),
             js: "",
-            injection: "",
             overlays: "",
             panels: "",
             html: "",

@@ -13,17 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module.exports = function (done, files) {
-    var args = files && files.length > 0 ? files : ["."],
-        options = ["--reporter", "build/lint/reporter.js", "--show-non-errors"],
-        spawn = require('child_process').spawn,
-        cmd = spawn('jshint', args.concat(options)),
-        sys = require('sys');
+var childProcess = require('child_process'),
+    sys = require('sys'),
+    fs = require('fs');
 
+function _spawn(proc, args, done) {
+    var cmd = childProcess.spawn(proc, args);
     cmd.stdout.on('data', sys.print);
     cmd.stderr.on('data', sys.print);
-
     if (done) {
         cmd.on('exit', done);
     }
+}
+
+function _lintJS(files, done) {
+    var options = ["--reporter", "build/lint/reporter.js", "--show-non-errors"];
+    _spawn('jshint', files.concat(options), done);
+}
+
+function _lintCSS(files, done) {
+    var rules = JSON.parse(fs.readFileSync(__dirname + "/../.csslintrc", "utf-8")),
+        options = ["--rules=" + rules, "--format=compact", "ext", "lib", "test"];
+    _spawn('csslint', files.concat(options), done);
+}
+
+module.exports = function (done, files) {
+    _lintJS(files && files.length > 0 ? files : ["."], function () {
+        _lintCSS(files && files.length > 0 ? files : ["ext", "lib", "test"], done);
+    });
 };
