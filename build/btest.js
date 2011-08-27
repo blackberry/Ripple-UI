@@ -20,6 +20,10 @@ module.exports = function () {
         utils = require('./build/utils'),
         libs = [],
         tests = [],
+        html = fs.readFileSync(__dirname + "/btest/test.html", "utf-8"),
+        doc,
+        modules,
+        specs,
         app = connect(
             connect.static(__dirname + "/../lib/"),
             connect.static(__dirname + "/../"),
@@ -32,9 +36,7 @@ module.exports = function () {
                     res.end(doc);
                 });
             })
-        ),
-        html = fs.readFileSync(__dirname + "/btest/test.html", "utf-8"),
-        doc, modules, specs;
+        );
 
     utils.collect(__dirname + "/../lib", libs);
     utils.collect(__dirname + "/../test", tests);

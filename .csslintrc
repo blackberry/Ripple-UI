@@ -1,13 +1,8 @@
 [
-    "unique-headings",
-    "qualified-headings",
-    "ids",
-    "font-sizes",
     "floats",
     "overqualified-elements",
     "zero-units",
     "universal-selector",
-    "regex-selectors",
     "import",
     "font-faces",
     "vendor-prefix",

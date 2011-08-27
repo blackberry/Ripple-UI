@@ -33,12 +33,12 @@ function _lintJS(files, done) {
 
 function _lintCSS(files, done) {
     var rules = JSON.parse(fs.readFileSync(__dirname + "/../.csslintrc", "utf-8")),
-        options = ["--rules=" + rules, "--format=compact", "ext", "lib", "test"];
+        options = ["--rules=" + rules, "--format=compact"];
     _spawn('csslint', files.concat(options), done);
 }
 
 module.exports = function (done, files) {
     _lintJS(files && files.length > 0 ? files : ["."], function () {
-        _lintCSS(files && files.length > 0 ? files : ["ext", "lib", "test"], done);
+        _lintCSS(files && files.length > 0 ? files : ["ext/assets/styles", "lib", "test"], done);
     });
 };

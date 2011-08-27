@@ -30,7 +30,7 @@ task('test', [], function () {
 desc("boot test server for running all tests in the browser");
 task('btest', [], require('./build/btest'));
 
-desc("runs jshint + csslint - jake lint [path1,path2]");
+desc("runs jshint + csslint - jake lint [path1] [path2]");
 task('lint', [], function () {
     require('./build/lint')(complete, Array.prototype.slice.call(arguments));
 }, true);
