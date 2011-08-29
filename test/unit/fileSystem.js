@@ -34,6 +34,8 @@ describe("fileSystem", function () {
         window.webkitResolveLocalFileSystemURL = window.resolveLocalFileSystemURL = function (url, success, failure) {
         };
 
+        window.WebKitBlobBuilder = window.BlobBuilder = function () {};
+
         fileSystem.initialize();
     });
 
@@ -42,6 +44,10 @@ describe("fileSystem", function () {
         delete window.PERSISTENT;
         delete window.requestFileSystem;
         delete window.webkitRequestFileSystem;
+        delete window.resolveLocalFileSystemURL;
+        delete window.webkitResolveLocalFileSystemURL;
+        delete window.WebKitBlobBuilder;
+        delete window.BlobBuilder;
     });
 
     describe("initialize", function () {
@@ -75,7 +81,7 @@ describe("fileSystem", function () {
             spyOn(_fs.root, "getDirectory").andCallThrough();
 
             _resultEntries = [
-                {name: "whatev", isDirectory: true}
+                {fullPath: "whatev", isDirectory: true}
             ];
 
             fileSystem.mkdir("whatev", success, error);
@@ -101,7 +107,7 @@ describe("fileSystem", function () {
             spyOn(_fs.root, "getFile").andCallThrough();
 
             _resultEntries = [
-                {name: "er", isDirectory: false}
+                {fullPath: "er", isDirectory: false}
             ];
 
             fileSystem.touch("er", success, error);
@@ -178,7 +184,7 @@ describe("fileSystem", function () {
             spyOn(_fs.root, "getFile").andCallThrough();
 
             _resultEntries = [
-                {name: "/foo", isDirectory: false, remove: remove}
+                {fullPath: "/foo", isDirectory: false, remove: remove}
             ];
 
             fileSystem.rm("/foo", success, error);
@@ -207,7 +213,7 @@ describe("fileSystem", function () {
             spyOn(_fs.root, "getDirectory").andCallThrough();
 
             _resultEntries = [
-                {name: "/foo", isDirectory: true, removeRecursively: removeRecursively}
+                {fullPath: "/foo", isDirectory: true, removeRecursively: removeRecursively}
             ];
 
             fileSystem.rm("/foo", success, error, {recursive: true});
@@ -237,7 +243,7 @@ describe("fileSystem", function () {
     describe("stat", function () {
         it("retrieves the status of a file", function () {
             var entry = {
-                    name: "/bob",
+                    fullPath: "/bob",
                     isDirectory: false
                 },
                 domain = "http://dude.com",
@@ -260,16 +266,166 @@ describe("fileSystem", function () {
         });
     });
 
-    xdescribe("mv", function () {
+    describe("mv", function () {
         it("can move a file from one location to another", function () {
-            var entry = {
-                name: "sherman",
-                isDirectory: true
-            };
+            var movedEntry = {
+                    fullPath: "/bar",
+                    isDirectory: false
+                },
+                fromEntry = {
+                    fullPath: "/foo",
+                    isDirectory: false,
+                    moveTo: jasmine.createSpy().andCallFake(function (dest, fileName, callback) {
+                        callback(movedEntry);
+                    })
+                },
+                rootEntry = {
+                    fullPath: "/",
+                    isDirectory: true
+                },
+                error = jasmine.createSpy(),
+                success = jasmine.createSpy(),
+                from = "/foo",
+                to = "/bar";
 
             spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
-                success(entry);
+                success(path.match(/^\/$/) ? rootEntry : fromEntry);
             });
+
+            fileSystem.mv(from, to, success, error);
+
+            expect(fromEntry.moveTo.argsForCall[0][0]).toEqual(rootEntry);
+            expect(fromEntry.moveTo.argsForCall[0][1]).toEqual("bar");
+            expect(fromEntry.moveTo.argsForCall[0][3]).toEqual(error);
+            expect(fileSystem.stat.argsForCall[0][2]).toEqual(error);
+            expect(fileSystem.stat.argsForCall[1][2]).toEqual(error);
+            expect(success).toHaveBeenCalledWith(movedEntry);
         });
     });
+    
+    describe("cp", function () {
+        it("can copy a file from one location to another", function () {
+            var copiedEntry = {
+                    fullPath: "/bar",
+                    isDirectory: false
+                },
+                fromEntry = {
+                    fullPath: "/foo",
+                    isDirectory: false,
+                    copyTo: jasmine.createSpy().andCallFake(function (dest, fileName, callback) {
+                        callback(copiedEntry);
+                    })
+                },
+                rootEntry = {
+                    fullPath: "/",
+                    isDirectory: true
+                },
+                error = jasmine.createSpy(),
+                success = jasmine.createSpy(),
+                from = "/foo",
+                to = "/bar";
+
+            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+                success(path.match(/^\/$/) ? rootEntry : fromEntry);
+            });
+
+            fileSystem.cp(from, to, success, error);
+
+            expect(fromEntry.copyTo.argsForCall[0][0]).toEqual(rootEntry);
+            expect(fromEntry.copyTo.argsForCall[0][1]).toEqual("bar");
+            expect(fromEntry.copyTo.argsForCall[0][3]).toEqual(error);
+            expect(fileSystem.stat.argsForCall[0][2]).toEqual(error);
+            expect(fileSystem.stat.argsForCall[1][2]).toEqual(error);
+            expect(success).toHaveBeenCalledWith(copiedEntry);
+        });
+    });
+
+    describe("write", function () {
+        it("overwrites an existing file by default", function () {
+            var path = "some/path",
+                contents = "file data",
+                error = jasmine.createSpy(),
+                success = jasmine.createSpy(),
+                fileWriterInstance = {
+                    onwriteend: null,
+                    onerror: null,
+                    write: jasmine.createSpy()
+                },
+                fileEntry = {
+                    fullPath: "some/path",
+                    isDirectory: false,
+                    createWriter: jasmine.createSpy().andCallFake(function (callback) {
+                        callback(fileWriterInstance);
+                    })
+                },
+                txt = "plain text blob", 
+                blobInstance = {
+                    append: jasmine.createSpy(),
+                    getBlob: jasmine.createSpy().andReturn(txt)
+                };
+
+            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+                success(fileEntry);
+            });
+
+            spyOn(window, "BlobBuilder").andReturn(blobInstance);
+
+            fileSystem.write(path, contents, success, error);
+
+            expect(fileWriterInstance.onwriteend).toBe(success);
+            expect(fileWriterInstance.onerror).toBe(error);
+            expect(fileEntry.createWriter.callCount).toBe(1);
+            expect(fileEntry.createWriter.argsForCall[0][1]).toBe(error);
+            expect(blobInstance.append).toHaveBeenCalledWith(contents);
+            expect(fileWriterInstance.write).toHaveBeenCalledWith(txt);
+            expect(fileSystem.stat.argsForCall[0][2]).toBe(error);
+        });
+
+        describe("when options.append", function () {
+            it("appends to an existing file", function () {
+                var path = "some/path",
+                    contents = "file data",
+                    error = jasmine.createSpy(),
+                    success = jasmine.createSpy(),
+                    options = {
+                        mode: "append"
+                    },
+                    fileWriterInstance = {
+                        onwriteend: null,
+                        onerror: null,
+                        length: 5,
+                        write: jasmine.createSpy(),
+                        seek: jasmine.createSpy()
+                    },
+                    fileEntry = {
+                        fullPath: "some/path",
+                        isDirectory: false,
+                        createWriter: jasmine.createSpy().andCallFake(function (callback) {
+                            callback(fileWriterInstance);
+                        })
+                    },
+                    txt = "plain text blob", 
+                    blobInstance = {
+                        append: jasmine.createSpy(),
+                        getBlob: jasmine.createSpy().andReturn(txt)
+                    };
+
+                spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+                    success(fileEntry);
+                });
+
+                spyOn(window, "BlobBuilder").andReturn(blobInstance);
+
+                fileSystem.write(path, contents, success, error, options);
+
+                expect(fileWriterInstance.seek).toHaveBeenCalledWith(fileWriterInstance.length);
+            });
+        });
+
+        // TODO: it creates the file if it does not exist
+        // TODO: it appends onto a file with options.mode === "append"
+    });
+
+    // TODO: fileWriter.onwriteend may get called even if there is an error? (see FileWriter spec)
+    // TODO: make consistent the objects that get returned (i.e. {name, isDirectory} instead of full Directory/FileEntry objects)
 });
