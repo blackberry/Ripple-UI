@@ -1,3 +1,18 @@
+/*
+ *  Copyright 2011 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 var fileSystem = require('ripple/fileSystem'),
     utils = require('ripple/utils');
 
@@ -35,6 +50,8 @@ describe("fileSystem", function () {
         };
 
         window.WebKitBlobBuilder = window.BlobBuilder = function () {};
+        window.FileReader = global.FileReader = function () {};
+        window.FileError = global.FileError = {NOT_FOUND_ERR: 1};
 
         fileSystem.initialize();
     });
@@ -48,6 +65,8 @@ describe("fileSystem", function () {
         delete window.webkitResolveLocalFileSystemURL;
         delete window.WebKitBlobBuilder;
         delete window.BlobBuilder;
+        delete window.FileReader;
+        delete global.FileReader;
     });
 
     describe("initialize", function () {
@@ -165,12 +184,10 @@ describe("fileSystem", function () {
 
             expect(success).not.toHaveBeenCalled();
         });
-
-        // it does not return empty array when found values
     });
 
     describe("rm", function () {
-        it("removes la file from the root", function () {
+        it("removes a file from the root", function () {
             var error = jasmine.createSpy(),
                 remove = jasmine.createSpy().andCallFake(function (callback) {
                     callback();
@@ -193,7 +210,7 @@ describe("fileSystem", function () {
             expect(_fs.root.getFile.argsForCall[0][1]).toEqual({create: false});
             expect(typeof _fs.root.getFile.argsForCall[0][2]).toEqual("function");
             expect(_fs.root.getFile.argsForCall[0][3]).toEqual(error);
-            expect(success).toHaveBeenCalledWith(_resultEntries[0]);
+            expect(success).toHaveBeenCalled();
             expect(typeof remove.argsForCall[0][0]).toEqual("function");
             expect(remove.argsForCall[0][1]).toEqual(error);
             expect(error).not.toHaveBeenCalled();
@@ -222,7 +239,7 @@ describe("fileSystem", function () {
             expect(_fs.root.getDirectory.argsForCall[0][1]).toEqual({create: false});
             expect(typeof _fs.root.getDirectory.argsForCall[0][2]).toEqual("function");
             expect(_fs.root.getDirectory.argsForCall[0][3]).toEqual(error);
-            expect(success).toHaveBeenCalledWith(_resultEntries[0]);
+            expect(success).toHaveBeenCalled();
             expect(typeof removeRecursively.argsForCall[0][0]).toEqual("function");
             expect(removeRecursively.argsForCall[0][1]).toEqual(error);
             expect(error).not.toHaveBeenCalled();
@@ -233,7 +250,7 @@ describe("fileSystem", function () {
         it("removes a directory", function () {
             var error = jasmine.createSpy(),
                 success = jasmine.createSpy();
-                
+
             spyOn(fileSystem, "rm");
             fileSystem.rmdir("/foo", success, error);
             expect(fileSystem.rm).toHaveBeenCalledWith("/foo", success, error, {recursive: false});
@@ -254,7 +271,7 @@ describe("fileSystem", function () {
                 success(entry);
             });
 
-            spyOn(utils, "location").andReturn({origin: domain}); 
+            spyOn(utils, "location").andReturn({origin: domain});
 
             fileSystem.stat("/bob", success, error);
 
@@ -302,7 +319,7 @@ describe("fileSystem", function () {
             expect(success).toHaveBeenCalledWith(movedEntry);
         });
     });
-    
+
     describe("cp", function () {
         it("can copy a file from one location to another", function () {
             var copiedEntry = {
@@ -351,6 +368,9 @@ describe("fileSystem", function () {
                     onerror: null,
                     write: jasmine.createSpy()
                 },
+                progressEvent = {
+                    target: fileWriterInstance
+                },
                 fileEntry = {
                     fullPath: "some/path",
                     isDirectory: false,
@@ -358,7 +378,7 @@ describe("fileSystem", function () {
                         callback(fileWriterInstance);
                     })
                 },
-                txt = "plain text blob", 
+                txt = "plain text blob",
                 blobInstance = {
                     append: jasmine.createSpy(),
                     getBlob: jasmine.createSpy().andReturn(txt)
@@ -368,17 +388,82 @@ describe("fileSystem", function () {
                 success(fileEntry);
             });
 
+            spyOn(fileSystem, "touch").andCallFake(function (path, success, error) {
+                success(fileEntry);
+            });
+
+            spyOn(fileSystem, "rm").andCallFake(function (path, success, error) {
+                success();
+            });
+
             spyOn(window, "BlobBuilder").andReturn(blobInstance);
 
             fileSystem.write(path, contents, success, error);
 
-            expect(fileWriterInstance.onwriteend).toBe(success);
+            fileWriterInstance.onwriteend(progressEvent);
+
+            expect(fileSystem.rm.callCount).toBe(1);
+            expect(fileSystem.rm.argsForCall[0][2]).toEqual(error);
+            expect(fileSystem.touch.callCount).toBe(1);
+            expect(fileSystem.touch.argsForCall[0][0]).toEqual(path);
+            expect(fileSystem.touch.argsForCall[0][2]).toEqual(error);
+
+            expect(success).toHaveBeenCalledWith(progressEvent.target);
             expect(fileWriterInstance.onerror).toBe(error);
             expect(fileEntry.createWriter.callCount).toBe(1);
             expect(fileEntry.createWriter.argsForCall[0][1]).toBe(error);
             expect(blobInstance.append).toHaveBeenCalledWith(contents);
             expect(fileWriterInstance.write).toHaveBeenCalledWith(txt);
-            expect(fileSystem.stat.argsForCall[0][2]).toBe(error);
+        });
+
+        it("creates the file if it does not exist", function () {
+            var path = "some/path",
+                contents = "file data",
+                error = jasmine.createSpy(),
+                success = jasmine.createSpy(),
+                txt = "plain text blob",
+                blobInstance = {
+                    append: jasmine.createSpy(),
+                    getBlob: jasmine.createSpy().andReturn(txt)
+                };
+
+            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+                error({code: 1});
+            });
+
+            spyOn(fileSystem, "touch");
+            spyOn(fileSystem, "rm");
+            spyOn(window, "BlobBuilder").andReturn(blobInstance);
+
+            fileSystem.write(path, contents, success, error);
+
+            expect(fileSystem.touch.callCount).toBe(1);
+            expect(fileSystem.touch.argsForCall[0][0]).toEqual(path);
+            expect(fileSystem.touch.argsForCall[0][2]).toEqual(error);
+        });
+
+        it("invokes error when file does exit", function () {
+            var path = "some/path",
+                contents = "file data",
+                error = jasmine.createSpy(),
+                success = jasmine.createSpy(),
+                txt = "plain text blob",
+                blobInstance = {
+                    append: jasmine.createSpy(),
+                    getBlob: jasmine.createSpy().andReturn(txt)
+                };
+
+            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+                error({code: 2});
+            });
+
+            spyOn(fileSystem, "touch");
+            spyOn(fileSystem, "rm");
+            spyOn(window, "BlobBuilder").andReturn(blobInstance);
+
+            fileSystem.write(path, contents, success, error);
+
+            expect(fileSystem.touch).not.toHaveBeenCalled();
         });
 
         describe("when options.append", function () {
@@ -404,7 +489,7 @@ describe("fileSystem", function () {
                             callback(fileWriterInstance);
                         })
                     },
-                    txt = "plain text blob", 
+                    txt = "plain text blob",
                     blobInstance = {
                         append: jasmine.createSpy(),
                         getBlob: jasmine.createSpy().andReturn(txt)
@@ -414,6 +499,14 @@ describe("fileSystem", function () {
                     success(fileEntry);
                 });
 
+                spyOn(fileSystem, "touch").andCallFake(function (path, success, error) {
+                    success(fileEntry);
+                });
+
+                spyOn(fileSystem, "rm").andCallFake(function (path, success, error) {
+                    success();
+                });
+
                 spyOn(window, "BlobBuilder").andReturn(blobInstance);
 
                 fileSystem.write(path, contents, success, error, options);
@@ -421,11 +514,45 @@ describe("fileSystem", function () {
                 expect(fileWriterInstance.seek).toHaveBeenCalledWith(fileWriterInstance.length);
             });
         });
-
-        // TODO: it creates the file if it does not exist
-        // TODO: it appends onto a file with options.mode === "append"
     });
 
-    // TODO: fileWriter.onwriteend may get called even if there is an error? (see FileWriter spec)
-    // TODO: make consistent the objects that get returned (i.e. {name, isDirectory} instead of full Directory/FileEntry objects)
+    describe("read", function () {
+        it("returns contents of a file", function () {
+            var path = "a/file",
+                error = jasmine.createSpy(),
+                success = jasmine.createSpy(),
+                fileInstance = jasmine.createSpy(),
+                fileReaderInstance = {
+                    onloadend: null,
+                    result: "file data",
+                    readAsText: jasmine.createSpy()
+                },
+                progressEvent = {
+                    target: fileReaderInstance
+                },
+                fileEntry = {
+                    fullPath: "a/file",
+                    isDirectory: false,
+                    file: jasmine.createSpy().andCallFake(function (callback) {
+                        callback(fileInstance);
+                    })
+                };
+
+            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+                success(fileEntry);
+            });
+
+            spyOn(global, "FileReader").andReturn(fileReaderInstance);
+
+            fileSystem.read(path, success, error);
+
+            fileReaderInstance.onloadend(progressEvent);
+
+            expect(fileReaderInstance.readAsText).toHaveBeenCalledWith(fileInstance);
+            expect(success).toHaveBeenCalledWith(fileReaderInstance.result);
+            expect(fileReaderInstance.onerror).toBe(error);
+            expect(fileEntry.file.argsForCall[0][1]).toBe(error);
+            expect(fileSystem.stat.argsForCall[0][2]).toBe(error);
+        });
+    });
 });
