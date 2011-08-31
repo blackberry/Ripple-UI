@@ -60,7 +60,7 @@ input, textarea, keygen, select, button, isindex, datagrid {
 
 /* TODO: better css for this specificity */
 .main a {
-    text-decoration: underline !important;
+    text-decoration: underline;
     outline: none;
     cursor: pointer;
 }
@@ -715,7 +715,7 @@ section.left { left: 0; }
     top: 5px;
     opacity: 0.8;
     cursor: pointer;
-    z-index: 999;
+    z-index: 50;
 }
 
 .right-panel-collapse:hover, .left-panel-collapse:hover {
@@ -732,6 +732,24 @@ section.left { left: 0; }
 
 .right-panel-collapse {
     right: 345px;
+}
+
+#options-menu {
+    width: 250px;
+    top: 30px;
+    right: 20px;
+    position: absolute;
+    -webkit-box-shadow: 0 0 15px rgba(153, 153, 153, 0.75);
+}
+
+#options-window {
+    width: 100%;
+    height: 100%;    
+    position: absolute;
+    top: 0px;
+    display: none;
+    opacity: 0;
+    z-index: 950;
 }
 
 /* ------------------------------>
