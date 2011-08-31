@@ -249,11 +249,31 @@ describe("fileSystem", function () {
     describe("rmdir", function () {
         it("removes a directory", function () {
             var error = jasmine.createSpy(),
+                remove = jasmine.createSpy().andCallFake(function (callback) {
+                    callback();
+                }),
                 success = jasmine.createSpy();
 
-            spyOn(fileSystem, "rm");
+            _fs.root.getDirectory = function (path, options, success, error) {
+                success(_resultEntries[0]);
+            };
+
+            spyOn(_fs.root, "getDirectory").andCallThrough();
+
+            _resultEntries = [
+                {fullPath: "/foo", isDirectory: true, remove: remove}
+            ];
+
             fileSystem.rmdir("/foo", success, error);
-            expect(fileSystem.rm).toHaveBeenCalledWith("/foo", success, error, {recursive: false});
+
+            expect(_fs.root.getDirectory.argsForCall[0][0]).toEqual("/foo");
+            expect(_fs.root.getDirectory.argsForCall[0][1]).toEqual({create: false});
+            expect(typeof _fs.root.getDirectory.argsForCall[0][2]).toEqual("function");
+            expect(_fs.root.getDirectory.argsForCall[0][3]).toEqual(error);
+            expect(success).toHaveBeenCalled();
+            expect(typeof remove.argsForCall[0][0]).toEqual("function");
+            expect(remove.argsForCall[0][1]).toEqual(error);
+            expect(error).not.toHaveBeenCalled();
         });
     });
 
