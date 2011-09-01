@@ -17,23 +17,29 @@ var childProcess = require('child_process'),
     fs = require('fs'),
     _c = require('./conf');
 
+function copy(from, callback) { 
+    var cmd = 'cp -r ' + from + ' ' + _c.DEPLOY + "web";
+    childProcess.exec(cmd, callback);
+}
+
 module.exports = function (src, baton) {
     baton.take();
 
-    var copy = 'cp -r ' + _c.ASSETS + ' ' + _c.DEPLOY + "web";
-
-    childProcess.exec(copy, function () {
+    copy(_c.ASSETS, function () {
         var css = _c.DEPLOY + "web/styles/main.css",
             index = _c.DEPLOY + "web/index.html",
             injection = _c.DEPLOY + "web/ripple.js",
             doc = src.html.replace(/#URL_PREFIX#/g, "")
                           .replace(/#OVERLAY_VIEWS#/g, src.overlays)
+                          .replace(/#DIALOG_VIEWS#/g, src.dialogs)
                           .replace(/#PANEL_VIEWS#/g, src.panels);
 
         fs.writeFileSync(css, fs.readFileSync(css, "utf-8") + src.skins);
         fs.writeFileSync(index, doc);
         fs.writeFileSync(injection, src.js + "require('ripple/bootstrap').bootstrap();");
 
-        baton.pass(src);
+        copy(_c.PACKAGE_JSON, function () {
+            baton.pass(src);
+        });
     });
 };
