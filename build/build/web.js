@@ -17,7 +17,7 @@ var childProcess = require('child_process'),
     fs = require('fs'),
     _c = require('./conf');
 
-function copy(from, callback) { 
+function copy(from, callback) {
     var cmd = 'cp -r ' + from + ' ' + _c.DEPLOY + "web";
     childProcess.exec(cmd, callback);
 }
