@@ -26,6 +26,10 @@ describe("fileSystemCache", function () {
         name: "dudeDir",
         isDirectory: true
     }, {
+        fullPath: "/hungry",
+        name: "hungry",
+        isDirectory: false
+    }, {
         fullPath: "/hippo",
         name: "hippo",
         isDirectory: true
@@ -107,5 +111,24 @@ describe("fileSystemCache", function () {
             });
         });
 
+        describe("listFiles", function () {
+            it("returns an array of all files in a path", function () {
+                expect(cache.dir.listFiles("/")).toEqual(["dude", "hungry"]);
+                expect(fs.ls.argsForCall[0][0]).toBe("/");
+                expect(typeof fs.ls.argsForCall[0][1]).toBe("function");
+                expect(typeof fs.ls.argsForCall[0][2]).toBe("function");
+            });
+        });
+
+        describe("rename", function () {
+            it("renames a directory at the specified path", function () {
+                spyOn(fs, "mv");
+                cache.dir.rename("/dudeDir", "theDudeDir");
+                expect(fs.mv.argsForCall[0][0]).toBe("/dudeDir");
+                expect(fs.mv.argsForCall[0][1]).toBe("/theDudeDir");
+                expect(typeof fs.mv.argsForCall[0][2]).toBe("function");
+                expect(typeof fs.mv.argsForCall[0][3]).toBe("function");
+            });
+        });
     });
 });
