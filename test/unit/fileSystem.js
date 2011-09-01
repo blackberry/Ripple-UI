@@ -428,7 +428,7 @@ describe("fileSystem", function () {
             expect(fileSystem.touch.argsForCall[0][0]).toEqual(path);
             expect(fileSystem.touch.argsForCall[0][2]).toEqual(error);
 
-            expect(success).toHaveBeenCalledWith(progressEvent.target);
+            expect(success).toHaveBeenCalledWith(fileEntry);
             expect(fileWriterInstance.onerror).toBe(error);
             expect(fileEntry.createWriter.callCount).toBe(1);
             expect(fileEntry.createWriter.argsForCall[0][1]).toBe(error);

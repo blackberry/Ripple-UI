@@ -1,6 +1,7 @@
 {
     "predef": [ 
         "FileReader", "FileWriter",
+        "WebKitBlobBuilder", "BlobBuilder",
         "webkitNotifications",
         "FileError",
         "DOMDocument",
