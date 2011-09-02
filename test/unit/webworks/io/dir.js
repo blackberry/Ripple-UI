@@ -16,8 +16,9 @@
 describe("webworks.core io.dir", function () {
     var server = require('ripple/platform/webworks.core/2.0.0/server/io/dir'),
         client = require('ripple/platform/webworks.core/2.0.0/client/io/dir'),
-        cache = require('ripple/platform/webworks.core/2.0.0/fileSystemCache'),
-        transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
+        cache = require('ripple/platform/webworks.core/2.0.0/fsCache'),
+        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
+        FILE = "file://";
 
     describe("handset", function () {
         describe("platform spec index", function () {
@@ -73,7 +74,7 @@ describe("webworks.core io.dir", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "new/new/new/dir";
 
-                    expect(client.createNewDir(path)).not.toBeDefined();
+                    expect(client.createNewDir(FILE + path)).not.toBeDefined();
                     _expectTransportToCall("blackberry/io/dir/createNewDir", {post: {path: path}});
                 });
             });
@@ -82,7 +83,7 @@ describe("webworks.core io.dir", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "new/new/new/dir";
 
-                    expect(client.deleteDirectory(path)).not.toBeDefined();
+                    expect(client.deleteDirectory(FILE + path)).not.toBeDefined();
                     _expectTransportToCall("blackberry/io/dir/deleteDirectory", {post: {path: path}});
                 });
             });
@@ -90,8 +91,9 @@ describe("webworks.core io.dir", function () {
             describe("exists", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "new/new/new/dir";
+                    transport.call.andReturn(true);
 
-                    expect(client.exists(path)).not.toBeDefined();
+                    expect(client.exists(FILE + path)).toEqual(true);
                     _expectTransportToCall("blackberry/io/dir/exists", {post: {path: path}});
                 });
             });
@@ -99,8 +101,9 @@ describe("webworks.core io.dir", function () {
             describe("getFreeSpaceForRoot", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "/";
+                    transport.call.andReturn(50);
 
-                    expect(client.getFreeSpaceForRoot(path)).not.toBeDefined();
+                    expect(client.getFreeSpaceForRoot(FILE + path)).toEqual(50);
                     _expectTransportToCall("blackberry/io/dir/getFreeSpaceForRoot", {post: {path: path}});
                 });
             });
@@ -108,35 +111,43 @@ describe("webworks.core io.dir", function () {
             describe("getParentDirectory", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "new/new/new/dir";
+                    transport.call.andReturn("new/new/new");
 
-                    expect(client.getParentDirectory(path)).not.toBeDefined();
+                    expect(client.getParentDirectory(FILE + path)).toEqual(FILE + "new/new/new");
                     _expectTransportToCall("blackberry/io/dir/getParentDirectory", {post: {path: path}});
                 });
             });
 
             describe("getRootDirs", function () {
                 it("calls transport with appropriate args", function () {
-                    var path = "new/new/new/dir";
+                    var dirs = ["foo", "bar"];
+                    transport.call.andReturn(dirs);
 
-                    expect(client.getRootDirs()).not.toBeDefined();
-                    _expectTransportToCall("blackberry/io/dir/getRootDirs", {post: {}});
+                    expect(client.getRootDirs()).toEqual([FILE + "foo", FILE + "bar"]);
+                    _expectTransportToCall("blackberry/io/dir/getRootDirs", {});
                 });
             });
 
             describe("listDirectories", function () {
                 it("calls transport with appropriate args", function () {
-                    var path = "new/new/new/dir";
+                    var path = "new/new/new/dir",
+                        dirs = ["foo", "bar"];
 
-                    expect(client.listDirectories(path)).not.toBeDefined();
+                    transport.call.andReturn(dirs);
+
+                    expect(client.listDirectories(FILE + path)).toEqual(dirs);
                     _expectTransportToCall("blackberry/io/dir/listDirectories", {post: {path: path}});
                 });
             });
 
             describe("listFiles", function () {
                 it("calls transport with appropriate args", function () {
-                    var path = "new/new/new/dir";
+                    var path = "new/new/new/dir",
+                        dirs = ["foo", "bar"];
 
-                    expect(client.listFiles(path)).not.toBeDefined();
+                    transport.call.andReturn(dirs);
+
+                    expect(client.listFiles(FILE + path)).toEqual(dirs);
                     _expectTransportToCall("blackberry/io/dir/listFiles", {post: {path: path}});
                 });
             });
@@ -146,7 +157,7 @@ describe("webworks.core io.dir", function () {
                     var path = "new/new/new/dir",
                         newName = "hawtness";
 
-                    expect(client.rename(path, newName)).not.toBeDefined();
+                    expect(client.rename(FILE + path, newName)).not.toBeDefined();
                     _expectTransportToCall("blackberry/io/dir/rename", {post: {path: path, newName: newName}});
                 });
             });
@@ -177,9 +188,9 @@ describe("webworks.core io.dir", function () {
             describe("exists", function () {
                 it("passes to cache.dir.exists", function () {
                     var path = "new/new/new/dir";
-                    spyOn(cache.dir, "exists");
+                    spyOn(cache.dir, "exists").andReturn(true);
 
-                    expect(server.exists(null, {path: path})).toEqual({code: 1, data: undefined});
+                    expect(server.exists(null, {path: path})).toEqual({code: 1, data: true});
                     expect(cache.dir.exists).toHaveBeenCalledWith(path);
                 });
             });
@@ -187,46 +198,51 @@ describe("webworks.core io.dir", function () {
             describe("getFreeSpaceForRoot", function () {
                 it("passes to cache.dir.getFreeSpaceForRoot", function () {
                     var path = "new/new/new/dir";
+                    spyOn(cache.dir, "getFreeSpaceForRoot").andReturn(1024);
 
-                    expect(server.getFreeSpaceForRoot(null, {path: path})).toEqual({code: 1, data: undefined});
+                    expect(server.getFreeSpaceForRoot(null, {path: path})).toEqual({code: 1, data: 1024});
+                    expect(cache.dir.getFreeSpaceForRoot).toHaveBeenCalledWith(path);
                 });
             });
 
             describe("getParentDirectory", function () {
                 it("passes to cache.dir.getParentDirectory", function () {
                     var path = "new/new/new/dir";
-                    spyOn(cache.dir, "getParentDirectory");
+                    spyOn(cache.dir, "getParentDirectory").andReturn("new/new/new");
 
-                    expect(server.getParentDirectory(null, {path: path})).toEqual({code: 1, data: undefined});
+                    expect(server.getParentDirectory(null, {path: path})).toEqual({code: 1, data: "new/new/new"});
                     expect(cache.dir.getParentDirectory).toHaveBeenCalledWith(path);
                 });
             });
 
             describe("getRootDirs", function () {
                 it("passes to cache.dir.getRootDirs", function () {
-                    spyOn(cache.dir, "getRootDirs");
+                    var dirs = ["cool", "dude"];
+                    spyOn(cache.dir, "getRootDirs").andReturn(dirs);
 
-                    expect(server.getRootDirs(null, {})).toEqual({code: 1, data: undefined});
+                    expect(server.getRootDirs(null, {})).toEqual({code: 1, data: dirs});
                     expect(cache.dir.getRootDirs).toHaveBeenCalledWith();
                 });
             });
 
             describe("listDirectories", function () {
                 it("passes to cache.dir.listDirectories", function () {
-                    var path = "new/new/new/dir";
-                    spyOn(cache.dir, "listDirectories");
+                    var path = "new/new/new/dir",
+                        dirs = ["cool", "dude"];
+                    spyOn(cache.dir, "listDirectories").andReturn(dirs);
 
-                    expect(server.listDirectories(null, {path: path})).toEqual({code: 1, data: undefined});
+                    expect(server.listDirectories(null, {path: path})).toEqual({code: 1, data: dirs});
                     expect(cache.dir.listDirectories).toHaveBeenCalledWith(path);
                 });
             });
 
             describe("listFiles", function () {
                 it("passes to cache.dir.listFiles", function () {
-                    var path = "new/new/new/dir";
-                    spyOn(cache.dir, "listFiles");
+                    var path = "new/new/new/dir",
+                        files = ["cool", "dude"];
+                    spyOn(cache.dir, "listFiles").andReturn(files);
 
-                    expect(server.listFiles(null, {path: path})).toEqual({code: 1, data: undefined});
+                    expect(server.listFiles(null, {path: path})).toEqual({code: 1, data: files});
                     expect(cache.dir.listFiles).toHaveBeenCalledWith(path);
                 });
             });
@@ -238,7 +254,7 @@ describe("webworks.core io.dir", function () {
 
                     spyOn(cache.dir, "rename");
 
-                    expect(server.rename(null, {path: path, newName:newName})).toEqual({code: 1, data: undefined});
+                    expect(server.rename(null, {path: path, newName: newName})).toEqual({code: 1, data: undefined});
                     expect(cache.dir.rename).toHaveBeenCalledWith(path, newName);
                 });
             });

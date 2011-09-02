@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var fs = require('ripple/fileSystem'),
+var fs = require('ripple/fs'),
+    event = require('ripple/event'),
     FileProperties = require('ripple/platform/webworks.core/2.0.0/client/FileProperties'),
     bbUtils = require('ripple/platform/webworks.core/2.0.0/client/utils'),
-    cache = require('ripple/platform/webworks.core/2.0.0/fileSystemCache');
+    cache = require('ripple/platform/webworks.core/2.0.0/fsCache');
 
-describe("fileSystemCache", function () {
+describe("fsCache", function () {
     var _root = [{
         fullPath: "/dude",
         name: "dude",
@@ -57,10 +58,15 @@ describe("fileSystemCache", function () {
             success(path === "/" ? _root : []);
         });
 
-        cache.initialize();
+        cache.refresh();
     });
 
     // TODO: cache (get,set,delete) layer is not under test
+    it("calls refresh on FileSystemInitialized", function () {
+        spyOn(cache, "refresh");
+        event.trigger("FileSystemInitialized", null, true);
+        expect(cache.refresh).toHaveBeenCalled();
+    });
 
     describe("io.file", function () {
         describe("exists", function () {

@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var fileSystem = require('ripple/fileSystem'),
+var fs = require('ripple/fs'),
+    event = require('ripple/event'),
     utils = require('ripple/utils');
 
-describe("fileSystem", function () {
+describe("fs", function () {
     var _resultEntries,
         _dirEntry,
+        _baton,
         _fs;
 
     beforeEach(function () {
+        _baton = {
+            take: jasmine.createSpy("baton.take"),
+            pass: jasmine.createSpy("baton.pass")
+        };
+
         _dirEntry = {
             createReader: function () {
                 return {
@@ -53,7 +60,8 @@ describe("fileSystem", function () {
         window.FileReader = global.FileReader = function () {};
         window.FileError = global.FileError = {NOT_FOUND_ERR: 1};
 
-        fileSystem.initialize();
+        spyOn(event, "trigger");
+        fs.initialize(null, _baton);
     });
 
     afterEach(function () {
@@ -72,16 +80,31 @@ describe("fileSystem", function () {
     describe("initialize", function () {
         it("uses requestFileSystem", function () {
             spyOn(window, "requestFileSystem");
-            fileSystem.initialize();
+            fs.initialize(null, _baton);
 
             expect(window.requestFileSystem.argsForCall[0][0]).toEqual(window.TEMPORARY);
             expect(window.requestFileSystem.argsForCall[0][1]).toEqual(10 * 1024 * 1024);
         });
 
+        it("takes and passes the baton", function () {
+            spyOn(window, "requestFileSystem");
+            fs.initialize(null, _baton);
+
+            expect(_baton.take).toHaveBeenCalled();
+            expect(_baton.pass).toHaveBeenCalled();
+        });
+
+        it("triggers FileSystemIntialized", function () {
+            spyOn(window, "requestFileSystem");
+            fs.initialize(null, _baton);
+
+            expect(event.trigger).toHaveBeenCalledWith("FileSystemInitialized", null, true);
+        });
+
         it("uses webkitRequestFileSystem when requestFileSystem is not present", function () {
             delete window.requestFileSystem;
             spyOn(window, "webkitRequestFileSystem");
-            fileSystem.initialize();
+            fs.initialize(null, _baton);
 
             expect(window.webkitRequestFileSystem.argsForCall[0][0]).toEqual(window.TEMPORARY);
             expect(window.webkitRequestFileSystem.argsForCall[0][1]).toEqual(10 * 1024 * 1024);
@@ -103,7 +126,7 @@ describe("fileSystem", function () {
                 {fullPath: "whatev", isDirectory: true}
             ];
 
-            fileSystem.mkdir("whatev", success, error);
+            fs.mkdir("whatev", success, error);
 
             expect(_fs.root.getDirectory.argsForCall[0][0]).toEqual("whatev");
             expect(_fs.root.getDirectory.argsForCall[0][1]).toEqual({create: true});
@@ -129,7 +152,7 @@ describe("fileSystem", function () {
                 {fullPath: "er", isDirectory: false}
             ];
 
-            fileSystem.touch("er", success, error);
+            fs.touch("er", success, error);
 
             expect(_fs.root.getFile.argsForCall[0][0]).toEqual("er");
             expect(_fs.root.getFile.argsForCall[0][1]).toEqual({create: true});
@@ -143,7 +166,7 @@ describe("fileSystem", function () {
     describe("ls", function () {
         it("defaults to '/' for a null path", function () {
             _fs.root.getDirectory = jasmine.createSpy();
-            fileSystem.ls(null);
+            fs.ls(null);
             expect(_fs.root.getDirectory.argsForCall[0][0]).toEqual("/");
         });
 
@@ -155,7 +178,7 @@ describe("fileSystem", function () {
                 {name: "sweet.js", isDirectory: false}
             ];
 
-            fileSystem.ls("/", function (entries) {
+            fs.ls("/", function (entries) {
                 expect(entries[0]).toEqual(_resultEntries[0]);
                 expect(entries[1]).toEqual(_resultEntries[1]);
             }, error);
@@ -178,7 +201,7 @@ describe("fileSystem", function () {
                 };
             };
 
-            fileSystem.ls("/foo", success, function (error) {
+            fs.ls("/foo", success, function (error) {
                 expect(error).toEqual(FileError);
             });
 
@@ -204,7 +227,7 @@ describe("fileSystem", function () {
                 {fullPath: "/foo", isDirectory: false, remove: remove}
             ];
 
-            fileSystem.rm("/foo", success, error);
+            fs.rm("/foo", success, error);
 
             expect(_fs.root.getFile.argsForCall[0][0]).toEqual("/foo");
             expect(_fs.root.getFile.argsForCall[0][1]).toEqual({create: false});
@@ -233,7 +256,7 @@ describe("fileSystem", function () {
                 {fullPath: "/foo", isDirectory: true, removeRecursively: removeRecursively}
             ];
 
-            fileSystem.rm("/foo", success, error, {recursive: true});
+            fs.rm("/foo", success, error, {recursive: true});
 
             expect(_fs.root.getDirectory.argsForCall[0][0]).toEqual("/foo");
             expect(_fs.root.getDirectory.argsForCall[0][1]).toEqual({create: false});
@@ -264,7 +287,7 @@ describe("fileSystem", function () {
                 {fullPath: "/foo", isDirectory: true, remove: remove}
             ];
 
-            fileSystem.rmdir("/foo", success, error);
+            fs.rmdir("/foo", success, error);
 
             expect(_fs.root.getDirectory.argsForCall[0][0]).toEqual("/foo");
             expect(_fs.root.getDirectory.argsForCall[0][1]).toEqual({create: false});
@@ -293,7 +316,7 @@ describe("fileSystem", function () {
 
             spyOn(utils, "location").andReturn({origin: domain});
 
-            fileSystem.stat("/bob", success, error);
+            fs.stat("/bob", success, error);
 
             expect(window.resolveLocalFileSystemURL.argsForCall[0][0])
                 .toEqual("filesystem:" + domain + "/temporary//bob");
@@ -325,17 +348,17 @@ describe("fileSystem", function () {
                 from = "/foo",
                 to = "/bar";
 
-            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success, error) {
                 success(path.match(/^\/$/) ? rootEntry : fromEntry);
             });
 
-            fileSystem.mv(from, to, success, error);
+            fs.mv(from, to, success, error);
 
             expect(fromEntry.moveTo.argsForCall[0][0]).toEqual(rootEntry);
             expect(fromEntry.moveTo.argsForCall[0][1]).toEqual("bar");
             expect(fromEntry.moveTo.argsForCall[0][3]).toEqual(error);
-            expect(fileSystem.stat.argsForCall[0][2]).toEqual(error);
-            expect(fileSystem.stat.argsForCall[1][2]).toEqual(error);
+            expect(fs.stat.argsForCall[0][2]).toEqual(error);
+            expect(fs.stat.argsForCall[1][2]).toEqual(error);
             expect(success).toHaveBeenCalledWith(movedEntry);
         });
     });
@@ -362,17 +385,17 @@ describe("fileSystem", function () {
                 from = "/foo",
                 to = "/bar";
 
-            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success, error) {
                 success(path.match(/^\/$/) ? rootEntry : fromEntry);
             });
 
-            fileSystem.cp(from, to, success, error);
+            fs.cp(from, to, success, error);
 
             expect(fromEntry.copyTo.argsForCall[0][0]).toEqual(rootEntry);
             expect(fromEntry.copyTo.argsForCall[0][1]).toEqual("bar");
             expect(fromEntry.copyTo.argsForCall[0][3]).toEqual(error);
-            expect(fileSystem.stat.argsForCall[0][2]).toEqual(error);
-            expect(fileSystem.stat.argsForCall[1][2]).toEqual(error);
+            expect(fs.stat.argsForCall[0][2]).toEqual(error);
+            expect(fs.stat.argsForCall[1][2]).toEqual(error);
             expect(success).toHaveBeenCalledWith(copiedEntry);
         });
     });
@@ -404,29 +427,29 @@ describe("fileSystem", function () {
                     getBlob: jasmine.createSpy().andReturn(txt)
                 };
 
-            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success, error) {
                 success(fileEntry);
             });
 
-            spyOn(fileSystem, "touch").andCallFake(function (path, success, error) {
+            spyOn(fs, "touch").andCallFake(function (path, success, error) {
                 success(fileEntry);
             });
 
-            spyOn(fileSystem, "rm").andCallFake(function (path, success, error) {
+            spyOn(fs, "rm").andCallFake(function (path, success, error) {
                 success();
             });
 
             spyOn(window, "BlobBuilder").andReturn(blobInstance);
 
-            fileSystem.write(path, contents, success, error);
+            fs.write(path, contents, success, error);
 
             fileWriterInstance.onwriteend(progressEvent);
 
-            expect(fileSystem.rm.callCount).toBe(1);
-            expect(fileSystem.rm.argsForCall[0][2]).toEqual(error);
-            expect(fileSystem.touch.callCount).toBe(1);
-            expect(fileSystem.touch.argsForCall[0][0]).toEqual(path);
-            expect(fileSystem.touch.argsForCall[0][2]).toEqual(error);
+            expect(fs.rm.callCount).toBe(1);
+            expect(fs.rm.argsForCall[0][2]).toEqual(error);
+            expect(fs.touch.callCount).toBe(1);
+            expect(fs.touch.argsForCall[0][0]).toEqual(path);
+            expect(fs.touch.argsForCall[0][2]).toEqual(error);
 
             expect(success).toHaveBeenCalledWith(fileEntry);
             expect(fileWriterInstance.onerror).toBe(error);
@@ -447,19 +470,19 @@ describe("fileSystem", function () {
                     getBlob: jasmine.createSpy().andReturn(txt)
                 };
 
-            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success, error) {
                 error({code: 1});
             });
 
-            spyOn(fileSystem, "touch");
-            spyOn(fileSystem, "rm");
+            spyOn(fs, "touch");
+            spyOn(fs, "rm");
             spyOn(window, "BlobBuilder").andReturn(blobInstance);
 
-            fileSystem.write(path, contents, success, error);
+            fs.write(path, contents, success, error);
 
-            expect(fileSystem.touch.callCount).toBe(1);
-            expect(fileSystem.touch.argsForCall[0][0]).toEqual(path);
-            expect(fileSystem.touch.argsForCall[0][2]).toEqual(error);
+            expect(fs.touch.callCount).toBe(1);
+            expect(fs.touch.argsForCall[0][0]).toEqual(path);
+            expect(fs.touch.argsForCall[0][2]).toEqual(error);
         });
 
         it("invokes error when file does exit", function () {
@@ -473,17 +496,17 @@ describe("fileSystem", function () {
                     getBlob: jasmine.createSpy().andReturn(txt)
                 };
 
-            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success, error) {
                 error({code: 2});
             });
 
-            spyOn(fileSystem, "touch");
-            spyOn(fileSystem, "rm");
+            spyOn(fs, "touch");
+            spyOn(fs, "rm");
             spyOn(window, "BlobBuilder").andReturn(blobInstance);
 
-            fileSystem.write(path, contents, success, error);
+            fs.write(path, contents, success, error);
 
-            expect(fileSystem.touch).not.toHaveBeenCalled();
+            expect(fs.touch).not.toHaveBeenCalled();
         });
 
         describe("when options.append", function () {
@@ -515,21 +538,21 @@ describe("fileSystem", function () {
                         getBlob: jasmine.createSpy().andReturn(txt)
                     };
 
-                spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+                spyOn(fs, "stat").andCallFake(function (path, success, error) {
                     success(fileEntry);
                 });
 
-                spyOn(fileSystem, "touch").andCallFake(function (path, success, error) {
+                spyOn(fs, "touch").andCallFake(function (path, success, error) {
                     success(fileEntry);
                 });
 
-                spyOn(fileSystem, "rm").andCallFake(function (path, success, error) {
+                spyOn(fs, "rm").andCallFake(function (path, success, error) {
                     success();
                 });
 
                 spyOn(window, "BlobBuilder").andReturn(blobInstance);
 
-                fileSystem.write(path, contents, success, error, options);
+                fs.write(path, contents, success, error, options);
 
                 expect(fileWriterInstance.seek).toHaveBeenCalledWith(fileWriterInstance.length);
             });
@@ -558,13 +581,13 @@ describe("fileSystem", function () {
                     })
                 };
 
-            spyOn(fileSystem, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success, error) {
                 success(fileEntry);
             });
 
             spyOn(global, "FileReader").andReturn(fileReaderInstance);
 
-            fileSystem.read(path, success, error);
+            fs.read(path, success, error);
 
             fileReaderInstance.onloadend(progressEvent);
 
@@ -572,7 +595,7 @@ describe("fileSystem", function () {
             expect(success).toHaveBeenCalledWith(fileReaderInstance.result);
             expect(fileReaderInstance.onerror).toBe(error);
             expect(fileEntry.file.argsForCall[0][1]).toBe(error);
-            expect(fileSystem.stat.argsForCall[0][2]).toBe(error);
+            expect(fs.stat.argsForCall[0][2]).toBe(error);
         });
     });
 });

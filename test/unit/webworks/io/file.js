@@ -16,14 +16,15 @@
 describe("webworks.core io.file", function () {
     var server = require('ripple/platform/webworks.core/2.0.0/server/io/file'),
         client = require('ripple/platform/webworks.core/2.0.0/client/io/file'),
-        cache = require('ripple/platform/webworks.core/2.0.0/fileSystemCache'),
+        cache = require('ripple/platform/webworks.core/2.0.0/fsCache'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         constants = require('ripple/constants'),
         notifications = require('ripple/notifications'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
             this.pass = jasmine.createSpy("baton.pass");
-        };
+        },
+        FILE = "file://";
 
     describe("handset", function () {
         describe("platform spec index", function () {
@@ -79,15 +80,18 @@ describe("webworks.core io.file", function () {
                 it("calls transport with appropriate args", function () {
                     var from = "afile",
                         to = "somefile";
-                    expect(client.copy(from, to)).not.toBeDefined();
-                    _expectTransportToCall("blackberry/io/file/copy", {post: {from: from, to: to}});
+                    expect(client.copy(FILE + from, FILE + to)).not.toBeDefined();
+                    _expectTransportToCall("blackberry/io/file/copy", {post: {
+                        from: from,
+                        to: to
+                    }});
                 });
             });
 
             describe("deleteFile", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "foo.js";
-                    expect(client.deleteFile(path)).not.toBeDefined();
+                    expect(client.deleteFile(FILE + path)).not.toBeDefined();
                     _expectTransportToCall("blackberry/io/file/deleteFile", {post: {path: path}});
                 });
             });
@@ -96,16 +100,24 @@ describe("webworks.core io.file", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "foo.js";
                     transport.call.andReturn("result");
-                    expect(client.exists(path)).toEqual("result");
+                    expect(client.exists(FILE + path)).toEqual("result");
                     _expectTransportToCall("blackberry/io/file/exists", {post: {path: path}});
                 });
             });
 
             describe("getFileProperties", function () {
                 it("calls transport with appropriate args", function () {
-                    var path = "foo.js";
-                    transport.call.andReturn("FileProperties object");
-                    expect(client.getFileProperties(path)).toEqual("FileProperties object");
+                    var path = "foo.js",
+                        properties = {
+                            directory: "foo"
+                        },
+                        result;
+
+                    transport.call.andReturn(properties);
+                    result = client.getFileProperties(FILE + path);
+
+                    expect(result).toEqual(properties);
+                    expect(result.directory).toEqual(FILE + "foo");
                     _expectTransportToCall("blackberry/io/file/getFileProperties", {post: {path: path}});
                 });
             });
@@ -113,7 +125,7 @@ describe("webworks.core io.file", function () {
             describe("open", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "openpath";
-                    expect(client.open(path)).not.toBeDefined();
+                    expect(client.open(FILE + path)).not.toBeDefined();
                     _expectTransportToCall("blackberry/io/file/open", {post: {path: path}});
                 });
             });
@@ -125,10 +137,13 @@ describe("webworks.core io.file", function () {
                         path = "path",
                         async = false;
 
-                    transport.call.andReturn(data);
+                    transport.call.andReturn({
+                        fullPath: path,
+                        blobData: data
+                    });
 
-                    expect(client.readFile(path, success, async)).not.toBeDefined();
-                    expect(success).toHaveBeenCalledWith(data);
+                    expect(client.readFile(FILE + path, success, async)).not.toBeDefined();
+                    expect(success).toHaveBeenCalledWith(FILE + path, data);
                     _expectTransportToCall("blackberry/io/file/readFile", {post: {path: path, async: async}});
                 });
 
@@ -139,13 +154,16 @@ describe("webworks.core io.file", function () {
                         async = true;
 
                     spyOn(transport, "poll").andCallFake(function (url, opts, callback) {
-                        callback(data);
+                        expect(callback({
+                            fullPath: path,
+                            blobData: data
+                        })).toEqual(false);
                     });
 
-                    expect(client.readFile(path, success, async)).not.toBeDefined();
+                    expect(client.readFile(FILE + path, success, async)).not.toBeDefined();
                     expect(transport.poll.argsForCall[0][0]).toEqual("blackberry/io/file/readFile");
                     expect(transport.poll.argsForCall[0][1]).toEqual({post: {path: path, async: async}});
-                    expect(success).toHaveBeenCalledWith(data);
+                    expect(success).toHaveBeenCalledWith(FILE + path, data);
                 });
             });
 
@@ -153,7 +171,7 @@ describe("webworks.core io.file", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "foo/bar.js",
                         newName = "new.js";
-                    expect(client.rename(path, newName)).not.toBeDefined();
+                    expect(client.rename(FILE + path, newName)).not.toBeDefined();
                     _expectTransportToCall("blackberry/io/file/rename", {post: {path: path, newName: newName}});
                 });
             });
@@ -164,7 +182,7 @@ describe("webworks.core io.file", function () {
                         blob = {
                             size: 4
                         };
-                    expect(client.saveFile(path, blob)).not.toBeDefined();
+                    expect(client.saveFile(FILE + path, blob)).not.toBeDefined();
                     _expectTransportToCall("blackberry/io/file/saveFile", {post: {path: path, blob: blob}});
                 });
             });
@@ -194,8 +212,8 @@ describe("webworks.core io.file", function () {
             describe("exists", function () {
                 it("passes to cache.file.exists", function () {
                     var path = "apath";
-                    spyOn(cache.file, "exists");
-                    expect(server.exists(null, {path: path})).toEqual({code: 1, data: undefined});
+                    spyOn(cache.file, "exists").andReturn(true);
+                    expect(server.exists(null, {path: path})).toEqual({code: 1, data: true});
                     expect(cache.file.exists).toHaveBeenCalledWith(path);
                 });
             });
@@ -238,8 +256,29 @@ describe("webworks.core io.file", function () {
                         path = "filepath",
                         data = "filedata";
 
-                    spyOn(cache.file, "readFile").andCallFake(function (path, onFileOpened, async) {
-                        onFileOpened(data);
+                    spyOn(cache.file, "readFile").andCallFake(function (p, success, async) {
+                        success(data);
+                    });
+
+                    expect(server.readFile(null, {path: path, async: async}, baton)).toEqual({code: 1, data: {
+                        fullPath: path,
+                        blobData: data
+                    }});
+
+                    expect(cache.file.readFile.argsForCall[0][0]).toEqual(path);
+                    expect(cache.file.readFile.argsForCall[0][2]).toEqual(async);
+                    expect(baton.take).not.toHaveBeenCalled();
+                    expect(baton.pass).not.toHaveBeenCalledWith();
+                });
+
+                it("returns file data asynchronously", function () {
+                    var baton = new MockBaton(),
+                        async = true,
+                        path = "filepath",
+                        data = "filedata";
+
+                    spyOn(cache.file, "readFile").andCallFake(function (p, success, async) {
+                        success(data);
                     });
 
                     server.readFile(null, {path: path, async: async}, baton);
@@ -247,10 +286,10 @@ describe("webworks.core io.file", function () {
                     expect(cache.file.readFile.argsForCall[0][0]).toEqual(path);
                     expect(cache.file.readFile.argsForCall[0][2]).toEqual(async);
                     expect(baton.take).toHaveBeenCalled();
-                    expect(baton.pass).toHaveBeenCalledWith({code: 1, data: data});
-                });
-
-                xit("returns file data asynchronously", function () {
+                    expect(baton.pass).toHaveBeenCalledWith({code: 1, data: {
+                        fullPath: path,
+                        blobData: data
+                    }});
                 });
             });
 
