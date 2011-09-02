@@ -20,25 +20,6 @@ describe("webworks.core io.dir", function () {
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         FILE = "file://";
 
-    describe("handset", function () {
-        describe("platform spec index", function () {
-            it("includes module according to proper object structure", function () {
-                var spec = require('ripple/platform/webworks.handset/2.0.0/spec');
-                expect(spec.objects.blackberry.children.io.children.dir).toEqual({
-                    path: "webworks.core/2.0.0/client/io/dir",
-                    feature: "blackberry.io.dir"
-                });
-            });
-        });
-
-        describe("server index", function () {
-            it("exposes the server module", function () {
-                var webworks = require('ripple/platform/webworks.handset/2.0.0/server');
-                expect(webworks.blackberry.io.dir).toEqual(server);
-            });
-        });
-    });
-
     describe("tablet", function () {
         describe("platform spec index", function () {
             it("includes module according to proper object structure", function () {
@@ -98,16 +79,6 @@ describe("webworks.core io.dir", function () {
                 });
             });
 
-            describe("getFreeSpaceForRoot", function () {
-                it("calls transport with appropriate args", function () {
-                    var path = "/";
-                    transport.call.andReturn(50);
-
-                    expect(client.getFreeSpaceForRoot(FILE + path)).toEqual(50);
-                    _expectTransportToCall("blackberry/io/dir/getFreeSpaceForRoot", {post: {path: path}});
-                });
-            });
-
             describe("getParentDirectory", function () {
                 it("calls transport with appropriate args", function () {
                     var path = "new/new/new/dir";
@@ -115,16 +86,6 @@ describe("webworks.core io.dir", function () {
 
                     expect(client.getParentDirectory(FILE + path)).toEqual(FILE + "new/new/new");
                     _expectTransportToCall("blackberry/io/dir/getParentDirectory", {post: {path: path}});
-                });
-            });
-
-            describe("getRootDirs", function () {
-                it("calls transport with appropriate args", function () {
-                    var dirs = ["foo", "bar"];
-                    transport.call.andReturn(dirs);
-
-                    expect(client.getRootDirs()).toEqual([FILE + "foo", FILE + "bar"]);
-                    _expectTransportToCall("blackberry/io/dir/getRootDirs", {});
                 });
             });
 
@@ -195,16 +156,6 @@ describe("webworks.core io.dir", function () {
                 });
             });
 
-            describe("getFreeSpaceForRoot", function () {
-                it("passes to cache.dir.getFreeSpaceForRoot", function () {
-                    var path = "new/new/new/dir";
-                    spyOn(cache.dir, "getFreeSpaceForRoot").andReturn(1024);
-
-                    expect(server.getFreeSpaceForRoot(null, {path: path})).toEqual({code: 1, data: 1024});
-                    expect(cache.dir.getFreeSpaceForRoot).toHaveBeenCalledWith(path);
-                });
-            });
-
             describe("getParentDirectory", function () {
                 it("passes to cache.dir.getParentDirectory", function () {
                     var path = "new/new/new/dir";
@@ -212,16 +163,6 @@ describe("webworks.core io.dir", function () {
 
                     expect(server.getParentDirectory(null, {path: path})).toEqual({code: 1, data: "new/new/new"});
                     expect(cache.dir.getParentDirectory).toHaveBeenCalledWith(path);
-                });
-            });
-
-            describe("getRootDirs", function () {
-                it("passes to cache.dir.getRootDirs", function () {
-                    var dirs = ["cool", "dude"];
-                    spyOn(cache.dir, "getRootDirs").andReturn(dirs);
-
-                    expect(server.getRootDirs(null, {})).toEqual({code: 1, data: dirs});
-                    expect(cache.dir.getRootDirs).toHaveBeenCalledWith();
                 });
             });
 

@@ -21,7 +21,9 @@ describe("fs", function () {
     var _resultEntries,
         _dirEntry,
         _baton,
-        _fs;
+        _fs,
+        _oldLocation,
+        _domain = "http://127.0.0.1:3000";
 
     beforeEach(function () {
         _baton = {
@@ -53,14 +55,21 @@ describe("fs", function () {
             success(_fs);
         };
 
-        window.webkitResolveLocalFileSystemURL = window.resolveLocalFileSystemURL = function (url, success, failure) {
-        };
+        window.webkitResolveLocalFileSystemURL = window.resolveLocalFileSystemURL = function (url, success, failure) {};
 
         window.WebKitBlobBuilder = window.BlobBuilder = function () {};
         window.FileReader = global.FileReader = function () {};
         window.FileError = global.FileError = {NOT_FOUND_ERR: 1};
 
         spyOn(event, "trigger");
+
+        _oldLocation = utils.location;
+        utils.location = function () {
+            return {
+                origin: _domain
+            };
+        };
+
         fs.initialize(null, _baton);
     });
 
@@ -75,6 +84,7 @@ describe("fs", function () {
         delete window.BlobBuilder;
         delete window.FileReader;
         delete global.FileReader;
+        utils.location = _oldLocation;
     });
 
     describe("initialize", function () {
@@ -306,7 +316,6 @@ describe("fs", function () {
                     fullPath: "/bob",
                     isDirectory: false
                 },
-                domain = "http://dude.com",
                 error = jasmine.createSpy(),
                 success = jasmine.createSpy();
 
@@ -314,12 +323,10 @@ describe("fs", function () {
                 success(entry);
             });
 
-            spyOn(utils, "location").andReturn({origin: domain});
-
             fs.stat("/bob", success, error);
 
             expect(window.resolveLocalFileSystemURL.argsForCall[0][0])
-                .toEqual("filesystem:" + domain + "/temporary//bob");
+                .toEqual("filesystem:" + _domain + "/temporary//bob");
             expect(typeof window.resolveLocalFileSystemURL.argsForCall[0][1]).toEqual("function");
             expect(window.resolveLocalFileSystemURL.argsForCall[0][2]).toEqual(error);
             expect(success).toHaveBeenCalledWith(entry);
