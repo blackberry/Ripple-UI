@@ -23,7 +23,7 @@ describe("devices", function () {
     beforeEach(function () {
         spyOn(db, "retrieveObject");
         spyOn(db, "saveObject");
-        spyOn(platform, "current").andReturn({id: "wac", version: "1.0"});
+        spyOn(platform, "current").andReturn({id: "phonegap", version: "1.0"});
         devices.initialize();
     });
 

@@ -16,7 +16,7 @@
 describe("webworks.tablet system event", function () {
     var server = require('ripple/platform/webworks.tablet/2.0.0/server/systemEvent'),
         client = require('ripple/platform/webworks.tablet/2.0.0/client/systemEvent'),
-        spec = require('ripple/platform/webworks.tablet/2.0.0/spec/device'),
+        deviceSpec = require('ripple/platform/webworks.tablet/2.0.0/spec/device'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         event = require('ripple/event'),
         MockBaton = function () {
@@ -42,23 +42,23 @@ describe("webworks.tablet system event", function () {
 
     describe("in the device spec", function () {
         it("includes setting to togger handset charging on and off", function () {
-            expect(typeof spec.battery.state.name).toEqual("string");
-            expect(spec.battery.state.control.type).toEqual("checkbox");
+            expect(typeof deviceSpec.battery.state.name).toEqual("string");
+            expect(deviceSpec.battery.state.control.type).toEqual("checkbox");
 
-            expect(typeof spec.battery.level.callback).toEqual("function");
+            expect(typeof deviceSpec.battery.level.callback).toEqual("function");
             spyOn(event, "trigger");
-            spec.battery.state.callback(false);
+            deviceSpec.battery.state.callback(false);
             expect(event.trigger).toHaveBeenCalledWith("DeviceBatteryStateChanged", [false]);
         });
 
         it("includes setting to set charge level of the handset", function () {
-            expect(typeof spec.battery.level.name).toEqual("string");
-            expect(spec.battery.level.control.type).toEqual("select");
-            expect(typeof spec.battery.level.options === "object").toEqual(true);
+            expect(typeof deviceSpec.battery.level.name).toEqual("string");
+            expect(deviceSpec.battery.level.control.type).toEqual("select");
+            expect(typeof deviceSpec.battery.level.options === "object").toEqual(true);
 
-            expect(typeof spec.battery.level.callback).toEqual("function");
+            expect(typeof deviceSpec.battery.level.callback).toEqual("function");
             spyOn(event, "trigger");
-            spec.battery.level.callback(87);
+            deviceSpec.battery.level.callback(87);
             expect(event.trigger).toHaveBeenCalledWith("DeviceBatteryLevelChanged", [87]);
         });
     });
