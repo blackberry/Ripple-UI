@@ -41,20 +41,20 @@ textarea:focus, input:focus {
   color: #333333;
 }
 
-p:first-letter, th, li:first-letter, label, button, h1, h2, h3{ text-transform: capitalize; }
+p:first-letter, th, li:first-letter, label, button { text-transform: capitalize; }
 
-h1{ font-size: 2em; font-weight: bold; }
+h1 { font-size: 2em; font-weight: bold; text-transform: capitalize; }
 
-h2{ font-size: 1em; font-weight: bold;}
+h2 { font-size: 1em; font-weight: bold; text-transform: capitalize; }
 
-h3{ font-style: italic; font-size: 1.07em; font-weight: normal; }
+h3 { font-style: italic; font-size: 1.07em; font-weight: normal; text-transform: capitalize; }
 
 .irrelevant{  display: none; }
 
 hr { color: #1e1e1e; }
 
 .popup-body {
-    width:300px;
+    width: 300px;
     padding: 0 .5em;
 }
 

@@ -32,7 +32,7 @@ describe("phonegap_accelerometer", function () {
     });
 
     // TODO: why does this fail when not run atomicly
-    xit("accelleration info is updated on AccelerometerInfoChangedEvent", function () {
+    xit("acceleration info is updated on AccelerometerInfoChangedEvent", function () {
         event.trigger("AccelerometerInfoChangedEvent", [{
             x: 9.8,
             y: 9.8,

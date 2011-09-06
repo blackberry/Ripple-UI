@@ -163,7 +163,7 @@ describe("webworks.tablet system event", function () {
                 expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 3}); // state CHARGING
             });
 
-            it("passes state CHARGING when charging is false", function () {
+            it("passes state CHARGING when charging is true", function () {
                 var baton = new MockBaton();
                 server.deviceBatteryStateChange({}, {}, baton);
                 event.trigger("DeviceBatteryStateChanged", [true], true);

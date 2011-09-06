@@ -87,12 +87,8 @@ describeBrowser("widgetConfig", function () {
         });
 
         it("config_file_validation_returns_returns_proper_nodes_as_being_validated", function () {
-            var configXML,
-                result;
-
-            configXML = _getConfig("config.xml");
-
-            result = widgetConfig.validate(configXML).widget;
+            var configXML = _getConfig("config.xml"),
+                result = widgetConfig.validate(configXML).widget;
 
             expect(result.validationResult[0].valid).toEqual(true);
             expect(result.children["name"].validationResult[0].valid).toEqual(true);
@@ -103,12 +99,8 @@ describeBrowser("widgetConfig", function () {
         });
 
         it("config_file_validation_validates_for_required_widget_and_icon_nodes", function () {
-            var configXML,
-                result;
-
-            configXML = _getConfig("config_no_widet_node.xml");
-
-            result = widgetConfig.validate(configXML).widget;
+            var configXML = _getConfig("config_no_widget_node.xml"),
+                result = widgetConfig.validate(configXML).widget;
 
             expect(result).toBeTruthy();
             expect(result.validationResult[0].message).toEqual("widget node expected, but not found");

@@ -16,20 +16,23 @@
 
 /* ------------------------------>
     Torch Skin (444x779) offset (40x142)*/
+
 .viewport-wrapper-Torch {
-    width:360px;
-    height:480px;
+    width: 360px;
+    height: 480px;
     border: none;
 }
 
 .device-wrapper-Torch {
     position: relative;
     padding: 142px 0 0 40px;
-    width:404px;
-    height:637px;
+    width: 404px;
+    height: 637px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
     background: url('../images/Torch.png') no-repeat;
 }
 
@@ -53,20 +56,21 @@
 
 .viewport-wrapper-landscape-Torch {
     margin: -99px 0 0 103px;
-    width:480px;
-    height:360px;
+    width: 480px;
+    height: 360px;
     border: none;
 }
-
 
 .device-wrapper-landscape-Torch {
     position: relative;
     padding: 142px 0 0 40px;
-    width:739px;
-    height:302px;
+    width: 739px;
+    height: 302px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
     background: url('../images/Torch_landscape.png') no-repeat;
 }
 
