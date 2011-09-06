@@ -961,3 +961,12 @@ section.left { left: 0; }
     .omni-bar input {
       width: 95%;
     }
+
+/* ------------------------------>
+    fieldset */
+
+fieldset {
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
