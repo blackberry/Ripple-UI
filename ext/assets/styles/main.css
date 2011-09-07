@@ -670,6 +670,7 @@ section.left { left: 0; }
 }
 
 .panel-table td:nth-child(2) {
+    width: 50%;
     text-align: right;
 }
 
@@ -735,6 +736,8 @@ section.left { left: 0; }
 }
 
 #options-menu {
+    font-size: 1.2em;
+    padding: 5px;
     width: 250px;
     top: 30px;
     right: 20px;
