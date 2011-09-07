@@ -25,11 +25,30 @@ describe("webworks.tablet system event", function () {
         };
 
     describe("platform spec", function () {
+        var spec = require('ripple/platform/webworks.tablet/2.0.0/spec');
+
         // NOTE: system and system.event for Playbook do not require feature declarations (see docs)
         it("includes the module according to proper object structure", function () {
-            var spec = require('ripple/platform/webworks.tablet/2.0.0/spec');
             expect(spec.objects.blackberry.children.system.children.event.path)
                 .toEqual("webworks.tablet/2.0.0/client/systemEvent");
+        });
+
+        describe("events", function () {
+            describe("app.event.onSwipeDown callback", function () {
+                it("triggers AppSwipeDown", function () {
+                    spyOn(event, "trigger");
+                    spec.events["app.event.onSwipeDown"].callback();
+                    expect(event.trigger).toHaveBeenCalledWith("AppSwipeDown");
+                });
+            });
+
+            describe("app.event.onSwipeStart callback", function () {
+                it("triggers AppSwipeStart", function () {
+                    spyOn(event, "trigger");
+                    spec.events["app.event.onSwipeStart"].callback();
+                    expect(event.trigger).toHaveBeenCalledWith("AppSwipeStart");
+                });
+            });
         });
     });
 
