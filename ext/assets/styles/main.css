@@ -970,3 +970,7 @@ fieldset {
     margin: 5px 0;
 }
 
+.not-ready {
+    opacity: 0.2;
+}
+
