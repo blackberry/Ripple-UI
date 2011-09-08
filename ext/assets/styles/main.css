@@ -937,3 +937,7 @@ fieldset {
     opacity: 0.2;
 }
 
+.cap-text {
+    text-transform: capitalize;
+}
+
