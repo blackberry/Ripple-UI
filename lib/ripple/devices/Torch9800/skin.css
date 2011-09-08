@@ -76,7 +76,6 @@
 
 .menu-button-wrapper-landscape-Torch{
     position: relative;
-    display: inline-block;
     margin: -137px 0 0 618px;
     width: 55px;
     height: 65px;
@@ -85,8 +84,7 @@
 
 .back-button-wrapper-landscape-Torch {
     position: relative;
-    display: inline-block;
-    margin: -287px 0 0 618px;
+    margin: -212px 0 0 618px;
     width: 55px;
     height: 65px;
     cursor: pointer;
