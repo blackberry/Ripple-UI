@@ -72,9 +72,6 @@
             };
         </script>
 
-        <!-- sinonjs -->
-        <script src="thirdparty/sinon.js" type="text/javascript" charset="utf-8"></script>
-
         <!-- jWorkflow -->
         <script src="thirdparty/jWorkflow/jworkflow-min-0.4.0.js" type="text/javascript" charset="utf-8"></script>
 
@@ -89,13 +86,6 @@
         <!-- define Math.uuid as a ghost -->
         <script type="text/javascript" charset="utf-8">
             require.define('thirdparty/Math.uuid', function (require, module, exports) {});
-        </script>
-
-        <!-- define sinon as module -->
-        <script type="text/javascript" charset="utf-8">
-            require.define('sinon', function (require, module, exports) {
-                module.exports = window.sinon;
-            });
         </script>
 
         <!-- define jWorkflow as module -->

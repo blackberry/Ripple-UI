@@ -13,33 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-describe("phonegap_notifications", function () {
-    var s,
-        sinon = require('sinon'),
-        notification = require('ripple/platform/phonegap/1.0/notification'),
+describe("phonegap notifications", function () {
+    var notification = require('ripple/platform/phonegap/1.0/notification'),
         goodVibrations = require('ripple/ui/plugins/goodVibrations'),
         constants = require('ripple/constants'),
         notifications = require('ripple/notifications');
 
     beforeEach(function () {
         spyOn(console, "log");
-        s = sinon.sandbox.create();
-    });
-
-    afterEach(function () {
-        s.verifyAndRestore();
     });
 
     it("it calls into the UI to vibrate the device", function () {
-        s.mock(goodVibrations).expects("vibrateDevice").withExactArgs(500).once();
+        spyOn(goodVibrations, "vibrateDevice");
         notification.vibrate(500);
+        expect(goodVibrations.vibrateDevice).toHaveBeenCalledWith(500);
     });
 
     it("it opens a notification with the supplied message", function () {
-        s.mock(notifications).expects("openNotification")
-         .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL,
-                        "His name was Robert Paulson").once();
-
+        spyOn(notifications, "openNotification");
         notification.alert("His name was Robert Paulson");
+        expect(notifications.openNotification).toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL,
+                        "His name was Robert Paulson");
     });
 });
