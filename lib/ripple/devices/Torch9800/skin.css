@@ -15,15 +15,15 @@
  */
 
 /* ------------------------------>
-    Torch Skin (444x779) offset (40x142)*/
+    Torch9800 Skin (444x779) offset (40x142)*/
 
-.viewport-wrapper-Torch {
+.viewport-wrapper-Torch9800 {
     width: 360px;
     height: 480px;
     border: none;
 }
 
-.device-wrapper-Torch {
+.device-wrapper-Torch9800 {
     position: relative;
     padding: 142px 0 0 40px;
     width: 404px;
@@ -33,10 +33,10 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background: url('../images/Torch.png') no-repeat;
+    background: url('../images/Torch9800.png') no-repeat;
 }
 
-.menu-button-wrapper-Torch {
+.menu-button-wrapper-Torch9800 {
     position: relative;
     display: inline-block;
     margin: 32px 0 0 75px;
@@ -45,7 +45,7 @@
     cursor: pointer;
 }
 
-.back-button-wrapper-Torch {
+.back-button-wrapper-Torch9800 {
     position: relative;
     display: inline-block;
     margin: 0 0 0 92px;
@@ -54,14 +54,14 @@
     cursor: pointer;
 }
 
-.viewport-wrapper-landscape-Torch {
+.viewport-wrapper-landscape-Torch9800 {
     margin: -99px 0 0 103px;
     width: 480px;
     height: 360px;
     border: none;
 }
 
-.device-wrapper-landscape-Torch {
+.device-wrapper-landscape-Torch9800 {
     position: relative;
     padding: 142px 0 0 40px;
     width: 739px;
@@ -71,22 +71,20 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background: url('../images/Torch_landscape.png') no-repeat;
+    background: url('../images/Torch9800_landscape.png') no-repeat;
 }
 
-.menu-button-wrapper-landscape-Torch{
+.menu-button-wrapper-landscape-Torch9800{
     position: relative;
-    display: inline-block;
     margin: -137px 0 0 618px;
     width: 55px;
     height: 65px;
     cursor: pointer;
 }
 
-.back-button-wrapper-landscape-Torch {
+.back-button-wrapper-landscape-Torch9800 {
     position: relative;
-    display: inline-block;
-    margin: -287px 0 0 618px;
+    margin: -212px 0 0 618px;
     width: 55px;
     height: 65px;
     cursor: pointer;

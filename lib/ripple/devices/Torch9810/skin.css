@@ -1,0 +1,91 @@
+/*
+ *  Copyright 2011 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* ------------------------------>
+    Torch9810 Skin (591x1048) offset (55x191)*/
+
+.viewport-wrapper-Torch9810 {
+    width: 480px;
+    height: 640px;
+    border: none;
+}
+
+.device-wrapper-Torch9810 {
+    position: relative;
+    padding: 191px 0 0 55px;
+    width: 536px;
+    height: 857px;
+    margin: 0 auto;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: url('../images/Torch9810.png') no-repeat;
+}
+
+.menu-button-wrapper-Torch9810 {
+    position: relative;
+    display: inline-block;
+    margin: 45px 0 0 100px;
+    width: 75px;
+    height: 85px;
+    cursor: pointer;
+}
+
+.back-button-wrapper-Torch9810 {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 0 118px;
+    width: 75px;
+    height: 85px;
+    cursor: pointer;
+}
+
+.viewport-wrapper-landscape-Torch9810 {
+    width: 640px;
+    height: 480px;
+    border: none;
+}
+
+.device-wrapper-landscape-Torch9810 {
+    position: relative;
+    padding: 55px 0 0 191px;
+    width: 857px;
+    height: 536px;
+    margin: 0 auto;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: url('../images/Torch9810_landscape.png') no-repeat;
+}
+
+.menu-button-wrapper-landscape-Torch9810{
+    position: relative;
+    margin: -175px 0 0 685px;
+    width: 85px;
+    height: 75px;
+    cursor: pointer;
+}
+
+.back-button-wrapper-landscape-Torch9810 {
+    position: relative;
+    margin: -272px 0 0 685px;
+    width: 85px;
+    height: 75px;
+    cursor: pointer;
+}
+ 
