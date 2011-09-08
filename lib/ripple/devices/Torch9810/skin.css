@@ -15,78 +15,77 @@
  */
 
 /* ------------------------------>
-    Torch9800 Skin (444x779) offset (40x142)*/
+    Torch9810 Skin (591x1048) offset (55x191)*/
 
-.viewport-wrapper-Torch9800 {
-    width: 360px;
+.viewport-wrapper-Torch9810 {
+    width: 480px;
+    height: 640px;
+    border: none;
+}
+
+.device-wrapper-Torch9810 {
+    position: relative;
+    padding: 191px 0 0 55px;
+    width: 536px;
+    height: 857px;
+    margin: 0 auto;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: url('../images/Torch9810.png') no-repeat;
+}
+
+.menu-button-wrapper-Torch9810 {
+    position: relative;
+    display: inline-block;
+    margin: 45px 0 0 100px;
+    width: 75px;
+    height: 85px;
+    cursor: pointer;
+}
+
+.back-button-wrapper-Torch9810 {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 0 118px;
+    width: 75px;
+    height: 85px;
+    cursor: pointer;
+}
+
+.viewport-wrapper-landscape-Torch9810 {
+    width: 640px;
     height: 480px;
     border: none;
 }
 
-.device-wrapper-Torch9800 {
+.device-wrapper-landscape-Torch9810 {
     position: relative;
-    padding: 142px 0 0 40px;
-    width: 404px;
-    height: 637px;
+    padding: 55px 0 0 191px;
+    width: 857px;
+    height: 536px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background: url('../images/Torch9800.png') no-repeat;
+    background: url('../images/Torch9810_landscape.png') no-repeat;
 }
 
-.menu-button-wrapper-Torch9800 {
+.menu-button-wrapper-landscape-Torch9810{
     position: relative;
-    display: inline-block;
-    margin: 32px 0 0 75px;
-    width: 55px;
-    height: 65px;
+    margin: -175px 0 0 685px;
+    width: 85px;
+    height: 75px;
     cursor: pointer;
 }
 
-.back-button-wrapper-Torch9800 {
+.back-button-wrapper-landscape-Torch9810 {
     position: relative;
-    display: inline-block;
-    margin: 0 0 0 92px;
-    width: 55px;
-    height: 65px;
-    cursor: pointer;
-}
-
-.viewport-wrapper-landscape-Torch9800 {
-    margin: -99px 0 0 103px;
-    width: 480px;
-    height: 360px;
-    border: none;
-}
-
-.device-wrapper-landscape-Torch9800 {
-    position: relative;
-    padding: 142px 0 0 40px;
-    width: 739px;
-    height: 302px;
-    margin: 0 auto;
-    border: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    background: url('../images/Torch9800_landscape.png') no-repeat;
-}
-
-.menu-button-wrapper-landscape-Torch9800{
-    position: relative;
-    margin: -137px 0 0 618px;
-    width: 55px;
-    height: 65px;
-    cursor: pointer;
-}
-
-.back-button-wrapper-landscape-Torch9800 {
-    position: relative;
-    margin: -212px 0 0 618px;
-    width: 55px;
-    height: 65px;
+    margin: -272px 0 0 685px;
+    width: 85px;
+    height: 75px;
     cursor: pointer;
 }
  
