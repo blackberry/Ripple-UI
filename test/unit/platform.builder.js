@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 describeBrowser("platform builder", function () {
-    var sinon = require('sinon'),
-        builder = require('ripple/platform/builder'),
-        app = require('ripple/app'),
-        s;
-
-    beforeEach(function () {
-        s = sinon.sandbox.create();
-    });
-
-    afterEach(function () {
-        s.verifyAndRestore();
-    });
+    var builder = require('ripple/platform/builder'),
+        app = require('ripple/app');
 
     it("it requires in the module for the path", function () {
-        var target = {};
-        require.define('ripple/platform/xmen/1.0/cyclops', s.mock().once());
+        var target = {},
+            cb = jasmine.createSpy();
+
+        require.define('ripple/platform/xmen/1.0/cyclops', cb);
 
         builder.build({
             test: {
@@ -42,11 +34,14 @@ describeBrowser("platform builder", function () {
     });
 
     it("it creates the children", function () {
-        var target = {};
+        var target = {},
+            cb0 = jasmine.createSpy(),
+            cb1 = jasmine.createSpy(),
+            cb2 = jasmine.createSpy();
 
-        require.define('ripple/platform/xmen/1.0/magneto', s.mock().once());
-        require.define('ripple/platform/xmen/1.0/scarletWitch', s.mock().once());
-        require.define('ripple/platform/xmen/1.0/quicksilver', s.mock().once());
+        require.define('ripple/platform/xmen/1.0/magneto', cb0);
+        require.define('ripple/platform/xmen/1.0/scarletWitch', cb1);
+        require.define('ripple/platform/xmen/1.0/quicksilver', cb2);
 
         builder.build({
             magneto: {
@@ -64,6 +59,9 @@ describeBrowser("platform builder", function () {
 
         expect(target.magneto.scarletWitch).toBeDefined();
         expect(target.magneto.quicksilver).toBeDefined();
+        expect(cb0).toHaveBeenCalled();
+        expect(cb1).toHaveBeenCalled();
+        expect(cb2).toHaveBeenCalled();
 
         delete require.modules['ripple/platform/xmen/1.0/magneto'];
         delete require.modules['ripple/platform/xmen/1.0/scarletWitch'];
