@@ -914,7 +914,7 @@ section.left { left: 0; }
     z-index: 999;
 }
     .omni-bar .ui-icon {
-      display: inline-block;
+        display: inline-block;
     }
 
         .omni-bar .ui-icon:hover {
