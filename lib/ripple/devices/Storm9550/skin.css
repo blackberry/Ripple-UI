@@ -1,0 +1,91 @@
+/*
+ *  Copyright 2011 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* ------------------------------>
+    Storm9550 Skin (438x779) offset (40x137)*/
+
+.viewport-wrapper-Storm9550 {
+    width: 360px;
+    height: 480px;
+    border: none;
+}
+
+.device-wrapper-Storm9550 {
+    position: relative;
+    padding: 137px 0 0 40px;
+    width: 398px;
+    height: 642px;
+    margin: 0 auto;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: url('../images/Storm9550.png') no-repeat;
+}
+
+.menu-button-wrapper-Storm9550 {
+    position: relative;
+    display: inline-block;
+    margin: 32px 0 0 105px;
+    width: 55px;
+    height: 65px;
+    cursor: pointer;
+}
+
+.back-button-wrapper-Storm9550 {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 0 37px;
+    width: 55px;
+    height: 65px;
+    cursor: pointer;
+}
+
+.viewport-wrapper-landscape-Storm9550 {
+    width: 480px;
+    height: 360px;
+    border: none;
+}
+
+.device-wrapper-landscape-Storm9550 {
+    position: relative;
+    padding: 39px 0 0 137px;
+    width: 642px;
+    height: 399px;
+    margin: 0 auto;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: url('../images/Storm9550_landscape.png') no-repeat;
+}
+
+.menu-button-wrapper-landscape-Storm9550{
+    position: relative;
+    margin: -160px 0 0 508px;
+    width: 65px;
+    height: 55px;
+    cursor: pointer;
+}
+
+.back-button-wrapper-landscape-Storm9550 {
+    position: relative;
+    margin: -150px 0 0 508px;
+    width: 65px;
+    height: 55px;
+    cursor: pointer;
+}
+ 
