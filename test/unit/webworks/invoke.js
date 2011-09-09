@@ -34,7 +34,7 @@ describe("webworks_invoke", function () {
         it("raises a notification when calling invoke", function () {
             s.mock(notifications)
             .expects("openNotification")
-            .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL, "Requested to launch: Browser application.")
+            .withExactArgs("normal", "Requested to launch: Browser application.")
             .once();
 
             webworks.blackberry.invoke.invoke({
@@ -75,7 +75,7 @@ describe("webworks_invoke", function () {
         it("raises a notification when calling invoke", function () {
             s.mock(notifications)
             .expects("openNotification")
-            .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL, "Requested to launch: Browser application.")
+            .withExactArgs("normal", "Requested to launch: Browser application.")
             .once();
 
             webworks.blackberry.invoke.invoke({

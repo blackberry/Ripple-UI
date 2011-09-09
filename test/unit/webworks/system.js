@@ -161,7 +161,7 @@ describe("webworks system", function () {
                 var args = {filePath: "the path"};
                 spyOn(notifications, "openNotification");
                 system.setHomeScreenBackground(args);
-                expect(notifications.openNotification.mostRecentCall.args[0]).toEqual(constants.NOTIFICATIONS.TYPES.NORMAL);
+                expect(notifications.openNotification.mostRecentCall.args[0]).toEqual("normal");
                 expect(notifications.openNotification.mostRecentCall.args[1]).toMatch(args.filePath);
             });
         });

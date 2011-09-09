@@ -53,7 +53,7 @@ describe("wac_Messaging", function () {
 
         spyOn(platform, "current").andReturn({name: "whatup"});
         s.mock(notifications).expects("openNotification")
-                .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL, text).once();
+                .withExactArgs("normal", text).once();
 
         messaging.sendMessage(msg);
     });

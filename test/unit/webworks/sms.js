@@ -82,7 +82,7 @@ describe("webworks_sms", function () {
         it("send raises a notification", function () {
             spyOn(platform, "current").andReturn({name: "generic"});
             s.mock(notifications).expects("openNotification")
-                    .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL,
+                    .withExactArgs("normal",
                                    "To 5199541707: Pick up some milk").once();
             sms.send({
                 message: "Pick up some milk",

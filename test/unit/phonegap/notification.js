@@ -39,7 +39,7 @@ describe("phonegap_notifications", function () {
 
     it("it opens a notification with the supplied message", function () {
         s.mock(notifications).expects("openNotification")
-         .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL,
+         .withExactArgs("normal",
                         "His name was Robert Paulson").once();
 
         notification.alert("His name was Robert Paulson");
