@@ -36,7 +36,9 @@ module.exports = function (src, baton) {
 
         fs.writeFileSync(css, fs.readFileSync(css, "utf-8") + src.skins);
         fs.writeFileSync(index, doc);
-        fs.writeFileSync(injection, src.js + "require('ripple/bootstrap').bootstrap();");
+        fs.writeFileSync(injection, src.js +
+            "require('ripple/ui').register('omnibar');" +
+            "require('ripple/bootstrap').bootstrap();");
 
         copy(_c.PACKAGE_JSON, function () {
             baton.pass(src);
