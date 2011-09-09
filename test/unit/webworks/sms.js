@@ -75,13 +75,13 @@ describe("webworks_sms", function () {
         it("send raises a notification", function () {
             spyOn(platform, "current").andReturn({name: "generic"});
             spyOn(notifications, "openNotification");
-
+   
             sms.send({
                 message: "Pick up some milk",
                 address: "5199541707"
             });
 
-            expect(notifications.openNotification).toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL,
+            expect(notifications.openNotification).toHaveBeenCalledWith("normal",
                                    "To 5199541707: Pick up some milk");
         });
 

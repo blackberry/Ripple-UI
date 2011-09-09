@@ -23,13 +23,13 @@ describe("webworks_invoke", function () {
 
         it("raises a notification when calling invoke", function () {
             spyOn(notifications, "openNotification");
-
+      
             webworks.blackberry.invoke.invoke({
                 appType: "http://www.google.com"
             });
 
             expect(notifications.openNotification)
-                .toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL, "Requested to launch: Browser application.");
+                .toHaveBeenCalledWith("normal", "Requested to launch: Browser application.");
         });
 
         it("calls the correct invoke URI", function () {
@@ -61,7 +61,7 @@ describe("webworks_invoke", function () {
             });
 
             expect(notifications.openNotification)
-                .toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL, "Requested to launch: Browser application.");
+                .toHaveBeenCalledWith("normal", "Requested to launch: Browser application.");
         });
 
         it("calls the correct invoke URI", function () {

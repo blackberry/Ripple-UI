@@ -272,7 +272,7 @@ describe("webworks_app", function () {
             uri: "icon.png",
             hover: true
         });
-        expect(notifications.openNotification).toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL,
+        expect(notifications.openNotification).toHaveBeenCalledWith("normal",
                                                                     "The application set the home screen hover icon to icon.png");
     });
 
@@ -281,7 +281,7 @@ describe("webworks_app", function () {
         appServer.setHomeScreenIcon({
             uri: "foo.png"
         });
-        expect(notifications.openNotification).toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL,
+        expect(notifications.openNotification).toHaveBeenCalledWith("normal",
                                                                     "The application set the home screen icon to foo.png");
     });
 
@@ -290,7 +290,7 @@ describe("webworks_app", function () {
         appServer.setHomeScreenName({
             text: "Awesometown"
         });
-        expect(notifications.openNotification).toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL,
+        expect(notifications.openNotification).toHaveBeenCalledWith("normal",
                                                                     "The application set the home screen name to Awesometown");
     });
 
