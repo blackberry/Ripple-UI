@@ -59,7 +59,8 @@
         "Draw",
         "sinon",
         "setInterval", "clearInterval", "setTimeout", "clearTimeout",
-        "require", "Contact", "Position", "Coordinates", "Node"
+        "require", "Contact", "Position", "Coordinates", "Node",
+        "OpenLayers"
     ],
  
     "node" : true,
