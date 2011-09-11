@@ -943,3 +943,18 @@ fieldset {
     text-transform: capitalize;
 }
 
+/* ------------------------------>
+    jQuery ToolTip Plugin CSS */
+
+#tooltip {
+    position: absolute;
+    z-index: 1001;
+    padding: 0.5em 1em;
+    height: auto;
+    max-width: 400px;
+    word-wrap: break-word;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#tooltip h3, #tooltip div { margin: 0; }
