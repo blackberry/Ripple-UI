@@ -23,7 +23,6 @@ describe("webworks system", function () {
         utils = require('ripple/utils'),
         deviceSettings = require('ripple/deviceSettings'),
         notifications = require('ripple/notifications'),
-        constants = require('ripple/constants'),
         Playbook = require('ripple/devices/Playbook'),
         devices = require('ripple/devices'),
         platform = require('ripple/platform');

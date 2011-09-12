@@ -18,12 +18,11 @@ describe("webworks_invoke", function () {
         var webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
             Invoke = require('ripple/platform/webworks.handset/2.0.0/client/invoke'),
             notifications = require('ripple/notifications'),
-            constants = require('ripple/constants'),
             transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
         it("raises a notification when calling invoke", function () {
             spyOn(notifications, "openNotification");
-      
+
             webworks.blackberry.invoke.invoke({
                 appType: "http://www.google.com"
             });
@@ -50,7 +49,6 @@ describe("webworks_invoke", function () {
         var webworks = require('ripple/platform/webworks.tablet/2.0.0/server'),
             Invoke = require('ripple/platform/webworks.tablet/2.0.0/client/invoke'),
             notifications = require('ripple/notifications'),
-            constants = require('ripple/constants'),
             transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
         it("raises a notification when calling invoke", function () {

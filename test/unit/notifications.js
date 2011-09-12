@@ -86,9 +86,7 @@ describe("notifications", function () {
     it("closeNotification_updates_dom_objects_properly_when_closing_normal_notification", function () {
         notifications.closeNotification("normal");
 
-        var box = document.getElementById(constants.NOTIFICATIONS.MAIN_CONTAINER_CLASS),
-            msgBox = document.getElementById(constants.NOTIFICATIONS.MESSAGE_TEXT_CONTAINER_CLASS);
-
+        var box = document.getElementById(constants.NOTIFICATIONS.MAIN_CONTAINER_CLASS);
         expect(box.getAttribute("style")).toEqual("display: none;");
     });
 
@@ -109,9 +107,7 @@ describe("notifications", function () {
     it("closeNotification_updates_dom_objects_properly_when_closing_error_notification", function () {
         notifications.closeNotification("error");
 
-        var box = document.getElementById(constants.NOTIFICATIONS.MAIN_CONTAINER_CLASS),
-            msgBox = document.getElementById(constants.NOTIFICATIONS.MESSAGE_TEXT_CONTAINER_CLASS);
-
+        var box = document.getElementById(constants.NOTIFICATIONS.MAIN_CONTAINER_CLASS);
         expect(box.getAttribute("style")).toEqual("display: none;");
     });
 });

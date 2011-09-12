@@ -21,7 +21,6 @@ describe("webworks_app", function () {
         event = require('ripple/event'),
         app = require('ripple/app'),
         notifications = require('ripple/notifications'),
-        constants = require('ripple/constants'),
         frame;
 
     beforeEach(function () {

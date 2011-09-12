@@ -18,7 +18,6 @@ describe("webworks.core io.file", function () {
         client = require('ripple/platform/webworks.core/2.0.0/client/io/file'),
         cache = require('ripple/platform/webworks.core/2.0.0/fsCache'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        constants = require('ripple/constants'),
         notifications = require('ripple/notifications'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
@@ -233,7 +232,7 @@ describe("webworks.core io.file", function () {
                     spyOn(notifications, "openNotification");
                     spyOn(cache.file, "exists");
                     server.open(null, {path: path});
-                    expect(notifications.openNotification.argsForCall[0][0]).toEqual(constants.NOTIFICATIONS.TYPES.NORMAL);
+                    expect(notifications.openNotification.argsForCall[0][0]).toEqual("normal");
                 });
 
                 it("returns true when file exists", function () {

@@ -16,7 +16,6 @@
 describe("phonegap notifications", function () {
     var notification = require('ripple/platform/phonegap/1.0/notification'),
         goodVibrations = require('ripple/ui/plugins/goodVibrations'),
-        constants = require('ripple/constants'),
         notifications = require('ripple/notifications');
 
     beforeEach(function () {
@@ -30,7 +29,7 @@ describe("phonegap notifications", function () {
     });
 
     it("it opens a notification with the supplied message", function () {
-       spyOn(notifications, "openNotification");
+        spyOn(notifications, "openNotification");
         notification.alert("His name was Robert Paulson");
         expect(notifications.openNotification).toHaveBeenCalledWith("normal",
                         "His name was Robert Paulson");

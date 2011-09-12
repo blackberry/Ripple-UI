@@ -20,7 +20,6 @@ describe("webworks_sms", function () {
         event = require('ripple/event'),
         platform = require('ripple/platform'),
         notifications = require('ripple/notifications'),
-        constants = require('ripple/constants'),
         _console = require('ripple/console'),
         MockBaton = function () {
             this.take = jasmine.createSpy('baton.take');
@@ -75,7 +74,7 @@ describe("webworks_sms", function () {
         it("send raises a notification", function () {
             spyOn(platform, "current").andReturn({name: "generic"});
             spyOn(notifications, "openNotification");
-   
+
             sms.send({
                 message: "Pick up some milk",
                 address: "5199541707"
