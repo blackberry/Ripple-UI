@@ -14,146 +14,142 @@
  * limitations under the License.
  */
 describe("exception", function () {
-
     var exception = require('ripple/exception'),
-        _console = require('ripple/console'),
-        s, sinon = require('sinon');
+        _console = require('ripple/console');
 
-    beforeEach(function () {
-        s = sinon.sandbox.create();
-    });
+    describe("handle", function () {
+        it("throws exception if wrong number of arguments", function () {
+            spyOn(_console, "error");
+            expect(function () {
+                exception.handle("1", "2", "3");
+            }).toThrow();
+            expect(_console.error).toHaveBeenCalled();
+        });
 
-    afterEach(function () {
-        s.verifyAndRestore();
-    });
-
-    it("handle throws exception if wrong number of arguments", function () {
-        spyOn(_console, "error");
-        expect(function () {
-            exception.handle("1", "2", "3");
-        }).toThrow();
-        expect(_console.error).toHaveBeenCalled();
-    });
-
-    it("handle logs to console", function () {
-        s.mock(_console).expects("error").once();
-        try {
-            throw {name: "TestExceptionType"};
-        } catch (e) {
-            exception.handle(e);
-        }
-    });
-
-    it("handle logs to console and rethrows exception", function () {
-        s.mock(_console).expects("error").once();
-        try {
-            throw {name: "TestExceptionType"};
-        } catch (e) {
+        it("logs to console", function () {
+            spyOn(_console, "error");
             try {
-                exception.handle(e, true);
+                throw {name: "TestExceptionType"};
+            } catch (e) {
+                exception.handle(e);
+                expect(_console.error.callCount).toBe(1);
             }
-            catch (other_e) {
+        });
+
+        it("logs to console and rethrows exception", function () {
+            spyOn(_console, "error");
+            try {
+                throw {name: "TestExceptionType"};
+            } catch (e) {
+                try {
+                    exception.handle(e, true);
+                }
+                catch (other_e) {
+                    expect(_console.error.callCount).toBe(1);
+                    return;
+                }
+                throw "Exception was expected, none was thrown";
+            }
+        });
+    });
+
+    describe("throwException", function () {
+        it("throws existing object exception", function () {
+            var obj = {
+                "test": "test property"
+            };
+
+            try {
+                exception.raise("TestException", "test message", obj);
+            } catch (e) {
+                expect(e.test).toEqual(obj.test);
+                expect(e.name).toEqual("TestException");
+                expect(e.message).toEqual("test message");
+                return;
+            }
+
+            throw "Exception was expected, none was thrown";
+        });
+
+        it("throws exception with both name and type properties the same", function () {
+            try {
+                exception.raise("TestException", "test message");
+            } catch (e) {
+                expect(e.name).toEqual("TestException", e.name);
+                expect(e.type, "TestException");
+                expect(e.message).toEqual("test message");
+                return;
+            }
+
+            throw "Exception was expected, none was thrown";
+        });
+
+        it("throws exception if invalid arguments", function () {
+            try {
+                exception.raise(1, {});
+            } catch (e) {
                 return;
             }
             throw "Exception was expected, none was thrown";
-        }
+        });
+
+        it("throws exception if invalid argument", function () {
+            try {
+                exception.raise(1);
+            } catch (e) {
+                return;
+            }
+
+            throw "Exception was expected, none was thrown";
+        });
+
+        it("throws correct exception type with no message", function () {
+            try {
+                exception.raise("TestExceptionType");
+            } catch (e) {
+                expect(e.name).toEqual("TestExceptionType");
+                return;
+            }
+            throw "Exception was expected, none was thrown";
+        });
+
+        it("throws correct exception type with message", function () {
+            try {
+                exception.raise("TestExceptionType", "test exception was thrown");
+            } catch (e) {
+                expect(e.message).toEqual("test exception was thrown");
+                return;
+            }
+
+            throw "Exception was expected, none was thrown";
+        });
     });
 
-    it("throwException throws existing object exception", function () {
-        var obj = {
-            "test": "test property"
-        };
+    describe("throwMaskedException", function () {
+        it("throws custom exception", function () {
+            spyOn(_console, "error");
 
-        try {
-            exception.raise("TestException", "test message", obj);
-        } catch (e) {
-            expect(e.test).toEqual(obj.test);
-            expect(e.name).toEqual("TestException");
-            expect(e.message).toEqual("test message");
-            return;
-        }
+            try {
+                exception.throwMaskedException("TestExceptionType", "test message");
+                throw "Exception was expected, none was thrown";
+            } catch (e) {
+                expect(_console.error.callCount).toBe(1);
+                expect(e.name).toEqual(exception.types.tinyHipposMaskedException);
+                expect(e.message).toEqual("tinyhippos terminated your script due to exception");
+            }
+        });
 
-        throw "Exception was expected, none was thrown";
-    });
+        it("throws custom exception with custom message", function () {
+            spyOn(_console, "error");
 
-    it("throwException throws exception with both name and type properties the same", function () {
-        try {
-            exception.raise("TestException", "test message");
-        } catch (e) {
-            expect(e.name).toEqual("TestException", e.name);
-            expect(e.type, "TestException");
-            expect(e.message).toEqual("test message");
-            return;
-        }
-
-        throw "Exception was expected, none was thrown";
-    });
-
-    it("throwException throws exception if invalid arguments", function () {
-        try {
-            exception.raise(1, {});
-        } catch (e) {
-            return;
-        }
-        throw "Exception was expected, none was thrown";
-    });
-
-    it("throwException throws exception if invalid argument", function () {
-        try {
-            exception.raise(1);
-        } catch (e) {
-            return;
-        }
-
-        throw "Exception was expected, none was thrown";
-    });
-
-    it("throwException throws correct exception type with no message", function () {
-        try {
-            exception.raise("TestExceptionType");
-        } catch (e) {
-            expect(e.name).toEqual("TestExceptionType");
-            return;
-        }
-        throw "Exception was expected, none was thrown";
-    });
-
-    it("throwException throws correct exception type with message", function () {
-        try {
-            exception.raise("TestExceptionType", "test exception was thrown");
-        } catch (e) {
-            expect(e.message).toEqual("test exception was thrown");
-            return;
-        }
-
-        throw "Exception was expected, none was thrown";
-    });
-
-    it("throwMaskedException throws custom exception", function () {
-        s.mock(_console).expects("error").once();
-
-        try {
-            exception.throwMaskedException("TestExceptionType", "test message");
-        } catch (e) {
-            expect(e.name).toEqual(exception.types.tinyHipposMaskedException);
-            expect(e.message).toEqual("tinyhippos terminated your script due to exception");
-            return;
-        }
-
-        throw "Exception was expected, none was thrown";
-    });
-
-    it("throwMaskedException throws custom exception with custom message", function () {
-        s.mock(_console).expects("error").once();
-
-        try {
-            exception.throwMaskedException("TestExceptionType");
-        } catch (e) {
-            expect(e.name).toEqual(exception.types.tinyHipposMaskedException);
-            expect(typeof e.message).toEqual("string");
-            return;
-        }
-
-        throw "Exception was expected, none was thrown";
+            try {
+                exception.throwMaskedException("TestExceptionType");
+                throw "Exception was expected, none was thrown";
+            } catch (e) {
+                expect(_console.error.callCount).toBe(1);
+                expect(e.name).toEqual(exception.types.tinyHipposMaskedException);
+                expect(typeof e.message).toEqual("string");
+            }
+        });
     });
 });

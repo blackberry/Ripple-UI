@@ -16,30 +16,19 @@
 describe("webworks_invoke", function () {
     describe("for handset", function () {
         var webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
-        Invoke = require('ripple/platform/webworks.handset/2.0.0/client/invoke'),
-        notifications = require('ripple/notifications'),
-        constants = require('ripple/constants'),
-        sinon = require('sinon'),
-        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        s;
-
-        beforeEach(function () {
-            s = sinon.sandbox.create();
-        });
-
-        afterEach(function () {
-            s.verifyAndRestore();
-        });
+            Invoke = require('ripple/platform/webworks.handset/2.0.0/client/invoke'),
+            notifications = require('ripple/notifications'),
+            transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
         it("raises a notification when calling invoke", function () {
-            s.mock(notifications)
-            .expects("openNotification")
-            .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL, "Requested to launch: Browser application.")
-            .once();
+            spyOn(notifications, "openNotification");
 
             webworks.blackberry.invoke.invoke({
                 appType: "http://www.google.com"
             });
+
+            expect(notifications.openNotification)
+                .toHaveBeenCalledWith("normal", "Requested to launch: Browser application.");
         });
 
         it("calls the correct invoke URI", function () {
@@ -55,32 +44,22 @@ describe("webworks_invoke", function () {
             });
         });
     });
+
     describe("for tablet", function () {
         var webworks = require('ripple/platform/webworks.tablet/2.0.0/server'),
-        Invoke = require('ripple/platform/webworks.tablet/2.0.0/client/invoke'),
-        notifications = require('ripple/notifications'),
-        constants = require('ripple/constants'),
-        sinon = require('sinon'),
-        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        s;
-
-        beforeEach(function () {
-            s = sinon.sandbox.create();
-        });
-
-        afterEach(function () {
-            s.verifyAndRestore();
-        });
+            Invoke = require('ripple/platform/webworks.tablet/2.0.0/client/invoke'),
+            notifications = require('ripple/notifications'),
+            transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
 
         it("raises a notification when calling invoke", function () {
-            s.mock(notifications)
-            .expects("openNotification")
-            .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL, "Requested to launch: Browser application.")
-            .once();
+            spyOn(notifications, "openNotification");
 
             webworks.blackberry.invoke.invoke({
                 appType: "http://www.google.com"
             });
+
+            expect(notifications.openNotification)
+                .toHaveBeenCalledWith("normal", "Requested to launch: Browser application.");
         });
 
         it("calls the correct invoke URI", function () {

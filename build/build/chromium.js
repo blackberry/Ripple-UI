@@ -32,6 +32,7 @@ module.exports = function (src, baton) {
             bootstrap = _c.DEPLOY + "chromium/injection_src/bootstrap.js",
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
+                          .replace(/#DIALOG_VIEWS#/g, src.dialogs)
                           .replace(_c.SPACES_AND_TABS, " ")
                           .replace(/'/g, _c.ESCAPED_QUOTES);
 

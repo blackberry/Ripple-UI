@@ -23,7 +23,6 @@ describe("webworks system", function () {
         utils = require('ripple/utils'),
         deviceSettings = require('ripple/deviceSettings'),
         notifications = require('ripple/notifications'),
-        constants = require('ripple/constants'),
         Playbook = require('ripple/devices/Playbook'),
         devices = require('ripple/devices'),
         platform = require('ripple/platform');
@@ -161,7 +160,7 @@ describe("webworks system", function () {
                 var args = {filePath: "the path"};
                 spyOn(notifications, "openNotification");
                 system.setHomeScreenBackground(args);
-                expect(notifications.openNotification.mostRecentCall.args[0]).toEqual(constants.NOTIFICATIONS.TYPES.NORMAL);
+                expect(notifications.openNotification.mostRecentCall.args[0]).toEqual("normal");
                 expect(notifications.openNotification.mostRecentCall.args[1]).toMatch(args.filePath);
             });
         });

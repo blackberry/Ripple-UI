@@ -32,7 +32,6 @@ module.exports = {
         "browser-require/require.js",
         "jquery.js",
         "jquery.ui.js",
-        "jquery.dimensions.js",
         "jquery.tooltip.js",
         "Math.uuid.js",
         "jXHR.js",

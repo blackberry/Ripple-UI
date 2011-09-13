@@ -105,7 +105,6 @@ describe("xhr", function () {
     });
 
     // TODO: add tests (cors)
-    // open (ex fileSystem.getURI)
     // test defaulting to base on local request
     describe("xhr/cors", function () {
         it("exports a mappable xhr object", function () {
