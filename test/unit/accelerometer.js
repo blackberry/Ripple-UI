@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 describe("accelerometer", function () {
-
     var accelerometer = require('ripple/accelerometer'),
         Rotation = require('ripple/platform/w3c/1.0/Rotation'),
         Acceleration = require('ripple/platform/w3c/1.0/Acceleration'),
         event = require('ripple/event'),
-        sinon = require('sinon'),
-        s,
         db = require('ripple/db'),
         MOCK_POSITIONINFO = {
             x: 4,
@@ -30,14 +27,6 @@ describe("accelerometer", function () {
             beta: 45,
             gamma: 90
         };
-
-    beforeEach(function () {
-        s = sinon.sandbox.create();
-    });
-
-    afterEach(function () {
-        s.verifyAndRestore();
-    });
 
     it("test getInfo should return a valid set of values", function () {
         var info = accelerometer.getInfo();
@@ -54,7 +43,8 @@ describe("accelerometer", function () {
     });
 
     it("setInfo should update successfully", function () {
-        s.stub(db, "saveObject");
+        spyOn(db, "saveObject");
+
         accelerometer.setInfo({
             x: MOCK_POSITIONINFO.x,
             y: MOCK_POSITIONINFO.y,
@@ -69,7 +59,7 @@ describe("accelerometer", function () {
     });
 
     it("should fire DeviceMotionEvent when setInfo is called", function () {
-        s.stub(db, "saveObject");
+        spyOn(db, "saveObject");
         spyOn(event, "trigger");
 
         accelerometer.setInfo({
@@ -91,7 +81,7 @@ describe("accelerometer", function () {
     });
 
     it("should fire DeviceMotionEvent when setInfo is called", function () {
-        s.stub(db, "saveObject");
+        spyOn(db, "saveObject");
         spyOn(event, "trigger");
 
         accelerometer.setInfo({
@@ -113,7 +103,7 @@ describe("accelerometer", function () {
     });
 
     it("should fire DeviceOrientationEvent when setInfo is called", function () {
-        s.stub(db, "saveObject");
+        spyOn(db, "saveObject");
         spyOn(event, "trigger");
 
         accelerometer.setInfo({
@@ -135,7 +125,7 @@ describe("accelerometer", function () {
     });
 
     it("test should return a valid cached object when specified", function () {
-        s.stub(db, "saveObject");
+        spyOn(db, "saveObject");
         accelerometer.setInfo(8, 8, 8);
 
         var info = accelerometer.getInfo(true);
@@ -146,8 +136,8 @@ describe("accelerometer", function () {
     });
 
     it("test shake should update cached x value", function () {
-        s.stub(db, "saveObject");
-        s.stub(event, "trigger");
+        spyOn(db, "saveObject");
+        spyOn(event, "trigger");
         spyOn(global, "setInterval").andCallFake(function (callback) {
             callback();
         });

@@ -1,4 +1,3 @@
-npm install -g jake jshint uglify-js
-npm install jsdom sinon jasmine-node jWorkflow connect express argsparser
-git submodule init
-git submodule update
+npm install -g jake jshint csslint uglify-js
+npm install jsdom jasmine-node@1.0.8 jWorkflow connect argsparser
+git submodule update --init

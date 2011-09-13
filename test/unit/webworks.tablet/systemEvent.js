@@ -16,7 +16,7 @@
 describe("webworks.tablet system event", function () {
     var server = require('ripple/platform/webworks.tablet/2.0.0/server/systemEvent'),
         client = require('ripple/platform/webworks.tablet/2.0.0/client/systemEvent'),
-        spec = require('ripple/platform/webworks.tablet/2.0.0/spec/device'),
+        deviceSpec = require('ripple/platform/webworks.tablet/2.0.0/spec/device'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         event = require('ripple/event'),
         MockBaton = function () {
@@ -25,11 +25,30 @@ describe("webworks.tablet system event", function () {
         };
 
     describe("platform spec", function () {
+        var spec = require('ripple/platform/webworks.tablet/2.0.0/spec');
+
         // NOTE: system and system.event for Playbook do not require feature declarations (see docs)
         it("includes the module according to proper object structure", function () {
-            var spec = require('ripple/platform/webworks.tablet/2.0.0/spec');
             expect(spec.objects.blackberry.children.system.children.event.path)
                 .toEqual("webworks.tablet/2.0.0/client/systemEvent");
+        });
+
+        describe("events", function () {
+            describe("app.event.onSwipeDown callback", function () {
+                it("triggers AppSwipeDown", function () {
+                    spyOn(event, "trigger");
+                    spec.events["app.event.onSwipeDown"].callback();
+                    expect(event.trigger).toHaveBeenCalledWith("AppSwipeDown");
+                });
+            });
+
+            describe("app.event.onSwipeStart callback", function () {
+                it("triggers AppSwipeStart", function () {
+                    spyOn(event, "trigger");
+                    spec.events["app.event.onSwipeStart"].callback();
+                    expect(event.trigger).toHaveBeenCalledWith("AppSwipeStart");
+                });
+            });
         });
     });
 
@@ -42,23 +61,23 @@ describe("webworks.tablet system event", function () {
 
     describe("in the device spec", function () {
         it("includes setting to togger handset charging on and off", function () {
-            expect(typeof spec.battery.state.name).toEqual("string");
-            expect(spec.battery.state.control.type).toEqual("checkbox");
+            expect(typeof deviceSpec.battery.state.name).toEqual("string");
+            expect(deviceSpec.battery.state.control.type).toEqual("checkbox");
 
-            expect(typeof spec.battery.level.callback).toEqual("function");
+            expect(typeof deviceSpec.battery.level.callback).toEqual("function");
             spyOn(event, "trigger");
-            spec.battery.state.callback(false);
+            deviceSpec.battery.state.callback(false);
             expect(event.trigger).toHaveBeenCalledWith("DeviceBatteryStateChanged", [false]);
         });
 
         it("includes setting to set charge level of the handset", function () {
-            expect(typeof spec.battery.level.name).toEqual("string");
-            expect(spec.battery.level.control.type).toEqual("select");
-            expect(typeof spec.battery.level.options === "object").toEqual(true);
+            expect(typeof deviceSpec.battery.level.name).toEqual("string");
+            expect(deviceSpec.battery.level.control.type).toEqual("select");
+            expect(typeof deviceSpec.battery.level.options === "object").toEqual(true);
 
-            expect(typeof spec.battery.level.callback).toEqual("function");
+            expect(typeof deviceSpec.battery.level.callback).toEqual("function");
             spyOn(event, "trigger");
-            spec.battery.level.callback(87);
+            deviceSpec.battery.level.callback(87);
             expect(event.trigger).toHaveBeenCalledWith("DeviceBatteryLevelChanged", [87]);
         });
     });
@@ -163,7 +182,7 @@ describe("webworks.tablet system event", function () {
                 expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 3}); // state CHARGING
             });
 
-            it("passes state CHARGING when charging is false", function () {
+            it("passes state CHARGING when charging is true", function () {
                 var baton = new MockBaton();
                 server.deviceBatteryStateChange({}, {}, baton);
                 event.trigger("DeviceBatteryStateChanged", [true], true);

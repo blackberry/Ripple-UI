@@ -523,7 +523,7 @@ input.ui-button { padding: .4em 1em; }
     color: #F0F0F0;    
 }
 .logo {
-    background-image: url("/images/ripplelogo.png");
+    background-image: url("../../images/ripplelogo.png");
 }
 
 .panel-table td {

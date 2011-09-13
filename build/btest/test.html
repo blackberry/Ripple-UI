@@ -25,9 +25,9 @@
         </script>
 
         <!-- jasmine -->
-        <link rel="stylesheet" type="text/css" href="thirdparty/jasmine/lib/jasmine.css">
-        <script type="text/javascript" src="thirdparty/jasmine/lib/jasmine.js"></script>
-        <script type="text/javascript" src="thirdparty/jasmine/lib/jasmine-html.js"></script>
+        <link rel="stylesheet" type="text/css" href="thirdparty/jasmine/lib/jasmine-core/jasmine.css">
+        <script type="text/javascript" src="thirdparty/jasmine/lib/jasmine-core/jasmine.js"></script>
+        <script type="text/javascript" src="thirdparty/jasmine/lib/jasmine-core/jasmine-html.js"></script>
         <script type="text/javascript" charset="utf-8">
             // also mocked out in node runner
             global.describeBrowser = function () {
@@ -72,9 +72,6 @@
             };
         </script>
 
-        <!-- sinonjs -->
-        <script src="thirdparty/sinon.js" type="text/javascript" charset="utf-8"></script>
-
         <!-- jWorkflow -->
         <script src="thirdparty/jWorkflow/jworkflow-min-0.4.0.js" type="text/javascript" charset="utf-8"></script>
 
@@ -83,19 +80,11 @@
         <script src="thirdparty/Math.uuid.js" type="text/javascript" charset="utf-8"></script>
         <script src="thirdparty/jquery.js" type="text/javascript" charset="utf-8"></script>
         <script src="thirdparty/jquery.ui.js" type="text/javascript" charset="utf-8"></script>
-        <script src="thirdparty/jquery.dimensions.js" type="text/javascript" charset="utf-8"></script>
         <script src="thirdparty/jquery.tooltip.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- define Math.uuid as a ghost -->
         <script type="text/javascript" charset="utf-8">
             require.define('thirdparty/Math.uuid', function (require, module, exports) {});
-        </script>
-
-        <!-- define sinon as module -->
-        <script type="text/javascript" charset="utf-8">
-            require.define('sinon', function (require, module, exports) {
-                module.exports = window.sinon;
-            });
         </script>
 
         <!-- define jWorkflow as module -->

@@ -1,0 +1,54 @@
+/*
+ *  Copyright 2011 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* ------------------------------>
+    Pearl9100 (455x969) offset (47x139)*/
+
+.viewport-wrapper-Pearl9100 {
+    width: 360px;
+    height: 400px;
+    border: none;
+}
+
+.menu-button-wrapper-Pearl9100{
+    position: relative;
+    display: inline-block;
+    margin: 30px 0 0 65px;
+    width: 65px;
+    height: 75px;
+    cursor: pointer;
+}
+
+.back-button-wrapper-Pearl9100 {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 0 95px;
+    width: 65px;
+    height: 75px;
+    cursor: pointer;
+}
+
+.device-wrapper-Pearl9100 {
+    position: relative;
+    padding: 139px 0 0 47px;
+    width: 408px;
+    height: 830px;
+    margin: 0 auto;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: url('../images/Pearl9100.png') no-repeat;
+}

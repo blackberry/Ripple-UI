@@ -22,13 +22,14 @@ module.exports = function () {
         devicesCSS = [],
         overlays = [],
         panels = [],
+        dialogs = [],
         thirdparty = [],
         src = {
             info: JSON.parse(fs.readFileSync(_c.PACKAGE_JSON, "utf-8")),
             js: "",
-            injection: "",
             overlays: "",
             panels: "",
+            dialogs: "",
             html: "",
             skins: ""
         };
@@ -54,6 +55,7 @@ module.exports = function () {
     utils.collect(_c.DEVICES, devicesCSS, matches(".css"));
     utils.collect(_c.UI, overlays, matches("overlay.html"));
     utils.collect(_c.UI, panels, matches("panel.html"));
+    utils.collect(_c.UI, dialogs, matches("dialog.html"));
 
     utils.collect(_c.THIRDPARTY, thirdparty, function (path) {
         return _c.thirdpartyIncludes.some(function (file) {
@@ -65,6 +67,7 @@ module.exports = function () {
 
     src.skins += compile(devicesCSS);
     src.panels += compile(panels);
+    src.dialogs += compile(dialogs);
     src.overlays += compile(overlays);
 
     src.js += _c.thirdpartyIncludes.reduce(function (buffer, file) {
