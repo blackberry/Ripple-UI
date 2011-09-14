@@ -351,16 +351,77 @@ section.left { left: 0; }
     background: rgba(0, 0, 0, 0.25);
 }
 
-.overlay-dialog-box {
-    max-height: 70%;
-    max-width: 70%;
-    padding: 5%;
-    overflow: hidden;
+.overlay-dialog-bottom {
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: end;
+    -moz-box-orient: vertical;
+    -moz-box-pack: end;
+    -ms-box-orient: vertical;
+    -ms-box-pack: end;
+}
+
+.overlay-dialog-top {
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: start;
+    -moz-box-orient: vertical;
+    -moz-box-pack: start;
+    -ms-box-orient: vertical;
+    -ms-box-pack: start;
+}
+
+.overlay-dialog-center {
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    -moz-box-orient: vertical;
+    -moz-box-pack: center;
+    -ms-box-orient: vertical;
+    -ms-box-pack: center;
+}
+
+.overlay-dialog-wrapper-full {
+    height: 100%;
+    width: 100%;
+}
+
+.overlay-dialog-wrapper-large {
+    height: 80%;
+    width: 80%;
+}
+
+.overlay-dialog-wrapper-medium {
+    height: 50%;
+    width: 50%;
+}
+
+.overlay-dialog-wrapper-small {
+    height: 20%;
+    width: 20%;
+}
+
+.overlay-dialog-wrapper-tall {
+    height: 80%;
+}
+
+.overlay-dialog-wrapper {
     color: #FFF;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
     background: rgba(0,0,0,1.0);
+}
+
+.overlay-dialog-box {
+    padding: 5%;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background: rgba(0,0,0,1.0);
+}
+
+.overlay-dialog-title {
+    margin: 0 5px;
+    overflow: hidden;
+    background: rgba(16,16,16,1.0);
 }
 
 .overlay-dialog-message {
