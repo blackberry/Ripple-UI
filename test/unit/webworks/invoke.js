@@ -31,6 +31,36 @@ describe("webworks_invoke", function () {
                 .toHaveBeenCalledWith("normal", "Requested to launch: Browser application.");
         });
 
+        describe("BrowserArguments", function () {
+            beforeEach(function () {
+                spyOn(transport, "call");
+            });
+
+            it("handles launching http protocol", function () {
+                expect(function () {
+                    Invoke.invoke(Invoke.APP_BROWSER, {
+                        url: "http://somewhere.com"
+                    });
+                }).not.toThrow();
+            });
+
+            it("handles launching https protocol", function () {
+                expect(function () {
+                    Invoke.invoke(Invoke.APP_BROWSER, {
+                        url: "https://somewhere.com"
+                    });
+                }).not.toThrow();
+            });
+
+            it("throws exception when given unsupported protocol", function () {
+                expect(function () {
+                    Invoke.invoke(Invoke.APP_BROWSER, {
+                        url: "file:///somewhere/"
+                    });
+                }).toThrow();
+            });
+        });
+
         it("calls the correct invoke URI", function () {
             spyOn(transport, "call");
 
@@ -60,6 +90,36 @@ describe("webworks_invoke", function () {
 
             expect(notifications.openNotification)
                 .toHaveBeenCalledWith("normal", "Requested to launch: Browser application.");
+        });
+
+        describe("BrowserArguments", function () {
+            beforeEach(function () {
+                spyOn(transport, "call");
+            });
+
+            it("handles launching http protocol", function () {
+                expect(function () {
+                    Invoke.invoke(Invoke.APP_BROWSER, {
+                        url: "http://somewhere.com"
+                    });
+                }).not.toThrow();
+            });
+
+            it("handles launching https protocol", function () {
+                expect(function () {
+                    Invoke.invoke(Invoke.APP_BROWSER, {
+                        url: "https://somewhere.com"
+                    });
+                }).not.toThrow();
+            });
+
+            it("throws exception when given unsupported protocol", function () {
+                expect(function () {
+                    Invoke.invoke(Invoke.APP_BROWSER, {
+                        url: "file:///somewhere/"
+                    });
+                }).toThrow();
+            });
         });
 
         it("calls the correct invoke URI", function () {

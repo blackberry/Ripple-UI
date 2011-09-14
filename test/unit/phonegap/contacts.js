@@ -16,6 +16,7 @@
 describe("phonegap_contacts", function () {
     var _contactDB = [],
         db = require('ripple/db'),
+        event = require('ripple/event'),
         Contact = require('ripple/platform/phonegap/1.0/Contact'),
         ContactError = require('ripple/platform/phonegap/1.0/ContactError'),
         ContactField = require('ripple/platform/phonegap/1.0/ContactField'),
@@ -363,12 +364,10 @@ describe("phonegap_contacts", function () {
 
             spyOn(db, "saveObject");
 
-            _contactDB.splice.apply(_contactDB, [0, 1]);
+            _contactDB.splice.apply(_contactDB, [0, 2, new Contact(), new Contact()]);
 
-            contact.save(function (items) {
-                expect(items.length).toEqual(1);
-                expect(items[0].id).toEqual(contact.id);
-                expect(items[0].name).toEqual(contact.name);
+            contact.save(function (item) {
+                expect(item.id).toEqual(contact.id);
             }, error);
 
             waits(1);
@@ -387,9 +386,8 @@ describe("phonegap_contacts", function () {
 
             spyOn(db, "saveObject");
 
-            contact.save(function (items) {
-                expect(items.length).toEqual(1);
-                expect(typeof items[0].id).toEqual("string");
+            contact.save(function (item) {
+                expect(typeof item.id).toEqual("string");
             }, error);
 
             waits(1);
@@ -406,9 +404,8 @@ describe("phonegap_contacts", function () {
 
             spyOn(db, "saveObject");
 
-            contact.save(function (items) {
-                expect(items.length).toEqual(1);
-                expect(items[0].updated >= then).toEqual(true);
+            contact.save(function (item) {
+                expect(item.updated >= then).toEqual(true);
             }, error);
 
             waits(1);
@@ -425,20 +422,24 @@ describe("phonegap_contacts", function () {
                     "name": "ricardo",
                     "updated": lastUpdated
                 }),
-                error = jasmine.createSpy();
+                error = jasmine.createSpy(),
+                success = jasmine.createSpy();
 
             spyOn(db, "saveObject");
+            spyOn(event, "trigger").andCallFake(function (name, args, sync) {
+                if (name === "phonegap-contact-save") {
+                    args[2]({}); //simulate error out
+                }
+            });
 
             _contactDB.splice.apply(_contactDB, [0, 1, contact]);
-
-            contact.save(undefined, function (error) {
-                expect(contact.updated.getTime()).toEqual(lastUpdated.getTime());
-            });
+            contact.save(success, error);
 
             waits(1);
             runs(function () {
-                expect(db.saveObject.argsForCall[0][0]).toBe("phonegap-contacts");
-                expect(error).not.toHaveBeenCalled();
+                expect(success).not.toHaveBeenCalled();
+                expect(error).toHaveBeenCalled();
+                expect(contact.updated.getTime()).toEqual(lastUpdated.getTime());
             });
         });
 
@@ -453,10 +454,9 @@ describe("phonegap_contacts", function () {
 
             _contactDB.splice.apply(_contactDB, [0, 1, contact]);
 
-            contact.save(function (items) {
-                expect(items.length).toEqual(1);
-                expect(items[0].id).toEqual(contact.id);
-                expect(items[0].name).toEqual(contact.name);
+            contact.save(function (item) {
+                expect(item.id).toEqual(contact.id);
+                expect(item.name).toEqual(contact.name);
             }, error);
 
             waits(1);
@@ -478,8 +478,8 @@ describe("phonegap_contacts", function () {
 
             _contactDB.splice.apply(_contactDB, [0, 1, contact]);
 
-            contact.remove(function (items) {
-                expect(0, items.length, "expected only one contact");
+            contact.remove(function () {
+                expect(_contactDB.length).toBe(0);
             }, error);
 
             waits(1);
