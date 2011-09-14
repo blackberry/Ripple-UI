@@ -351,7 +351,7 @@ section.left { left: 0; }
     background: rgba(0, 0, 0, 0.25);
 }
 
-.overlay-dialog-bottom {
+.overlay-dialog-bottomCenter {
     -webkit-box-orient: vertical;
     -webkit-box-pack: end;
     -moz-box-orient: vertical;
@@ -360,7 +360,7 @@ section.left { left: 0; }
     -ms-box-pack: end;
 }
 
-.overlay-dialog-top {
+.overlay-dialog-topCenter {
     -webkit-box-orient: vertical;
     -webkit-box-pack: start;
     -moz-box-orient: vertical;
@@ -369,7 +369,7 @@ section.left { left: 0; }
     -ms-box-pack: start;
 }
 
-.overlay-dialog-center {
+.overlay-dialog-middleCenter {
     -webkit-box-orient: vertical;
     -webkit-box-pack: center;
     -moz-box-orient: vertical;
