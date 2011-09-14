@@ -478,6 +478,12 @@ section.left { left: 0; }
     overflow: hidden;
 }
 
+#geo-map-container {
+    width: 316px;
+    height: 316px;
+    z-index: 0;
+}
+
 #geo-map-img {
     top: -80px;
     left: -80px;
@@ -494,6 +500,7 @@ section.left { left: 0; }
 
 #geo-map-direction-label {
     margin-left: 35px;
+    z-index: 800;
 }
 
 #geo-map-direction {
@@ -507,15 +514,17 @@ section.left { left: 0; }
     background-color: rgba(180,180,180,0.7);
     -webkit-border-radius: 5px;
     padding: 5px;
+    z-index: 800;
 }
 
 #geo-map-marker {
     position: absolute;
     top: 158px;
-    left: 148px;
-    background: url(../images/circle.png);
-    width: 20px;
-    height: 20px;
+    left: 143px;
+    background: url(../images/arrow.png);
+    width: 22px;
+    height: 30px;
+    z-index: 800;
 }
 
 .geo-map-zoom-btn {
