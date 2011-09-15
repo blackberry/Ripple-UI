@@ -57,6 +57,13 @@ describe("webworks_app", function () {
             });
         });
 
+        describe("isForeground", function () {
+            it("calls the transport appropriately", function () {
+                expect(appClient.isForeground).toBe(data);
+                expect(transport.call).toHaveBeenCalledWith("blackberry/app/isForeground");
+            });
+        });
+
         describe("setHomeScreenName", function () {
             it("calls the transport appropriately", function () {
                 appClient.setHomeScreenName("text");
@@ -308,5 +315,26 @@ describe("webworks_app", function () {
         appServer.removeBannerIndicator();
         expect(event.trigger).toHaveBeenCalledWith("BannerUpdated", ["", 0]);
         expect(event.trigger.callCount).toBe(1);
+    });
+    describe("isForeground", function () {
+        it("returns false when app has requested the background", function () {
+            spyOn(event, "trigger");
+            spyOn(ui, "showOverlay").andCallFake(function (url, callback) {
+                callback({children: {}});
+            });
+
+            appServer.requestBackground();
+            expect(appServer.isForeground({})).toEqual({code: 1, data: false});
+        });
+
+        it("returns true when app has requested the foreground", function () {
+            spyOn(event, "trigger");
+            spyOn(ui, "hideOverlay").andCallFake(function (url, callback) {
+                callback({children: {}});
+            });
+
+            appServer.requestForeground();
+            expect(appServer.isForeground({})).toEqual({code: 1, data: true});
+        });
     });
 });
