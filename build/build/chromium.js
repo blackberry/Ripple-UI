@@ -21,15 +21,13 @@ module.exports = function (src, baton) {
     baton.take();
 
     var copy = 'cp -r ' + _c.EXT + "chromium " + _c.DEPLOY + " && " +
-               'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chromium/ &&" +
-               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chromium/ &&" +
-               'cp -r ' + _c.ASSETS + "styles " + _c.DEPLOY + "chromium/";
+               'cp -r ' + _c.ASSETS + " " + _c.DEPLOY + "chromium/";
 
     childProcess.exec(copy, function () {
-        var css = _c.DEPLOY + "chromium/styles/main.css",
+        var css = _c.DEPLOY + "chromium/ripple.css",
             manifest = _c.DEPLOY + "chromium/manifest.json",
-            injection = _c.DEPLOY + "chromium/ripple.js",
-            bootstrap = _c.DEPLOY + "chromium/injection_src/bootstrap.js",
+            js = _c.DEPLOY + "chromium/ripple.js",
+            bootstrap = _c.DEPLOY + "chromium/bootstrap.js",
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
                           .replace(/#DIALOG_VIEWS#/g, src.dialogs)
@@ -45,7 +43,7 @@ module.exports = function (src, baton) {
                          "window.th_panel = {" + "LAYOUT_HTML: '" + doc + "'};" +
                          fs.readFileSync(bootstrap, "utf-8"));
 
-        fs.writeFileSync(injection,
+        fs.writeFileSync(js,
             src.js +
             "(function () {" +
                 "var evt = document.createEvent('Events');" +
