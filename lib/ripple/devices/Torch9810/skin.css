@@ -33,7 +33,7 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background: url('../images/Torch9810.png') no-repeat;
+    background: url('images/Torch9810.png') no-repeat;
 }
 
 .menu-button-wrapper-Torch9810 {
@@ -70,7 +70,7 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background: url('../images/Torch9810_landscape.png') no-repeat;
+    background: url('images/Torch9810_landscape.png') no-repeat;
 }
 
 .menu-button-wrapper-landscape-Torch9810{

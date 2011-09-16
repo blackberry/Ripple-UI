@@ -32,7 +32,7 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background: url('../images/Playbook_landscape.png') no-repeat;
+    background: url('images/Playbook_landscape.png') no-repeat;
 }
 
 .viewport-wrapper-Playbook {
@@ -52,5 +52,5 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    background: url('../images/Playbook.png') no-repeat;
+    background: url('images/Playbook.png') no-repeat;
 }
