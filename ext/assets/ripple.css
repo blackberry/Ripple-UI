@@ -584,7 +584,7 @@ section.left { left: 0; }
 #geo-map-arrow {
     width: 32px;
     height: 32px;
-    background: url(../images/compass.png);
+    background: url(images/compass.png);
     float: left;
     margin-top: 5px;
 }
@@ -612,7 +612,7 @@ section.left { left: 0; }
     position: absolute;
     top: 158px;
     left: 148px;
-    background: url(../images/circle.png);
+    background: url(images/circle.png);
     width: 20px;
     height: 20px;
 }
@@ -711,7 +711,7 @@ section.left { left: 0; }
     left: 0;
     height: 100%;
     z-index: 1200;
-    background: #FFFFFF url("../images/load2.gif") center no-repeat;
+    background: #FFFFFF url("images/load2.gif") center no-repeat;
 }
 
 /* ------------------------------>
@@ -766,7 +766,7 @@ section.left { left: 0; }
 }
 
 .viewport-wrapper {
-    background: url(../images/ui-bg-hashed.png) repeat;
+    background: url(images/ui-bg-hashed.png) repeat;
     border: 2px solid rgba(204, 204, 204, 0.75);
 }
 /* ------------------------------>
@@ -850,7 +850,7 @@ section.left { left: 0; }
 }
 
     .error-logo {
-        background: url("../images/ripplelogo_large.png") no-repeat 10px 10px;
+        background: url("images/ripplelogo_large.png") no-repeat 10px 10px;
         background-size: 100% 100%;
         position: absolute;
         width: 122px;
@@ -860,7 +860,7 @@ section.left { left: 0; }
     }
 
     .error-hippo {
-        background: url("../images/dontPanic.png") no-repeat center;
+        background: url("images/dontPanic.png") no-repeat center;
         background-size: 100% 100%;
         position: absolute;
         width: 230px;
@@ -911,7 +911,7 @@ section.left { left: 0; }
 }
 
     .platform-select-logo {
-        background: url("../images/ripplelogo_large.png") no-repeat 10px 10px;
+        background: url("images/ripplelogo_large.png") no-repeat 10px 10px;
         background-size: 100% 100%;
         position: absolute;
         width: 122px;
