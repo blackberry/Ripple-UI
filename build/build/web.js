@@ -26,17 +26,18 @@ module.exports = function (src, baton) {
     baton.take();
 
     copy(_c.ASSETS, function () {
-        var css = _c.DEPLOY + "web/styles/main.css",
+        var css = _c.ASSETS + "ripple.css",
+            cssDeploy = _c.DEPLOY + "web/ripple.css",
             index = _c.DEPLOY + "web/index.html",
-            injection = _c.DEPLOY + "web/ripple.js",
+            js = _c.DEPLOY + "web/ripple.js",
             doc = src.html.replace(/#URL_PREFIX#/g, "")
                           .replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#DIALOG_VIEWS#/g, src.dialogs)
                           .replace(/#PANEL_VIEWS#/g, src.panels);
 
-        fs.writeFileSync(css, fs.readFileSync(css, "utf-8") + src.skins);
+        fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
         fs.writeFileSync(index, doc);
-        fs.writeFileSync(injection, src.js +
+        fs.writeFileSync(js, src.js +
             "require('ripple/ui').register('omnibar');" +
             "require('ripple/bootstrap').bootstrap();");
 

@@ -108,17 +108,6 @@ describe("resizer", function () {
         expect(iPhone3.viewPort.portrait.height).toBe(parseInt(h, 10));
     });
 
-    it("resize should NOT invoke window.onresized", function () {
-        spyOn(db, "retrieve").andReturn(null);
-
-        window.onresize = jasmine.createSpy();
-        resizer.resize(iPhone3);
-
-        expect(db.retrieve.callCount).toBe(1);
-        expect(window.onresize.callCount).toBe(0);
-        delete window.onresize;
-    });
-
     it("resize should trigger ScreenChangeDimensions", function () {
         spyOn(db, "retrieve").andReturn(null);
         spyOn(event, "trigger").andReturn(null);

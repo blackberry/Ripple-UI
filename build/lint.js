@@ -38,7 +38,8 @@ function _lintCSS(files, done) {
 }
 
 module.exports = function (done, files) {
+    var cssDirs = ["ext/assets/ripple.css", "ext/chromium/styles", "lib", "test"];
     _lintJS(files && files.length > 0 ? files : ["."], function () {
-        _lintCSS(files && files.length > 0 ? files : ["ext/assets/styles", "lib", "test"], done);
+        _lintCSS(files && files.length > 0 ? files : cssDirs, done);
     });
 };
