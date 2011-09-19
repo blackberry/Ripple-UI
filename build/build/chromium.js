@@ -24,7 +24,8 @@ module.exports = function (src, baton) {
                'cp -r ' + _c.ASSETS + " " + _c.DEPLOY + "chromium/";
 
     childProcess.exec(copy, function () {
-        var css = _c.DEPLOY + "chromium/ripple.css",
+        var css = _c.ASSETS + "ripple.css",
+            cssDeploy = _c.DEPLOY + "chromium/ripple.css",
             manifest = _c.DEPLOY + "chromium/manifest.json",
             js = _c.DEPLOY + "chromium/ripple.js",
             bootstrap = _c.DEPLOY + "chromium/bootstrap.js",
@@ -34,7 +35,7 @@ module.exports = function (src, baton) {
                           .replace(_c.SPACES_AND_TABS, " ")
                           .replace(/'/g, _c.ESCAPED_QUOTES);
 
-        fs.writeFileSync(css, fs.readFileSync(css, "utf-8") + src.skins);
+        fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
 
         fs.writeFileSync(manifest, fs.readFileSync(manifest, "utf-8")
                          .replace(new RegExp('"version": ""', 'g'), '"version": "' + src.info.version + '"'));
