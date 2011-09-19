@@ -270,6 +270,14 @@ describe("webworks system", function () {
                     desiredModule: "blackberry.pim.memo"
                 }).data).toBe(client.ALLOW);
             });
+
+            it("returns ALLOW by default if there is are no declared features", function () {
+                spyOn(app, "getInfo").andReturn({});
+
+                expect(system.hasPermission({
+                    desiredModule: "blackberry.invoke"
+                }).data).toBe(client.ALLOW);
+            });
         });
 
         describe("network", function () {
