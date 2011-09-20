@@ -81,41 +81,40 @@ describe("webworks_config", function () {
                         children: {
                             feature: {
                                 validationResult: [{
-                                        attributes: {
-                                            id: {
-                                                value: "blackberry.pim.memo"
-                                            }
-                                        },
-                                        node: {
-                                            parentNode: {
-                                                attributes: { uri: { value: "http://www.somedomain.com" } }
-                                            }
+                                    attributes: {
+                                        id: {
+                                            value: "blackberry.pim.memo"
                                         }
-                                    }, {
-                                        attributes: {
-                                            id: {
-                                                value: "blackberry.invoke"
-                                            }
-                                        },
-                                        node: {
-                                            parentNode: {
-                                                attributes: { uri: { value: "http://www.somedomain.com" } }
-                                            }
-                                        }
-                                    }, {
-                                        attributes: {
-                                            id: {
-                                                value: "blackberry.invoke"
-                                            }
-                                        },
-                                        node: {
-                                            parentNode: {
-                                                attributes: { uri: { value: "http://www.otherdomain.com" } }
-                                            }
+                                    },
+                                    node: {
+                                        parentNode: {
+                                            attributes: { uri: { value: "http://www.somedomain.com" } }
                                         }
                                     }
-                                ]
-                            }
+                                }, {
+                                    attributes: {
+                                        id: {
+                                            value: "blackberry.invoke"
+                                        }
+                                    },
+                                    node: {
+                                        parentNode: {
+                                            attributes: { uri: { value: "http://www.somedomain.com" } }
+                                        }
+                                    }
+                                }, {
+                                    attributes: {
+                                        id: {
+                                            value: "blackberry.invoke"
+                                        }
+                                    },
+                                    node: {
+                                        parentNode: {
+                                            attributes: { uri: { value: "http://www.otherdomain.com" } }
+                                        }
+                                    }
+                                }
+                           ]}
                         },
                         validationResult: [{
                             attributes: {
