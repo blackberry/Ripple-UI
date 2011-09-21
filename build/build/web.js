@@ -42,6 +42,8 @@ function _cache() {
             cache += parts[1] + "\n";
         }
     });
+
+    cache += "# Manifest build date: " + new Date();
     return cache;
 }
 
