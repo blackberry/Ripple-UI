@@ -37,7 +37,7 @@ function _cache() {
 
     files.forEach(function (file) {
         var prefix = path.normalize(_c.DEPLOY) + "web/",
-        parts = file.split(prefix);
+            parts = file.split(prefix);
         if (parts && parts.length > 1) {
             cache += parts[1] + "\n";
         }
