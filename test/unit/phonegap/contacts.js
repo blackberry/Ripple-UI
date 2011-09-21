@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 describe("phonegap_contacts", function () {
-    var _contactDB = [],
-        db = require('ripple/db'),
+    var db = require('ripple/db'),
         event = require('ripple/event'),
         Contact = require('ripple/platform/phonegap/1.0/Contact'),
         ContactError = require('ripple/platform/phonegap/1.0/ContactError'),
@@ -33,13 +32,6 @@ describe("phonegap_contacts", function () {
         return count;
     }
 
-    beforeEach(function () {
-        spyOn(db, "retrieveObject").andReturn(_contactDB);
-    });
-
-    afterEach(function () {
-        _contactDB.splice(0, _contactDB.length);
-    });
 
     describe("spec", function () {
         var spec = require('ripple/platform/phonegap/1.0/spec');
@@ -187,7 +179,7 @@ describe("phonegap_contacts", function () {
             data[0].displayName = "dave";
             data[1].displayName = "rob";
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             waits(1);
             contacts.find(["displayName"], function (items) {
@@ -204,7 +196,7 @@ describe("phonegap_contacts", function () {
             emails = data[0].emails = new ContactField("dave", "dave@test.com", true);
             data[0].id = "daveID";
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             waits(1);
             contacts.find(["emails"], function (items) {
@@ -219,7 +211,7 @@ describe("phonegap_contacts", function () {
             emails = data[0].emails = new ContactField("dave", "dave@test.com", true);
             data[0].id = "daveID";
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             waits(1);
             contacts.find(["emails"], function (items) {
@@ -233,7 +225,7 @@ describe("phonegap_contacts", function () {
         });
 
         it("returns default contacts when none persisted", function () {
-            waits(1);
+            spyOn(db, "retrieveObject").andReturn(null);
             contacts.find(["name", "displayName", "emails"], function (items) {
                 var i;
                 expect(items.length, 5, "expected five default contacts");
@@ -246,6 +238,22 @@ describe("phonegap_contacts", function () {
             });
         });
 
+        it("returns all the fields when given a fields array of ['*']", function () {
+            var error = jasmine.createSpy("error callback");
+
+            spyOn(db, "retrieveObject").andReturn(null);
+
+            contacts.find(["*"], function (items) {
+                console.log('aaa');
+                console.log(items);
+            }, error);
+
+            waits(1);
+            runs(function () {
+                expect(error).not.toHaveBeenCalled();
+            });
+        });
+
         it("can find contacts based on the filter findOption", function () {
             var contact = contacts.create({"name": "The Sheldon Cooper"}),
                 data = [contact, new Contact(), new Contact()],
@@ -254,7 +262,7 @@ describe("phonegap_contacts", function () {
 
             options.filter = "sheldon";
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contacts.find(["name", "displayName", "addresses"], function (items) {
                 expect(items.length).toEqual(1);
@@ -277,7 +285,7 @@ describe("phonegap_contacts", function () {
                 options = new ContactFindOptions(),
                 error = jasmine.createSpy();
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             options.filter = "sheldon@email.com";
 
@@ -301,7 +309,7 @@ describe("phonegap_contacts", function () {
 
             options.multiple = true;
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contacts.find(["displayName"], function (items) {
                 expect(items.length).toEqual(3);
@@ -318,7 +326,7 @@ describe("phonegap_contacts", function () {
                 data = [new Contact(), new Contact()],
                 error = jasmine.createSpy();
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contacts.find(["name"], function (items) {
                 expect(items.length).toEqual(1);
@@ -343,7 +351,7 @@ describe("phonegap_contacts", function () {
             options.updatedSince = new Date(2010, 4, 20);
             options.multiple = true;
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contacts.find(["name"], function (items) {
                 expect(1, items.length, "expected only one contact");
@@ -364,7 +372,7 @@ describe("phonegap_contacts", function () {
 
             spyOn(db, "saveObject");
 
-            _contactDB.splice.apply(_contactDB, [0, 2, new Contact(), new Contact()]);
+            spyOn(db, "retrieveObject").andReturn([new Contact(), new Contact()]);
 
             contact.save(function (item) {
                 expect(item.id).toEqual(contact.id);
@@ -432,7 +440,7 @@ describe("phonegap_contacts", function () {
                 }
             });
 
-            _contactDB.splice.apply(_contactDB, [0, 1, contact]);
+            spyOn(db, "retrieveObject").andReturn([contact]);
             contact.save(success, error);
 
             waits(1);
@@ -452,7 +460,7 @@ describe("phonegap_contacts", function () {
 
             spyOn(db, "saveObject");
 
-            _contactDB.splice.apply(_contactDB, [0, 1, contact]);
+            spyOn(db, "retrieveObject").andReturn([contact]);
 
             contact.save(function (item) {
                 expect(item.id).toEqual(contact.id);
@@ -476,7 +484,7 @@ describe("phonegap_contacts", function () {
 
             spyOn(db, "saveObject");
 
-            _contactDB.splice.apply(_contactDB, [0, 1, contact]);
+            spyOn(db, "retrieveObject").andReturn([contact]);
 
             contact.remove(function () {
                 expect(_contactDB.length).toBe(0);
