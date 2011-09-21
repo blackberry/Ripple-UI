@@ -21,6 +21,7 @@ module.exports = {
     BUILD: __dirname + "/../",
     EXT: __dirname + "/../../ext/",
     ASSETS: __dirname + "/../../ext/assets/",
+    CACHE_MANIFEST: __dirname + "/../../ext/cache.manifest",
     LIB: __dirname + "/../../lib/",
     UI: __dirname + "/../../lib/ripple/ui/",
     DEVICES: __dirname + "/../../lib/ripple/devices/",
