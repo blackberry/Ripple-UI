@@ -79,6 +79,22 @@ describe("webworks phone", function () {
                     PhoneLogs.addPhoneLogListener(callback, null, callback, null);
                     expect(transport.poll.callCount).toBe(2);
                 });
+
+                it("maps the response into CallLog objects", function () {
+                    var data = {log: {status: 5}, log2: {status: 3}};
+
+                    callback = jasmine.createSpy();
+                    spyOn(transport, "poll").andCallFake(function (url, opts, callback) {
+                        callback(data);
+                    });
+
+                    PhoneLogs.addPhoneLogListener(callback, null, null, null);
+
+                    expect(callback.argsForCall[0][0] instanceof CallLog).toBe(true);
+                    expect(callback.argsForCall[0][0].status).toBe(data.log.status);
+                    expect(callback.argsForCall[0][1] instanceof CallLog).toBe(true);
+                    expect(callback.argsForCall[0][1].status).toBe(data.log2.status);
+                });
             });
 
             describe("callAt", function () {
@@ -211,10 +227,14 @@ describe("webworks phone", function () {
                     });
 
                     it("passes the baton when PhoneCallLogAdded raised", function () {
-                        var baton = new MockBaton();
+                        var baton = new MockBaton(),
+                            log = new CallLog();
                         phone.logs.onCallLogAdded(null, null, baton);
-                        event.trigger("PhoneCallLogAdded", [new CallLog()], true);
-                        expect(baton.pass).toHaveBeenCalled();
+                        event.trigger("PhoneCallLogAdded", [log], true);
+                        expect(baton.pass).toHaveBeenCalledWith({
+                            code: 1,
+                            data: {log: log}
+                        });
                     });
                 });
 
@@ -226,10 +246,14 @@ describe("webworks phone", function () {
                     });
 
                     it("passes the baton when PhoneCallLogRemoved raised", function () {
-                        var baton = new MockBaton();
+                        var baton = new MockBaton(),
+                            log = new CallLog();
                         phone.logs.onCallLogRemoved(null, null, baton);
-                        event.trigger("PhoneCallLogRemoved", [new CallLog()], true);
-                        expect(baton.pass).toHaveBeenCalled();
+                        event.trigger("PhoneCallLogRemoved", [log], true);
+                        expect(baton.pass).toHaveBeenCalledWith({
+                            code: 1,
+                            data: {log: log}
+                        });
                     });
                 });
 
@@ -241,10 +265,15 @@ describe("webworks phone", function () {
                     });
 
                     it("passes the baton when PhoneCallLogRemoved raised", function () {
-                        var baton = new MockBaton();
+                        var baton = new MockBaton(),
+                            log = new CallLog();
                         phone.logs.onCallLogRemoved(null, null, baton);
-                        event.trigger("PhoneCallLogRemoved", [new CallLog()], true);
+                        event.trigger("PhoneCallLogRemoved", [log], true);
                         expect(baton.pass).toHaveBeenCalled();
+                        expect(baton.pass).toHaveBeenCalledWith({
+                            code: 1,
+                            data: {log: log}
+                        });
                     });
                 });
 
@@ -256,10 +285,19 @@ describe("webworks phone", function () {
                     });
 
                     it("passes the baton when PhoneCallLogUpdated raised", function () {
-                        var baton = new MockBaton();
+                        var baton = new MockBaton(),
+                            log = new CallLog(),
+                            log2 = new CallLog();
                         phone.logs.onCallLogUpdated(null, null, baton);
-                        event.trigger("PhoneCallLogUpdated", [new CallLog(), new CallLog()], true);
+                        event.trigger("PhoneCallLogUpdated", [log, log2], true);
                         expect(baton.pass).toHaveBeenCalled();
+                        expect(baton.pass).toHaveBeenCalledWith({
+                            code: 1,
+                            data: {
+                                newLog: log,
+                                oldLog: log2
+                            }
+                        });
                     });
                 });
 
@@ -553,7 +591,7 @@ describe("webworks phone", function () {
 
                 expect(baton.pass).toHaveBeenCalled();
                 result = baton.pass.mostRecentCall.args[0];
-                expect(result.id).toBe(1);
+                expect(result.code).toBe(1);
                 expect(result.data.callId).toBe(456);
                 expect(result.data.error).toBe(789);
             });
