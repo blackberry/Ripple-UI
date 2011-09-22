@@ -974,8 +974,7 @@ section.left { left: 0; }
 .omni-bar {
     position: fixed;
     width: 100%;
-    box-sizing: border-box;
-    padding: 0 0.25em 0.1em 0.25em;
+    padding: 0 0 0.1em 0;
     z-index: 999;
 }
     .omni-bar .ui-icon-container {
@@ -994,6 +993,14 @@ section.left { left: 0; }
     .omni-bar .ui-icon-container:active {
         opacity: 0.4;
     }
+
+        .omni-bar .ui-icon-container-left {
+            margin-left: 0.25em;
+        }
+
+        .omni-bar .ui-icon-container-right {
+            margin-right: 0.25em;
+        }
 
         .omni-bar .ui-icon {
             display: inline-block;
