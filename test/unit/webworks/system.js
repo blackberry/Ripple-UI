@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-describe("webworks system", function () {
+describe("webworks.core system", function () {
     var system = require('ripple/platform/webworks.core/2.0.0/server/system'),
-        systemEvent = require('ripple/platform/webworks.handset/2.0.0/server/systemEvent'),
         client = require('ripple/platform/webworks.core/2.0.0/client/system'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         deviceSpec = require('ripple/platform/webworks.handset/2.0.0/spec/device'),
@@ -26,17 +25,6 @@ describe("webworks system", function () {
         Playbook = require('ripple/devices/Playbook'),
         devices = require('ripple/devices'),
         platform = require('ripple/platform');
-
-    // this only tests handset (not tablet)
-    describe("using server", function () {
-        it("exposes the system module", function () {
-            var webworks = require('ripple/platform/webworks.handset/2.0.0/server'),
-                obj = {};
-            obj.event = systemEvent;
-            utils.mixin(system, obj);
-            expect(webworks.blackberry.system).toEqual(obj);
-        });
-    });
 
     describe("client", function () {
         describe("hasCapability", function () {
@@ -74,17 +62,6 @@ describe("webworks system", function () {
                 spyOn(transport, "call").andReturn(true);
                 expect(client.isMassStorageActive()).toEqual(true);
                 expect(transport.call).toHaveBeenCalledWith("blackberry/system/isMassStorageActive");
-            });
-        });
-
-        describe("setHomeScreenBackground", function () {
-            it("calls the transport with id and properties", function () {
-                spyOn(transport, "call");
-                client.setHomeScreenBackground("filepath");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/system/setHomeScreenBackground", {
-                    get: {filePath: "filepath"},
-                    async: true
-                });
             });
         });
     });
