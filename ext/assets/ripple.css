@@ -104,9 +104,7 @@ input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
 
 .h1, .main h1 { font-size: 1.25em; font-weight: bold; }
 
-.h2, .main h2 { font-size: 1.14em; font-weight: bold; }
-
-.h3, .main h3 { font-size: 1.07em; font-weight: bold; }
+.h2, .main h2, h3, .main h3 { font-size: 1.07em; font-weight: bold; }
 
 .h4, .main h4 { font-size: 1em; font-weight: normal; }
 
@@ -966,6 +964,19 @@ section.left { left: 0; }
 
 ::-webkit-scrollbar-thumb:active {
     background-color: #555555;
+}
+
+/* ------------------------------>
+    Emulator UI Scrolling  */
+
+#document::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+#document::-webkit-scrollbar-thumb {
+    min-height: 0;
+    min-width: 0;
 }
 
 /* ------------------------------>
