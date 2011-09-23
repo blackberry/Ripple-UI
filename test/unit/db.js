@@ -39,7 +39,6 @@ describe("db", function () {
             return self;
         };
         jWorkflow.order(db.initialize, db).start();
-        waits(1);
     });
 
     afterEach(function () {
