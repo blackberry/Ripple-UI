@@ -29,7 +29,7 @@ function _cache() {
         cache = "";
 
     utils.collect(_c.DEPLOY, files, function (path) {
-        if (path.indexOf("/web/") > 0) {
+        if (path.indexOf("/web/") > 0 && path.indexOf("/.") === -1) {
             return true;
         }
         return false;
