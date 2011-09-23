@@ -138,7 +138,7 @@ section, header, footer, aside, nav { display: block; }
 /* ------------------------------>
     Middle/Device Wrapper Section */
 
-.middle{
+.middle {
     margin: 0 auto;
     top: 75px;
     position: relative;
@@ -177,7 +177,7 @@ section, header, footer, aside, nav { display: block; }
 section.right, section.left{
     position: absolute;
     top: 0;
-    min-height: 100%;
+    max-height: 100%;
     padding: 0;
     width: 344px;
 }
@@ -974,18 +974,44 @@ section.left { left: 0; }
 .omni-bar {
     position: fixed;
     width: 100%;
+    padding: 0 0 0.1em 0;
     z-index: 999;
 }
-    .omni-bar .ui-icon {
+    .omni-bar .ui-icon-container {
+        opacity: 1;
         display: inline-block;
+        top: .3em;
+        position: relative;
+        padding: .3em .3em .1em .3em;
+        cursor: pointer;
     }
 
-        .omni-bar .ui-icon:hover {
-            cursor: pointer;
+    .omni-bar .ui-icon-container:hover {
+        opacity: 0.75;
+    }
+
+    .omni-bar .ui-icon-container:active {
+        opacity: 0.4;
+    }
+
+        .omni-bar .ui-icon-container-left {
+            margin-left: 0.25em;
+        }
+
+        .omni-bar .ui-icon-container-right {
+            margin-right: 0.25em;
+        }
+
+        .omni-bar .ui-icon {
+            display: inline-block;
+        }
+
+        .omni-bar .options {
+            float: right;
         }
 
     .omni-bar input {
-      width: 94%;
+        width: 80%;
     }
 
 /* ------------------------------>

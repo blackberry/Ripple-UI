@@ -29,17 +29,29 @@
             <div class="beta ui-text-beta">beta</div>
 
             <section class="top main">
-                <section class="ui-widget omni-bar ui-widget-content" style="display: none;">
-                    <span id="history-back" class="ui-icon ui-icon-arrowthick-1-w"></span>
-                    <span id="history-forward" class="ui-icon ui-icon-arrowthick-1-e"></span>
-                    <span id="history-reload" class="ui-icon ui-icon-arrowrefresh-1-e"></span>
-                    <input class="ui-state-default ui-corner-all" type="text" value="">
+                <section class="ui-state-default omni-bar" style="display: none;">
+                    <div id="history-back" class="ui-state-default ui-corner-all ui-icon-container ui-icon-container-left">
+                        <span class="ui-icon ui-icon-arrowthick-1-w"></span>
+                    </div>
+
+                    <div id="history-forward" class="ui-state-default ui-corner-all ui-icon-container">
+                        <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+                    </div>
+
+                    <div id="history-reload" class="ui-state-default ui-corner-all ui-icon-container">
+                        <span class="ui-icon ui-icon-arrowrefresh-1-e"></span>
+                    </div>
+
+                    <input class="ui-widget-content ui-corner-all" type="text" value="">
+
                     <span class="options">
-                        <span id="options-button" class="ui-icon ui-icon-wrench"></span>
+                        <div id="options-button" class="ui-state-default ui-corner-all ui-icon-container ui-icon-container-right">
+                            <span class="ui-icon ui-icon-wrench"></span>
+                        </div>
                         <ul id="options-menu">
                             <li id="options-menu-build" class="not-ready"><a>Build</a></li>
-                            <li id="options-menu-sign" class="not-ready"><a>Build & Sign</a></li>
-                            <li id="options-menu-launch" class="not-ready"><a>Build & Launch</a></li>
+                            <li id="options-menu-sign" class="not-ready"><a>Build &amp; Sign</a></li>
+                            <li id="options-menu-launch" class="not-ready"><a>Build &amp; Launch</a></li>
                             <li><hr></li>
                             <li id="options-menu-settings" class="not-ready"><a>Settings...</a></li>
                             <li><hr></li>
