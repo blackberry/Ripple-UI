@@ -130,6 +130,10 @@ describe("webworks XMLHttpRequest", function () {
 
             spy.andReturn(response);
 
+            spyOn(window, "setTimeout").andCallFake(function (func) {
+                func();
+            });
+
             webworks.blackberry.abc = spy;
 
             xhr.onreadystatechange = function () {
@@ -139,11 +143,9 @@ describe("webworks XMLHttpRequest", function () {
             xhr.open("GET", url, true);
             xhr.send();
 
-            waits(50);
-            runs(function () {
-                expect(count).toEqual(4);
-                delete webworks.blackberry.abc;
-            });
+            expect(count).toEqual(4);
+            expect(window.setTimeout).toHaveBeenCalled();
+            delete webworks.blackberry.abc;
         });
 
         it("parses individual get paramters as JSON", function () {
