@@ -436,6 +436,11 @@ describe("utils", function () {
         expect(utils.copy(date).getTime()).toEqual(date.getTime());
     });
 
+    it("Copy_copies_a_regex_properly", function () {
+        var regex = /a/;
+        expect(utils.copy(regex) instanceof RegExp).toBe(true);
+    });
+
     it("Copy_makes_an_actual_copy_of_an_integer", function () {
         var num = 1,
             num2 = utils.copy(num);
@@ -462,6 +467,15 @@ describe("utils", function () {
             date2 = utils.copy(date);
         date2 = "foo";
         expect(date).not.toEqual(date2);
+    });
+
+    it("Copy_makes_an_actual_copy_of_a_regex", function () {
+
+        var regex = /a/,
+            regex2 = utils.copy(regex);
+
+        regex.woo = "hoo";
+        expect(regex2.woo).not.toBe("hoo");
     });
 
     it("Copy_makes_an_actual_copy_of_an_object_literal", function () {

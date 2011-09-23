@@ -14,31 +14,19 @@
  * limitations under the License.
  */
 describe("phonegap_contacts", function () {
-    var _contactDB = [],
-        db = require('ripple/db'),
+    var db = require('ripple/db'),
         event = require('ripple/event'),
+        utils = require('ripple/utils'),
         Contact = require('ripple/platform/phonegap/1.0/Contact'),
         ContactError = require('ripple/platform/phonegap/1.0/ContactError'),
         ContactField = require('ripple/platform/phonegap/1.0/ContactField'),
         ContactFindOptions = require('ripple/platform/phonegap/1.0/ContactFindOptions'),
         contacts = require('ripple/platform/phonegap/1.0/contacts');
 
-    function _propertyCount(obj) {
-        var prop, count = 0;
-        for (prop in obj) {
-            if (Object.prototype.hasOwnProperty.call(obj, prop)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
     beforeEach(function () {
-        spyOn(db, "retrieveObject").andReturn(_contactDB);
-    });
-
-    afterEach(function () {
-        _contactDB.splice(0, _contactDB.length);
+        spyOn(window, "setTimeout").andCallFake(function (func) {
+            func();
+        });
     });
 
     describe("spec", function () {
@@ -132,7 +120,6 @@ describe("phonegap_contacts", function () {
 
     describe("find", function () {
         it("calls error callback when no contact fields given", function () {
-            waits(1);
             contacts.find(null, function () {}, function (error) {
                 expect(typeof error).toEqual("object");
                 expect(error.message).toEqual("missing contact fields array");
@@ -141,14 +128,12 @@ describe("phonegap_contacts", function () {
         });
 
         it("returns empty array of contacts when given empty contact fields array", function () {
-            waits(1);
             contacts.find([], function (items) {
                 expect(items.length, 0, "expected empty array");
             });
         });
 
         it("calls error callback when only non-existent contact fields given", function () {
-            waits(1);
             contacts.find(["dude"], function () {}, function (error) {
                 expect(typeof error).toEqual("object");
                 expect(typeof error.message).toEqual("string");
@@ -157,7 +142,6 @@ describe("phonegap_contacts", function () {
         });
 
         it("calls error callback when some non-existent contact fields given", function () {
-            waits(1);
             contacts.find(["displayName", "sweet"], function () {}, function (error) {
                 expect(typeof error).toEqual("object");
                 expect(typeof error.message).toEqual("string");
@@ -166,7 +150,6 @@ describe("phonegap_contacts", function () {
         });
 
         it("calls error callback when no success callback given", function () {
-            waits(1);
             contacts.find(["displayName"], undefined, function (error) {
                 expect(typeof error).toEqual("object");
                 expect(typeof error.message).toEqual("string");
@@ -175,7 +158,6 @@ describe("phonegap_contacts", function () {
         });
 
         it("returns array in success callback", function () {
-            waits(1);
             contacts.find(["displayName"], function (items) {
                 expect(typeof items).toEqual("object");
                 expect(typeof items.length).toEqual("number");
@@ -187,9 +169,8 @@ describe("phonegap_contacts", function () {
             data[0].displayName = "dave";
             data[1].displayName = "rob";
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
-            waits(1);
             contacts.find(["displayName"], function (items) {
                 expect(items.length).toEqual(2);
                 expect(items[0].displayName).toEqual("dave");
@@ -204,9 +185,8 @@ describe("phonegap_contacts", function () {
             emails = data[0].emails = new ContactField("dave", "dave@test.com", true);
             data[0].id = "daveID";
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
-            waits(1);
             contacts.find(["emails"], function (items) {
                 expect(items[0].id).toEqual("daveID");
             });
@@ -219,21 +199,20 @@ describe("phonegap_contacts", function () {
             emails = data[0].emails = new ContactField("dave", "dave@test.com", true);
             data[0].id = "daveID";
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
-            waits(1);
             contacts.find(["emails"], function (items) {
                 expect(items[0].id).toEqual("daveID");
                 expect(items[0].emails).toEqual(emails);
                 expect(typeof items[0].save).toEqual("function");
                 expect(typeof items[0].clone).toEqual("function");
                 expect(typeof items[0].remove).toEqual("function");
-                expect(_propertyCount(items[0])).toEqual(5);
+                expect(utils.count(items[0])).toEqual(5);
             });
         });
 
         it("returns default contacts when none persisted", function () {
-            waits(1);
+            spyOn(db, "retrieveObject").andReturn(null);
             contacts.find(["name", "displayName", "emails"], function (items) {
                 var i;
                 expect(items.length, 5, "expected five default contacts");
@@ -241,9 +220,19 @@ describe("phonegap_contacts", function () {
                     expect(typeof items[i].id).toEqual("string");
                     expect(typeof items[i].emails).toEqual("object");
                     expect(typeof items[i].displayName).toEqual("string");
-                    expect(_propertyCount(items[i])).toEqual(7);
+                    expect(utils.count(items[i])).toEqual(7);
                 }
             });
+        });
+
+        it("returns all the fields when given a fields array of ['*']", function () {
+            var error = jasmine.createSpy("error callback");
+
+            spyOn(db, "retrieveObject").andReturn(null);
+
+            contacts.find(["*"], function (items) {
+                expect(utils.count(items[0])).toBe(17);
+            }, error);
         });
 
         it("can find contacts based on the filter findOption", function () {
@@ -254,18 +243,13 @@ describe("phonegap_contacts", function () {
 
             options.filter = "sheldon";
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contacts.find(["name", "displayName", "addresses"], function (items) {
                 expect(items.length).toEqual(1);
                 expect(items[0].id).toEqual(contact.id);
                 expect(items[0].name).toEqual(contact.name);
             }, error, options);
-
-            waits(1);
-            runs(function () {
-                expect(error).not.toHaveBeenCalled();
-            });
         });
 
         it("can find contacts based on the filter findOption (with objects)", function () {
@@ -277,7 +261,7 @@ describe("phonegap_contacts", function () {
                 options = new ContactFindOptions(),
                 error = jasmine.createSpy();
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             options.filter = "sheldon@email.com";
 
@@ -287,11 +271,6 @@ describe("phonegap_contacts", function () {
                 expect(items[0].name).toEqual(contact.name);
                 expect(items[0].emails).toEqual(contact.emails);
             }, error, options);
-
-            waits(1);
-            runs(function () {
-                expect(error).not.toHaveBeenCalled();
-            });
         });
 
         it("should return multiple contacts when findOptions.multiple is true", function () {
@@ -301,16 +280,11 @@ describe("phonegap_contacts", function () {
 
             options.multiple = true;
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contacts.find(["displayName"], function (items) {
                 expect(items.length).toEqual(3);
             }, error, options);
-
-            waits(1);
-            runs(function () {
-                expect(error).not.toHaveBeenCalled();
-            });
         });
 
         it("should return only one contact when findOptions.multiple is false", function () {
@@ -318,16 +292,11 @@ describe("phonegap_contacts", function () {
                 data = [new Contact(), new Contact()],
                 error = jasmine.createSpy();
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contacts.find(["name"], function (items) {
                 expect(items.length).toEqual(1);
             }, error, options);
-
-            waits(1);
-            runs(function () {
-                expect(error).not.toHaveBeenCalled();
-            });
         });
 
         it("can limit amount of contacts returned by last updated (findOptions)", function () {
@@ -343,126 +312,105 @@ describe("phonegap_contacts", function () {
             options.updatedSince = new Date(2010, 4, 20);
             options.multiple = true;
 
-            _contactDB.splice.apply(_contactDB, [0, data.length].concat(data));
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contacts.find(["name"], function (items) {
                 expect(1, items.length, "expected only one contact");
                 expect(newContact.id, items[0].id, "expected only one contact");
             }, error, options);
-
-            waits(1);
-            runs(function () {
-                expect(error).not.toHaveBeenCalled();
-            });
         });
     });
 
-    describe("save", function () {
-        it("can save itself", function () {
-            var contact = contacts.create({"name": "claude"}),
-                error = jasmine.createSpy();
+    describe("when saving", function () {
 
-            spyOn(db, "saveObject");
+        describe("the Contact object", function () {
 
-            _contactDB.splice.apply(_contactDB, [0, 2, new Contact(), new Contact()]);
+            beforeEach(function () {
+                spyOn(event, "trigger");
+            });
 
-            contact.save(function (item) {
-                expect(item.id).toEqual(contact.id);
-            }, error);
+            it("sets id to uuid if falsy", function () {
+                var contact = contacts.create({
+                        "name": "dan",
+                        "id": null
+                    });
 
-            waits(1);
-            runs(function () {
-                expect(db.saveObject.argsForCall[0][0]).toBe("phonegap-contacts");
-                expect(error).not.toHaveBeenCalled();
+                spyOn(Math, "uuid").andReturn(420);
+                contact.save(jasmine.createSpy(), jasmine.createSpy());
+                expect(contact.id).toBe(420);
+            });
+
+            it("doesn't set the uuid if truthy", function () {
+                var contact = contacts.create({
+                        "name": "dan",
+                        "id": null
+                    });
+
+                spyOn(Math, "uuid").andReturn(420);
+                contact.save(jasmine.createSpy(), jasmine.createSpy());
+                expect(contact.id).toBe(420);
+            });
+
+            it("raises the phonegap-contact-save event", function () {
+                var contact = contacts.create({"name": "claude"});
+                contact.save(jasmine.createSpy(), jasmine.createSpy());
+                expect(event.trigger).toHaveBeenCalledWith("phonegap-contact-save", [
+                    jasmine.any(Object),
+                    jasmine.any(Function),
+                    jasmine.any(Function)
+                ]);
+            });
+
+            it("sets the updated property", function () {
+                var contact = contacts.create({name: "Peter Pan"});
+                contact.save(jasmine.createSpy(), jasmine.createSpy());
+                expect(contact.updated).toBeDefined();
+            });
+
+            it("reverts the last updated property on error", function () {
+
+                var contact = contacts.create({name: "Tom", updated: "w00t"});
+
+                contact.save(function () { }, function () {
+                    expect(contact.updated).toBe("w00t");
+                });
+
+                //execute the error callback via hackery and magic
+                event.trigger.argsForCall[0][1][2]();
             });
         });
 
-        it("sets id to uuid if falsy", function () {
-            var contact = contacts.create({
-                    "name": "dan",
-                    "id": null
-                }),
-                error = jasmine.createSpy();
+        describe("the contacts module", function () {
+            it("saves a new contact", function () {
+                var contact = contacts.create({
+                        "name": "rob",
+                        "id": "some_id_yo"
+                    }),
+                    error = jasmine.createSpy();
 
-            spyOn(db, "saveObject");
+                spyOn(db, "saveObject");
+                spyOn(db, "retrieveObject").andReturn([]);
 
-            contact.save(function (item) {
-                expect(typeof item.id).toEqual("string");
-            }, error);
-
-            waits(1);
-            runs(function () {
-                expect(db.saveObject.argsForCall[0][0]).toBe("phonegap-contacts");
-                expect(error).not.toHaveBeenCalled();
-            });
-        });
-
-        it("updates last updated property", function () {
-            var contact = contacts.create({"name": "frank"}),
-                then = new Date(),
-                error = jasmine.createSpy();
-
-            spyOn(db, "saveObject");
-
-            contact.save(function (item) {
-                expect(item.updated >= then).toEqual(true);
-            }, error);
-
-            waits(1);
-            runs(function () {
-                expect(db.saveObject.argsForCall[0][0]).toBe("phonegap-contacts");
-                expect(error).not.toHaveBeenCalled();
-            });
-        });
-
-        it("does not update last updated property when error", function () {
-            var lastUpdated = new Date(2010, 11, 28),
-                contact = contacts.create({
-                    "id": null,
-                    "name": "ricardo",
-                    "updated": lastUpdated
-                }),
-                error = jasmine.createSpy(),
-                success = jasmine.createSpy();
-
-            spyOn(db, "saveObject");
-            spyOn(event, "trigger").andCallFake(function (name, args, sync) {
-                if (name === "phonegap-contact-save") {
-                    args[2]({}); //simulate error out
-                }
+                event.trigger("phonegap-contact-save", [contact, function (item) {
+                    expect(db.saveObject).toHaveBeenCalledWith("phonegap-contacts", [contact]);
+                }, error], true);
             });
 
-            _contactDB.splice.apply(_contactDB, [0, 1, contact]);
-            contact.save(success, error);
+            it("updates an existing contact if a contact with the same id already exists", function () {
+                var contact = contacts.create({
+                        "name": "rob",
+                        "id": "some_id_yo"
+                    }),
+                    error = jasmine.createSpy();
 
-            waits(1);
-            runs(function () {
-                expect(success).not.toHaveBeenCalled();
-                expect(error).toHaveBeenCalled();
-                expect(contact.updated.getTime()).toEqual(lastUpdated.getTime());
-            });
-        });
+                spyOn(db, "saveObject");
+                spyOn(db, "retrieveObject").andReturn([contact]);
 
-        it("updates an existing contact if a contact with the same id already exists", function () {
-            var contact = contacts.create({
-                    "name": "rob",
-                    "id": "some_id_yo"
-                }),
-                error = jasmine.createSpy();
-
-            spyOn(db, "saveObject");
-
-            _contactDB.splice.apply(_contactDB, [0, 1, contact]);
-
-            contact.save(function (item) {
-                expect(item.id).toEqual(contact.id);
-                expect(item.name).toEqual(contact.name);
-            }, error);
-
-            waits(1);
-            runs(function () {
-                expect(db.saveObject).toHaveBeenCalledWith("phonegap-contacts", [contact]);
-                expect(error).not.toHaveBeenCalled();
+                event.trigger("phonegap-contact-save", [contact, function (item) {
+                    expect(item.id).toEqual(contact.id);
+                    expect(item.name).toEqual(contact.name);
+                    expect(db.saveObject).toHaveBeenCalledWith("phonegap-contacts", [contact]);
+                }, error], true);
             });
         });
     });
@@ -470,30 +418,26 @@ describe("phonegap_contacts", function () {
     describe("remove", function () {
         it("can remove itself", function () {
             var contact = contacts.create({"name": "michelle"}),
+                data = [contact],
                 error = jasmine.createSpy();
 
             contact.id = "some_awesome_id";
 
             spyOn(db, "saveObject");
-
-            _contactDB.splice.apply(_contactDB, [0, 1, contact]);
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contact.remove(function () {
-                expect(_contactDB.length).toBe(0);
-            }, error);
-
-            waits(1);
-            runs(function () {
+                expect(data.length).toBe(0);
                 expect(db.saveObject).toHaveBeenCalledWith("phonegap-contacts", []);
-                expect(error).not.toHaveBeenCalled();
-            });
+            }, error);
         });
 
-        it("calling remove on a contact with a null id should return NOT_FOUND_ERROR", function () {
-            var contact = contacts.create({"id": null, "name": "fabio"});
+        it("returns a NOT_FOUND_ERROR when calling remove on a contact with a null id", function () {
+            var contact = contacts.create({"id": null, "name": "fabio"}),
+                data = [contact];
 
             spyOn(db, "saveObject");
-            _contactDB.splice.apply(_contactDB, [0, 1, new Contact()]);
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contact.remove(function () {}, function (error) {
                 expect(typeof error).toEqual("object");
@@ -501,28 +445,19 @@ describe("phonegap_contacts", function () {
                 expect(error.code).toEqual(ContactError.NOT_FOUND_ERROR);
             });
 
-            waits(1);
-            runs(function () {
-                expect(db.saveObject).not.toHaveBeenCalled();
-            });
         });
 
         it("calling remove on a non-existent contact id should return NOT_FOUND_ERROR", function () {
-            var contact = contacts.create({"name": "fabio"});
+            var contact = contacts.create({"name": "fabio"}),
+                data = [contact];
 
             spyOn(db, "saveObject");
-
-            _contactDB.splice.apply(_contactDB, [0, 1, new Contact()]);
+            spyOn(db, "retrieveObject").andReturn(data);
 
             contact.remove(function () {}, function (error) {
                 expect(typeof error).toEqual("object");
                 expect(typeof error.message).toEqual("string");
                 expect(error.code, ContactError.NOT_FOUND_ERROR);
-            });
-
-            waits(1);
-            runs(function () {
-                expect(db.saveObject).not.toHaveBeenCalled();
             });
         });
     });
