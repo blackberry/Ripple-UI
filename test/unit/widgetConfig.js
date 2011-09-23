@@ -23,12 +23,10 @@ describeBrowser("widgetConfig", function () {
         return xmlHttp.responseXML;
     }
 
-    window.fooConfig = _getConfig;
-
     var widgetConfig = require('ripple/widgetConfig'),
         platform = require('ripple/platform');
 
-    describe("phoengap config", function () {
+    describe("phonegap config", function () {
         beforeEach(function () {
             spyOn(platform, "current").andReturn(require('ripple/platform/phonegap/1.0/spec'));
         });
