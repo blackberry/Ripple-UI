@@ -68,14 +68,16 @@ describe("webworks phone", function () {
             describe("addPhoneLogListener", function () {
                 var callback = function () {};
 
-                it("calls the transport with proper args when there are callbacks", function () {
+                beforeEach(function () {
                     spyOn(transport, "poll");
+                });
+
+                it("calls the transport with proper args when there are callbacks", function () {
                     PhoneLogs.addPhoneLogListener(callback, callback, callback, callback);
                     expect(transport.poll.callCount).toBe(4);
                 });
 
                 it("does not register the event handler if a callback is null", function () {
-                    spyOn(transport, "poll");
                     PhoneLogs.addPhoneLogListener(callback, null, callback, null);
                     expect(transport.poll.callCount).toBe(2);
                 });
@@ -84,7 +86,7 @@ describe("webworks phone", function () {
                     var data = {log: {status: 5}, log2: {status: 3}};
 
                     callback = jasmine.createSpy();
-                    spyOn(transport, "poll").andCallFake(function (url, opts, callback) {
+                    transport.poll.andCallFake(function (url, opts, callback) {
                         callback(data);
                     });
 
@@ -94,6 +96,14 @@ describe("webworks phone", function () {
                     expect(callback.argsForCall[0][0].status).toBe(data.log.status);
                     expect(callback.argsForCall[0][1] instanceof CallLog).toBe(true);
                     expect(callback.argsForCall[0][1].status).toBe(data.log2.status);
+                });
+
+                it("returns true when adding some listeners", function () {
+                    expect(PhoneLogs.addPhoneLogListener(callback, null, null, callback)).toBe(true);
+                });
+
+                it("returns false when adding no listeners", function () {
+                    expect(PhoneLogs.addPhoneLogListener()).toBe(false);
                 });
             });
 
