@@ -138,7 +138,7 @@ describe("utils", function () {
     it("createElement_Creates_Div_With_Style_Attribute", function () {
         var node = utils.createElement("div", {"style": "color:black;"});
         expect(node.nodeName).toEqual("DIV");
-        expect(node.getAttribute("style")).toMatch(/color:black;/);
+        expect(node.getAttribute("style")).toMatch(/color:\s?black;/);
     });
 
     it("HtmlElements_Works", function () {
