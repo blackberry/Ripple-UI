@@ -64,6 +64,9 @@ describe("fsCache", function () {
     // TODO: cache (get,set,delete) layer is not under test
     it("calls refresh on FileSystemInitialized", function () {
         spyOn(cache, "refresh");
+        spyOn(fs, "mkdir").andCallFake(function (path, success, error) {
+            success();
+        });
         event.trigger("FileSystemInitialized", null, true);
         expect(cache.refresh).toHaveBeenCalled();
     });
