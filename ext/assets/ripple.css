@@ -1021,6 +1021,14 @@ section.left { left: 0; }
             float: right;
         }
 
+        .progress {
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            float: right;
+            padding-right: 5px;
+        }
+
     .omni-bar input {
         width: 80%;
     }
