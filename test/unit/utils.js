@@ -495,4 +495,54 @@ describe("utils", function () {
     it("can copy undefined and return undefined", function () {
         expect(utils.copy(undefined)).toBe(undefined);
     });
+
+    describe("appLocation", function () {
+        var omnibar = require('ripple/ui/plugins/omnibar'),
+        ui = require('ripple/ui');
+
+        describe("properly parses the omnibar url", function () {
+            beforeEach(function () {
+                spyOn(ui, "registered").andReturn(true);
+            });
+
+            it("with a trailing slash", function () {
+                spyOn(omnibar, "value").andReturn("http://127.0.0.1/UI/");
+                expect(utils.appLocation()).toBe("http://127.0.0.1/UI/");
+            });
+
+            it("without a trailing slash", function () {
+                spyOn(omnibar, "value").andReturn("http://127.0.0.1/UI");
+                expect(utils.appLocation()).toBe("http://127.0.0.1/UI/");
+            });
+
+            it("with a specific file", function () {
+                spyOn(omnibar, "value").andReturn("http://127.0.0.1/UI/yui.html");
+                expect(utils.appLocation()).toBe("http://127.0.0.1/UI/");
+            });
+
+            it("with a subdomain", function () {
+                spyOn(omnibar, "value").andReturn("http://rippledemo.tinyhippos.com/");
+                expect(utils.appLocation()).toBe("http://rippledemo.tinyhippos.com/");
+            });
+
+            it("with simple domain", function () {
+                spyOn(omnibar, "value").andReturn("http://rim.com");
+                expect(utils.appLocation()).toBe("http://rim.com/");
+            });
+
+            it("with simple domain", function () {
+                spyOn(omnibar, "value").andReturn("http://rim.com");
+                expect(utils.appLocation()).toBe("http://rim.com/");
+            });
+        });
+
+        describe("when omnibar is disabled", function () {
+            it("returns the window.location", function () {
+                spyOn(ui, "registered").andReturn(false);
+                spyOn(utils, "location").andReturn("http://www.rim.com");
+                expect(utils.appLocation()).toBe("http://www.rim.com");
+            });
+        });
+    });
+
 });
