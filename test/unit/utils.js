@@ -550,4 +550,49 @@ describe("utils", function () {
         });
     });
 
+    describe("rippleLocation", function () {
+        describe("properly returns the base path for ripple-ui", function () {
+            it("returns the base path when index.html is used", function () {
+                spyOn(utils, "location").andReturn({
+                    href: "http://127.0.0.1/ripple/index.html",
+                    protocol: "http:",
+                    hostname: "127.0.0.1",
+                    pathname: "/ripple/index.html"
+                });
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1/ripple/");
+            });
+
+            it("returns the base path when index.html is not specified", function () {
+                spyOn(utils, "location").andReturn({
+                    href: "http://127.0.0.1/ripple/",
+                    protocol: "http:",
+                    hostname: "127.0.0.1",
+                    pathname: "/ripple/"
+                });
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1/ripple/");
+            });
+
+            it("returns the base path when no trailing forward slash exists", function () {
+                spyOn(utils, "location").andReturn({
+                    href: "http://127.0.0.1/ripple",
+                    protocol: "http:",
+                    hostname: "127.0.0.1",
+                    pathname: "/ripple"
+                });
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1/ripple/");
+            });
+
+            it("returns the base path when hosted in multiple subdirectories", function () {
+                spyOn(utils, "location").andReturn({
+                    href: "http://127.0.0.1/i/will/put/ripple/here/",
+                    protocol: "http:",
+                    hostname: "127.0.0.1",
+                    pathname: "/i/will/put/ripple/here/"
+                });
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1/i/will/put/ripple/here/");
+            });
+        });
+
+    });
+
 });
