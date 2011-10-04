@@ -522,7 +522,12 @@ input.ui-button { padding: .4em 1em; }
 .platform-select-dialog {    
     color: #F0F0F0;    
 }
+
 .logo {
+    background-image: url("../../images/ripplelogo.png");
+}
+
+.about-logo {
     background-image: url("../../images/ripplelogo.png");
 }
 

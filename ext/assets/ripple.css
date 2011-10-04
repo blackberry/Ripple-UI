@@ -1034,6 +1034,15 @@ section.left { left: 0; }
     }
 
 /* ------------------------------>
+    About Dialog */
+.about-logo {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 90px;
+    width: 118px;
+}
+
+/* ------------------------------>
     fieldset */
 
 fieldset {
