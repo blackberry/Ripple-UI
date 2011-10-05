@@ -506,37 +506,37 @@ describe("utils", function () {
             });
 
             it("with a trailing slash", function () {
-                spyOn(omnibar, "currentURL").andReturn("http://127.0.0.1/UI/");
+                spyOn(omnibar, "rootURL").andReturn("http://127.0.0.1/UI/");
                 expect(utils.appLocation()).toBe("http://127.0.0.1/UI/");
             });
 
             it("without a trailing slash", function () {
-                spyOn(omnibar, "currentURL").andReturn("http://127.0.0.1/UI");
+                spyOn(omnibar, "rootURL").andReturn("http://127.0.0.1/UI");
                 expect(utils.appLocation()).toBe("http://127.0.0.1/UI/");
             });
 
             it("with a specific file", function () {
-                spyOn(omnibar, "currentURL").andReturn("http://127.0.0.1/UI/yui.html");
+                spyOn(omnibar, "rootURL").andReturn("http://127.0.0.1/UI/yui.html");
                 expect(utils.appLocation()).toBe("http://127.0.0.1/UI/");
             });
 
             it("with a subdomain", function () {
-                spyOn(omnibar, "currentURL").andReturn("http://rippledemo.tinyhippos.com/");
+                spyOn(omnibar, "rootURL").andReturn("http://rippledemo.tinyhippos.com/");
                 expect(utils.appLocation()).toBe("http://rippledemo.tinyhippos.com/");
             });
 
             it("with simple domain", function () {
-                spyOn(omnibar, "currentURL").andReturn("http://rim.com");
+                spyOn(omnibar, "rootURL").andReturn("http://rim.com");
                 expect(utils.appLocation()).toBe("http://rim.com/");
             });
 
             it("with simple domain", function () {
-                spyOn(omnibar, "currentURL").andReturn("http://rim.com");
+                spyOn(omnibar, "rootURL").andReturn("http://rim.com");
                 expect(utils.appLocation()).toBe("http://rim.com/");
             });
 
             it("and returns an empty string when about:blank ", function () {
-                spyOn(omnibar, "currentURL").andReturn("http://about:blank");
+                spyOn(omnibar, "rootURL").andReturn("http://about:blank");
                 expect(utils.appLocation()).toBe("");
             });
         });
