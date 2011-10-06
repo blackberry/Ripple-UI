@@ -544,7 +544,7 @@ describe("utils", function () {
         describe("when omnibar is disabled", function () {
             it("returns the window.location", function () {
                 spyOn(ui, "registered").andReturn(false);
-                spyOn(utils, "location").andReturn("http://www.rim.com");
+                spyOn(utils, "rippleLocation").andReturn("http://www.rim.com");
                 expect(utils.appLocation()).toBe("http://www.rim.com");
             });
         });
