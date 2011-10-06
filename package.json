@@ -13,9 +13,19 @@
   }],
   "bin": { "ripple": "./bin/ripple" },
   "main": "lib/index",
+  "dependencies": {
+    "connect": "1.7.x",
+    "argsparser": "0.0.x",
+    "jsdom": "0.2.4",
+    "jasmine-node": "1.0.7",
+    "jWorkflow": "*"
+  },
+  "bundledDependencies": [
+    "connect",
+    "argsparser"
+  ],
   "files": [
-    "www",
-    "thirdparty",
+    "pkg/web",
     "node_modules",
     "README.md",
     "LICENSE",
