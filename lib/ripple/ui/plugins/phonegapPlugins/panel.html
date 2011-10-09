@@ -1,0 +1,48 @@
+<section id="phonegapplugins-container" class="ui-box ui-state-default ui-corner-all">
+    <section class="h2 info-header">
+        <section class="collapse-handle">PhoneGap Plugins</section>
+        <section class="drag-handle ui-state-default ui-corner-all ui-state-hover">
+            <span class="ui-icon ui-icon-arrow-4"></span>
+        </section>
+    </section>
+    <section id="phonegapplugins-sub-container" class="info ui-widget-content ui-corner-all" style="display: none;">
+    <table class='panel-table'>
+        <tbody>
+            <tr>
+                <td><label class="ui-text-label">Plugin name: </label></td>
+                <td><input id="phonegap-plugin-name" class="ui-state-default ui-corner-all" type="TEXT" /></td>
+            </tr>
+            <tr>
+                <td><label class="ui-text-label">action: </label></td>
+                <td><input id="phonegap-plugin-action" class="ui-state-default ui-corner-all" type="TEXT" /></td>
+            </tr>
+            <!--
+            <tr>
+                <td><label class="ui-text-label">args : </label></td>
+                <td><input id="phonegap-plugin-args" class="ui-state-default ui-corner-all" type="TEXT" /></td>
+            </tr>
+            -->
+            <tr>
+                <td><label class="ui-text-label">response JSON*: </label></td>
+                <td><textarea id="phonegap-plugin-result" class="ui-state-default ui-corner-all"></textarea></td>
+            </tr>
+            <tr>
+                <td><label class="ui-text-label">Registered Plugins: </label></td>
+                <td><select id="phonegap-plugin-registered" class="ui-static-default ui-corner-all">
+                </select></td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="phonegap-plugin-register" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+        <span class="ui-button-text">Save</span>
+    </button>
+    <button id="phonegap-plugin-remove" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+        <span class="ui-button-text">Remove</span>
+    </button>
+    <button id="phonegap-plugin-remove-all" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+        <span class="ui-button-text">Remove All</span>
+    </button>
+    <div class="ui-text-label">* JSON input Format must be JSON.parsable String like {"key": "value"}</div>
+    </section>
+</section>
+
