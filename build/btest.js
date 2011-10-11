@@ -16,7 +16,6 @@
 module.exports = function () {
     var connect = require('connect'),
         fs = require('fs'),
-        sys = require('sys'),
         utils = require('./build/utils'),
         libs = [],
         tests = [],
@@ -57,6 +56,6 @@ module.exports = function () {
 
     app.listen(3000);
 
-    sys.puts("Test Server running on:");
-    sys.puts("http://127.0.0.1:3000");
+    process.stdout.write("Test Server running on:");
+    process.stdout.write("http://127.0.0.1:3000");
 };
