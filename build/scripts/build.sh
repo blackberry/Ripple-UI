@@ -23,15 +23,11 @@ rm -fr $BUILD_OUTPUT
 mkdir $BUILD_OUTPUT 
 
 #call jake
-jake > $BUILD_OUTPUT/jake.txt
+jake deploy > $BUILD_OUTPUT/jake.txt
 export BUILD_STATUS=$?
 
-#if jake was good then run jake tests
+#if build was good then package zip
 if [ $BUILD_STATUS = 0 ]; then 
-        jake test > $BUILD_OUTPUT/jaketest.txt
-        TEST_STATUS=$?
-       
         zip -9 -r $BUILD_OUTPUT/ripple_ui.zip  $RIPPLE_BUILD
-        exit $TEST_STATUS
 fi
 exit $BUILD_STATUS

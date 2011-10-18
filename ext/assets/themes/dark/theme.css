@@ -287,7 +287,7 @@ body { background: #222222 url(images/ui-bg_flat_25_222222_40x100.png) 50% 50% r
 .ui-corner-all { -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; }
 
 /* Overlays */
-.ui-widget-overlay { background: #1e1e1e url(images/ui-bg_flat_50_1e1e1e_40x100.png) 50% 50% repeat-x; opacity: .80;filter:Alpha(Opacity=80); }
+.ui-widget-overlay { background: #cccccc url(images/ui-bg_flat_30_cccccc_40x100.png) 50% 50% repeat-x; opacity: 0.35;filter:Alpha(Opacity=35); }
 .ui-widget-shadow { margin: -7px 0 0 -7px; padding: 7px; background: #cccccc url(images/ui-bg_flat_30_cccccc_40x100.png) 50% 50% repeat-x; opacity: .60;filter:Alpha(Opacity=60); -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }/* Resizable
 ----------------------------------*/
 .ui-resizable { position: relative;}
@@ -522,8 +522,13 @@ input.ui-button { padding: .4em 1em; }
 .platform-select-dialog {    
     color: #F0F0F0;    
 }
+
 .logo {
-    background-image: url("/images/ripplelogo.png");
+    background-image: url("../../images/ripplelogo.png");
+}
+
+.about-logo {
+    background-image: url("../../images/ripplelogo.png");
 }
 
 .panel-table td {

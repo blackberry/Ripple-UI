@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget  xmlns="http://www.w3.org/ns/widgets"
-         xmlns:JIL="http://www.jil.org/ns/widgets1.2"
-         xmlns:its="http://www.w3.org/2005/11/its"
-         id="http://example.org/exampleWidget"
-         version="1.0.Beta"
-         height="200"
-         width="300"
-         viewmodes="floating">
-    <JIL:maximum_display_mode height="450" width="320"/>
-    <JIL:update href="http://www.jil.org/widgets/" period="2"/>
-    <JIL:access network="true" localfs="true" remote_scripts="false"/>
-    <JIL:billing required="false"/>
-    <feature name="http://jil.org/jil/api/1.1/widget"/>
-    <icon src="Icon.png"/>
-    <content src="ConfigTest.html" encoding="UTF-8" type="text/html"/>
-    <preference name="apikey" value="ea31ad3a23fd2f" readonly="true"/>
-    <name short="ConfigTest">ConfigTest</name>
-    <description>This is my first Widget.</description>
-    <license  href="http://license.example.org/">Example license Copyright (c) 2008.</license>
-    <author  email="myname@host.com"
-		href="http://foo-bar.example.org/">myname</author>
+<widget xmlns="http://www.w3.org/ns/widgets"
+    xmlns:gap="http://phonegap.com/ns/1.0"
+    id="com.phonegap.getting.started"
+    version="1.0.0">
+
+    <name>PhoneGap: Getting Started</name>
+
+    <description>
+        A template for getting started with PhoneGap development and build.phonegap.com
+    </description>
+
+    <author href="http://github.com/blackberry/Ripple-UI"
+        email="support@tinyhippos.com">
+        Ripple UI
+    </author>
+
+    <gap:platforms>
+        <gap:platform name="android" minVersion="2.1" />
+        <gap:platform name="webos" />
+        <gap:platform name="symbian.wrt" />
+        <gap:platform name="blackberry" project="widgets"/>
+    </gap:platforms>
+
+    <icon src="icon.png" gap:role="default" />
+
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
 </widget>

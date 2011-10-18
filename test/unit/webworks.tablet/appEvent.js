@@ -46,14 +46,22 @@ describe("webworks_appEvent", function () {
         });
 
         describe("onSwipeStart", function () {
-            it("throws an exception", function () {
-                expect(client.onSwipeStart).toThrow("not implemented");
+            it("polls the transport appropriately", function () {
+                spyOn(transport, "poll");
+                client.onSwipeStart(null);
+                expect(transport.poll.argsForCall[0][0]).toEqual("blackberry/app/event/onSwipeStart");
+                expect(transport.poll.argsForCall[0][1]).toEqual({});
+                expect(typeof transport.poll.argsForCall[0][2]).toEqual("function"); // could tighten...
             });
         });
 
         describe("onSwipeDown", function () {
-            it("throws an exception", function () {
-                expect(client.onSwipeDown).toThrow("not implemented");
+            it("polls the transport appropriately", function () {
+                spyOn(transport, "poll");
+                client.onSwipeDown(null);
+                expect(transport.poll.argsForCall[0][0]).toEqual("blackberry/app/event/onSwipeDown");
+                expect(transport.poll.argsForCall[0][1]).toEqual({});
+                expect(typeof transport.poll.argsForCall[0][2]).toEqual("function"); // could tighten...
             });
         });
 
@@ -77,13 +85,35 @@ describe("webworks_appEvent", function () {
         });
     });
 
+    describe("onSwipeDown", function () {
+        it("takes the baton", function () {
+            var baton = new MockBaton();
+
+            appEvent.onSwipeDown({}, {}, baton);
+            expect(baton.take).toHaveBeenCalled();
+        });
+    });
+
+    describe("onSwipeStart", function () {
+        it("takes the baton", function () {
+            var baton = new MockBaton();
+
+            appEvent.onSwipeStart({}, {}, baton);
+            expect(baton.take).toHaveBeenCalled();
+        });
+    });
+
     describe("the correct baton is passed when", function () {
         it("raises AppRequestBackground", function () {
             var bg = new MockBaton(),
-                fg = new MockBaton();
+                fg = new MockBaton(),
+                sd = new MockBaton(),
+                ss = new MockBaton();
 
             appEvent.onBackground({}, {}, bg);
             appEvent.onForeground({}, {}, fg);
+            appEvent.onSwipeDown({}, {}, sd);
+            appEvent.onSwipeStart({}, {}, ss);
 
             event.trigger("AppRequestBackground", [], true);
             expect(bg.pass).toHaveBeenCalled();
@@ -92,10 +122,14 @@ describe("webworks_appEvent", function () {
 
         it("raises AppRequestForeground", function () {
             var bg = new MockBaton(),
-                fg = new MockBaton();
+                fg = new MockBaton(),
+                sd = new MockBaton(),
+                ss = new MockBaton();
 
             appEvent.onBackground({}, {}, bg);
             appEvent.onForeground({}, {}, fg);
+            appEvent.onSwipeDown({}, {}, sd);
+            appEvent.onSwipeStart({}, {}, ss);
 
             event.trigger("AppRequestForeground", [], true);
             expect(bg.pass).not.toHaveBeenCalled();

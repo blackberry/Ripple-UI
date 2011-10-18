@@ -15,12 +15,9 @@
  */
 // TODO: make more modular (be able to boot one module at a time)
 describeBrowser("emulator_bridge", function () {
-
     var emulatorBridge = require('ripple/emulatorBridge'),
-        sinon = require('sinon'),
         constants = require('ripple/constants'),
         platform = require('ripple/platform'),
-        s,
         old_gElById,
         _emulatedBody,
         _emulatedHtml,
@@ -33,8 +30,6 @@ describeBrowser("emulator_bridge", function () {
         };
 
     beforeEach(function () {
-        s = sinon.sandbox.create();
-
         // TODO: hackish stub for now
         old_gElById = document.getElementById;
         document.getElementById = function (id) {
@@ -70,7 +65,6 @@ describeBrowser("emulator_bridge", function () {
     });
 
     afterEach(function () {
-        s.verifyAndRestore();
         delete window.tinyHippos;
         _emulatedViewport = null;
         _emulatedBody = null;

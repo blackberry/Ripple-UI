@@ -138,7 +138,7 @@ describe("utils", function () {
     it("createElement_Creates_Div_With_Style_Attribute", function () {
         var node = utils.createElement("div", {"style": "color:black;"});
         expect(node.nodeName).toEqual("DIV");
-        expect(node.getAttribute("style")).toMatch(/color:black;/);
+        expect(node.getAttribute("style")).toMatch(/color:\s?black;/);
     });
 
     it("HtmlElements_Works", function () {
@@ -436,6 +436,11 @@ describe("utils", function () {
         expect(utils.copy(date).getTime()).toEqual(date.getTime());
     });
 
+    it("Copy_copies_a_regex_properly", function () {
+        var regex = /a/;
+        expect(utils.copy(regex) instanceof RegExp).toBe(true);
+    });
+
     it("Copy_makes_an_actual_copy_of_an_integer", function () {
         var num = 1,
             num2 = utils.copy(num);
@@ -464,6 +469,15 @@ describe("utils", function () {
         expect(date).not.toEqual(date2);
     });
 
+    it("Copy_makes_an_actual_copy_of_a_regex", function () {
+
+        var regex = /a/,
+            regex2 = utils.copy(regex);
+
+        regex.woo = "hoo";
+        expect(regex2.woo).not.toBe("hoo");
+    });
+
     it("Copy_makes_an_actual_copy_of_an_object_literal", function () {
         var obj = {
                 test: "hello world",
@@ -481,4 +495,104 @@ describe("utils", function () {
     it("can copy undefined and return undefined", function () {
         expect(utils.copy(undefined)).toBe(undefined);
     });
+
+    describe("appLocation", function () {
+        var omnibar = require('ripple/ui/plugins/omnibar'),
+        ui = require('ripple/ui');
+
+        describe("properly parses the omnibar url", function () {
+            beforeEach(function () {
+                spyOn(ui, "registered").andReturn(true);
+            });
+
+            it("with a trailing slash", function () {
+                spyOn(omnibar, "rootURL").andReturn("http://127.0.0.1/UI/");
+                expect(utils.appLocation()).toBe("http://127.0.0.1/UI/");
+            });
+
+            it("without a trailing slash", function () {
+                spyOn(omnibar, "rootURL").andReturn("http://127.0.0.1/UI");
+                expect(utils.appLocation()).toBe("http://127.0.0.1/UI/");
+            });
+
+            it("with a specific file", function () {
+                spyOn(omnibar, "rootURL").andReturn("http://127.0.0.1/UI/yui.html");
+                expect(utils.appLocation()).toBe("http://127.0.0.1/UI/");
+            });
+
+            it("with a subdomain", function () {
+                spyOn(omnibar, "rootURL").andReturn("http://rippledemo.tinyhippos.com/");
+                expect(utils.appLocation()).toBe("http://rippledemo.tinyhippos.com/");
+            });
+
+            it("with simple domain", function () {
+                spyOn(omnibar, "rootURL").andReturn("http://rim.com");
+                expect(utils.appLocation()).toBe("http://rim.com/");
+            });
+
+            it("with simple domain", function () {
+                spyOn(omnibar, "rootURL").andReturn("http://rim.com");
+                expect(utils.appLocation()).toBe("http://rim.com/");
+            });
+
+            it("and returns an empty string when about:blank ", function () {
+                spyOn(omnibar, "rootURL").andReturn("http://about:blank");
+                expect(utils.appLocation()).toBe("");
+            });
+        });
+
+        describe("when omnibar is disabled", function () {
+            it("returns the window.location", function () {
+                spyOn(ui, "registered").andReturn(false);
+                spyOn(utils, "rippleLocation").andReturn("http://www.rim.com");
+                expect(utils.appLocation()).toBe("http://www.rim.com");
+            });
+        });
+    });
+
+    describe("rippleLocation", function () {
+        describe("properly returns the base path for ripple-ui", function () {
+            it("returns the base path when index.html is used", function () {
+                spyOn(utils, "location").andReturn({
+                    href: "http://127.0.0.1/ripple/index.html",
+                    protocol: "http:",
+                    hostname: "127.0.0.1",
+                    pathname: "/ripple/index.html"
+                });
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1/ripple/");
+            });
+
+            it("returns the base path when index.html is not specified", function () {
+                spyOn(utils, "location").andReturn({
+                    href: "http://127.0.0.1/ripple/",
+                    protocol: "http:",
+                    hostname: "127.0.0.1",
+                    pathname: "/ripple/"
+                });
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1/ripple/");
+            });
+
+            it("returns the base path when no trailing forward slash exists", function () {
+                spyOn(utils, "location").andReturn({
+                    href: "http://127.0.0.1/ripple",
+                    protocol: "http:",
+                    hostname: "127.0.0.1",
+                    pathname: "/ripple"
+                });
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1/ripple/");
+            });
+
+            it("returns the base path when hosted in multiple subdirectories", function () {
+                spyOn(utils, "location").andReturn({
+                    href: "http://127.0.0.1/i/will/put/ripple/here/",
+                    protocol: "http:",
+                    hostname: "127.0.0.1",
+                    pathname: "/i/will/put/ripple/here/"
+                });
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1/i/will/put/ripple/here/");
+            });
+        });
+
+    });
+
 });

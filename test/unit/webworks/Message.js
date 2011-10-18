@@ -14,21 +14,11 @@
  * limitations under the License.
  */
 describe("webworks Message", function () {
-    var s,
-        sinon = require('sinon'),
-        Message = require('ripple/platform/webworks.handset/2.0.0/client/Message'),
+    var Message = require('ripple/platform/webworks.handset/2.0.0/client/Message'),
         Service = require('ripple/platform/webworks.handset/2.0.0/client/identity/Service'),
         select = require('ripple/platform/webworks.core/2.0.0/select'),
         FilterExpression = require('ripple/platform/webworks.handset/2.0.0/client/FilterExpression'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport');
-
-    beforeEach(function () {
-        s = sinon.sandbox.create();
-    });
-
-    afterEach(function () {
-        s.verifyAndRestore();
-    });
 
     describe("client side code", function () {
         var identity = require('ripple/platform/webworks.handset/2.0.0/client/identity');
@@ -47,13 +37,15 @@ describe("webworks Message", function () {
             });
 
             it("test when constructing without a service it gets the default email service", function () {
-                s.mock(identity).expects("getDefaultService").once().returns([]);
+                spyOn(identity, "getDefaultService").andReturn([]);
                 new Message();
+                expect(identity.getDefaultService).toHaveBeenCalled();
             });
 
             it("when constructing with a service it doesn't get the defeault email service", function () {
-                s.mock(identity).expects("getDefaultService").never();
+                spyOn(identity, "getDefaultService");
                 new Message(new Service());
+                expect(identity.getDefaultService).not.toHaveBeenCalled();
             });
 
             it("that the default values are set correctly on a new message", function () {
@@ -76,7 +68,7 @@ describe("webworks Message", function () {
             });
 
             it("that when saving a draft message it generates a uid", function () {
-                s.stub(Math, "uuid").returns("42");
+                spyOn(Math, "uuid").andReturn("42");
                 var service = new Service(),
                     msg = new Message(service);
                 msg.save();
@@ -84,18 +76,18 @@ describe("webworks Message", function () {
             });
 
             it("that when saving a message that was already saved it keeps the uid", function () {
-                var stub = s.stub(Math, "uuid").returns("42"),
+                var stub = spyOn(Math, "uuid").andReturn("42"),
                     service = new Service(),
                     msg = new Message(service);
                 msg.save();
-                stub.restore();
-                s.stub(Math, "uuid").returns(123);
+                stub.reset();
+                stub.andReturn(123);
                 msg.save();
                 expect(42, msg.uid);
             });
 
             it("when calling save on a draft the status stays as draft", function () {
-                s.stub(Math, "uuid").returns("42");
+                spyOn(Math, "uuid").andReturn("42");
                 var service = new Service(),
                     msg = new Message(service);
                 msg.save();
@@ -103,7 +95,7 @@ describe("webworks Message", function () {
             });
 
             it("when saving a message it sets the from and replyTo addresses from the service passed in", function () {
-                s.stub(Math, "uuid").returns("42");
+                spyOn(Math, "uuid").andReturn("42");
                 var service = new Service(),
                     msg = new Message(service);
                 service.emailAddress = "gord@tinyHippos.com";

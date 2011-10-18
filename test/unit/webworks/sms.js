@@ -18,24 +18,16 @@ describe("webworks_sms", function () {
         smsClient = require('ripple/platform/webworks.handset/2.0.0/client/sms'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         event = require('ripple/event'),
-        sinon = require('sinon'),
         platform = require('ripple/platform'),
         notifications = require('ripple/notifications'),
-        constants = require('ripple/constants'),
         _console = require('ripple/console'),
         MockBaton = function () {
             this.take = jasmine.createSpy('baton.take');
             this.pass = jasmine.createSpy('baton.pass');
-        },
-        s;
+        };
 
     beforeEach(function () {
-        s = sinon.sandbox.create();
         spyOn(_console, "log");
-    });
-
-    afterEach(function () {
-        s.verifyAndRestore();
     });
 
     describe("in server", function () {
@@ -76,18 +68,45 @@ describe("webworks_sms", function () {
                 expect(transport.poll.argsForCall[0][0]).toEqual("blackberry/message/sms/onReceive");
             });
         });
+
+        describe("isListeningForMessage", function () {
+            describe("getter", function () {
+                it("calls the transport appropriately", function () {
+                    spyOn(transport, "call").andReturn(true);
+
+                    expect(smsClient.isListeningForMessage).toBe(true);
+                    expect(transport.call).toHaveBeenCalledWith("blackberry/message/sms/isListeningForMessage", {
+                        async: false
+                    });
+                });
+            });
+
+            describe("setter", function () {
+                it("calls the transport appropriately", function () {
+                    spyOn(transport, "call").andReturn(true);
+                    smsClient.isListeningForMessage = false;
+
+                    expect(transport.call).toHaveBeenCalledWith("blackberry/message/sms/isListeningForMessage", {
+                        async: false,
+                        get: {isListeningForMessage: false}
+                    });
+                });
+            });
+        });
     });
 
     describe("in server/sms", function () {
         it("send raises a notification", function () {
             spyOn(platform, "current").andReturn({name: "generic"});
-            s.mock(notifications).expects("openNotification")
-                    .withExactArgs(constants.NOTIFICATIONS.TYPES.NORMAL,
-                                   "To 5199541707: Pick up some milk").once();
+            spyOn(notifications, "openNotification");
+
             sms.send({
                 message: "Pick up some milk",
                 address: "5199541707"
             });
+
+            expect(notifications.openNotification).toHaveBeenCalledWith("normal",
+                                   "To 5199541707: Pick up some milk");
         });
 
         describe("when calling onSMS", function () {
@@ -138,6 +157,36 @@ describe("webworks_sms", function () {
                     body: "ILOVEYOULETTER.txt.vbs"
                 }], true);
                 expect(baton.pass).not.toHaveBeenCalled();
+                event.trigger("MessageReceived", [{type: 'sms'}], true); // clear isListeningForMessage
+            });
+        });
+
+        describe("isListeningForMessage", function () {
+            it("returns false if not currently listening", function () {
+                expect(sms.isListeningForMessage()).toEqual({code: 1, data: false});
+            });
+
+            it("can be set", function () {
+                expect(sms.isListeningForMessage()).toEqual({code: 1, data: false});
+                expect(sms.isListeningForMessage({isListeningForMessage: true})).toEqual({
+                    code: 1,
+                    data: true
+                });
+            });
+
+            it("it doesn't pass the baton if isListeningForMessage is false", function () {
+                var baton = new MockBaton();
+
+                sms.onReceive({}, {}, baton);
+                expect(sms.isListeningForMessage()).toEqual({code: 1, data: true});
+                sms.isListeningForMessage({isListeningForMessage: false});
+
+                event.trigger("MessageReceived", [{type: 'sms'}], true);
+                expect(baton.pass).not.toHaveBeenCalled();
+                expect(sms.isListeningForMessage()).toEqual({code: 1, data: false});
+
+                // cleanup
+                event.trigger("MessageReceived", [{type: 'sms'}], true);
             });
         });
     });

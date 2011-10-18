@@ -71,20 +71,8 @@ function _setupEnv(ready) {
 module.exports = function (done, custom) {
     var jasmine = require('jasmine-node'),
         verbose = false,
-        colored = true,
+        colored = false,
         specs = __dirname + "/../" + (custom ? custom : "test");
-
-    global.jasmine.printRunnerResults = function (runner) {
-        var results = runner.results(),
-            specs = runner.specs(),
-            suites = runner.suites(),
-            msg = '';
-        msg += specs.length + ' spec' + ((specs.length === 1) ? '' : 's') + ', ';
-        msg += suites.length + ' suite' + ((suites.length === 1) ? '' : 's') + ', ';
-        msg += results.totalCount + ' assertion' + ((results.totalCount === 1) ? '' : 's') + ', ';
-        msg += results.failedCount + ' failure' + ((results.failedCount === 1) ? '' : 's') + '\n';
-        return msg;
-    };
 
     require.paths.push(__dirname + "/../lib/");
 
@@ -131,7 +119,9 @@ module.exports = function (done, custom) {
 
         jasmine.executeSpecsInFolder(specs, function (runner, log) {
             var failed = runner.results().failedCount === 0 ? 0 : 1;
-            (typeof done !== "function" ? process.exit : done)(failed);
+            setTimeout(function () {
+                (typeof done !== "function" ? process.exit : done)(failed);
+            }, 10);
         }, verbose, colored);
     });
 };

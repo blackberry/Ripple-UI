@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 describe("resizer", function () {
-
-    var sinon = require('sinon'),
-        s, _old_gElById,
+    var  _old_gElById,
         _uiDomNode,
         _old_document_querySelector,
         _emulatedBody,
@@ -50,8 +48,6 @@ describe("resizer", function () {
             }
         };
 
-        s = sinon.sandbox.create();
-
         _uiDomNode = document.createElement("section");
 
         _old_document_querySelector = document.querySelector;
@@ -72,7 +68,6 @@ describe("resizer", function () {
     });
 
     afterEach(function () {
-        s.verifyAndRestore();
         document.querySelector = _old_document_querySelector;
         _uiDomNode = null;
         _emulatedDevice = null;
@@ -99,7 +94,7 @@ describe("resizer", function () {
     });
 
     it("resize resizes device properly", function () {
-        s.mock(db).expects("retrieve").once().returns(null);
+        spyOn(db, "retrieve").andReturn(null);
 
         var w, h;
 
@@ -108,25 +103,20 @@ describe("resizer", function () {
         w = _emulatedViewport.style.width;
         h = _emulatedViewport.style.height;
 
+        expect(db.retrieve.callCount).toBe(1);
         expect(iPhone3.viewPort.portrait.width).toBe(parseInt(w, 10));
         expect(iPhone3.viewPort.portrait.height).toBe(parseInt(h, 10));
     });
 
-    it("resize should NOT invoke window.onresized", function () {
-        s.mock(db).expects("retrieve").once().returns(null);
-
-        window.onresize = s.mock().never();
-
-        resizer.resize(iPhone3);
-
-        delete window.onresize;
-    });
-
     it("resize should trigger ScreenChangeDimensions", function () {
-        s.mock(db).expects("retrieve").once().returns(null);
-        s.mock(event).expects("trigger").once().withExactArgs("ScreenChangeDimensions", [320, 480]);
+        spyOn(db, "retrieve").andReturn(null);
+        spyOn(event, "trigger").andReturn(null);
 
         resizer.resize(iPhone3);
+
+        expect(db.retrieve.callCount).toBe(1);
+        expect(event.trigger.callCount).toBe(1);
+        expect(event.trigger).toHaveBeenCalledWith("ScreenChangeDimensions", [320, 480]);
         waits(1);
     });
 

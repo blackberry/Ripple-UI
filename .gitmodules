@@ -3,7 +3,7 @@
 	url = http://github.com/pivotal/jasmine.git
 [submodule "thirdparty/node-XMLHttpRequest"]
 	path = thirdparty/node-XMLHttpRequest
-	url = http://github.com/tinyhippos/node-XMLHttpRequest.git
+	url = http://github.com/driverdan/node-XMLHttpRequest.git
 [submodule "thirdparty/browser-require"]
 	path = thirdparty/browser-require
 	url = https://github.com/rsms/browser-require.git
