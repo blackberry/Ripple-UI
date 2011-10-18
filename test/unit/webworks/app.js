@@ -21,7 +21,6 @@ describe("webworks_app", function () {
         event = require('ripple/event'),
         app = require('ripple/app'),
         notifications = require('ripple/notifications'),
-        constants = require('ripple/constants'),
         frame;
 
     beforeEach(function () {
@@ -55,6 +54,13 @@ describe("webworks_app", function () {
                     get: {uri: "uri", hover: "hover"},
                     async: true
                 });
+            });
+        });
+
+        describe("isForeground", function () {
+            it("calls the transport appropriately", function () {
+                expect(appClient.isForeground).toBe(data);
+                expect(transport.call).toHaveBeenCalledWith("blackberry/app/isForeground");
             });
         });
 
@@ -272,7 +278,7 @@ describe("webworks_app", function () {
             uri: "icon.png",
             hover: true
         });
-        expect(notifications.openNotification).toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL,
+        expect(notifications.openNotification).toHaveBeenCalledWith("normal",
                                                                     "The application set the home screen hover icon to icon.png");
     });
 
@@ -281,7 +287,7 @@ describe("webworks_app", function () {
         appServer.setHomeScreenIcon({
             uri: "foo.png"
         });
-        expect(notifications.openNotification).toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL,
+        expect(notifications.openNotification).toHaveBeenCalledWith("normal",
                                                                     "The application set the home screen icon to foo.png");
     });
 
@@ -290,7 +296,7 @@ describe("webworks_app", function () {
         appServer.setHomeScreenName({
             text: "Awesometown"
         });
-        expect(notifications.openNotification).toHaveBeenCalledWith(constants.NOTIFICATIONS.TYPES.NORMAL,
+        expect(notifications.openNotification).toHaveBeenCalledWith("normal",
                                                                     "The application set the home screen name to Awesometown");
     });
 
@@ -309,5 +315,26 @@ describe("webworks_app", function () {
         appServer.removeBannerIndicator();
         expect(event.trigger).toHaveBeenCalledWith("BannerUpdated", ["", 0]);
         expect(event.trigger.callCount).toBe(1);
+    });
+    describe("isForeground", function () {
+        it("returns false when app has requested the background", function () {
+            spyOn(event, "trigger");
+            spyOn(ui, "showOverlay").andCallFake(function (url, callback) {
+                callback({children: {}});
+            });
+
+            appServer.requestBackground();
+            expect(appServer.isForeground({})).toEqual({code: 1, data: false});
+        });
+
+        it("returns true when app has requested the foreground", function () {
+            spyOn(event, "trigger");
+            spyOn(ui, "hideOverlay").andCallFake(function (url, callback) {
+                callback({children: {}});
+            });
+
+            appServer.requestForeground();
+            expect(appServer.isForeground({})).toEqual({code: 1, data: true});
+        });
     });
 });

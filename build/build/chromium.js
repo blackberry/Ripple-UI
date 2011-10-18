@@ -26,16 +26,18 @@ module.exports = function (src, baton) {
                'cp -r ' + _c.ASSETS + "styles " + _c.DEPLOY + "chromium/";
 
     childProcess.exec(copy, function () {
-        var css = _c.DEPLOY + "chromium/styles/main.css",
+        var css = _c.ASSETS + "ripple.css",
+            cssDeploy = _c.DEPLOY + "chromium/ripple.css",
             manifest = _c.DEPLOY + "chromium/manifest.json",
-            injection = _c.DEPLOY + "chromium/ripple.js",
-            bootstrap = _c.DEPLOY + "chromium/injection_src/bootstrap.js",
+            js = _c.DEPLOY + "chromium/ripple.js",
+            bootstrap = _c.DEPLOY + "chromium/bootstrap.js",
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
+                          .replace(/#DIALOG_VIEWS#/g, src.dialogs)
                           .replace(_c.SPACES_AND_TABS, " ")
                           .replace(/'/g, _c.ESCAPED_QUOTES);
 
-        fs.writeFileSync(css, fs.readFileSync(css, "utf-8") + src.skins);
+        fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
 
         fs.writeFileSync(manifest, fs.readFileSync(manifest, "utf-8")
                          .replace(new RegExp('"version": ""', 'g'), '"version": "' + src.info.version + '"'));
@@ -44,7 +46,7 @@ module.exports = function (src, baton) {
                          "window.th_panel = {" + "LAYOUT_HTML: '" + doc + "'};" +
                          fs.readFileSync(bootstrap, "utf-8"));
 
-        fs.writeFileSync(injection,
+        fs.writeFileSync(js,
             src.js +
             "(function () {" +
                 "var evt = document.createEvent('Events');" +

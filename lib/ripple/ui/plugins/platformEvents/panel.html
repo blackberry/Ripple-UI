@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<section id="events-container" class="ui-box ui-state-default ui-corner-all">
+<section id="platform-events-container" class="ui-box ui-state-default ui-corner-all">
     <section class="h2 info-header">
         <section class="collapse-handle">Events</section>
         <section class="drag-handle ui-state-default ui-corner-all ui-state-hover">
@@ -21,7 +21,13 @@
         </section>
     </section>
 
-    <section id="event-container" class="info ui-widget-content ui-corner-all" style="display: none;">
+    <section id="platform-events-container" class="info ui-widget-content ui-corner-all" style="display: none;">
         <p>Select the event that you want to fire.</p>
+        <select id="platform-events-select" class="ui-state-default ui-corner-all"></select>
+        <select id="platform-events-args" class="ui-state-default ui-corner-all" style="display: none"></select>
+        <br />
+        <button id="platform-events-fire" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">Fire Event</span>
+        </button>
     </section>
 </section>

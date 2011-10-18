@@ -17,8 +17,8 @@
     Bold9700 (561x1009) offset (40x181)*/
 
 .viewport-wrapper-Bold9700 {
-    width:480px;
-    height:360px;
+    width: 480px;
+    height: 360px;
     border: none;
 }
 
@@ -44,9 +44,11 @@
     position: relative;
     padding: 181px 0 0 40px;
     width: 521px;
-    height:828px;
+    height: 828px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
-    background: url('../images/Bold9700.png') no-repeat;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: url('images/Bold9700.png') no-repeat;
 }

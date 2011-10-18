@@ -23,6 +23,49 @@ describe("webworks.handset system event", function () {
             this.pass = jasmine.createSpy('baton.pass');
         };
 
+    describe("core platform spec", function () {
+        var events = require('ripple/platform/webworks.core/2.0.0/spec/events');
+
+        describe("events", function () {
+            describe("app.event.onBackground callback", function () {
+                it("triggers AppSwipeDown", function () {
+                    spyOn(event, "trigger");
+                    events["app.event.onBackground"].callback();
+                    expect(event.trigger).toHaveBeenCalledWith("AppRequestBackground");
+                });
+            });
+
+            describe("app.event.onForeground callback", function () {
+                it("triggers AppSwipeStart", function () {
+                    spyOn(event, "trigger");
+                    events["app.event.onForeground"].callback();
+                    expect(event.trigger).toHaveBeenCalledWith("AppRequestForeground");
+                });
+            });
+        });
+    });
+
+    describe("handset platform spec", function () {
+        describe("events", function () {
+            var events = require('ripple/platform/webworks.handset/2.0.0/spec').events;
+
+            describe("system.event.onHardwareKey callback", function () {
+                it("triggers HardwareKey", function () {
+                    spyOn(event, "trigger");
+                    events["system.event.onHardwareKey"].callback(2);
+                    expect(event.trigger).toHaveBeenCalledWith("HardwareKey", [2]);
+                });
+            });
+
+            describe("system.event.onCoverageChange callback", function () {
+                it("triggers CoverageChange", function () {
+                    spyOn(event, "trigger");
+                    events["system.event.onCoverageChange"].callback();
+                    expect(event.trigger).toHaveBeenCalledWith("CoverageChange");
+                });
+            });
+        });
+    });
     describe("using server", function () {
         it("exposes the system event module", function () {
             var webworks = require('ripple/platform/webworks.handset/2.0.0/server');
@@ -64,7 +107,7 @@ describe("webworks.handset system event", function () {
             expect(baton.take).toHaveBeenCalled();
         });
 
-        it("passes the baton when CoverageChanged is raised", function () {
+        it("passes the baton when CoverageChange is raised", function () {
             var baton = new MockBaton();
             sysEvent.onCoverageChange({}, {}, baton);
             event.trigger("CoverageChange", [], true);
