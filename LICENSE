@@ -267,13 +267,6 @@ licensed under the MIT (MIT-LICENSE.txt)
 http://docs.jquery.com/UI
 
 -------------------------------------------------------
-* jQuery.Dimensions *
-
-Copyright (c) 2007 Paul Bakaus (paul.bakaus@googlemail.com) and Brandon Aaron (brandon.aaron@gmail.com || http://brandonaaron.net)
-Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
-and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
-
--------------------------------------------------------
 * jQuery Tooltip plugin *
 
 http://bassistance.de/jquery-plugins/jquery-plugin-tooltip/
@@ -284,15 +277,6 @@ Copyright (c) 2006 - 2008 Jörn Zaefferer
 Dual licensed under the MIT and GPL licenses:
   http://www.opensource.org/licenses/mit-license.php
   http://www.gnu.org/licenses/gpl.html
-
--------------------------------------------------------
-* Sinon *
-
-https://github.com/cjohansen/Sinon.JS
-
-Copyright (c) 2010-2011, Christian Johansen, christian@cjohansen.no
-
-licensed under the BSD License
 
 -------------------------------------------------------
 * Math.uuid.js (v1.4) *

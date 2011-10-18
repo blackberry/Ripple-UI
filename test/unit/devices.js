@@ -23,7 +23,7 @@ describe("devices", function () {
     beforeEach(function () {
         spyOn(db, "retrieveObject");
         spyOn(db, "saveObject");
-        spyOn(platform, "current").andReturn({id: "wac", version: "1.0"});
+        spyOn(platform, "current").andReturn({id: "phonegap", version: "1.0"});
         devices.initialize();
     });
 
@@ -62,7 +62,7 @@ describe("devices", function () {
                     back: jasmine.createSpy("window.history.back")
                 }
             };
-            spyOn(emulatorBridge, "getWidgetWindow").andReturn(_window);
+            spyOn(emulatorBridge, "window").andReturn(_window);
         });
 
         it("calls history.back when the key is 0", function () {

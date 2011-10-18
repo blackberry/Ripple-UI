@@ -84,6 +84,8 @@ describe("webworks menu", function () {
             it("calls the transport", function () {
                 var item = new MenuItem(1, 2);
                 spyOn(transport, "call");
+
+                client.addMenuItem(item);
                 client.setDefaultMenuItem(item);
                 expect(transport.call).toHaveBeenCalledWith("blackberry/ui/menu/setDefaultMenuItem", {
                     get: {id: item.id}
