@@ -25,7 +25,7 @@ describe("webworks.core io.dir", function () {
             it("includes module according to proper object structure", function () {
                 var spec = require('ripple/platform/webworks.tablet/2.0.0/spec');
                 expect(spec.objects.blackberry.children.io.children.dir).toEqual({
-                    path: "webworks.core/2.0.0/client/io/dir",
+                    path: "webworks.tablet/2.0.0/client/io/dir",
                     feature: "blackberry.io.dir"
                 });
             });
