@@ -807,7 +807,7 @@ section.left { left: 0; }
 }
 
 #options-menu-build-warning {
-    color: #CC0000;
+    color: #00CC00;
     display: none;
     text-align: center;
     font-variant:small-caps;
