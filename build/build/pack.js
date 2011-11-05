@@ -51,7 +51,8 @@ module.exports = function () {
               " v" + src.info.version + " :: Built On " + new Date() + "\n\n" +
               fs.readFileSync(_c.LICENSE, "utf-8") + "*/\n";
 
-    utils.collect(_c.LIB, lib);
+    utils.collect(_c.LIB + "ripple/", lib);
+    utils.collect(_c.LIB + "ripple.js", lib);
     utils.collect(_c.DEVICES, devicesCSS, matches(".css"));
     utils.collect(_c.UI, overlays, matches("overlay.html"));
     utils.collect(_c.UI, panels, matches("panel.html"));

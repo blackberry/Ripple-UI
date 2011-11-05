@@ -1,0 +1,7 @@
+Usage: ripple [flag] [value]
+
+Options:
+
+   --version                 display package version
+   --server                  boot a webserver instance of ripple
+   --port                    specify custom port (use with --server)
