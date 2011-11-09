@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var utils = require('ripple/platform/webworks.core/2.0.0/client/utils');
-
 describe("utils", function () {
+    var utils = require('ripple/platform/webworks.core/2.0.0/client/utils');
+
     beforeEach(function () {
         global.BlobBuilder = global.WebKitBlobBuilder = jasmine.createSpy();
     });

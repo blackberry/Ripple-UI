@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var sys = require('sys'),
-    fs = require('fs'),
+var fs = require('fs'),
     jWorkflow = require('jWorkflow'),
     quotes = require('./build/quotes'),
     pack = require('./build/pack'),
@@ -25,11 +24,11 @@ var sys = require('sys'),
 
 function _done(error) {
     if (error) {
-        sys.puts(fs.readFileSync(__dirname + "/../thirdparty/fail.txt", "utf-8"));
-        sys.puts(error);
+        process.stdout.write(fs.readFileSync(__dirname + "/../thirdparty/fail.txt", "utf-8"));
+        process.stdout.write(error);
         process.exit(1);
     } else {
-        sys.puts(fs.readFileSync(__dirname + "/../thirdparty/dredd.txt", "utf-8"));
+        process.stdout.write(fs.readFileSync(__dirname + "/../thirdparty/dredd.txt", "utf-8"));
         quotes.random();
         process.exit();
     }
