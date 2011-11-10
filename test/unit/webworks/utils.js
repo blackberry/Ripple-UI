@@ -53,7 +53,7 @@ describe("utils", function () {
         it("can translate a blob into a string and back", function () {
             var blobBuilder = {
                     append: jasmine.createSpy(),
-                    getBlob: jasmine.createSpy().andReturn({})
+                    getBlob: jasmine.createSpy().andReturn({size: 3})
                 },
                 str = "da foo",
                 blob;
@@ -62,7 +62,8 @@ describe("utils", function () {
 
             blob = utils.stringToBlob(str);
 
-            expect(blob.uuid).toBeDefined();
+            expect(blob.id).toBeDefined();
+            expect(blob.length).toBeDefined();
             expect(utils.blobToString(blob)).toEqual(str);
             expect(utils.stringToBlob(str)).toEqual(blob);
             expect(blobBuilder.append).toHaveBeenCalledWith(str);
