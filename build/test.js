@@ -16,7 +16,7 @@
 var jsdom = require('jsdom'),
     fs = require('fs'),
     jWorkflow = require('jWorkflow'),
-    jasmine = require('jasmine-node'),
+    jasmine = require('./test/jasmine-node'),
     childProcess = require('child_process'),
     nodeXMLHttpRequest = require(__dirname + '/../thirdparty/node-XMLHttpRequest/XMLHttpRequest').XMLHttpRequest;
 
@@ -71,12 +71,8 @@ function _setupEnv(ready) {
 }
 
 module.exports = function (done, custom) {
-    var verbose = false,
-        colored = false,
-        specs = __dirname + "/../" + (custom ? custom : "test");
-
     //HACK: this should be  taken out if our pull request in jasmine is accepted.
-    jasmine.Matchers.prototype.toThrow = function (expected) {
+    jasmine.core.Matchers.prototype.toThrow = function (expected) {
         var result = false,
             exception,
             not = this.isNot ? "not " : "";
@@ -94,12 +90,12 @@ module.exports = function (done, custom) {
                 result = expected(exception);
             }
             else {
-                result = (expected === jasmine.undefined || this.env.equals_(exception.message || exception, expected.message || expected));
+                result = (expected === jasmine.core.undefined || this.env.equals_(exception.message || exception, expected.message || expected));
             }
         }
 
         this.message = function () {
-            if (exception && (expected === jasmine.undefined || !this.env.equals_(exception.message || exception, expected.message || expected))) {
+            if (exception && (expected === jasmine.core.undefined || !this.env.equals_(exception.message || exception, expected.message || expected))) {
                 return ["Expected function " + not + "to throw", expected ? expected.message || expected : "an exception", ", but it threw", exception.message || exception].join(' ');
             } else {
                 return "Expected function to throw an exception.";
@@ -110,17 +106,13 @@ module.exports = function (done, custom) {
     };
 
     _setupEnv(function () {
-        for (var key in jasmine) {
-            if (Object.prototype.hasOwnProperty.call(jasmine, key)) {
-                global[key] = jasmine[key];
-            }
-        }
+        var targets = __dirname + "/../" + (custom ? custom : "test");
 
-        jasmine.executeSpecsInFolder(specs, function (runner, log) {
+        jasmine.run(targets.split(' '), function (runner) {
             var failed = runner.results().failedCount === 0 ? 0 : 1;
             setTimeout(function () {
                 (typeof done !== "function" ? process.exit : done)(failed);
             }, 10);
-        }, verbose, colored);
+        });
     });
 };
