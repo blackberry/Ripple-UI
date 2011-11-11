@@ -14,8 +14,8 @@ In particular, the assets under ext/assets/images are excluded from the Apache S
 
 ## Build Requirements
 
-* nodejs, npm
-* OSX or linux (windows is not currently supported for development)
+* nodejs, npm, git
+* OSX or linux (Windows is not currently supported for development)
 
 ## Getting Started
 
@@ -25,25 +25,38 @@ This script will pull down the needed npm packages and initialize the submodules
 
 ## Build Commands
 
-    jake
-
-This will build ripple to the pkg/ folder. In that folder there is a web directory and a chromium directory.
-
-To test ripple as an extension in chrome/chromium just load the chromium folder as an unpacked extension.
-
     jake -T
 
-This will describe all the available commands for building and running the tests
+This will describe all the available commands for building and running the tests.
 
-## Running Inside Other Web Browsers
+## Running Inside The Browser
 
 Ripple is (by-design) browser agnostic, and is able to run inside any web browser (with disabled web security).
 
-To get it running inside Chrome you should start it with these [command line](http://www.chromium.org/developers/how-tos/run-chromium-with-flags) flags:
+`jake` will build ripple to the pkg/ folder. In that folder there is a web directory and a chromium directory.
+
+To test ripple as a Chrome/Chromium Browser extension just load the chromium folder as an unpacked extension.
+
+To serve ripple as a standalone web app, you just place pkg/web in the root of your webserver.
+
+To get ripple running as a standalone web app in Chrome/Chromium, you should start it with these [command line](http://www.chromium.org/developers/how-tos/run-chromium-with-flags) flags:
 
     --app=http://path/to/ripple-ui/pkg/web
     --disable-web-security
     --user-data-dir=/path/to/dummy/profile
+
+## CLI &amp; NPM Package
+
+To use the CLI:
+
+    jake build
+    node bin/cli --help
+
+Or if you want to install it (globally) as an npm package, then:
+
+    jake build
+    npm install -g .
+    ripple --help
 
 ## Code Guidelines
 
