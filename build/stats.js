@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 module.exports = function () {
-    var sys = require('sys'),
-        libs = [],
+    var libs = [],
         tests = [],
         total_lines = 0,
         total_loc = 0,
@@ -52,9 +51,9 @@ module.exports = function () {
                         .replace(/^.*lib\/ripple\/?/, '')
                         .replace(/^.*test\//, '');
 
-            sys.puts("| " + file + spaces(59 - file.length) + "| " +
+            process.stdout.write("| " + file + spaces(59 - file.length) + "| " +
                     lines + spaces(7 - String(lines).length) + "| " +
-                    loc + spaces(7 - String(loc).length) + "|");
+                    loc + spaces(7 - String(loc).length) + "|\n");
 
             callback(lines, loc);
         }
@@ -77,9 +76,9 @@ module.exports = function () {
     libs.sort();
     tests.sort();
 
-    sys.puts("+------------------------------------------------------------+--------+--------+");
-    sys.puts("| Lib                                                        | Lines  | LOC    |");
-    sys.puts("+------------------------------------------------------------+--------+--------+");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
+    process.stdout.write("| Lib                                                        | Lines  | LOC    |\n");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
 
     libs.forEach(function (lib) {
         parseFile(lib, function (lines, loc) {
@@ -88,15 +87,15 @@ module.exports = function () {
         });
     });
 
-    sys.puts("+------------------------------------------------------------+--------+--------+");
-    sys.print("| Total                                                      |");
-    sys.print(" " + lib_lines + spaces(7 - String(lib_lines).length) + "|");
-    sys.puts(" " + lib_loc + spaces(7 - String(lib_loc).length) + "|");
-    sys.puts("+------------------------------------------------------------+--------+--------+");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
+    process.stdout.write("| Total                                                      |");
+    process.stdout.write(" " + lib_lines + spaces(7 - String(lib_lines).length) + "|");
+    process.stdout.write(" " + lib_loc + spaces(7 - String(lib_loc).length) + "|\n");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
 
-    sys.puts("+------------------------------------------------------------+--------+--------+");
-    sys.puts("| Tests                                                      | Lines  | LOC    |");
-    sys.puts("+------------------------------------------------------------+--------+--------+");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
+    process.stdout.write("| Tests                                                      | Lines  | LOC    |\n");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
 
     tests.forEach(function (test) {
         parseFile(test, function (lines, loc) {
@@ -105,23 +104,23 @@ module.exports = function () {
         });
     });
 
-    sys.puts("+------------------------------------------------------------+--------+--------+");
-    sys.print("| Total                                                      |");
-    sys.print(" " + test_lines + spaces(7 - String(test_lines).length) + "|");
-    sys.puts(" " + test_loc + spaces(7 - String(test_loc).length) + "|");
-    sys.puts("+------------------------------------------------------------+--------+--------+");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
+    process.stdout.write("| Total                                                      |");
+    process.stdout.write(" " + test_lines + spaces(7 - String(test_lines).length) + "|");
+    process.stdout.write(" " + test_loc + spaces(7 - String(test_loc).length) + "|\n");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
 
     total_lines = lib_lines + test_lines;
     total_loc = lib_loc + test_loc;
     testsOverLib = (lib_loc / test_loc).toFixed(2);
     emptySpace = total_lines - total_loc;
 
-    sys.puts("+------------------------------------------------------------+--------+--------+");
-    sys.puts("| Stats                                                                        |");
-    sys.puts("+------------------------------------------------------------+--------+--------+");
-    sys.puts("| lines: " + total_lines + spaces(70 - String(total_lines).length) + "|");
-    sys.puts("| loc: " + total_loc + spaces(72 - String(total_loc).length) + "|");
-    sys.puts("| lib/test (loc): " + testsOverLib + spaces(61 - String(testsOverLib).length) + "|");
-    sys.puts("| comments & empty space: " + emptySpace + spaces(53 - String(emptySpace).length) + "|");
-    sys.puts("+------------------------------------------------------------+--------+--------+");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
+    process.stdout.write("| Stats                                                                        |\n");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
+    process.stdout.write("| lines: " + total_lines + spaces(70 - String(total_lines).length) + "|\n");
+    process.stdout.write("| loc: " + total_loc + spaces(72 - String(total_loc).length) + "|\n");
+    process.stdout.write("| lib/test (loc): " + testsOverLib + spaces(61 - String(testsOverLib).length) + "|\n");
+    process.stdout.write("| comments & empty space: " + emptySpace + spaces(53 - String(emptySpace).length) + "|\n");
+    process.stdout.write("+------------------------------------------------------------+--------+--------+\n");
 };

@@ -94,12 +94,16 @@ describe("w3c_geolocation", function () {
         });
 
         it("calls the success callback on the given interval", function () {
-            var watch = geolocation.watchPosition(success, error, {frequency: 10});
-            waits(39);
-            runs(function () {
-                expect(success.callCount).toBe(3);
-                geolocation.clearWatch(watch);
+            spyOn(window, "setInterval").andCallFake(function (callback, frequency) {
+                expect(frequency).toBe(10);
+                callback();
             });
+
+            var watch = geolocation.watchPosition(success, error, {frequency: 10});
+
+            expect(window.setInterval).toHaveBeenCalled();
+            expect(success).toHaveBeenCalled();
+            geolocation.clearWatch(watch);
         });
     });
 });

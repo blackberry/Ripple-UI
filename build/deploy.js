@@ -16,13 +16,12 @@
 var test = require('./test'),
     lint = require('./lint'),
     build = require('./build'),
-    sys = require('sys'),
     fs = require('fs'),
     fail = fs.readFileSync(__dirname + "/../thirdparty/fail.txt", "utf-8");
 
 function ok(code) {
     if (code || code === 1) {
-        sys.puts(fail);
+        process.stdout.write(fail);
         process.exit(1);
     }
 }
