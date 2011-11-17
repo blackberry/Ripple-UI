@@ -1,3 +1,17 @@
+## v0.9.2 - November 17, 2011
+
+* Removed dependency on jasmine-node. Bumped jasmine submodule to v1.1.0.
+* (fix) [utils] rippleLocation does not support specific ports (#237)
+* (fix) [BB device] blackberry.io generates exceptions when specify "/" at the end of path (issue #235)
+* (fix) [PB] all subfolders under shared folder do not exist (issue #230)
+* (fix) [BB device] blackberry.io.file.readFile set wrong property in callback function (issue #229)
+* (fix) [BB device] blackberry.io.dir.getParentDirectory generates exception (issue #228)
+* (fix) [BB device] blackberry.io.dir.exists generates exceptions (issue #227)
+* (fix) require('ripple/***') breaks in node 0.5.x/0.6.x (issue #226)
+* (fix) [ripple/boostrap] does not pass event object to listeners on window load/DOMContentLoaded (issue #217)
+* (fix) [lib/deviceMotionEmulator] does not pass all arguments to window.addEventListener/removeEventListener (issue #216)
+* (removed hotfix) window load event handlers are not triggered when navigating inside app (issue #190)
+
 ## v0.9.1 - November 11, 2011
 
 * Added remote web inspector option for WebWorks and WebWorks TabletOS platforms, which is disabled by default.
