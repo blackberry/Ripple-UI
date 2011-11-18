@@ -1,5 +1,6 @@
 {
     "predef": [ 
+        "Event",
         "stagewebview",
         "FileReader", "FileWriter",
         "WebKitBlobBuilder", "BlobBuilder",
