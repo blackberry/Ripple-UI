@@ -17,12 +17,10 @@ var utils = require('ripple/platform/webworks.core/2.0.0/client/utils');
 
 describe("utils", function () {
     beforeEach(function () {
-        global.FileReader = jasmine.createSpy();
         global.BlobBuilder = global.WebKitBlobBuilder = jasmine.createSpy();
     });
 
     afterEach(function () {
-        delete global.FileReader;
         delete global.BlobBuilder;
         delete global.WebKitBlobBuilder;
     });
@@ -58,25 +56,14 @@ describe("utils", function () {
                     getBlob: jasmine.createSpy().andReturn({})
                 },
                 str = "da foo",
-                fileReader = {
-                    readAsText: jasmine.createSpy().andCallFake(function (blob, encoding) {
-                        fileReader.result = str;
-                        runs(function () {
-                            fileReader.onloadend();
-                        });
-                    }),
-                    result: null
-                },
                 blob;
 
-            FileReader.andReturn(fileReader);
             BlobBuilder.andReturn(blobBuilder);
 
             blob = utils.stringToBlob(str);
 
             expect(blob.uuid).toBeDefined();
-            expect(utils.blobToString(blob)).toEqual(fileReader.result);
-            expect(fileReader.readAsText).toHaveBeenCalledWith(blob);
+            expect(utils.blobToString(blob)).toEqual(str);
             expect(utils.stringToBlob(str)).toEqual(blob);
             expect(blobBuilder.append).toHaveBeenCalledWith(str);
         });

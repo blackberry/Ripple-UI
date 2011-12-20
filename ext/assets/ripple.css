@@ -806,6 +806,13 @@ section.left { left: 0; }
     box-shadow: 0 0 15px rgba(153, 153, 153, 0.75);
 }
 
+#options-menu-build-warning {
+    color: #00CC00;
+    display: none;
+    text-align: center;
+    font-variant:small-caps;
+}
+
 #options-window {
     width: 100%;
     height: 100%;    

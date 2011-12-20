@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var fs = require('ripple/fs'),
+var fs = require('ripple/dbfs'),
     event = require('ripple/event'),
     FileProperties = require('ripple/platform/webworks.core/2.0.0/client/FileProperties'),
     bbUtils = require('ripple/platform/webworks.core/2.0.0/client/utils'),
@@ -286,9 +286,6 @@ describe("fsCache", function () {
             cache.file.readFile(path, success, false);
 
             expect(success).toHaveBeenCalledWith(blob);
-            expect(fs.read.argsForCall[0][0]).toBe(path);
-            expect(typeof fs.read.argsForCall[0][1]).toBe("function");
-            expect(typeof fs.read.argsForCall[0][2]).toBe("function");
         });
     });
 
