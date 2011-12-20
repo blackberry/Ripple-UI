@@ -28,17 +28,14 @@
                 var metaData = chrome.extension.getBackgroundPage().tinyHippos.Background.metaData();
                 document.write(metaData.justInstalled ? "Welcome to Ripple" : "Ripple has been updated");
             </script></h2>
-
-            <p><script type="text/javascript" charset="utf-8">
-                var html = "";
-                if (metaData.justInstalled) {
-                    html = "Visit our <a href=\"http://developer.blackberry.com/html5/documentation\" target=\"_blank\">documentation site</a> to get started.";
-                } else {
-                    html = "See what's new in <a href=\"http://rippledocs.tinyhippos.com/index.html#changelog\"" +
-                        " target=\"_blank\">v" + metaData.version + "</a>.";
-                }
-                document.write(html);
-            </script></p>
+            <p>
+                The Ripple Chrome Extension will be discontinued on Feb 29th, 2012. Please visit our
+                HTML5 site and download the new version of Ripple at the link below:
+            </p>
+            <p>
+                <a href="developer.blackberry.com/html5/download/ripple">Download Ripple</a>
+            </p>
+            <p>Read all about the new release of Ripple <a href="http://devblog.blackberry.com/2011/12/ripple-beta-refresh-download/">here</a></p>
         </div>
     </body>
 </html>
