@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var utils = require('ripple/platform/webworks.core/2.0.0/client/utils');
-
 describe("utils", function () {
+    var utils = require('ripple/platform/webworks.core/2.0.0/client/utils');
+
     beforeEach(function () {
         global.BlobBuilder = global.WebKitBlobBuilder = jasmine.createSpy();
     });
@@ -53,7 +53,7 @@ describe("utils", function () {
         it("can translate a blob into a string and back", function () {
             var blobBuilder = {
                     append: jasmine.createSpy(),
-                    getBlob: jasmine.createSpy().andReturn({})
+                    getBlob: jasmine.createSpy().andReturn({size: 3})
                 },
                 str = "da foo",
                 blob;
@@ -62,7 +62,8 @@ describe("utils", function () {
 
             blob = utils.stringToBlob(str);
 
-            expect(blob.uuid).toBeDefined();
+            expect(blob.id).toBeDefined();
+            expect(blob.length).toBeDefined();
             expect(utils.blobToString(blob)).toEqual(str);
             expect(utils.stringToBlob(str)).toEqual(blob);
             expect(blobBuilder.append).toHaveBeenCalledWith(str);
