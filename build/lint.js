@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 var childProcess = require('child_process'),
-    sys = require('sys'),
     fs = require('fs');
 
 function _spawn(proc, args, done) {
+    function log(data) {
+        process.stdout.write(new Buffer(data).toString("utf-8"));
+    }
+
     var cmd = childProcess.spawn(proc, args);
-    cmd.stdout.on('data', sys.print);
-    cmd.stderr.on('data', sys.print);
+
+    cmd.stdout.on('data', log);
+    cmd.stderr.on('data', log);
+
     if (done) {
         cmd.on('exit', done);
     }

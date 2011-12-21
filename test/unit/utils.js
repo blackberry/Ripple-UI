@@ -556,6 +556,7 @@ describe("utils", function () {
                 spyOn(utils, "location").andReturn({
                     href: "http://127.0.0.1/ripple/index.html",
                     protocol: "http:",
+                    port: "",
                     hostname: "127.0.0.1",
                     pathname: "/ripple/index.html"
                 });
@@ -566,16 +567,18 @@ describe("utils", function () {
                 spyOn(utils, "location").andReturn({
                     href: "http://127.0.0.1/ripple/",
                     protocol: "http:",
+                    port: "8080",
                     hostname: "127.0.0.1",
                     pathname: "/ripple/"
                 });
-                expect(utils.rippleLocation()).toBe("http://127.0.0.1/ripple/");
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1:8080/ripple/");
             });
 
             it("returns the base path when no trailing forward slash exists", function () {
                 spyOn(utils, "location").andReturn({
                     href: "http://127.0.0.1/ripple",
                     protocol: "http:",
+                    port: "",
                     hostname: "127.0.0.1",
                     pathname: "/ripple"
                 });
@@ -586,10 +589,11 @@ describe("utils", function () {
                 spyOn(utils, "location").andReturn({
                     href: "http://127.0.0.1/i/will/put/ripple/here/",
                     protocol: "http:",
+                    port: "6767",
                     hostname: "127.0.0.1",
                     pathname: "/i/will/put/ripple/here/"
                 });
-                expect(utils.rippleLocation()).toBe("http://127.0.0.1/i/will/put/ripple/here/");
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1:6767/i/will/put/ripple/here/");
             });
         });
 
