@@ -15,8 +15,7 @@
  */
 module.exports = {
     reporter: function (results) {
-        var sys = require('sys'),
-            len = results.length,
+        var len = results.length,
             str = '',
             file, error;
 
@@ -27,7 +26,7 @@ module.exports = {
                 error.character + ', ' + error.reason + '\n';
         });
 
-        sys.puts(len > 0 ? (str + "\n" + len + ' error' + ((len === 1) ? '' : 's\n')) : "Lint Free!\n");
+        process.stdout.write(len > 0 ? (str + "\n" + len + ' error' + ((len === 1) ? '' : 's\n')) : "Lint Free!\n");
 
         process.exit(len > 2 ? 1 : 0);
     }

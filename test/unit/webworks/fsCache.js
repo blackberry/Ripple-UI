@@ -76,17 +76,11 @@ describe("fsCache", function () {
             it("returns true when the file exists", function () {
                 spyOn(fs, "stat");
                 expect(cache.file.exists("/hungry.js")).toBe(true);
-                expect(fs.stat.argsForCall[0][0]).toBe("/hungry.js");
-                expect(typeof fs.stat.argsForCall[0][1]).toBe("function");
-                expect(typeof fs.stat.argsForCall[0][2]).toBe("function");
             });
 
             it("returns false when when given a directory", function () {
                 spyOn(fs, "stat");
                 expect(cache.file.exists("/dudeDir")).toBe(false);
-                expect(fs.stat.argsForCall[0][0]).toBe("/dudeDir");
-                expect(typeof fs.stat.argsForCall[0][1]).toBe("function");
-                expect(typeof fs.stat.argsForCall[0][2]).toBe("function");
             });
         });
 
@@ -177,36 +171,22 @@ describe("fsCache", function () {
             it("returns true when the directory exists", function () {
                 spyOn(fs, "stat");
                 expect(cache.dir.exists("/dudeDir")).toBe(true);
-                expect(fs.stat.argsForCall[0][0]).toBe("/dudeDir");
-                expect(typeof fs.stat.argsForCall[0][1]).toBe("function");
-                expect(typeof fs.stat.argsForCall[0][2]).toBe("function");
             });
 
             it("returns false when given a file", function () {
                 spyOn(fs, "stat");
                 expect(cache.dir.exists("/hungry.js")).toBe(false);
-                expect(fs.stat.argsForCall[0][0]).toBe("/hungry.js");
-                expect(typeof fs.stat.argsForCall[0][1]).toBe("function");
-                expect(typeof fs.stat.argsForCall[0][2]).toBe("function");
+            });
+
+            it("returns true when the directory exists", function () {
+                spyOn(fs, "stat");
+                expect(cache.dir.exists("/dudeDir")).toBe(true);
             });
         });
 
         describe("getParentDirectory", function () {
             it("returns the path to the parent directory", function () {
-                var entry = {
-                    getParent: jasmine.createSpy()
-                };
-
-                spyOn(fs, "stat").andCallFake(function (path, success, error) {
-                    success(entry);
-                });
-
                 expect(cache.dir.getParentDirectory("/dudeDir")).toBe("/");
-                expect(fs.stat.argsForCall[0][0]).toBe("/dudeDir");
-                expect(typeof fs.stat.argsForCall[0][1]).toBe("function");
-                expect(typeof fs.stat.argsForCall[0][2]).toBe("function");
-                expect(typeof entry.getParent.argsForCall[0][0]).toBe("function");
-                expect(typeof entry.getParent.argsForCall[0][1]).toBe("function");
             });
         });
 
