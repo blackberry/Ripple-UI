@@ -151,8 +151,8 @@ describe("fsCache", function () {
         describe("createNewDir", function () {
             it("creates a directory with a trailing slash", function () {
                 spyOn(fs, "mkdir");
-                cache.dir.createNewDir("/foo/");
-                expect(fs.mkdir.argsForCall[0][0]).toBe("/foo/");
+                cache.dir.createNewDir("/foo");
+                expect(fs.mkdir.argsForCall[0][0]).toBe("/foo");
                 expect(typeof fs.mkdir.argsForCall[0][1]).toBe("function");
                 expect(typeof fs.mkdir.argsForCall[0][2]).toBe("function");
             });
