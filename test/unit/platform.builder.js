@@ -18,10 +18,9 @@ describeBrowser("platform builder", function () {
         app = require('ripple/app');
 
     it("it requires in the module for the path", function () {
-        var target = {},
-            cb = jasmine.createSpy();
+        var target = {};
 
-        require.define('ripple/platform/xmen/1.0/cyclops', cb);
+        spyOn(window, "require");
 
         builder.build({
             test: {
@@ -29,19 +28,13 @@ describeBrowser("platform builder", function () {
             }
         }).into(target);
 
-        expect(target.test).toBeDefined();
-        delete require.modules["ripple/platform/xmen/1.0/cyclops"];
+        expect(window.require).toHaveBeenCalledWith("ripple/platform/xmen/1.0/cyclops");
     });
 
     it("it creates the children", function () {
-        var target = {},
-            cb0 = jasmine.createSpy(),
-            cb1 = jasmine.createSpy(),
-            cb2 = jasmine.createSpy();
+        var target = {};
 
-        require.define('ripple/platform/xmen/1.0/magneto', cb0);
-        require.define('ripple/platform/xmen/1.0/scarletWitch', cb1);
-        require.define('ripple/platform/xmen/1.0/quicksilver', cb2);
+        spyOn(window, "require").andReturn({});
 
         builder.build({
             magneto: {
@@ -59,13 +52,6 @@ describeBrowser("platform builder", function () {
 
         expect(target.magneto.scarletWitch).toBeDefined();
         expect(target.magneto.quicksilver).toBeDefined();
-        expect(cb0).toHaveBeenCalled();
-        expect(cb1).toHaveBeenCalled();
-        expect(cb2).toHaveBeenCalled();
-
-        delete require.modules['ripple/platform/xmen/1.0/magneto'];
-        delete require.modules['ripple/platform/xmen/1.0/scarletWitch'];
-        delete require.modules['ripple/platform/xmen/1.0/quicksilver'];
     });
 
     it("when a path is not given it creates an empty object literal in its place", function () {

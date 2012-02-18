@@ -17,9 +17,9 @@ module.exports = function () {
     var connect = require('connect'),
         fs = require('fs'),
         utils = require('./build/utils'),
-        libs = [],
         tests = [],
         html = fs.readFileSync(__dirname + "/btest/test.html", "utf-8"),
+        pack = require('./build/pack'),
         doc,
         modules,
         specs,
@@ -37,13 +37,9 @@ module.exports = function () {
             })
         );
 
-    utils.collect(__dirname + "/../lib", libs);
     utils.collect(__dirname + "/../test", tests);
 
-    modules = libs.reduce(function (str, file) {
-        str += '"' + file.replace(/^.*lib\//, "").replace(/\.js$/, "") + '",\n';
-        return str;
-    }, "").replace(/\,\n$/g, "\n");
+    modules = pack();
 
     specs = tests.reduce(function (str, file) {
         str += '<script src="' +
@@ -52,7 +48,7 @@ module.exports = function () {
         return str;
     }, "");
 
-    doc = html.replace(/<!-- SPECS -->/g, specs).replace(/"##FILES##"/g, modules);
+    doc = html.replace(/<!-- SPECS -->/g, specs).replace(/##FILES##/g, modules.js);
 
     app.listen(3000);
 
