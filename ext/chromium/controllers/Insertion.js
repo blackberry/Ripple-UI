@@ -35,6 +35,16 @@
     }
 
     function _injectBootstrap() {
+        document.addEventListener("bus-init", function (e) {
+            var send = document.getElementById("bus-send");
+            send.addEventListener("DOMNodeInserted", function (evt) {
+                chrome.extension.sendRequest({
+                    action: evt.target.id,
+                    data: evt.target.textContent
+                });
+            });
+        });
+
         document.documentElement.appendChild((function () {
             //wrap in a section with id to remove in bootstrap
             var scriptElement = document.createElement("script");
