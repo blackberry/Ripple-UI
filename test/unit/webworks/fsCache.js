@@ -109,12 +109,7 @@ describe("fsCache", function () {
             it("returns an object of file properties", function () {
                 spyOn(fs, "stat");
 
-                var properties = new FileProperties({
-                        dateModified: new Date(123),
-                        size: 50,
-                        mimeType: "application/x-javascript"
-                    }),
-                    result = cache.file.getFileProperties("/hungry.js");
+                var result = cache.file.getFileProperties("/hungry.js");
 
                 expect(result.dateModified).toEqual(new Date(123));
                 expect(result.dateCreated).toEqual(new Date(123));
@@ -122,7 +117,7 @@ describe("fsCache", function () {
                 expect(result.fileExtension).toEqual("js");
                 expect(result.isHidden).toEqual(false);
                 expect(result.isReadonly).toEqual(false);
-                expect(result.mimeType).toEqual(properties.mimeType);
+                expect(result.mimeType).toEqual("application/x-javascript");
                 expect(result.size).toEqual(50);
                 expect(result instanceof FileProperties).toBe(true);
             });
@@ -143,6 +138,16 @@ describe("fsCache", function () {
                 spyOn(fs, "mkdir");
                 cache.dir.createNewDir("/test");
                 expect(fs.mkdir.argsForCall[0][0]).toBe("/test");
+                expect(typeof fs.mkdir.argsForCall[0][1]).toBe("function");
+                expect(typeof fs.mkdir.argsForCall[0][2]).toBe("function");
+            });
+        });
+
+        describe("createNewDir", function () {
+            it("creates a directory with a trailing slash", function () {
+                spyOn(fs, "mkdir");
+                cache.dir.createNewDir("/foo");
+                expect(fs.mkdir.argsForCall[0][0]).toBe("/foo");
                 expect(typeof fs.mkdir.argsForCall[0][1]).toBe("function");
                 expect(typeof fs.mkdir.argsForCall[0][2]).toBe("function");
             });

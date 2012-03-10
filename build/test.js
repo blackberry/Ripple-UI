@@ -40,6 +40,7 @@ function _extraMocks() {
     global.NamedNodeMap = function () {
         return [];
     };
+    window.require = require;
     window.removeEventListener = function () {};
 }
 

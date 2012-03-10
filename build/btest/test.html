@@ -76,7 +76,7 @@
         <script src="thirdparty/jWorkflow/jworkflow-min-0.4.0.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- thirdparty -->
-        <script src="thirdparty/browser-require/require.js" type="text/javascript" charset="utf-8"></script>
+        <script src="thirdparty/almond.js" type="text/javascript" charset="utf-8"></script>
         <script src="thirdparty/Math.uuid.js" type="text/javascript" charset="utf-8"></script>
         <script src="thirdparty/jquery.js" type="text/javascript" charset="utf-8"></script>
         <script src="thirdparty/jquery.ui.js" type="text/javascript" charset="utf-8"></script>
@@ -84,12 +84,13 @@
 
         <!-- define Math.uuid as a ghost -->
         <script type="text/javascript" charset="utf-8">
-            require.define('thirdparty/Math.uuid', function (require, module, exports) {});
+            define.unordered = true;
+            define('thirdparty/Math.uuid', function (require, exports, module) {});
         </script>
 
         <!-- define jWorkflow as module -->
         <script type="text/javascript" charset="utf-8">
-            require.define('jWorkflow', function (require, module, exports) {
+            define('jWorkflow', function (require, exports, module) {
                 module.exports = window.jWorkflow;
             });
         </script>
@@ -114,11 +115,7 @@
 
         <!-- load in lib modules -->
         <script type="text/javascript" charset="utf-8">
-            [
-"##FILES##"
-            ].forEach(function (module) {
-                require.load(module + ".js");
-            });
+            ##FILES##
         </script>
 
         <!-- test specs -->
