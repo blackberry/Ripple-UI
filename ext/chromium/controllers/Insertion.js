@@ -30,7 +30,7 @@
             }
 
             sendResponse({});
-            location.assign(uri);
+            location.reload();
         });
     }
 

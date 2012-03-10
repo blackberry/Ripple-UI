@@ -74,9 +74,11 @@ module.exports = function () {
         return buffer + fs.readFileSync(_c.THIRDPARTY + file, "utf-8");
     }, "");
 
+    src.js += "define.unordered = true;";
+
     src.js += compile(lib, function (file, path) {
-        return "require.define('" + path.replace(/^.*ripple/, "ripple").replace(/\.js$/, '') +
-               "', function (require, module, exports) {\n" + file + "});\n";
+        return "define('" + path.replace(/^.*ripple/, "ripple").replace(/\.js$/, '') +
+               "', function (require, exports, module) {\n" + file + "});\n";
     });
 
     return src;
