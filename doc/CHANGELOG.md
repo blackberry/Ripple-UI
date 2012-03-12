@@ -1,4 +1,4 @@
-## v0.9.3 - Morch 10, 2012
+## v0.9.3 - March 10, 2012
 
 * Added support for dynamic maps with OpenLayers
 * Added missing properties to touch events
