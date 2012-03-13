@@ -1,3 +1,19 @@
+## v0.9.3 - Morch 10, 2012
+
+* Added support for dynamic maps with OpenLayers
+* Added missing properties to touch events
+* Moved to Almond for module management
+* (fix) [PhoneGap] events now fire on the correct DOM document
+* (fix) [WW File] fixed the dateCreated and dateModified file properties
+* (fix) [PhoneGap] fixed id bug on contacts API
+* (fix) [iPhone] fixed viewport size to match screen size
+* (fix) [iPhone] fixed screen size display
+* (fix) [OpenLayers] fixed stylesheet link
+* (fix) [touch] fixed element.ontouchX buinding
+* (fix) [touch] fixed event.screenX/Y values 
+* (fix) [tests] fixed failing tests in browser runner
+* (update) removed End of Life notice
+
 ## v0.9.2 - November 17, 2011
 
 * Removed dependency on jasmine-node. Bumped jasmine submodule to v1.1.0.

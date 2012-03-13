@@ -20,6 +20,7 @@ module.exports = function () {
         tests = [],
         html = fs.readFileSync(__dirname + "/btest/test.html", "utf-8"),
         pack = require('./build/pack'),
+        conf = require('./build/conf'),
         doc,
         modules,
         specs,
@@ -37,9 +38,15 @@ module.exports = function () {
             })
         );
 
-    utils.collect(__dirname + "/../test", tests);
+    //HACK: Openlayers causes weird stuff with the browser runner, so lets pop it off the list until we fix it
+    var openlayers = conf.thirdpartyIncludes.pop();
+    if (openlayers !== "OpenLayers.js") {
+        console.log("HACK: we wanted to pop OpenLayers off but it looks like it wasn't the last one anymore");
+    }
 
     modules = pack();
+
+    utils.collect(__dirname + "/../test", tests);
 
     specs = tests.reduce(function (str, file) {
         str += '<script src="' +
