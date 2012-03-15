@@ -37,6 +37,7 @@ tinyHippos.Background = (function () {
             },
             connected = true,
             lag = 0,
+            userAgent,
             requestUri = chrome.extension.getURL("manifest.json");
 
         _self.bindContextMenu();
@@ -81,6 +82,10 @@ tinyHippos.Background = (function () {
                 connected = JSON.parse(request.data);  
                 console.log("network connected ==> " + connected);
             }
+            else if (request.action === "userAgent") {
+                userAgent = request.data;
+                console.log("user agent ==> " + userAgent);
+            }
             else {
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
             }
@@ -93,8 +98,22 @@ tinyHippos.Background = (function () {
                 }
                 return {cancel: enabled && !connected && !isLocalRequest(details.url)};
             }, 
-            {urls: ["*://*/*"]}, 
+            {urls: ["<all_urls>"]}, 
             ["blocking"]);
+
+        chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
+            if (tinyHippos.Background.isEnabled(details.url)) {
+                var ua = details.requestHeaders.reduce(function (match, header) {
+                    return match || header.name === 'User-Agent' || match;
+                });
+
+                ua.value = userAgent || ua.value;
+            }
+
+            return {
+                requestHeaders: details.requestHeaders
+            };
+        }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"] );
     }
 
     function _getEnabledURIs() {
