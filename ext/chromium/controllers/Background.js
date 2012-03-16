@@ -19,6 +19,7 @@ if (!window.tinyHippos) {
 
 tinyHippos.Background = (function () {
     var _wasJustInstalled = false,
+        _enabled = {},
         _self;
 
     function isLocalRequest(uri) {
@@ -66,7 +67,7 @@ tinyHippos.Background = (function () {
         chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
             if (request.action === "isEnabled") {
                 console.log("isEnabled? ==> " + request.tabURL);
-                sendResponse({"enabled": tinyHippos.Background.isEnabled(request.tabURL)});
+                sendResponse({"enabled": tinyHippos.Background.isEnabled(request.tabURL, request.tabId)});
             }
             else if (request.action === "enable") {
                 console.log("enabling ==> " + request.tabURL);
@@ -92,7 +93,7 @@ tinyHippos.Background = (function () {
         });
 
         chrome.webRequest.onBeforeRequest.addListener(function (details) {
-                var enabled = tinyHippos.Background.isEnabled(details.url);
+                var enabled = tinyHippos.Background.isEnabled(details.url, details.tabId);
                 if (enabled) {
                     sleep(lag);
                 }
@@ -102,7 +103,7 @@ tinyHippos.Background = (function () {
             ["blocking"]);
 
         chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
-            if (tinyHippos.Background.isEnabled(details.url)) {
+            if (tinyHippos.Background.isEnabled(details.url, details.tabId)) {
                 var ua = details.requestHeaders.reduce(function (match, header) {
                     return header.name === 'User-Agent' ? header : match;
                 }, null);
@@ -121,7 +122,9 @@ tinyHippos.Background = (function () {
         return parsed ? JSON.parse(parsed) : {};
     }
 
-    function _persistEnabled(url) {
+    function _persistEnabled(url, id) {
+        _enabled[id] = url;
+        console.log(_enabled);
         var jsonObject = _getEnabledURIs();
         jsonObject[url.replace(/.[^\/]*$/, "")] = "widget";
         localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
@@ -167,7 +170,7 @@ tinyHippos.Background = (function () {
         enable: function () {
             chrome.tabs.getSelected(null, function (tab) {
                 console.log("enable ==> " + tab.url);
-                _persistEnabled(tab.url);
+                _persistEnabled(tab.url, tab.id);
                 chrome.tabs.sendRequest(tab.id, {"action": "enable", "mode": "widget", "tabURL": tab.url }, function (response) {});
             });
         },
@@ -187,15 +190,18 @@ tinyHippos.Background = (function () {
                     }
                 }
 
+                delete _enabled[tab.id];
+                console.log(_enabled);
+
                 localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
 
                 chrome.tabs.sendRequest(tab.id, {"action": "disable", "tabURL": tab.url }, function (response) {});
             });
         },
 
-        isEnabled: function (url, obj) {
+        isEnabled: function (url, tabId, enabledURIs) {
             if (url.match(/enableripple=true/i)) {
-                _persistEnabled(url);
+                _persistEnabled(url, tabId);
                 return true;
             }
 
@@ -204,16 +210,20 @@ tinyHippos.Background = (function () {
                 return false;
             }
 
-            obj = obj || _getEnabledURIs();
+            if (_enabled[tabId]) {
+                return true;
+            }
+
+            enabledURIs = enabledURIs || _getEnabledURIs();
 
             if (url.length === 0) {
                 return false;
             }
-            else if (obj[url]) {
+            else if (enabledURIs[url]) {
                 return true;
             }
 
-            return tinyHippos.Background.isEnabled(url.replace(/.[^\/]*$/, ""), obj);
+            return tinyHippos.Background.isEnabled(url.replace(/.[^\/]*$/, ""), tabId, enabledURIs);
         }
     };
 
