@@ -67,7 +67,7 @@ tinyHippos.Background = (function () {
         chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
             if (request.action === "isEnabled") {
                 console.log("isEnabled? ==> " + request.tabURL);
-                sendResponse({"enabled": tinyHippos.Background.isEnabled(request.tabURL, request.tabId)});
+                sendResponse({"enabled": tinyHippos.Background.isEnabled(request.tabURL, sender.tab.id)});
             }
             else if (request.action === "enable") {
                 console.log("enabling ==> " + request.tabURL);
@@ -115,6 +115,26 @@ tinyHippos.Background = (function () {
                 requestHeaders: details.requestHeaders
             };
         }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"] );
+
+        chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+            if (tinyHippos.Background.isEnabled(tab.url, tabId)) {
+                chrome.tabs.executeScript(tabId, {
+                    code: "rippleExtensionId = '" + chrome.extension.getURL('') + "';",
+                    allFrames: false
+                }, function () {
+                    chrome.tabs.executeScript(tabId, {
+                        file: "bootstrap.js",
+                        allFrames: false
+                    });
+                });
+
+
+                chrome.tabs.executeScript(tabId, {
+                    file: "frame.js",
+                    allFrames: true
+                });
+            }
+        });
     }
 
     function _getEnabledURIs() {
@@ -124,7 +144,6 @@ tinyHippos.Background = (function () {
 
     function _persistEnabled(url, id) {
         _enabled[id] = url;
-        console.log(_enabled);
         var jsonObject = _getEnabledURIs();
         jsonObject[url.replace(/.[^\/]*$/, "")] = "widget";
         localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);

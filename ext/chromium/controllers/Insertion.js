@@ -44,18 +44,6 @@
                 });
             });
         });
-
-        document.documentElement.appendChild((function () {
-            //wrap in a section with id to remove in bootstrap
-            var scriptElement = document.createElement("script");
-
-            scriptElement.setAttribute("src", chrome.extension.getURL("bootstrap.js?" + new Date().getTime()));
-            scriptElement.setAttribute("id", chrome.extension.getURL(""));
-            scriptElement.setAttribute("class", "emulator-bootstrap");
-            scriptElement.setAttribute("type", "text/javascript");
-
-            return scriptElement;
-        }()));
     }
 
     _subscribeToEnableDisable();

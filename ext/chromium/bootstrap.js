@@ -18,14 +18,9 @@ if (!window.tinyHippos) {
     var _panel = th_panel;
 
     (function () {
-        var injection = _panel.LAYOUT_HTML.replace(/#URL_PREFIX#/g, document.querySelector(".emulator-bootstrap").id);
+        var injection = _panel.LAYOUT_HTML.replace(/#URL_PREFIX#/g, rippleExtensionId);
 
         document.open();
-
-        document.addEventListener("tinyHipposInterpreted", function () {
-            require('ripple/bootstrap').bootstrap();
-        }, false);
-
         document.write(injection);
 
         window.setTimeout(function () {
