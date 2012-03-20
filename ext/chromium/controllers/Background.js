@@ -127,12 +127,6 @@ tinyHippos.Background = (function () {
                         allFrames: false
                     });
                 });
-
-
-                chrome.tabs.executeScript(tabId, {
-                    file: "frame.js",
-                    allFrames: true
-                });
             }
         });
     }

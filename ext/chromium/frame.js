@@ -1,7 +1,6 @@
-if (!document.getElementById("emulator-booting")) {
-    console.log("frame window");
+if (!document.getElementById("emulator-booting") && !document.getElementById("tinyhippos-injected")) {
     var script = document.createElement("script");
-    script.innerHTML = "window.top.require('ripple/bootstrap').inject(window, document);console.log('injected');";
+    script.id = "tinyhippos-injected";
+    script.innerHTML = "if (window.top.require) {window.top.require('ripple/bootstrap').inject(window, document);}";
     document.documentElement.appendChild(script);
 }
-
