@@ -19,7 +19,7 @@
     },
     {
         "run_at": "document_start",
-        "js": ["frame.js"],
+        "js": ["controllers/frame.js"],
         "matches": ["http://*/*","https://*/*","file:///*"],
         "all_frames": true
     }],
