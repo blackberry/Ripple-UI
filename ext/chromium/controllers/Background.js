@@ -21,10 +21,22 @@ tinyHippos.Background = (function () {
     var _wasJustInstalled = false,
         _self;
 
+    function isLocalRequest(uri) {
+        return !!uri.match(/^https?:\/\/(127\.0\.0\.1|localhost)|^file:\/\//);
+    }
+
     function initialize() {
         // check version info for showing welcome/update views
         var version = window.localStorage["ripple-version"],
             xhr = new window.XMLHttpRequest(),
+            //I know this is dirty, so sue me dick
+            sleep = function (ms) {
+                var date = new Date(), curDate = null;
+                do {curDate = new Date();}
+                while (curDate - date < ms);
+            },
+            connected = true,
+            lag = 0,
             requestUri = chrome.extension.getURL("manifest.json");
 
         _self.bindContextMenu();
@@ -60,10 +72,29 @@ tinyHippos.Background = (function () {
                 tinyHippos.Background.enable();
                 sendResponse();
             }
+            else if (request.action === "lag") {
+                lag = JSON.parse(request.data) ? 1000 : 0;
+                console.log("lagging ==> " + lag);
+                sendResponse();
+            }
+            else if (request.action === "network") {
+                connected = JSON.parse(request.data);  
+                console.log("network connected ==> " + connected);
+            }
             else {
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
             }
         });
+
+        chrome.webRequest.onBeforeRequest.addListener(function (details) {
+                var enabled = tinyHippos.Background.isEnabled(details.url);
+                if (enabled) {
+                    sleep(lag);
+                }
+                return {cancel: enabled && !connected && !isLocalRequest(details.url)};
+            }, 
+            {urls: ["*://*/*"]}, 
+            ["blocking"]);
     }
 
     function _getEnabledURIs() {
