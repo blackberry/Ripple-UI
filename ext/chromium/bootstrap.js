@@ -18,7 +18,7 @@ if (!window.tinyHippos) {
     var _panel = th_panel;
 
     (function () {
-        var injection = _panel.LAYOUT_HTML.replace(/#URL_PREFIX#/g, rippleExtensionId);
+        var injection = _panel.LAYOUT_HTML.replace(/#URL_PREFIX#/g, window.rippleExtensionId);
 
         document.open();
         document.write(injection);

@@ -33,7 +33,7 @@ tinyHippos.Background = (function () {
             //I know this is dirty, so sue me dick
             sleep = function (ms) {
                 var date = new Date(), curDate = null;
-                do {curDate = new Date();}
+                do { curDate = new Date(); }
                 while (curDate - date < ms);
             },
             connected = true,
@@ -114,7 +114,7 @@ tinyHippos.Background = (function () {
             return {
                 requestHeaders: details.requestHeaders
             };
-        }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"] );
+        }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"]);
 
         chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             if (tinyHippos.Background.isEnabled(tab.url, tabId)) {
