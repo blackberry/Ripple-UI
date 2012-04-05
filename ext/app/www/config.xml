@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+    	version="1.4.0.0">
+
+  <name>Ripple</name>
+
+  <description>
+      Ripple Mobile Environment Emulator
+  </description>
+
+  <license href="https://github.com/blackberry/Ripple-UI/blob/master/LICENSE"></license>
+
+  <access subdomains="true" uri="file:///store/home" />
+  <access subdomains="true" uri="file:///SDCard" />
+
+  <!-- Expose access to all URIs, including the file and http protocols -->
+  <access subdomains="true" uri="*" />
+
+  <icon rim:hover="false" src="images/Icon_128x128.png" />
+  <icon rim:hover="true" src="images/Icon_128x128.png" />
+
+  <rim:loadingScreen backgroundColor="#000000"
+                     foregroundImage="images/ripplelogo_large.png"
+		     onFirstLaunch="true">
+    <rim:transitionEffect type="fadeOut" />
+  </rim:loadingScreen>
+
+  <content src="index.html" />
+
+</widget>
