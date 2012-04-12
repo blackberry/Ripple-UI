@@ -15,7 +15,6 @@
  */
 describe("devices", function () {
     var devices = require('ripple/devices'),
-        platform = require('ripple/platform'),
         event = require('ripple/event'),
         emulatorBridge = require('ripple/emulatorBridge'),
         db = require('ripple/db');
@@ -23,7 +22,6 @@ describe("devices", function () {
     beforeEach(function () {
         spyOn(db, "retrieveObject");
         spyOn(db, "saveObject");
-        spyOn(platform, "current").andReturn({id: "phonegap", version: "1.0"});
         devices.initialize();
     });
 
@@ -39,9 +37,9 @@ describe("devices", function () {
         expect(devices.getCurrentDevice()).toBeDefined();
     });
 
-    it("getDevice should return overridden device values for platform and version", function () {
+    it("getDevice should return overridden device values", function () {
         //HACK this is a integration test
-        devices.getDevice("iPhone3", "phonegap", "0.9");
+        devices.getDevice("iPhone3");
     });
 
     it("getDevice should return device with device.overrides if API param not provided", function () {

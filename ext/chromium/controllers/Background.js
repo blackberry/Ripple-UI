@@ -25,6 +25,7 @@ tinyHippos.Background = (function () {
         // check version info for showing welcome/update views
         var version = window.localStorage["ripple-version"],
             xhr = new window.XMLHttpRequest(),
+            userAgent,
             requestUri = chrome.extension.getURL("manifest.json");
 
         _self.bindContextMenu();
@@ -51,17 +52,51 @@ tinyHippos.Background = (function () {
         xhr.send();
 
         chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
-            if (request.action === "isEnabled") {
+            switch (request.action) {
+            case "isEnabled":
                 console.log("isEnabled? ==> " + request.tabURL);
                 sendResponse({"enabled": tinyHippos.Background.isEnabled(request.tabURL)});
-            }
-            else if (request.action === "enable") {
+                break;
+            case "enable":
                 console.log("enabling ==> " + request.tabURL);
                 tinyHippos.Background.enable();
                 sendResponse();
-            }
-            else {
+                break;
+            case "userAgent":
+                console.log("user agent ==> " + userAgent);
+                userAgent = request.data;
+                break;
+            default:
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
+                break;
+            };
+        });
+
+        chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
+            if (tinyHippos.Background.isEnabled(details.url)) {
+                var ua = details.requestHeaders.reduce(function (match, header) {
+                    return match || header.name === 'User-Agent' || match;
+                });
+
+                ua.value = userAgent || ua.value;
+            }
+
+            return {
+                requestHeaders: details.requestHeaders
+            };
+        }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"] );
+
+        chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+            if (tinyHippos.Background.isEnabled(tab.url)) {
+                chrome.tabs.executeScript(tabId, {
+                    code: "rippleExtensionId = '" + chrome.extension.getURL('') + "';",
+                    allFrames: false
+                }, function () {
+                    chrome.tabs.executeScript(tabId, {
+                        file: "bootstrap.js",
+                        allFrames: false
+                    });
+                });
             }
         });
     }
