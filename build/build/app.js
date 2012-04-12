@@ -21,6 +21,7 @@ var childProcess = require('child_process'),
 
 function create(path) {
     return function (prev, baton) {
+        baton.take();
         var cmd = 'mkdir ' + _c.DEPLOY + path;
         childProcess.exec(cmd, baton.pass);
     };
@@ -28,13 +29,14 @@ function create(path) {
 
 function copy(from, to) {
     return function (prev, baton) {
+        baton.take();
         var cmd = 'cp -r ' + from + ' ' + _c.DEPLOY + to;
         childProcess.exec(cmd, baton.pass);
     };
 }
 
 function write(src) {
-    return function () {
+    return function (prev, baton) {
         var css = _c.ASSETS + "ripple.css",
             cssDeploy = _c.DEPLOY + "app/www/ripple.css",
             index = _c.DEPLOY + "app/www/index.html",
@@ -45,6 +47,7 @@ function write(src) {
                           .replace(/#PANEL_VIEWS#/g, src.panels);
 
         fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
+
         fs.writeFileSync(index, doc);
         fs.writeFileSync(js, src.js +
             "require('ripple/ui').register('omnibar');" +
@@ -60,7 +63,7 @@ module.exports = function (src, baton) {
              .andThen(create('app/www'))
              .andThen(copy(_c.EXT + "app", ""))
              .andThen(copy(_c.ASSETS, "app/www"))
-             .andThen(write(src))
              .andThen(copy(_c.PACKAGE_JSON, "app/www"))
+             .andThen(write(src))
              .start(baton.pass);
 };
