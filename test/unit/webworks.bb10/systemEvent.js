@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-describe("webworks.tablet system event", function () {
-    var server = require('ripple/platform/webworks.tablet/2.0.0/server/systemEvent'),
-        client = require('ripple/platform/webworks.tablet/2.0.0/client/systemEvent'),
-        deviceSpec = require('ripple/platform/webworks.tablet/2.0.0/spec/device'),
+describe("webworks.bb10 system event", function () {
+    var server = require('ripple/platform/webworks.bb10/1.0.0/server/systemEvent'),
+        client = require('ripple/platform/webworks.bb10/1.0.0/client/systemEvent'),
+        deviceSpec = require('ripple/platform/webworks.bb10/1.0.0/spec/device'),
         transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
         event = require('ripple/event'),
         MockBaton = function () {
@@ -25,36 +25,18 @@ describe("webworks.tablet system event", function () {
         };
 
     describe("platform spec", function () {
-        var spec = require('ripple/platform/webworks.tablet/2.0.0/spec');
+        var spec = require('ripple/platform/webworks.bb10/1.0.0/spec');
 
         // NOTE: system and system.event for Playbook do not require feature declarations (see docs)
         it("includes the module according to proper object structure", function () {
             expect(spec.objects.blackberry.children.system.children.event.path)
-                .toEqual("webworks.tablet/2.0.0/client/systemEvent");
-        });
-
-        describe("events", function () {
-            describe("app.event.onSwipeDown callback", function () {
-                it("triggers AppSwipeDown", function () {
-                    spyOn(event, "trigger");
-                    spec.events["app.event.onSwipeDown"].callback();
-                    expect(event.trigger).toHaveBeenCalledWith("AppSwipeDown");
-                });
-            });
-
-            describe("app.event.onSwipeStart callback", function () {
-                it("triggers AppSwipeStart", function () {
-                    spyOn(event, "trigger");
-                    spec.events["app.event.onSwipeStart"].callback();
-                    expect(event.trigger).toHaveBeenCalledWith("AppSwipeStart");
-                });
-            });
+                .toEqual("webworks.bb10/1.0.0/client/systemEvent");
         });
     });
 
     describe("server index", function () {
         it("exposes the system event module", function () {
-            var webworks = require('ripple/platform/webworks.tablet/2.0.0/server');
+            var webworks = require('ripple/platform/webworks.bb10/1.0.0/server');
             expect(webworks.blackberry.system.event).toEqual(server);
         });
     });
