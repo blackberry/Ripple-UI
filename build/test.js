@@ -66,7 +66,8 @@ function _setupEnv(ready) {
 
         _extraMocks();
 
-        childProcess.exec('cp -rf lib/ripple node_modules/ripple && ' +
+        childProcess.exec('rm -rf node_modules/ripple* && ' +
+                          'cp -rf lib/ripple node_modules/ripple && ' +
                           'cp -f lib/ripple.js node_modules/ripple.js', ready);
     });
 }
@@ -111,9 +112,10 @@ module.exports = function (done, custom) {
 
         jasmine.run(targets.split(' '), function (runner) {
             var failed = runner.results().failedCount === 0 ? 0 : 1;
-            setTimeout(function () {
+            //Nuke everything out of node_modules since it was just in there to run the tests
+            childProcess.exec('rm -rf node_modules/ripple*', function () {
                 (typeof done !== "function" ? process.exit : done)(failed);
-            }, 10);
+            });
         });
     });
 };
