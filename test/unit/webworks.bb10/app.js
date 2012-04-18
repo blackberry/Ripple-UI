@@ -14,89 +14,9 @@
  * limitations under the License.
  */
 describe("webworks_app", function () {
-    var appServer = require('ripple/platform/webworks.bb10/1.0.0/server/app'),
-        appClient = require('ripple/platform/webworks.bb10/1.0.0/client/app'),
-        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
+    var target = require('ripple/platform/webworks.bb10/1.0.0/client/app'),
         event = require('ripple/event'),
         app = require('ripple/app');
-
-    describe("client", function () {
-        var data = "data";
-
-        beforeEach(function () {
-            spyOn(transport, "call").andReturn(data);
-        });
-
-        describe("author", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.author).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/author");
-            });
-        });
-
-        describe("authorEmail", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.authorEmail).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/authorEmail");
-            });
-        });
-
-        describe("authorURL", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.authorURL).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/authorURL");
-            });
-        });
-
-        describe("copyright", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.copyright).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/copyright");
-            });
-        });
-
-        describe("description", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.description).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/description");
-            });
-        });
-
-        describe("id", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.id).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/id");
-            });
-        });
-
-        describe("license", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.license).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/license");
-            });
-        });
-
-        describe("licenseURL", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.licenseURL).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/licenseURL");
-            });
-        });
-
-        describe("name", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.name).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/name");
-            });
-        });
-
-        describe("version", function () {
-            it("calls the transport appropriately", function () {
-                expect(appClient.version).toEqual("data");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/app/version");
-            });
-        });
-    });
 
     describe("checks the config for", function () {
         function testConfigAccess(prop, expected) {
@@ -106,7 +26,7 @@ describe("webworks_app", function () {
             conf[prop] = expected;
             spyOn(app, "getInfo").andReturn(conf);
 
-            result = appServer[prop]().data;
+            result = target[prop];
             expect(app.getInfo).toHaveBeenCalled();
             expect(result).toBe(expected);
         }

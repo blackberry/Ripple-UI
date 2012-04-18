@@ -14,36 +14,9 @@
  * limitations under the License.
  */
 describe("webworks identity", function () {
-    var identity = require('ripple/platform/webworks.bb10/1.0.0/server/identity'),
+    var identity = require('ripple/platform/webworks.bb10/1.0.0/client/identity'),
         deviceSpec = require('ripple/platform/webworks.bb10/1.0.0/spec/device'),
-        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        identityClient = require('ripple/platform/webworks.bb10/1.0.0/client/identity'),
-        deviceSettings = require('ripple/deviceSettings'),
-        spec = require('ripple/platform/webworks.bb10/1.0.0/spec'),
-        webworks = require('ripple/platform/webworks.bb10/1.0.0/server');
-
-    describe("using server", function () {
-        it("exposes the identity module", function () {
-            expect(webworks.blackberry.identity).toEqual(identity);
-        });
-    });
-
-    describe("in spec", function () {
-        it("includes identity module according to proper object structure", function () {
-            expect(spec.objects.blackberry.children.identity.path)
-                .toEqual("webworks.bb10/1.0.0/client/identity");
-        });
-    });
-
-    describe("using client/identity", function () {
-        describe("uuid", function () {
-            it("calls the transport", function () {
-                spyOn(transport, "call").andReturn("takes all");
-                expect(identityClient.uuid).toEqual("takes all");
-                expect(transport.call).toHaveBeenCalledWith("blackberry/identity/uuid");
-            });
-        });
-    });
+        deviceSettings = require('ripple/deviceSettings');
 
     describe("using server/identity", function () {
         describe("uuid", function () {
@@ -56,7 +29,7 @@ describe("webworks identity", function () {
 
             it("returns a persisted device setting", function () {
                 spyOn(deviceSettings, "retrieve").andReturn("wine");
-                expect(identity.uuid().data).toEqual("wine");
+                expect(identity.uuid).toEqual("wine");
             });
         });
     });

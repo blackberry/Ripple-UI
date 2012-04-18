@@ -14,35 +14,15 @@
  * limitations under the License.
  */
 describe("webworks_appEvent", function () {
-    var appEvent = require('ripple/platform/webworks.bb10/1.0.0/server/appEvent'),
-        client = require('ripple/platform/webworks.bb10/1.0.0/client/appEvent'),
-        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        event = require('ripple/event'),
-        MockBaton = function () {
-            this.take = jasmine.createSpy('baton.take');
-            this.pass = jasmine.createSpy('baton.pass');
-        };
+    var appEvent = require('ripple/platform/webworks.bb10/1.0.0/client/appEvent'),
+        event = require('ripple/event');
 
-    describe("client", function () {
-        // TODO: test the callback logic in polling
-        describe("onExit", function () {
-            it("polls the transport appropriately", function () {
-                spyOn(transport, "poll");
-                client.onExit(null);
-                expect(transport.poll.argsForCall[0][0]).toEqual("blackberry/app/event/onExit");
-                expect(transport.poll.argsForCall[0][1]).toEqual({});
-                expect(typeof transport.poll.argsForCall[0][2]).toEqual("function"); 
-            });
-        });
 
-    });
+    it("onExit registers for the event", function () {
+        spyOn(event, "on");
+        var handler = function () {};
 
-    describe("onExit", function () {
-        it("takes the baton", function () {
-            var baton = new MockBaton();
-
-            appEvent.onExit({}, {}, baton);
-            expect(baton.take).toHaveBeenCalled();
-        });
+        appEvent.onExit(handler);
+        expect(event.on).toHaveBeenCalledWith("AppExit", handler);
     });
 });

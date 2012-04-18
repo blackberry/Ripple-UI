@@ -14,32 +14,9 @@
  * limitations under the License.
  */
 describe("webworks.bb10 system event", function () {
-    var server = require('ripple/platform/webworks.bb10/1.0.0/server/systemEvent'),
-        client = require('ripple/platform/webworks.bb10/1.0.0/client/systemEvent'),
+    var server = require('ripple/platform/webworks.bb10/1.0.0/client/systemEvent'),
         deviceSpec = require('ripple/platform/webworks.bb10/1.0.0/spec/device'),
-        transport = require('ripple/platform/webworks.core/2.0.0/client/transport'),
-        event = require('ripple/event'),
-        MockBaton = function () {
-            this.take = jasmine.createSpy('baton.take');
-            this.pass = jasmine.createSpy('baton.pass');
-        };
-
-    describe("platform spec", function () {
-        var spec = require('ripple/platform/webworks.bb10/1.0.0/spec');
-
-        // NOTE: system and system.event for Playbook do not require feature declarations (see docs)
-        it("includes the module according to proper object structure", function () {
-            expect(spec.objects.blackberry.children.system.children.event.path)
-                .toEqual("webworks.bb10/1.0.0/client/systemEvent");
-        });
-    });
-
-    describe("server index", function () {
-        it("exposes the system event module", function () {
-            var webworks = require('ripple/platform/webworks.bb10/1.0.0/server');
-            expect(webworks.blackberry.system.event).toEqual(server);
-        });
-    });
+        event = require('ripple/event');
 
     describe("in the device spec", function () {
         it("includes setting to toggle handset charging on and off", function () {
@@ -64,155 +41,55 @@ describe("webworks.bb10 system event", function () {
         });
     });
 
-    describe("client", function () {
-        describe("deviceBatteryStateChange", function () {
-            it("polls the transport appropriately", function () {
-                var listener = function () {},
-                    args;
-
-                spyOn(transport, "poll");
-                client.deviceBatteryStateChange(listener);
-                args = transport.poll.argsForCall[0];
-
-                expect(args[0]).toEqual("blackberry/system/event/deviceBatteryStateChange");
-                expect(args[1]).toEqual({});
-                expect(typeof args[2]).toEqual("function");
-            });
-
-            it("invokes handler upon successfull response from server", function () {
-                var listener = jasmine.createSpy(),
-                    res = {
-                        code: 1,
-                        data: 3 // state UNPLUGGED
-                    },
-                    returnPoll;
-
-                spyOn(transport, "poll");
-                client.deviceBatteryStateChange(listener);
-
-                returnPoll = transport.poll.argsForCall[0][2];
-                returnPoll(res.data, JSON.stringify(res));
-
-                expect(listener).toHaveBeenCalledWith(res.data);
-            });
-        });
-
-        describe("deviceBatteryLevelChange", function () {
-            it("polls the transport appropriately", function () {
-                var listener = function () {},
-                    args;
-
-                spyOn(transport, "poll");
-                client.deviceBatteryLevelChange(listener);
-                args = transport.poll.argsForCall[0];
-
-                expect(args[0]).toEqual("blackberry/system/event/deviceBatteryLevelChange");
-                expect(args[1]).toEqual({});
-                expect(typeof args[2]).toEqual("function");
-            });
-
-            it("invokes handler upon successfull response from server", function () {
-                var listener = jasmine.createSpy(),
-                    res = {
-                        code: 1,
-                        data: 80
-                    },
-                    returnPoll;
-
-                spyOn(transport, "poll");
-                client.deviceBatteryLevelChange(listener);
-
-                returnPoll = transport.poll.argsForCall[0][2];
-                returnPoll(res.data, JSON.stringify(res));
-
-                expect(listener).toHaveBeenCalledWith(res.data);
-            });
-        });
-    });
-
     describe("server", function () {
         beforeEach(function () {
             spyOn(console, "log");
         });
 
         describe("deviceBatteryStateChange", function () {
-            it("takes the baton when polled", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryStateChange({}, {}, baton);
-                expect(baton.take).toHaveBeenCalled();
-            });
 
-            it("passes the baton when DeviceBatteryStateChanged is emitted", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryStateChange({}, {}, baton);
+            it("calls the callback when DeviceBatteryStateChanged is emitted", function () {
+                var cb = new jasmine.createSpy();
+                server.deviceBatteryStateChange(cb);
                 event.trigger("DeviceBatteryStateChanged", [], true);
-                expect(baton.pass).toHaveBeenCalled();
-            });
-
-            it("only passed the baton once", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryStateChange({}, {}, baton);
-                event.trigger("DeviceBatteryStateChanged", [], true);
-                event.trigger("DeviceBatteryStateChanged", [], true);
-                expect(baton.pass).toHaveBeenCalled();
+                expect(cb).toHaveBeenCalled();
             });
 
             it("passes state UNPLUGGED when charging is false", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryStateChange({}, {}, baton);
+                var cb = new jasmine.createSpy();
+                server.deviceBatteryStateChange(cb);
                 event.trigger("DeviceBatteryStateChanged", [false], true);
-                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 3}); // state CHARGING
+                expect(cb).toHaveBeenCalledWith(3); // state CHARGING
             });
 
             it("passes state CHARGING when charging is true", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryStateChange({}, {}, baton);
+                var cb = new jasmine.createSpy();
+                server.deviceBatteryStateChange(cb);
                 event.trigger("DeviceBatteryStateChanged", [true], true);
-                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 2}); // state UNPLUGGED
+                expect(cb).toHaveBeenCalledWith(2); // state UNPLUGGED
             });
 
             it("passes state FULL when battery level is 100", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryStateChange({}, {}, baton);
+                var cb = new jasmine.createSpy();
+                server.deviceBatteryStateChange(cb);
                 event.trigger("DeviceBatteryLevelChanged", [100], true);
-                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 1}); // state FULL
+                expect(cb).toHaveBeenCalledWith(1); // state FULL
             });
 
             it("also passes state FULL when given a String for battery level", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryStateChange({}, {}, baton);
+                var cb = new jasmine.createSpy();
+                server.deviceBatteryStateChange(cb);
                 event.trigger("DeviceBatteryLevelChanged", ["100"], true);
-                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 1});
+                expect(cb).toHaveBeenCalledWith(1);
             });
         });
 
         describe("deviceBatteryLevelChange", function () {
-            it("takes the baton when polled", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryLevelChange({}, {}, baton);
-                expect(baton.take).toHaveBeenCalled();
-            });
-
-            it("passes the baton when DeviceBatteryLevelChanged is emitted", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryLevelChange({}, {}, baton);
-                event.trigger("DeviceBatteryLevelChanged", [], true);
-                expect(baton.pass).toHaveBeenCalled();
-            });
-
-            it("only passed the baton once", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryLevelChange({}, {}, baton);
-                event.trigger("DeviceBatteryLevelChanged", [], true);
-                event.trigger("DeviceBatteryLevelChanged", [], true);
-                expect(baton.pass).toHaveBeenCalled();
-            });
-
-            it("passes baton when battery level changes", function () {
-                var baton = new MockBaton();
-                server.deviceBatteryLevelChange({}, {}, baton);
+            it("calls the callback when battery level changes", function () {
+                var cb = new jasmine.createSpy();
+                server.deviceBatteryLevelChange(cb);
                 event.trigger("DeviceBatteryLevelChanged", [80], true);
-                expect(baton.pass).toHaveBeenCalledWith({code: 1, data: 80});
+                expect(cb).toHaveBeenCalledWith(80);
             });
         });
     });
