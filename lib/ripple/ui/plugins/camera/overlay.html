@@ -23,7 +23,6 @@
 
       navigator.webkitGetUserMedia("video",
           function(stream) {
-            console.log("woot");
             video.src = window.webkitURL.createObjectURL(stream)
           },
           function(err) {
