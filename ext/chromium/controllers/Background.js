@@ -66,21 +66,34 @@ tinyHippos.Background = (function () {
                 console.log("user agent ==> " + userAgent);
                 userAgent = request.data;
                 break;
+            case "version":
+                senddResponse(version);
+                break;
             case "xhr":
-                console.log("xhr ==> " + request.data);
+                var xhr = new XMLHttpRequest(),
+                    postData = new FormData(),
+                    data = JSON.parse(request.data);
 
-                var xhr = new XMLHttpRequest();
+                console.log("xhr ==> " + data.url);
 
-                xhr.open(request.data.method, request.data.url);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
+                $.ajax({
+                    type: data.method,
+                    url: data.url,
+                    async: true,
+                    data: data.data,
+                    success: function (data, status) {
                         sendResponse({
-                            code: xhr.code,
-                            data: xhr.response
+                            code: 200,
+                            data: data
+                        });
+                    },
+                    error: function (xhr, status, errorMessage) {
+                        sendResponse({
+                            code: xhr.status,
+                            data: status
                         });
                     }
-                };
-                xhr.send(request.data.data);
+                });
                 break;
             default:
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
