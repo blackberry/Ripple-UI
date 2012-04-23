@@ -15,8 +15,10 @@
 # limitations under the License.
 
 #declare the paths relative to the root
-BUILD_OUTPUT=../../build_output
-RIPPLE_BUILD=../../pkg
+OUTPUT=build_output
+PKG=pkg
+BUILD_OUTPUT=../../$OUTPUT
+RIPPLE_BUILD=../../$PKG
 
 #clear build_output directory
 rm -fr $BUILD_OUTPUT 
@@ -28,6 +30,7 @@ export BUILD_STATUS=$?
 
 #if build was good then package zip
 if [ $BUILD_STATUS = 0 ]; then 
-        zip -9 -r $BUILD_OUTPUT/ripple_ui.zip  $RIPPLE_BUILD
+    cd ../..
+    zip -9 -r $OUTPUT/ripple_ui.zip  $PKG
 fi
 exit $BUILD_STATUS
