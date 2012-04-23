@@ -66,6 +66,22 @@ tinyHippos.Background = (function () {
                 console.log("user agent ==> " + userAgent);
                 userAgent = request.data;
                 break;
+            case "xhr":
+                console.log("xhr ==> " + request.data);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open(request.data.method, request.data.url);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        sendResponse({
+                            code: xhr.code,
+                            data: xhr.response
+                        });
+                    }
+                };
+                xhr.send(request.data.data);
+                break;
             default:
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
                 break;

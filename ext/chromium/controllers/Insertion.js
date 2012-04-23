@@ -34,13 +34,23 @@
         });
     }
 
-    function _injectBootstrap() {
+    function _enableBus() {
         document.addEventListener("bus-init", function (e) {
-            var send = document.getElementById("bus-send");
+            var send = document.getElementById("bus-send"),
+                receive = document.getElementById("bus-receive");
+
             send.addEventListener("DOMNodeInserted", function (evt) {
+                var action = evt.target.id,
+                    data = JSON.parse(evt.target.textContent);
+
                 chrome.extension.sendRequest({
-                    action: evt.target.id,
+                    action: action,
                     data: evt.target.textContent
+                }, function (response) {
+                    var m = document.createElement("span");
+                    m.id = data.callback;
+                    m.innerHTML = JSON.stringify(response);
+                    receive.appendChild(m);
                 });
             });
         });
@@ -50,7 +60,7 @@
 
     chrome.extension.sendRequest({"action": "isEnabled", "tabURL": location.href }, function (response) {
         if (response.enabled) {
-            _injectBootstrap();
+            _enableBus();
         }
     });
 }());
