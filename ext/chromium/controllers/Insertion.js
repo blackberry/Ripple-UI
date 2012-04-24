@@ -40,7 +40,7 @@
                 receive = document.getElementById("bus-receive");
 
             send.addEventListener("DOMNodeInserted", function (evt) {
-                var action = evt.target.id,
+                var action = evt.target.dataset.msg,
                     data = JSON.parse(evt.target.textContent);
 
                 chrome.extension.sendRequest({
@@ -48,7 +48,7 @@
                     data: evt.target.textContent
                 }, function (response) {
                     var m = document.createElement("span");
-                    m.id = data.callback;
+                    m.dataset.msg = evt.target.dataset.callback;
                     m.innerHTML = JSON.stringify(response);
                     receive.appendChild(m);
                 });
