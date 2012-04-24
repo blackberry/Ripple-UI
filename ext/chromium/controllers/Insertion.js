@@ -40,7 +40,6 @@
                 receive = document.getElementById("bus-receive");
 
             send.addEventListener("DOMNodeInserted", function (evt) {
-                console.log(event.target);
                 var action = evt.target.dataset.msg,
                     data = JSON.parse(evt.target.textContent);
 
