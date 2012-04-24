@@ -67,7 +67,7 @@ tinyHippos.Background = (function () {
                 userAgent = request.data;
                 break;
             case "version":
-                senddResponse(version);
+                sendResponse(version);
                 break;
             case "xhr":
                 var xhr = new XMLHttpRequest(),
