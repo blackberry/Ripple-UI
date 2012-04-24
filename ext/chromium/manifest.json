@@ -1,6 +1,6 @@
 {
     "version": "",
-    "name": "Ripple Mobile Environment Emulator (Beta)",
+    "name": "Ripple Emulator (Beta)",
     "background_page":"views/background.html",
     "icons":{
         "16":"images/Icon_16x16.png",
