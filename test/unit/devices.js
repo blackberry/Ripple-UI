@@ -18,11 +18,13 @@ describe("devices", function () {
         event = require('ripple/event'),
         platform = require('ripple/platform'),
         emulatorBridge = require('ripple/emulatorBridge'),
+        bus = require('ripple/bus'),
         db = require('ripple/db');
 
     beforeEach(function () {
         spyOn(db, "retrieveObject");
         spyOn(db, "saveObject");
+        spyOn(bus, "send");
         spyOn(platform, "current").andReturn({
             id: "web"
         });
