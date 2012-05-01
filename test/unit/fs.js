@@ -17,7 +17,7 @@ var fs = require('ripple/fs'),
     event = require('ripple/event'),
     utils = require('ripple/utils');
 
-describe("fs", function () {
+xdescribe("fs", function () {
     var _resultEntries,
         _dirEntry,
         _baton,

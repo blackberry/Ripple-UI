@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *lYou may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -15,16 +15,21 @@
  */
 describe("devices", function () {
     var devices = require('ripple/devices'),
-        platform = require('ripple/platform'),
         event = require('ripple/event'),
+        platform = require('ripple/platform'),
         emulatorBridge = require('ripple/emulatorBridge'),
+        bus = require('ripple/bus'),
         db = require('ripple/db');
 
     beforeEach(function () {
         spyOn(db, "retrieveObject");
         spyOn(db, "saveObject");
-        spyOn(platform, "current").andReturn({id: "phonegap", version: "1.0"});
+        spyOn(bus, "send");
+        spyOn(platform, "current").andReturn({
+            id: "web"
+        });
         devices.initialize();
+
     });
 
     it("getDevice returns a copied device object", function () {
@@ -37,16 +42,6 @@ describe("devices", function () {
 
     it("getCurrentDevice should return an object", function () {
         expect(devices.getCurrentDevice()).toBeDefined();
-    });
-
-    it("getDevice should return overridden device values for platform and version", function () {
-        //HACK this is a integration test
-        devices.getDevice("iPhone3", "phonegap", "0.9");
-    });
-
-    it("getDevice should return device with device.overrides if API param not provided", function () {
-        var device = devices.getDevice("iPhone3");
-        expect(device.overrides).not.toEqual(undefined);
     });
 
     it("getDevice should return null when a device is not found", function () {

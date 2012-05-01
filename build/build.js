@@ -20,6 +20,7 @@ var fs = require('fs'),
     clean = require('./build/clean'),
     compress = require('./build/compress'),
     chromium = require('./build/chromium'),
+    app = require('./build/app'),
     web = require('./build/web');
 
 function _done(error) {
@@ -57,9 +58,13 @@ module.exports = _handle(function (ext, opts, complete) {
     case 'chromium':
         build.andThen(chromium);
         break;
+    case 'app':
+        build.andThen(app);
+        break;
     default:
         build.andThen(chromium)
-             .andThen(web);
+             .andThen(web)
+             .andThen(app);
     }
 
     if (opts.compress) {

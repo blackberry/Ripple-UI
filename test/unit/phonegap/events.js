@@ -1,10 +1,12 @@
 describe("phonegap events", function () {
     var spec = require('ripple/platform/phonegap/1.0/spec'),
+        emulatorBridge = require('ripple/emulatorBridge'),
         events = spec.events;
 
     function _expectsEventToFire(name) {
         var evt = {initEvent: jasmine.createSpy()};
 
+        spyOn(emulatorBridge, "document").andReturn(document);
         spyOn(document, "createEvent").andReturn(evt);
         spyOn(document, "dispatchEvent");
 

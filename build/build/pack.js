@@ -70,13 +70,17 @@ module.exports = function () {
     src.dialogs += compile(dialogs);
     src.overlays += compile(overlays);
 
+    src.js += "window.require = null;window.define = null;";
+
     src.js += _c.thirdpartyIncludes.reduce(function (buffer, file) {
         return buffer + fs.readFileSync(_c.THIRDPARTY + file, "utf-8");
     }, "");
 
+    src.js += "define.unordered = true;";
+
     src.js += compile(lib, function (file, path) {
-        return "require.define('" + path.replace(/^.*ripple/, "ripple").replace(/\.js$/, '') +
-               "', function (require, module, exports) {\n" + file + "});\n";
+        return "define('" + path.replace(/^.*ripple/, "ripple").replace(/\.js$/, '') +
+               "', function (require, exports, module) {\n" + file + "});\n";
     });
 
     return src;
