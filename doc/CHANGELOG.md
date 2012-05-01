@@ -6,6 +6,7 @@
 * Added userAgent emulation
 * Added initial support for Cordova/PhoneGap 1.6 (alpha)
 * (fix) Improved injection routine
+* (known issue) Disabled loading in file:/// scheme
 
 ## v0.9.3 - March 10, 2012
 
