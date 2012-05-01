@@ -48,11 +48,7 @@ module.exports = function (src, baton) {
 
         fs.writeFileSync(js,
             src.js +
-            "(function () {" +
-                "var evt = document.createEvent('Events');" +
-                "evt.initEvent('tinyHipposInterpreted', true, true);" +
-                "document.dispatchEvent(evt);" +
-            "}());"
+            "require('ripple/bootstrap').bootstrap();"
         );
 
         baton.pass(src);

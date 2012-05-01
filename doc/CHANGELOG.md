@@ -1,3 +1,12 @@
+## v0.9.4 - April 30, 2012
+
+* Added support for BlackBerry 10 WebWorks (beta)
+* Added new BlackBerry 10 Dev Alpha device
+* Added support for WebWorks Build and Deploy services
+* Added userAgent emulation
+* Added initial support for Cordova/PhoneGap 1.6 (alpha)
+* (fix) Improved injection routine
+
 ## v0.9.3 - March 10, 2012
 
 * Added support for dynamic maps with OpenLayers

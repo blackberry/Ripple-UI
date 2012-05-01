@@ -19,6 +19,10 @@
         <link href="#URL_PREFIX#ripple.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
+        <section id="bus" style="display: none">
+        	<section id="bus-send"></section>
+        	<section id="bus-receive"></section>
+        </section>
         <section id="ui">
             <section id="emulator-booting"></section>
 
@@ -43,24 +47,6 @@
                     </div>
 
                     <input class="ui-widget-content ui-corner-all" type="text" value="">
-
-                    <span class="options">
-                        <div id="options-button" class="ui-state-default ui-corner-all ui-icon-container ui-icon-container-right">
-                            <span class="ui-icon ui-icon-wrench"></span>
-                        </div>
-                        <ul id="options-menu">
-                            <li id="options-menu-build" class="not-ready"><a>Package</a></li>
-                            <li id="options-menu-sign" class="not-ready"><a>Package &amp; Sign</a></li>
-                            <li id="options-menu-launch" class="not-ready"><a>Package &amp; Launch</a></li>
-                            <li id="options-menu-build-warning"><hr>Remote Web Inspector Enabled</li>
-                            <li><hr></li>
-                            <li id="options-menu-settings" class="not-ready"><a>Settings...</a></li>
-                            <li><hr></li>
-                            <li id="options-menu-about"><a>About Ripple Emulator</a></li>
-                        </ul>
-                    </span>
-
-                    <div id="options-progress" class="progress"></div>
                 </section>
             </section>
 

@@ -595,8 +595,19 @@ describe("utils", function () {
                 });
                 expect(utils.rippleLocation()).toBe("http://127.0.0.1:6767/i/will/put/ripple/here/");
             });
+
+            //Test for github issue #315
+            xit("returns the correct path when folder has a . in it", function () {
+                
+                spyOn(utils, "location").andReturn({
+                    href: "http://127.0.0.1/bb10.sample/",
+                    protocol: "http:",
+                    port: "",
+                    hostname: "127.0.0.1",
+                    pathname: "/bb10.sample/"
+                });
+                expect(utils.rippleLocation()).toBe("http://127.0.0.1/bb10.sample/");
+            });
         });
-
     });
-
 });

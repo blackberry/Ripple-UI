@@ -76,30 +76,13 @@ describe("w3c_geolocation", function () {
     });
 
     describe("watchPosition", function () {
-        describe("calls the error callback when", function () {
-            it("doesn't provide any options", function () {
-                geolocation.watchPosition(success, error);
-                expect(error).toHaveBeenCalled();
-            });
-
-            it("provides options with a missing frequency", function () {
-                geolocation.watchPosition(success, error, {});
-                expect(error).toHaveBeenCalled();
-            });
-
-            it("has a frequency that isn't a number", function () {
-                geolocation.watchPosition(success, error, {frequency: "w00t"});
-                expect(error).toHaveBeenCalled();
-            });
-        });
-
         it("calls the success callback on the given interval", function () {
             spyOn(window, "setInterval").andCallFake(function (callback, frequency) {
                 expect(frequency).toBe(10);
                 callback();
             });
 
-            var watch = geolocation.watchPosition(success, error, {frequency: 10});
+            var watch = geolocation.watchPosition(success, error, {timeout: 10});
 
             expect(window.setInterval).toHaveBeenCalled();
             expect(success).toHaveBeenCalled();

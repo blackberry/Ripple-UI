@@ -60,7 +60,7 @@ describe("webworks.tablet system event", function () {
     });
 
     describe("in the device spec", function () {
-        it("includes setting to togger handset charging on and off", function () {
+        it("includes setting to toggle handset charging on and off", function () {
             expect(typeof deviceSpec.battery.state.name).toEqual("string");
             expect(deviceSpec.battery.state.control.type).toEqual("checkbox");
 

@@ -70,6 +70,8 @@ module.exports = function () {
     src.dialogs += compile(dialogs);
     src.overlays += compile(overlays);
 
+    src.js += "window.require = null;window.define = null;";
+
     src.js += _c.thirdpartyIncludes.reduce(function (buffer, file) {
         return buffer + fs.readFileSync(_c.THIRDPARTY + file, "utf-8");
     }, "");

@@ -19,12 +19,18 @@ if (!window.tinyHippos) {
 
 tinyHippos.Background = (function () {
     var _wasJustInstalled = false,
+        _enabled = {},
         _self;
+
+    function isLocalRequest(uri) {
+        return !!uri.match(/^https?:\/\/(127\.0\.0\.1|localhost)|^file:\/\//);
+    }
 
     function initialize() {
         // check version info for showing welcome/update views
         var version = window.localStorage["ripple-version"],
             xhr = new window.XMLHttpRequest(),
+            userAgent,
             requestUri = chrome.extension.getURL("manifest.json");
 
         _self.bindContextMenu();
@@ -51,17 +57,118 @@ tinyHippos.Background = (function () {
         xhr.send();
 
         chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
-            if (request.action === "isEnabled") {
+            switch (request.action) {
+            case "isEnabled":
                 console.log("isEnabled? ==> " + request.tabURL);
                 sendResponse({"enabled": tinyHippos.Background.isEnabled(request.tabURL)});
-            }
-            else if (request.action === "enable") {
+                break;
+            case "enable":
                 console.log("enabling ==> " + request.tabURL);
                 tinyHippos.Background.enable();
                 sendResponse();
-            }
-            else {
+                break;
+            case "userAgent":
+                console.log("user agent ==> " + userAgent);
+                userAgent = request.data;
+                break;
+            case "version":
+                sendResponse(version);
+                break;
+            case "xhr":
+                var xhr = new XMLHttpRequest(),
+                    postData = new FormData(),
+                    data = JSON.parse(request.data);
+
+                console.log("xhr ==> " + data.url);
+
+                $.ajax({
+                    type: data.method,
+                    url: data.url,
+                    async: true,
+                    data: data.data,
+                    success: function (data, status) {
+                        sendResponse({
+                            code: 200,
+                            data: data
+                        });
+                    },
+                    error: function (xhr, status, errorMessage) {
+                        sendResponse({
+                            code: xhr.status,
+                            data: status
+                        });
+                    }
+                });
+                break;
+            default:
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
+                break;
+            };
+        });
+
+        chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
+            if (tinyHippos.Background.isEnabled(details.url)) {
+                var ua = details.requestHeaders.reduce(function (match, header) {
+                    return match || header.name === 'User-Agent' || match;
+                });
+
+                ua.value = userAgent || ua.value;
+            }
+
+            return {
+                requestHeaders: details.requestHeaders
+            };
+        }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"] );
+
+        chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+            if (tinyHippos.Background.isEnabled(tab.url)) {
+                chrome.tabs.executeScript(tabId, {
+                    code: "rippleExtensionId = '" + chrome.extension.getURL('') + "';",
+                    allFrames: false
+                }, function () {
+                    chrome.tabs.executeScript(tabId, {
+                        file: "bootstrap.js",
+                        allFrames: false
+                    });
+                });
+            }
+        });
+
+        chrome.webRequest.onBeforeRequest.addListener(function (details) {
+                var enabled = tinyHippos.Background.isEnabled(details.url, details.tabId);
+                if (enabled) {
+                    sleep(lag);
+                }
+                return {cancel: enabled && !connected && !isLocalRequest(details.url)};
+            }, 
+            {urls: ["<all_urls>"]}, 
+            ["blocking"]);
+
+        chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
+            if (tinyHippos.Background.isEnabled(details.url, details.tabId)) {
+                var ua = details.requestHeaders.reduce(function (match, header) {
+                    return header.name === 'User-Agent' ? header : match;
+                }, null);
+
+                ua.value = userAgent || ua.value;
+            }
+
+            return {
+                requestHeaders: details.requestHeaders
+            };
+        }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"]);
+
+        chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+            if (tinyHippos.Background.isEnabled(tab.url, tabId)) {
+                chrome.tabs.executeScript(tabId, {
+                    code: "rippleExtensionId = '" + chrome.extension.getURL('') + "';",
+                    allFrames: false
+                }, function () {
+                    chrome.tabs.executeScript(tabId, {
+                        file: "bootstrap.js",
+                        allFrames: false
+                    });
+                });
             }
         });
     }
@@ -71,7 +178,8 @@ tinyHippos.Background = (function () {
         return parsed ? JSON.parse(parsed) : {};
     }
 
-    function _persistEnabled(url) {
+    function _persistEnabled(url, id) {
+        _enabled[id] = url;
         var jsonObject = _getEnabledURIs();
         jsonObject[url.replace(/.[^\/]*$/, "")] = "widget";
         localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
@@ -117,7 +225,7 @@ tinyHippos.Background = (function () {
         enable: function () {
             chrome.tabs.getSelected(null, function (tab) {
                 console.log("enable ==> " + tab.url);
-                _persistEnabled(tab.url);
+                _persistEnabled(tab.url, tab.id);
                 chrome.tabs.sendRequest(tab.id, {"action": "enable", "mode": "widget", "tabURL": tab.url }, function (response) {});
             });
         },
@@ -137,15 +245,18 @@ tinyHippos.Background = (function () {
                     }
                 }
 
+                delete _enabled[tab.id];
+                console.log(_enabled);
+
                 localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
 
                 chrome.tabs.sendRequest(tab.id, {"action": "disable", "tabURL": tab.url }, function (response) {});
             });
         },
 
-        isEnabled: function (url, obj) {
+        isEnabled: function (url, tabId, enabledURIs) {
             if (url.match(/enableripple=true/i)) {
-                _persistEnabled(url);
+                _persistEnabled(url, tabId);
                 return true;
             }
 
@@ -154,16 +265,20 @@ tinyHippos.Background = (function () {
                 return false;
             }
 
-            obj = obj || _getEnabledURIs();
+            if (_enabled[tabId]) {
+                return true;
+            }
+
+            enabledURIs = enabledURIs || _getEnabledURIs();
 
             if (url.length === 0) {
                 return false;
             }
-            else if (obj[url]) {
+            else if (enabledURIs[url]) {
                 return true;
             }
 
-            return tinyHippos.Background.isEnabled(url.replace(/.[^\/]*$/, ""), obj);
+            return tinyHippos.Background.isEnabled(url.replace(/.[^\/]*$/, ""), tabId, enabledURIs);
         }
     };
 

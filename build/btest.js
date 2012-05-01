@@ -24,6 +24,7 @@ module.exports = function () {
         doc,
         modules,
         specs,
+        openlayers,
         app = connect(
             connect.static(__dirname + "/../lib/"),
             connect.static(__dirname + "/../"),
@@ -39,8 +40,9 @@ module.exports = function () {
         );
 
     //HACK: Openlayers causes weird stuff with the browser runner, so lets pop it off the list until we fix it
-    var openlayers = conf.thirdpartyIncludes.pop();
+    openlayers = conf.thirdpartyIncludes.pop();
     if (openlayers !== "OpenLayers.js") {
+        //HACK: just a safe check to make sure our hack is still valid
         console.log("HACK: we wanted to pop OpenLayers off but it looks like it wasn't the last one anymore");
     }
 
