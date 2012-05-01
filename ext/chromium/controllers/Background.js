@@ -19,7 +19,6 @@ if (!window.tinyHippos) {
 
 tinyHippos.Background = (function () {
     var _wasJustInstalled = false,
-        _enabled = {},
         _self;
 
     function isLocalRequest(uri) {
@@ -179,7 +178,6 @@ tinyHippos.Background = (function () {
     }
 
     function _persistEnabled(url, id) {
-        _enabled[id] = url;
         var jsonObject = _getEnabledURIs();
         jsonObject[url.replace(/.[^\/]*$/, "")] = "widget";
         localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
@@ -245,9 +243,6 @@ tinyHippos.Background = (function () {
                     }
                 }
 
-                delete _enabled[tab.id];
-                console.log(_enabled);
-
                 localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
 
                 chrome.tabs.sendRequest(tab.id, {"action": "disable", "tabURL": tab.url }, function (response) {});
@@ -263,10 +258,6 @@ tinyHippos.Background = (function () {
             // HACK: I'm sure there's a WAY better way to do this regex
             if ((url.match(/^file:\/\/\//) && url.match(/\/+$/)) || url.match(/(.*?)\.(jpg|jpeg|png|gif|css|js)$/)) {
                 return false;
-            }
-
-            if (_enabled[tabId]) {
-                return true;
             }
 
             enabledURIs = enabledURIs || _getEnabledURIs();
