@@ -42,6 +42,7 @@ module.exports = function () {
     //HACK: Openlayers causes weird stuff with the browser runner, so lets pop it off the list until we fix it
     openlayers = conf.thirdpartyIncludes.pop();
     if (openlayers !== "OpenLayers.js") {
+        //HACK: just a safe check to make sure our hack is still valid
         console.log("HACK: we wanted to pop OpenLayers off but it looks like it wasn't the last one anymore");
     }
 

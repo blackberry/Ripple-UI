@@ -21,7 +21,6 @@ if (!window.tinyHippos) {
         var injection = _panel.LAYOUT_HTML.replace(/#URL_PREFIX#/g, rippleExtensionId);
 
         document.open();
-
         document.write(injection);
 
         window.setTimeout(function () {
