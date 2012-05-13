@@ -30,7 +30,7 @@
             }
 
             sendResponse({});
-            location.reload();
+            location.href = uri;
         });
     }
 
