@@ -29,6 +29,7 @@ module.exports = function (src, baton) {
         var css = _c.ASSETS + "ripple.css",
             cssDeploy = _c.DEPLOY + "chromium/ripple.css",
             manifest = _c.DEPLOY + "chromium/manifest.json",
+            updates = _c.DEPLOY + "chromium/updates.xml",
             js = _c.DEPLOY + "chromium/ripple.js",
             bootstrap = _c.DEPLOY + "chromium/bootstrap.js",
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
@@ -41,6 +42,8 @@ module.exports = function (src, baton) {
 
         fs.writeFileSync(manifest, fs.readFileSync(manifest, "utf-8")
                          .replace(new RegExp('"version": ""', 'g'), '"version": "' + src.info.version + '"'));
+
+        fs.unlinkSync(updates); // updates.xml is for the server, not the extension
 
         fs.writeFileSync(bootstrap,
                          "window.th_panel = {" + "LAYOUT_HTML: '" + doc + "'};" +
