@@ -93,7 +93,7 @@ tinyHippos.Background = (function () {
                     },
                     error: function (xhr, status, errorMessage) {
                         sendResponse({
-                            code: xhr.status,
+                            code: 500,
                             data: status
                         });
                     }
@@ -132,16 +132,6 @@ tinyHippos.Background = (function () {
                 });
             }
         });
-
-        chrome.webRequest.onBeforeRequest.addListener(function (details) {
-                var enabled = tinyHippos.Background.isEnabled(details.url, details.tabId);
-                if (enabled) {
-                    sleep(lag);
-                }
-                return {cancel: enabled && !connected && !isLocalRequest(details.url)};
-            }, 
-            {urls: ["<all_urls>"]}, 
-            ["blocking"]);
 
         chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
             if (tinyHippos.Background.isEnabled(details.url, details.tabId)) {
@@ -249,7 +239,7 @@ tinyHippos.Background = (function () {
             });
         },
 
-        isEnabled: function (url, tabId, enabledURIs) {
+        isEnabled: function (url, enabledURIs) {
             if (url.match(/enableripple=true/i)) {
                 _persistEnabled(url);
                 return true;
@@ -269,7 +259,7 @@ tinyHippos.Background = (function () {
                 return true;
             }
 
-            return tinyHippos.Background.isEnabled(url.replace(/.[^\/]*$/, ""), tabId, enabledURIs);
+            return tinyHippos.Background.isEnabled(url.replace(/.[^\/]*$/, ""), enabledURIs);
         }
     };
 
