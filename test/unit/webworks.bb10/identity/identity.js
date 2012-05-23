@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("webworks identity", function () {
-    var identity = require('ripple/platform/webworks.bb10/1.0.0/client/identity'),
+    var identity = require('ripple/platform/webworks.bb10/1.0.0/identity'),
         deviceSpec = require('ripple/platform/webworks.bb10/1.0.0/spec/device'),
         deviceSettings = require('ripple/deviceSettings');
 
