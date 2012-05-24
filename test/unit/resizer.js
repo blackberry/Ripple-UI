@@ -163,7 +163,7 @@ describe("resizer", function () {
                 },
                 evt = {
                     initEvent: function () {}
-                };
+                },
                 doc = {
                     createEvent: function () {
                         return evt;
