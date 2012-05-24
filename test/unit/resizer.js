@@ -25,7 +25,7 @@ describe("resizer", function () {
         devices = require('ripple/devices'),
         event = require('ripple/event'),
         db = require('ripple/db'),
-        constants = require('ripple/constants'),
+        emulatorBridge = require('ripple/emulatorBridge'),
         platform = require('ripple/platform'),
         _console = require('ripple/console'),
         resizer = require('ripple/resizer');
@@ -34,13 +34,14 @@ describe("resizer", function () {
         spyOn(devices, "getCurrentDevice").andReturn(iPhone3);
         spyOn(platform, "current").andReturn({name: "default"});
         spyOn(_console, "log");
+        spyOn(db, "save");
         // TODO: hackish stub for now
         _old_gElById = document.getElementById;
         document.getElementById = function (id) {
-            if (id === constants.COMMON.VIEWPORT_CONTAINER) {
+            if (id === "viewport-container") {
                 return _emulatedViewport;
             }
-            else if (id === constants.COMMON.DEVICE_CONTAINER) {
+            else if (id === "device-container") {
                 return _emulatedDevice;
             }
             else {
@@ -120,25 +121,90 @@ describe("resizer", function () {
         waits(1);
     });
 
-    it("changeLayoutType throws exception if no arguments", function () {
-        expect(resizer.changeLayoutType).toThrow();
-    });
+    describe("when changing the layout type", function () {
+        it("throws exception if no arguments", function () {
+            expect(resizer.changeLayoutType).toThrow();
+        });
 
-    it("changeLayoutType throws exception if too many arguments", function () {
-        expect(function () {
-            resizer.changeLayoutType("1", "2", "3", 3, true);
-        }).toThrow();
-    });
+        it("throws exception if too many arguments", function () {
+            expect(function () {
+                resizer.changeLayoutType("1", "2", "3", 3, true);
+            }).toThrow();
+        });
 
-    it("changeLayoutType throws exception if invalid arguments", function () {
-        expect(function () {
-            resizer.changeLayoutType(true);
-        }).toThrow();
-    });
+        it("throws exception if invalid arguments", function () {
+            expect(function () {
+                resizer.changeLayoutType(true);
+            }).toThrow();
+        });
 
-    it("changeLayoutType throws LayoutTypeException if invalid layoutType", function () {
-        expect(function () {
-            resizer.changeLayoutType("blargggg");
-        }).toThrow();
+        it("throws LayoutTypeException if invalid layoutType", function () {
+            expect(function () {
+                resizer.changeLayoutType("blargggg");
+            }).toThrow();
+        });
+
+        it("init sets sets the stage for orientation data", function () {
+
+            var win = {},
+                doc = {};
+
+            spyOn(db, "retrieve").andReturn("portrait");
+
+            resizer.init(win, doc);
+
+            expect(win.hasOwnProperty("orientation")).toBe(true);
+            expect(win.hasOwnProperty("onorientationchange")).toBe(true);
+        });
+
+        describe("it updates window.orientation", function () {
+            var win = {
+                    dispatchEvent: jasmine.createSpy("win.dispatchEvent")
+                },
+                evt = {
+                    initEvent: function () {}
+                };
+                doc = {
+                    createEvent: function () {
+                        return evt;
+                    }
+                };
+
+            beforeEach(function () {
+                resizer.init(win, doc);
+                spyOn(resizer, "resize");
+                evt.initEvent = jasmine.createSpy("evt.initEvent");
+            });
+
+            afterEach(function () {
+                delete win.orientation;
+                delete window.orientation;
+            });
+            
+            it("sets window.orientation to 0 when portrait", function () {
+                resizer.changeLayoutType("portrait");
+                expect(window.orientation).toBe(0);
+                expect(win.orientation).toBe(0);
+            });
+
+            it("sets window.orientation to 90 when landscape", function () {
+                resizer.changeLayoutType("landscape");
+                expect(window.orientation).toBe(90);
+                expect(win.orientation).toBe(90);
+            });
+
+            it("triggers the window.onorientationchange function when changed", function () {
+                win.onorientationchange = jasmine.createSpy("onorientationchange");
+                resizer.changeLayoutType("portrait");
+                expect(win.onorientationchange).toHaveBeenCalled();
+            });
+
+            it("triggers the orientationchange event off of window", function () {
+                resizer.changeLayoutType("landscape");
+
+                expect(evt.initEvent).toHaveBeenCalledWith("orientationchange", true, true);
+                expect(win.dispatchEvent).toHaveBeenCalledWith(evt);
+            });
+        });
     });
 });
