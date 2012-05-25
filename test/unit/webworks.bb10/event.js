@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("event", function () {
-    var target = require('ripple/platform/webworks.bb10/1.0.0/client/event'),
+    var target = require('ripple/platform/webworks.bb10/1.0.0/event'),
         event = require('ripple/event');
 
     describe("general event stuff", function () {

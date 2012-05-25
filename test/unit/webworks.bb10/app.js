@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("webworks_app", function () {
-    var target = require('ripple/platform/webworks.bb10/1.0.0/client/app'),
+    var target = require('ripple/platform/webworks.bb10/1.0.0/app'),
         app = require('ripple/app');
 
     describe("checks the config for", function () {
