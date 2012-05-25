@@ -25,7 +25,5 @@
     }],
     "permissions": ["tabs", "unlimitedStorage", "notifications", "contextMenus", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*"],
     "description": "A browser based html5 mobile application development and testing tool",
-    "file_name": "manifest.json",
-    "update_page": "update.html",
     "update_url": "http://developer.blackberry.com/ripple/updates.xml"
 }
