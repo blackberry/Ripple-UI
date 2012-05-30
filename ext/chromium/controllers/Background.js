@@ -93,7 +93,7 @@ tinyHippos.Background = (function () {
                     },
                     error: function (xhr, status, errorMessage) {
                         sendResponse({
-                            code: 500,
+                            code: xhr.status,
                             data: status
                         });
                     }
