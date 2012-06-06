@@ -22,7 +22,7 @@
                 break;
             case "disable":
                 localStorage.removeItem("tinyhippos-enabled-uri");
-                uri = uri.toLowerCase().replace("?enableripple=true", "").replace("&enableripple=true", "");
+                uri = uri.replace(/\?enableripple\=true/, "").replace(/\&enableripple\=true/, "");
                 break;
 
             default:
@@ -30,7 +30,7 @@
             }
 
             sendResponse({});
-            location.reload();
+            location.href = uri;
         });
     }
 

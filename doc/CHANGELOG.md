@@ -1,4 +1,17 @@
-## v0.9.4 - April 30, 2012
+## v0.9.5 - June 5, 2012
+
+* Added whitelisting support for blackberry.event event registration
+* Added support for window.orientation for WebWorks
+* Updated blackberry.ui.dialoge to asynch
+* Added support for network connection type for WebWorks BB10
+* Added support for connectionchange event for WebWorks BB10
+* Added support for blackberry.device.version for WebWorks BB10
+
+* Fixed touch events not being emulated due to race condition
+
+* Known issue: no userAgent HTTP header support for the version distributed through the Chrome Web Store
+
+## v0.9.4 - April 30, 2012 (not released to the Google Chrome Store)
 
 * Added support for BlackBerry 10 WebWorks (beta)
 * Added new BlackBerry 10 Dev Alpha device

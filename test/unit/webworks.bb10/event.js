@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("event", function () {
-    var target = require('ripple/platform/webworks.bb10/1.0.0/client/event'),
+    var target = require('ripple/platform/webworks.bb10/1.0.0/event'),
         event = require('ripple/event');
 
     describe("general event stuff", function () {
@@ -52,6 +52,36 @@ describe("event", function () {
 
                 target.addEventListener("pause", cb);
                 expect(cb).not.toHaveBeenCalled();
+            });
+
+            it("will not register a handler if feature is not present in config.xml", function () {
+                var app = require("ripple/app"),
+                    cb = jasmine.createSpy();
+
+                spyOn(app, "getInfo").andReturn({
+                    features: {
+                        "blackberry.app": {}
+                    }
+                });
+
+                target.addEventListener("resume", cb);
+                event.trigger("appResume", null, true);
+                expect(cb).toHaveBeenCalled();
+            });
+
+            it("will throw an exception if the feature is not specified in config.xml", function () {
+                var app = require("ripple/app"),
+                    cb = jasmine.createSpy();
+
+                spyOn(app, "getInfo").andReturn({
+                    features: {
+                        "blackberry.pies": {}
+                    }
+                });
+
+                expect(function () {
+                    target.addEventListener("resume", cb);
+                }).toThrow();
             });
         });
 
