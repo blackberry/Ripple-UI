@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var deviceSettings = require('ripple/deviceSettings'),
-    _self = {
-        connection: {
-        }
-    };
+describe("connection", function () {
+    var target = require('ripple/platform/webworks.bb10/1.0.0/connection'),
+        deviceSettings = require('ripple/deviceSettings');
 
-_self.connection.__defineGetter__("type", function () {
-    return deviceSettings.retrieve("NetworkStatus.connectionType");
+    it("gets the value from device settings for the type", function () {
+        spyOn(deviceSettings, "retrieve").andReturn("smoke signals");
+        expect(target.type).toBe("smoke signals");
+    });
 });
-
-module.exports = _self;

@@ -19,7 +19,6 @@ if (!window.tinyHippos) {
 
 tinyHippos.Background = (function () {
     var _wasJustInstalled = false,
-        _enabled = {},
         _self;
 
     function isLocalRequest(uri) {
@@ -134,16 +133,6 @@ tinyHippos.Background = (function () {
             }
         });
 
-        chrome.webRequest.onBeforeRequest.addListener(function (details) {
-                var enabled = tinyHippos.Background.isEnabled(details.url, details.tabId);
-                if (enabled) {
-                    sleep(lag);
-                }
-                return {cancel: enabled && !connected && !isLocalRequest(details.url)};
-            }, 
-            {urls: ["<all_urls>"]}, 
-            ["blocking"]);
-
         chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
             if (tinyHippos.Background.isEnabled(details.url, details.tabId)) {
                 var ua = details.requestHeaders.reduce(function (match, header) {
@@ -178,8 +167,7 @@ tinyHippos.Background = (function () {
         return parsed ? JSON.parse(parsed) : {};
     }
 
-    function _persistEnabled(url, id) {
-        _enabled[id] = url;
+    function _persistEnabled(url) {
         var jsonObject = _getEnabledURIs();
         jsonObject[url.replace(/.[^\/]*$/, "")] = "widget";
         localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
@@ -225,7 +213,7 @@ tinyHippos.Background = (function () {
         enable: function () {
             chrome.tabs.getSelected(null, function (tab) {
                 console.log("enable ==> " + tab.url);
-                _persistEnabled(tab.url, tab.id);
+                _persistEnabled(tab.url);
                 chrome.tabs.sendRequest(tab.id, {"action": "enable", "mode": "widget", "tabURL": tab.url }, function (response) {});
             });
         },
@@ -245,28 +233,21 @@ tinyHippos.Background = (function () {
                     }
                 }
 
-                delete _enabled[tab.id];
-                console.log(_enabled);
-
                 localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
 
                 chrome.tabs.sendRequest(tab.id, {"action": "disable", "tabURL": tab.url }, function (response) {});
             });
         },
 
-        isEnabled: function (url, tabId, enabledURIs) {
+        isEnabled: function (url, enabledURIs) {
             if (url.match(/enableripple=true/i)) {
-                _persistEnabled(url, tabId);
+                _persistEnabled(url);
                 return true;
             }
 
             // HACK: I'm sure there's a WAY better way to do this regex
             if ((url.match(/^file:\/\/\//) && url.match(/\/+$/)) || url.match(/(.*?)\.(jpg|jpeg|png|gif|css|js)$/)) {
                 return false;
-            }
-
-            if (_enabled[tabId]) {
-                return true;
             }
 
             enabledURIs = enabledURIs || _getEnabledURIs();
@@ -278,7 +259,7 @@ tinyHippos.Background = (function () {
                 return true;
             }
 
-            return tinyHippos.Background.isEnabled(url.replace(/.[^\/]*$/, ""), tabId, enabledURIs);
+            return tinyHippos.Background.isEnabled(url.replace(/.[^\/]*$/, ""), enabledURIs);
         }
     };
 
