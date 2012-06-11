@@ -18,16 +18,4 @@
     <button id="take-picture" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
         <span class="ui-button-text">Take a Picture</span>
     </button>
-    <script type="text/javascript">
-      video = document.getElementById("live")
-
-      navigator.webkitGetUserMedia("video",
-          function(stream) {
-            video.src = window.webkitURL.createObjectURL(stream)
-          },
-          function(err) {
-            console.log("Unable to get video stream!")
-          }
-      )
-    </script>
 </section>
