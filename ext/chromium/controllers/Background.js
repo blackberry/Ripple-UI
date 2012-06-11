@@ -132,34 +132,6 @@ tinyHippos.Background = (function () {
                 });
             }
         });
-
-        chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
-            if (tinyHippos.Background.isEnabled(details.url, details.tabId)) {
-                var ua = details.requestHeaders.reduce(function (match, header) {
-                    return header.name === 'User-Agent' ? header : match;
-                }, null);
-
-                ua.value = userAgent || ua.value;
-            }
-
-            return {
-                requestHeaders: details.requestHeaders
-            };
-        }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"]);
-
-        chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-            if (tinyHippos.Background.isEnabled(tab.url, tabId)) {
-                chrome.tabs.executeScript(tabId, {
-                    code: "rippleExtensionId = '" + chrome.extension.getURL('') + "';",
-                    allFrames: false
-                }, function () {
-                    chrome.tabs.executeScript(tabId, {
-                        file: "bootstrap.js",
-                        allFrames: false
-                    });
-                });
-            }
-        });
     }
 
     function _getEnabledURIs() {
