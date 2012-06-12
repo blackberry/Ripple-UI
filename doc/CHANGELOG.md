@@ -1,3 +1,7 @@
+## v0.9.6 (HOTFIX) - June 12, 2012
+
+* Fixed bug which caused Ripple to not start up for some edge cases
+
 ## v0.9.5 - June 5, 2012
 
 * Added whitelisting support for blackberry.event event registration
