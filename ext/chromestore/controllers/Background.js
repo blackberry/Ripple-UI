@@ -66,10 +66,6 @@ tinyHippos.Background = (function () {
                 tinyHippos.Background.enable();
                 sendResponse();
                 break;
-            case "userAgent":
-                console.log("user agent ==> " + userAgent);
-                userAgent = request.data;
-                break;
             case "version":
                 sendResponse(version);
                 break;
@@ -99,25 +95,16 @@ tinyHippos.Background = (function () {
                     }
                 });
                 break;
+            case "userAgent":
+            case "lag":
+            case "network":
+                // methods to be implemented at a later date
+                break;
             default:
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
                 break;
             };
         });
-
-        chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
-            if (tinyHippos.Background.isEnabled(details.url)) {
-                var ua = details.requestHeaders.reduce(function (match, header) {
-                    return match || header.name === 'User-Agent' || match;
-                });
-
-                ua.value = userAgent || ua.value;
-            }
-
-            return {
-                requestHeaders: details.requestHeaders
-            };
-        }, {urls: ["<all_urls>"]}, ["requestHeaders", "blocking"] );
 
         chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             if (tinyHippos.Background.isEnabled(tab.url)) {

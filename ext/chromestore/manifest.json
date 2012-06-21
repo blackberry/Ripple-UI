@@ -15,15 +15,14 @@
     "content_scripts":[{
         "run_at": "document_start",
         "js": ["controllers/Insertion.js"],
-        "matches": ["http://*/*","https://*/*","file:///*"]
+        "matches": ["http://*/*","https://*/*","file://*"]
     },
     {
         "run_at": "document_start",
         "js": ["controllers/frame.js"],
-        "matches": ["http://*/*","https://*/*","file:///*"],
+        "matches": ["http://*/*","https://*/*","file://*"],
         "all_frames": true
     }],
-    "permissions": ["tabs", "unlimitedStorage", "notifications", "contextMenus", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*", "file:///*/*"],
-    "description": "A browser based html5 mobile application development and testing tool",
-    "update_url": "http://developer.blackberry.com/ripple/updates.xml"
+    "permissions": ["tabs", "unlimitedStorage", "notifications", "contextMenus", "webRequest", "<all_urls>"],
+    "description": "A browser based html5 mobile application development and testing tool"
 }

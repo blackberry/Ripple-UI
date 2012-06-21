@@ -20,18 +20,20 @@ var childProcess = require('child_process'),
 module.exports = function (src, baton) {
     baton.take();
 
-    var copy = 'cp -r ' + _c.EXT + "chromium " + _c.DEPLOY + " && " +
-               'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chromium/ &&" +
-               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chromium/";
+    var copy = 'cp -r ' + _c.EXT + "chromium " + _c.DEPLOY + "chromestore/ && " +
+               'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chromestore/ &&" +
+               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chromestore/ &&" +
+               'cp ' + _c.EXT + "chromestore/manifest.json " + _c.DEPLOY + "chromestore/manifest.json &&" +
+               'cp ' + _c.EXT + "chromestore/controllers/Background.js " + _c.DEPLOY + "chromestore/controllers/Background.js"; 
 
     childProcess.exec(copy, function () {
         var css = _c.ASSETS + "ripple.css",
-            cssDeploy = _c.DEPLOY + "chromium/ripple.css",
-            manifest = _c.DEPLOY + "chromium/manifest.json",
-            updatesSrc = _c.DEPLOY + "chromium/updates.xml",
+            cssDeploy = _c.DEPLOY + "chromestore/ripple.css",
+            manifest = _c.DEPLOY + "chromestore/manifest.json",
+            updatesSrc = _c.DEPLOY + "chromestore/updates.xml",
             updatesDeploy = _c.DEPLOY + "updates.xml",
-            js = _c.DEPLOY + "chromium/ripple.js",
-            bootstrap = _c.DEPLOY + "chromium/bootstrap.js",
+            js = _c.DEPLOY + "chromestore/ripple.js",
+            bootstrap = _c.DEPLOY + "chromestore/bootstrap.js",
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
                           .replace(/#DIALOG_VIEWS#/g, src.dialogs)
