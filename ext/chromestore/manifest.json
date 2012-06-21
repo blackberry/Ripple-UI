@@ -23,6 +23,6 @@
         "matches": ["http://*/*","https://*/*","file://*"],
         "all_frames": true
     }],
-    "permissions": ["tabs", "unlimitedStorage", "notifications", "contextMenus", "webRequest", "<all-urls>"],
+    "permissions": ["tabs", "unlimitedStorage", "notifications", "contextMenus", "webRequest", "<all_urls>"],
     "description": "A browser based html5 mobile application development and testing tool"
 }
