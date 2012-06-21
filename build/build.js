@@ -20,6 +20,7 @@ var fs = require('fs'),
     clean = require('./build/clean'),
     compress = require('./build/compress'),
     chromium = require('./build/chromium'),
+    chromestore = require('./build/chromestore'),
     app = require('./build/app'),
     web = require('./build/web');
 
@@ -58,11 +59,15 @@ module.exports = _handle(function (ext, opts, complete) {
     case 'chromium':
         build.andThen(chromium);
         break;
+    case 'chromestore':
+        build.andThen(chromestore);
+        break;
     case 'app':
         build.andThen(app);
         break;
     default:
         build.andThen(chromium)
+             .andThen(chromestore)
              .andThen(web)
              .andThen(app);
     }
