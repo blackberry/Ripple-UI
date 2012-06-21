@@ -1,3 +1,8 @@
+## v0.9.6.1 (HOTFIX) - June 21, 2012
+
+* Fixed bug with Chrome Version 21.0.1180.0 dev where Ripple will not boot
+* Added support for file:/// scheme in Chrome Store version (stil need to start Ripple with --allow-file-access-from-files flag)
+
 ## v0.9.6 (HOTFIX) - June 12, 2012
 
 * Fixed bug which caused Ripple to not start up for some edge cases
