@@ -23,7 +23,7 @@ describe("event", function () {
                 var cb = jasmine.createSpy();
 
                 target.addEventListener("pause", cb);
-                event.trigger("appPause", null, true);
+                event.trigger("AppPause", null, true);
                 expect(cb).toHaveBeenCalled();
             });
 
@@ -33,7 +33,7 @@ describe("event", function () {
 
                 target.addEventListener("pause", cb);
                 target.addEventListener("pause", cb2);
-                event.trigger("appPause", null, true);
+                event.trigger("AppPause", null, true);
                 expect(cb).toHaveBeenCalled();
                 expect(cb2).toHaveBeenCalled();
             });
@@ -43,7 +43,7 @@ describe("event", function () {
 
                 target.addEventListener("pause", cb);
                 target.addEventListener("pause", cb);
-                event.trigger("appPause", null, true);
+                event.trigger("AppPause", null, true);
                 expect(cb.callCount).toBe(1);
             });
 
@@ -65,7 +65,7 @@ describe("event", function () {
                 });
 
                 target.addEventListener("resume", cb);
-                event.trigger("appResume", null, true);
+                event.trigger("AppResume", null, true);
                 expect(cb).toHaveBeenCalled();
             });
 
@@ -91,7 +91,7 @@ describe("event", function () {
 
                 target.addEventListener("pause", cb);
                 target.removeEventListener("pause", cb);
-                event.trigger("appPause", null, true);
+                event.trigger("AppPause", null, true);
                 expect(cb).not.toHaveBeenCalled();
             });
         });
@@ -103,19 +103,19 @@ describe("event", function () {
                 spyOn(settings, "retrieve").andReturn("22");
             });
 
-            it("triggers the pause event on appPause", function () {
+            it("triggers the pause event on AppPause", function () {
                 var cb = jasmine.createSpy();
 
                 target.addEventListener("pause", cb);
-                event.trigger("appPause", null, true);
+                event.trigger("AppPause", null, true);
                 expect(cb).toHaveBeenCalled();
             });
 
-            it("triggers the resume event on appResume", function () {
+            it("triggers the resume event on AppResume", function () {
                 var cb = jasmine.createSpy();
 
                 target.addEventListener("resume", cb);
-                event.trigger("appResume", null, true);
+                event.trigger("AppResume", null, true);
                 expect(cb).toHaveBeenCalled();
             });
 
