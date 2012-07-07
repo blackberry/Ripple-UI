@@ -25,19 +25,16 @@ module.exports = function () {
         modules,
         specs,
         openlayers,
-        app = connect(
-            connect.static(__dirname + "/../lib/"),
-            connect.static(__dirname + "/../"),
-            connect.router(function (app) {
-                app.get('/', function (req, res) {
-                    res.writeHead(200, {
-                        "Cache-Control": "no-cache",
-                        "Content-Type": "text/html"
-                    });
-                    res.end(doc);
+        app = connect()
+            .use(connect.static(__dirname + "/../lib/"))
+            .use(connect.static(__dirname + "/../"))
+            .use('/', function (req, res) {
+                res.writeHead(200, {
+                    "Cache-Control": "max-age=0",
+                    "Content-Type": "text/html"
                 });
-            })
-        );
+                res.end(doc);
+            });
 
     //HACK: Openlayers causes weird stuff with the browser runner, so lets pop it off the list until we fix it
     openlayers = conf.thirdpartyIncludes.pop();
