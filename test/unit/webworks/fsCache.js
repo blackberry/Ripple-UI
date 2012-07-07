@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var fs = require('ripple/dbfs'),
-    event = require('ripple/event'),
-    FileProperties = require('ripple/platform/webworks.core/2.0.0/client/FileProperties'),
-    bbUtils = require('ripple/platform/webworks.core/2.0.0/client/utils'),
-    cache = require('ripple/platform/webworks.core/2.0.0/fsCache');
-
 describe("fsCache", function () {
-    var _root = [{
+    var fs = require('ripple/dbfs'),
+        event = require('ripple/event'),
+        FileProperties = require('ripple/platform/webworks.core/2.0.0/client/FileProperties'),
+        bbUtils = require('ripple/platform/webworks.core/2.0.0/client/utils'),
+        cache = require('ripple/platform/webworks.core/2.0.0/fsCache'),
+        _root = [{
         fullPath: "/dude",
         name: "dude",
         isDirectory: false,
