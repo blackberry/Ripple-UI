@@ -16,7 +16,7 @@
   "dependencies": {
     "connect": "1.7.x",
     "argsparser": "0.0.x",
-    "jsdom": "0.2.4",
+    "jsdom": "0.2.14",
     "jWorkflow": "*"
   },
   "bundledDependencies": [
