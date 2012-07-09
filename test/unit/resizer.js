@@ -25,7 +25,6 @@ describe("resizer", function () {
         devices = require('ripple/devices'),
         event = require('ripple/event'),
         db = require('ripple/db'),
-        emulatorBridge = require('ripple/emulatorBridge'),
         platform = require('ripple/platform'),
         _console = require('ripple/console'),
         resizer = require('ripple/resizer');

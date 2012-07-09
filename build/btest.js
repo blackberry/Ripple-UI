@@ -24,27 +24,21 @@ module.exports = function () {
         doc,
         modules,
         specs,
-        openlayers,
-        app = connect(
-            connect.static(__dirname + "/../lib/"),
-            connect.static(__dirname + "/../"),
-            connect.router(function (app) {
-                app.get('/', function (req, res) {
-                    res.writeHead(200, {
-                        "Cache-Control": "no-cache",
-                        "Content-Type": "text/html"
-                    });
-                    res.end(doc);
+        app = connect()
+            .use(connect.static(__dirname + "/../lib/"))
+            .use(connect.static(__dirname + "/../"))
+            .use('/', function (req, res) {
+                res.writeHead(200, {
+                    "Cache-Control": "max-age=0",
+                    "Content-Type": "text/html"
                 });
-            })
-        );
+                res.end(doc);
+            });
 
-    //HACK: Openlayers causes weird stuff with the browser runner, so lets pop it off the list until we fix it
-    openlayers = conf.thirdpartyIncludes.pop();
-    if (openlayers !== "OpenLayers.js") {
-        //HACK: just a safe check to make sure our hack is still valid
-        console.log("HACK: we wanted to pop OpenLayers off but it looks like it wasn't the last one anymore");
-    }
+    //HACK: Openlayers causes weird stuff with the browser runner, so lets remove it from the list until we fix it
+    conf.thirdpartyIncludes = conf.thirdpartyIncludes.filter(function (filename) {
+        return !filename.match(/openlayers\.js/i);
+    });
 
     modules = pack();
 
