@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var fs = require('ripple/fs'),
-    event = require('ripple/event'),
-    utils = require('ripple/utils');
-
-xdescribe("fs", function () {
-    var _resultEntries,
+describe("fs", function () {
+    var fs = require('ripple/fs'),
+        event = require('ripple/event'),
+        utils = require('ripple/utils'),
+        _resultEntries,
         _dirEntry,
         _baton,
         _fs,
