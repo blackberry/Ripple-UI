@@ -583,8 +583,7 @@ describe("utils", function () {
 
             expect(utils.queryString()).toEqual({yo: "momma", is: "sofat"});
 
-        })
-
+        });
     });
 
     describe("rippleLocation", function () {
