@@ -157,4 +157,259 @@ describe("cordova media bridge object", function () {
             expect(success).toHaveBeenCalled();
         });
     });
+
+    describe("when seeking the audio", function () {
+        beforeEach(function () {
+            media.create(null, null, ['seek', 'until_it_sleeps.mp3']);
+        });
+
+        afterEach(function () {
+            media.stopPlayingAudio(null, null, ['seek']);
+        });
+
+        it("calls the error callback when no args", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.seekToAudio(success, error, []);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("calls the error callback when it can't find the id", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.seekToAudio(success, error, ['hey_you_guys']);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("calls the error callback when the seek time isn't provided", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.seekToAudio(success, error, ['seek']);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("sets the currentTime on the audio object", function () {
+            media.seekToAudio(null, null, ['seek', 12345]);
+            expect(audio.currentTime).toBe(12345);
+        });
+
+        it("calls the success callback", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.seekToAudio(success, error, ['seek', 35]);
+
+            expect(success).toHaveBeenCalled();
+            expect(error).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("when pausing audio", function () {
+        beforeEach(function () {
+            media.create(null, null, ['pause', 'hey_jude.mp3']);
+        });
+
+        afterEach(function () {
+            media.stopPlayingAudio(null, null, ['pause']);
+        });
+
+        it("calls the error callback when no args", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.pausePlayingAudio(success, error, []);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("calls the error callback when it can't find the id", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.pausePlayingAudio(success, error, ['all along the watchtower']);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("calls the pause method on the audio object", function () {
+            media.pausePlayingAudio(null, null, ['pause']);
+            expect(audio.pause).toHaveBeenCalled();
+        });
+
+        it("calls the success callback", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.pausePlayingAudio(success, error, ['pause']);
+
+            expect(success).toHaveBeenCalled();
+            expect(error).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("when getting the current position", function () {
+        beforeEach(function () {
+            media.create(null, null, ['position', 'space_hog.mp3']);
+        });
+
+        afterEach(function () {
+            media.stopPlayingAudio(null, null, ['position']);
+        });
+
+        it("calls the error callback when no args", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.getCurrentPositionAudio(success, error, []);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("calls the error callback when it can't find the id", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.getCurrentPositionAudio(success, error, ['hey you guys']);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("calls the success callback with the currentTime", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            audio.currentTime = 12;
+            media.getCurrentPositionAudio(success, error, ['position']);
+
+            expect(success).toHaveBeenCalledWith(12);
+            expect(error).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("when getting the duration", function () {
+        beforeEach(function () {
+            media.create(null, null, ['duration', 'cum_on_feel_the_noise.mp3']);
+        });
+
+        afterEach(function () {
+            media.stopPlayingAudio(null, null, ['duration']);
+        });
+
+        it("calls the error callback when no args", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.getDuration(success, error, []);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("calls the error callback when it can't find the id", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.getDuration(success, error, ['peanuts']);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("calls the success callback with the currentTime", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            audio.duration = 80000;
+            media.getDuration(success, error, ['duration']);
+
+            expect(success).toHaveBeenCalledWith(80000);
+            expect(error).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("when starting to record audio", function () {
+        it("can be called with no callbacks", function () {
+            expect(function () {
+                media.startRecordingAudio();
+            }).not.toThrow();
+        });
+
+        it("calls the error callback", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.startRecordingAudio(success, error, []);
+
+            expect(success).not.toHaveBeenCalled();
+            expect(error).toHaveBeenCalled();
+        });
+    });
+
+    describe("when stopping recording audio", function () {
+        it("can be called with no callbacks", function () {
+            expect(function () {
+                media.stopRecordingAudio();
+            }).not.toThrow();
+        });
+
+        it("calls the error callback", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.stopRecordingAudio(success, error, []);
+
+            expect(success).not.toHaveBeenCalled();
+            expect(error).toHaveBeenCalled();
+        });
+    });
+
+    describe("when releasing", function () {
+        beforeEach(function () {
+            media.create(null, null, ['release', 'just_beat_it.mp3']);
+        });
+
+        it("calls the error callback when no args", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.release(success, error, []);
+
+            expect(error).toHaveBeenCalled();
+            expect(success).not.toHaveBeenCalled();
+        });
+
+        it("calls the success callback when it can't find the id", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            media.release(success, error, ['rainbow dash']);
+
+            expect(success).toHaveBeenCalled();
+            expect(error).not.toHaveBeenCalled();
+        });
+
+        it("calls the success callback", function () {
+            var success = jasmine.createSpy("success"),
+                error = jasmine.createSpy("error");
+
+            audio.duration = 80000;
+            media.release(success, error, ['release']);
+
+            expect(success).toHaveBeenCalled();
+            expect(error).not.toHaveBeenCalled();
+        });
+    });
 });
