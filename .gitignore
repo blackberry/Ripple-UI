@@ -11,3 +11,4 @@ tags
 www/*
 build_output/
 pkg
+plugins
