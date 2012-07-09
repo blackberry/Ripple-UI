@@ -3,7 +3,8 @@
     "name": "Ripple Emulator (Beta)",
     "background_page":"views/background.html",
     "plugins": [
-            { "path": "plugins/npRippleBD.dll" }
+        { "path": "plugins/npRippleBD.dll" },
+        { "path": "plugins/RippleBD.plugin" }
     ],
     "icons":{
         "16":"images/Icon_16x16.png",
