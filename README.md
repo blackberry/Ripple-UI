@@ -37,7 +37,7 @@ This will describe all the available commands for building and running the tests
 
 ## Running as a Chrome Extension
 
-- go to the [extension management page](chrome://chrome/extensions/) in chrome.
+- go to the extension management page (chrome://chrome/extensions/) in chrome.
 - Ensure that you have selected the developer mode checkbox
 - click the Load Unpacked extension button
 - select the chromium or chromestore folders in the pkg/ folder.
