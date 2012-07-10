@@ -17,7 +17,8 @@ describe("cordova media bridge object", function () {
     var media = require('ripple/platform/cordova/1.6/bridge/media'),
         audio = {
             play: jasmine.createSpy("audio.play"),
-            pause: jasmine.createSpy("audio.pause")
+            pause: jasmine.createSpy("audio.pause"),
+            addEventListener: jasmine.createSpy("audio.addEventListener")
         };
 
     beforeEach(function () {
@@ -30,11 +31,10 @@ describe("cordova media bridge object", function () {
             var success = jasmine.createSpy("success"),
                 error = jasmine.createSpy("error");
 
-            media.create(success, error, [
-                "id", "foo.mp3"
-            ]);
+            media.create(success, error, ["id", "foo.mp3"]);
 
-            expect(window.Audio).toHaveBeenCalledWith("foo.mp3");
+            expect(window.Audio).toHaveBeenCalled();
+            expect(audio.src).toBe("foo.mp3");
             expect(success).toHaveBeenCalled();
             expect(error).not.toHaveBeenCalled();
         });
@@ -60,12 +60,23 @@ describe("cordova media bridge object", function () {
                 media.create(jasmine.createSpy(), null, ["1"]);
             }).not.toThrow();
         });
+
+        it("adds and event listener for error", function () {
+            media.create(null, null, ["1"]);
+            expect(audio.addEventListener).toHaveBeenCalledWith("error", jasmine.any(Function));
+        });
+
+        it("adds and event listener for durationchange", function () {
+            media.create(null, null, ["1"]);
+            expect(audio.addEventListener).toHaveBeenCalledWith("durationchange", jasmine.any(Function));
+        });
     });
 
     describe("when starting audio", function () {
         it("creates an audio object", function () {
             media.startPlayingAudio(null, null, ["a", "fred.mp3"]);
-            expect(window.Audio).toHaveBeenCalledWith("fred.mp3");
+            expect(window.Audio).toHaveBeenCalledWith();
+            expect(audio.src).toBe("fred.mp3");
         });
 
         it("calls play on the audio object", function () {
