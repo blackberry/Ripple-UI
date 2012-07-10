@@ -17,12 +17,25 @@ describe("cordova accelerometer bridge", function () {
     var accel = require('ripple/platform/cordova/1.6/bridge/accelerometer'),
         event = require('ripple/event');
 
+    beforeEach(function () {
+        spyOn(window, "setInterval").andReturn(1);
+        spyOn(window, "clearInterval");
+    });
+
     afterEach(function () {
         accel.stop();
     });
 
     describe("when starting", function () {
-        it("triggers the success callback on AccelerometerInfoChangedEvent", function () {
+        it("starts an interval", function () {
+            var s = jasmine.createSpy("success"),
+                f = jasmine.createSpy("fail");
+
+            accel.start(s, f);
+            expect(window.setInterval).toHaveBeenCalledWith(jasmine.any(Function), 50);
+        });
+
+        it("the interval function calls the success callback with the AccelerometerInfoChangedEvent", function () {
             var s = jasmine.createSpy("success"),
                 f = jasmine.createSpy("fail");
 
@@ -36,63 +49,28 @@ describe("cordova accelerometer bridge", function () {
                 }
             }], true);
 
+            window.setInterval.mostRecentCall.args[0]();
+
             expect(s).toHaveBeenCalledWith({
-                x: 1,
-                y: 1,
-                z: 1,
+                x: 9.8,
+                y: 9.8,
+                z: 9.8,
                 timestamp: jasmine.any(Number)
             });
 
             expect(f).not.toHaveBeenCalled();
         });
-
-        it("triggers the callback every time the event is fired", function () {
-            var s = jasmine.createSpy("success"),
-                f = jasmine.createSpy("fail");
-
-            accel.start(s, f);
-
-            event.trigger("AccelerometerInfoChangedEvent", [{
-                accelerationIncludingGravity: { x: 9.8, y: 9.8, z: 9.8 } 
-            }], true);
-
-            event.trigger("AccelerometerInfoChangedEvent", [{
-                accelerationIncludingGravity: { x: 9.8, y: 9.8, z: 9.8 } 
-            }], true);
-
-            expect(s.callCount).toBe(2);
-        });
-
-        it("doesn't call the callback if the AccelerometerInfoChangedEvent has not fired", function () {
-            var s = jasmine.createSpy("success"),
-                f = jasmine.createSpy("fail");
-
-            accel.start(s, f);
-
-            expect(s).not.toHaveBeenCalled();
-            expect(f).not.toHaveBeenCalled();
-        });
     });
 
     describe("when stopping", function () {
-        it("doesn't call the callback after calling stop", function () {
+        it("it clears the interval", function () {
             var s = jasmine.createSpy("success"),
                 f = jasmine.createSpy("fail");
 
             accel.start(s, f);
+            accel.stop();
 
-
-            event.trigger("AccelerometerInfoChangedEvent", [{
-                accelerationIncludingGravity: { x: 9.8, y: 9.8, z: 9.8 } 
-            }], true);
-
-            accel.stop(s, f);
-
-            event.trigger("AccelerometerInfoChangedEvent", [{
-                accelerationIncludingGravity: { x: 9.8, y: 9.8, z: 9.8 } 
-            }], true);
-
-            expect(s.callCount).toBe(1);
+            expect(window.clearInterval).toHaveBeenCalledWith(1);
         });
     });
 });
