@@ -22,7 +22,8 @@ module.exports = function (src, baton) {
 
     var copy = 'cp -r ' + _c.EXT + "chromium " + _c.DEPLOY + " && " +
                'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chromium/ &&" +
-               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chromium/";
+               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chromium/" +
+               'cp -r ' + _c.ROOT + "plugins " + _c.DEPLOY + "chromium/";
 
     childProcess.exec(copy, function () {
         var css = _c.ASSETS + "ripple.css",
