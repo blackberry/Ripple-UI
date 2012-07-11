@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("cordova accelerometer bridge", function () {
-    var accel = require('ripple/platform/cordova/1.6/bridge/accelerometer'),
+    var accel = require('ripple/platform/cordova/2.0.0/bridge/accelerometer'),
         event = require('ripple/event');
 
     beforeEach(function () {

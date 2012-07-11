@@ -15,7 +15,7 @@
  */
 describe("cordova compass bridge", function () {
     var geo = require('ripple/geo'),
-        target = require('ripple/platform/cordova/1.6/bridge/compass'),
+        target = require('ripple/platform/cordova/2.0.0/bridge/compass'),
         heading = {direction: "southish"};
 
     beforeEach(function () {
