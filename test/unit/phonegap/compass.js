@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("phonegap_compass", function () {
-    var compass = require('ripple/platform/phonegap/1.0/compass'),
+    var compass = require('ripple/platform/phonegap/1.0.0/compass'),
         geo = require('ripple/geo');
 
     it("clearWatch clears interval", function () {

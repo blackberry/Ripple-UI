@@ -28,7 +28,7 @@ describeBrowser("widgetConfig", function () {
 
     describe("phonegap config", function () {
         beforeEach(function () {
-            spyOn(platform, "current").andReturn(require('ripple/platform/phonegap/1.0/spec'));
+            spyOn(platform, "current").andReturn(require('ripple/platform/phonegap/1.0.0/spec'));
         });
 
         it("validateNumberOfArguments_Throws_Exception_If_No_Arguments", function () {

@@ -264,6 +264,13 @@ describe("webworks finder", function () {
 
             expect(result.length).toBe(1);
         });
+
+        it("can handle a search where the field doesn't exist", function () {
+            var fe = new FilterExpression("bloodType", "REGEX", "^B*"),
+                result = select.from(orders).where(fe);
+
+            expect(result.length).toBe(0);
+        });
     });
 
     it("returns an empty array if left is a filter expression but right isn't", function () {
