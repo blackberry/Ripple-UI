@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-if (!document.getElementById("emulator-booting") && !document.getElementById("tinyhippos-injected")) {
-    var script = document.createElement("script");
-    script.id = "tinyhippos-injected";
-    script.src = chrome.extension.getURL("controllers/injector.js");
-    document.documentElement.appendChild(script);
+if (window.top.require) {
+    //HACK: make this work better and handle iframes in the app!
+    window.top.require('ripple/bootstrap').inject(window, document);
+    window.top.onbeforeunload = function () { 
+        if (!window.top.tinyHipposReload) {
+            return "Are you sure you want to exit Ripple?";
+        }
+    };
 }

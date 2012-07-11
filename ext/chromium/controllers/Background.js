@@ -108,6 +108,7 @@ console.log(request);
                     console.log("plugin", plugin);
                     if (plugin) {
                         console.log("return from startBD", plugin.startBD(9910));
+                        sendResponse();
                     }
                 }
                 else if (request.data === '"stop"') {
@@ -120,8 +121,9 @@ console.log(request);
                         console.log(e);
                     }
                 }
+                break;
             default:
-                throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
+                throw {name: "MethodNotImplemented", message: "Requested action is not supported! "};
                 break;
             };
         });
