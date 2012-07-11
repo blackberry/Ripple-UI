@@ -212,7 +212,7 @@ tinyHippos.Background = (function () {
         },
 
         isEnabled: function (url, enabledURIs) {
-            if (url.match(/enableripple=true/i)) {
+            if (url.match(/enableripple=/i)) {
                 _persistEnabled(url);
                 return true;
             }

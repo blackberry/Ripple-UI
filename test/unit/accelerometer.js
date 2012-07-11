@@ -148,5 +148,4 @@ describe("accelerometer", function () {
         accelValues = accelerometer.getInfo(true);
         expect(initialX).not.toBe(accelValues.x);
     });
-
 });

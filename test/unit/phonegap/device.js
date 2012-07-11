@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("phonegap_device", function () {
-    var device = require('ripple/platform/phonegap/1.0/device'),
+    var device = require('ripple/platform/phonegap/1.0.0/device'),
         devices = require('ripple/devices');
 
     it("asks the device for the name", function () {

@@ -50,20 +50,6 @@ describe("webworks.tablet system event", function () {
     });
 
     describe("deviceBatteryStateChange", function () {
-        it("registers and invokes onBatteryStateChange", function () {
-            var listener = jasmine.createSpy();
-            systemEvent.deviceBatteryStateChange(listener);
-
-            _run(20, [
-                function () {
-                    event.trigger("DeviceBatteryStateChanged", [false]);
-                },
-                function () {
-                    expect(listener).toHaveBeenCalledWith(3); // UNPLUGGED
-                }
-            ]);
-        });
-
         it("de-registers onBatterStateChange", function () {
             var listener = jasmine.createSpy();
             systemEvent.deviceBatteryStateChange(listener);
@@ -80,6 +66,21 @@ describe("webworks.tablet system event", function () {
                 }
             ]);
         });
+
+        it("registers and invokes onBatteryStateChange", function () {
+            var listener = jasmine.createSpy();
+            systemEvent.deviceBatteryStateChange(listener);
+
+            _run(20, [
+                function () {
+                    event.trigger("DeviceBatteryStateChanged", [false]);
+                },
+                function () {
+                    expect(listener).toHaveBeenCalledWith(3); // UNPLUGGED
+                }
+            ]);
+        });
+
     });
 
     describe("deviceBatteryLevelChange", function () {

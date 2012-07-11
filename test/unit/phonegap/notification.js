@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("phonegap notifications", function () {
-    var notification = require('ripple/platform/phonegap/1.0/notification'),
+    var notification = require('ripple/platform/phonegap/1.0.0/notification'),
         goodVibrations = require('ripple/ui/plugins/goodVibrations'),
         notifications = require('ripple/notifications');
 
