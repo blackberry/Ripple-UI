@@ -56,6 +56,8 @@ tinyHippos.Background = (function () {
         xhr.send();
 
         chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
+            var xhr, postData, data, plugin;
+console.log(request);
             switch (request.action) {
             case "isEnabled":
                 console.log("isEnabled? ==> " + request.tabURL);
@@ -67,16 +69,16 @@ tinyHippos.Background = (function () {
                 sendResponse();
                 break;
             case "userAgent":
-                console.log("user agent ==> " + userAgent);
+                console.log("user agent ==> " + request.data);
                 userAgent = request.data;
                 break;
             case "version":
                 sendResponse(version);
                 break;
             case "xhr":
-                var xhr = new XMLHttpRequest(),
-                    postData = new FormData(),
-                    data = JSON.parse(request.data);
+                xhr = new XMLHttpRequest();
+                postData = new FormData();
+                data = JSON.parse(request.data);
 
                 console.log("xhr ==> " + data.url);
 
@@ -99,8 +101,29 @@ tinyHippos.Background = (function () {
                     }
                 });
                 break;
+            case "services":
+                console.log("services", request.data);
+                if (request.data === '"start"') {
+                    plugin = document.getElementById("pluginRippleBD");
+                    console.log("plugin", plugin);
+                    if (plugin) {
+                        console.log("return from startBD", plugin.startBD(9910));
+                        sendResponse();
+                    }
+                }
+                else if (request.data === '"stop"') {
+                    xhr = new XMLHTTPRequest();
+                    try {
+                        xhr.open("GET", "http://127.0.0.1:9910/ripple/shutdown", false);
+                        xhr.send();
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                }
+                break;
             default:
-                throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
+                throw {name: "MethodNotImplemented", message: "Requested action is not supported! "};
                 break;
             };
         });
