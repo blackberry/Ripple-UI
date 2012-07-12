@@ -66,13 +66,11 @@ function _setupEnv(ready) {
 
         _extraMocks();
 
-        childProcess.exec('rm -rf node_modules/ripple* && ' +
-                          'cp -rf lib/ripple node_modules/ripple && ' +
-                          'cp -f lib/ripple.js node_modules/ripple.js', ready);
+        ready();
     });
 }
 
-module.exports = function (done, custom) {
+module.exports = function (done) {
     //HACK: this should be  taken out if our pull request in jasmine is accepted.
     jasmine.core.Matchers.prototype.toThrow = function (expected) {
         var result = false,
@@ -108,14 +106,11 @@ module.exports = function (done, custom) {
     };
 
     _setupEnv(function () {
-        var targets = __dirname + "/../" + (custom ? custom : "test");
+        var targets = __dirname + "/../test";
 
         jasmine.run(targets.split(' '), function (runner) {
             var failed = runner.results().failedCount === 0 ? 0 : 1;
-            //Nuke everything out of node_modules since it was just in there to run the tests
-            childProcess.exec('rm -rf node_modules/ripple*', function () {
-                (typeof done !== "function" ? process.exit : done)(failed);
-            });
+            (typeof done !== "function" ? process.exit : done)(failed);
         });
     });
 };
