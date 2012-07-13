@@ -24,6 +24,14 @@ describe("platform", function () {
 
     beforeEach(function () {
         spyOn(db, "retrieveObject");
+        spyOn(db, "saveObject").andCallFake(function (a, b, c, baton) {
+            return baton && baton();
+        });
+
+        spyOn(db, "save").andCallFake(function (a, b, c, baton) {
+            return baton && baton();
+        });
+
         spyOn(_console, "log");
         spyOn(utils, "queryString").andReturn({});
         spyOn(builder, "build").andReturn({
@@ -48,35 +56,24 @@ describe("platform", function () {
             deviceId = "some_id";
 
         beforeEach(function () {
-            spyOn(db, "saveObject").andCallFake(function (a, b, c, baton) {
-                baton();
-            });
-
-            spyOn(db, "save").andCallFake(function (a, b, c, baton) {
-                return baton && baton();
-            });
-
             spyOn(event, "trigger");
         });
 
         it("saves the platform", function () {
             platform.changeEnvironment(platformSpec, deviceId, function () {
-                expect(db.saveObject.argsForCall[0][0]).toEqual("api-key");
-                expect(db.saveObject.argsForCall[0][1]).toEqual(platformSpec);
+                expect(db.saveObject).toHaveBeenCalledWith("api-key", platformSpec, null, jasmine.any(Function));
             });
         });
 
         it("saves the device", function () {
             platform.changeEnvironment(platformSpec, deviceId, function () {
-                expect(db.save.argsForCall[0][0]).toEqual("device-key");
-                expect(db.save.argsForCall[0][1]).toEqual("some_id");
+                expect(db.save).toHaveBeenCalledWith("device-key", "some_id", null, jasmine.any(Function));
             });
         });
 
         it("removes the persisted value for the layout", function () {
             platform.changeEnvironment(platformSpec, deviceId, function () {
-                expect(db.save.argsForCall[1][0]).toEqual("layout");
-                expect(db.save.argsForCall[1][1]).toBe(null);
+                expect(db.save).toHaveBeenCalledWith("layout", null, null, jasmine.any(Function));
             });
         });
 

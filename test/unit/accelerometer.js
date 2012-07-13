@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 describe("accelerometer", function () {
-    var accelerometer = require('ripple/accelerometer'),
-        Rotation = require('ripple/platform/w3c/1.0/Rotation'),
-        Acceleration = require('ripple/platform/w3c/1.0/Acceleration'),
-        event = require('ripple/event'),
+    var accelerometer,
+        Rotation,
+        Acceleration,
+        event,
         db = require('ripple/db'),
+        deviceMotionEventSpy,
+        deviceOrientationEventSpy,
+        accelerometerInfoChangedEventSpy,
         MOCK_POSITIONINFO = {
             x: 4,
             y: 5,
@@ -26,126 +29,133 @@ describe("accelerometer", function () {
             alpha: 30,
             beta: 45,
             gamma: 90
+        },
+        _pos = {
+            x: MOCK_POSITIONINFO.x,
+            y: MOCK_POSITIONINFO.y,
+            z: MOCK_POSITIONINFO.z,
+            alpha: MOCK_POSITIONINFO.alpha,
+            beta: MOCK_POSITIONINFO.beta,
+            gamma: MOCK_POSITIONINFO.gamma
         };
 
-    it("test getInfo should return a valid set of values", function () {
-        var info = accelerometer.getInfo();
-
-        expect(typeof info.accelerationIncludingGravity.x).toBe("number");
-        expect("number", info.accelerationIncludingGravity.y, "expected y to be a number");
-        expect("number", info.accelerationIncludingGravity.z, "expected z to be a number");
-    });
-
-    it("test getInfo should return a copied object", function () {
-        var info = accelerometer.getInfo();
-        info.x = 123456789;
-        expect(accelerometer.getInfo().x).not.toBe(info.x);
-    });
-
-    it("setInfo should update successfully", function () {
+    beforeEach(function () {
+        accelerometer = require('ripple/accelerometer');
+        Rotation = require('ripple/platform/w3c/1.0/Rotation');
+        Acceleration = require('ripple/platform/w3c/1.0/Acceleration');
+        event = require('ripple/event');
+        db = require('ripple/db');
         spyOn(db, "saveObject");
+    });
 
-        accelerometer.setInfo({
-            x: MOCK_POSITIONINFO.x,
-            y: MOCK_POSITIONINFO.y,
-            z: MOCK_POSITIONINFO.z
+    describe("on getInfo", function () {
+        it("test getInfo should return a valid set of values", function () {
+            var info = accelerometer.getInfo();
+
+            expect(typeof info.accelerationIncludingGravity.x).toBe("number");
+            expect("number", info.accelerationIncludingGravity.y, "expected y to be a number");
+            expect("number", info.accelerationIncludingGravity.z, "expected z to be a number");
         });
 
-        var info = accelerometer.getInfo();
-
-        expect(MOCK_POSITIONINFO.x).toBe(info.accelerationIncludingGravity.x);
-        expect(MOCK_POSITIONINFO.y).toBe(info.accelerationIncludingGravity.y);
-        expect(MOCK_POSITIONINFO.z).toBe(info.accelerationIncludingGravity.z);
-    });
-
-    it("should fire DeviceMotionEvent when setInfo is called", function () {
-        spyOn(db, "saveObject");
-        spyOn(event, "trigger");
-
-        accelerometer.setInfo({
-            x: MOCK_POSITIONINFO.x,
-            y: MOCK_POSITIONINFO.y,
-            z: MOCK_POSITIONINFO.z,
-            alpha: MOCK_POSITIONINFO.alpha,
-            beta: MOCK_POSITIONINFO.beta,
-            gamma: MOCK_POSITIONINFO.gamma
+        it("test getInfo should return a copied object", function () {
+            var info = accelerometer.getInfo();
+            info.x = 123456789;
+            expect(accelerometer.getInfo().x).not.toBe(info.x);
         });
 
-        expect(event.trigger).toHaveBeenCalledWith("DeviceMotionEvent", [{
-            acceleration: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
-            accelerationIncludingGravity: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
-            rotationRate: new Rotation(0, 0, 0),
-            orientation: new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma),
-            timestamp: new Date().getTime()
-        }]);
+        it("test should return a valid cached object when specified", function () {
+            var info = accelerometer.getInfo(true);
+
+            expect(info.x).not.toBe(8);
+            expect(info.y).not.toBe(8);
+            expect(info.z).not.toBe(8);
+        });
     });
 
-    it("should fire DeviceMotionEvent when setInfo is called", function () {
-        spyOn(db, "saveObject");
-        spyOn(event, "trigger");
+    describe("on setInfo", function () {
+        it("setInfo should update successfully", function () {
+            accelerometer.setInfo({
+                x: MOCK_POSITIONINFO.x,
+                y: MOCK_POSITIONINFO.y,
+                z: MOCK_POSITIONINFO.z
+            });
 
-        accelerometer.setInfo({
-            x: MOCK_POSITIONINFO.x,
-            y: MOCK_POSITIONINFO.y,
-            z: MOCK_POSITIONINFO.z,
-            alpha: MOCK_POSITIONINFO.alpha,
-            beta: MOCK_POSITIONINFO.beta,
-            gamma: MOCK_POSITIONINFO.gamma
+            var info = accelerometer.getInfo();
+
+            expect(MOCK_POSITIONINFO.x).toBe(info.accelerationIncludingGravity.x);
+            expect(MOCK_POSITIONINFO.y).toBe(info.accelerationIncludingGravity.y);
+            expect(MOCK_POSITIONINFO.z).toBe(info.accelerationIncludingGravity.z);
         });
 
-        expect(event.trigger).toHaveBeenCalledWith("DeviceMotionEvent", [{
-            acceleration: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
-            accelerationIncludingGravity: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
-            rotationRate: new Rotation(0, 0, 0),
-            orientation: new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma),
-            timestamp: new Date().getTime()
-        }]);
-    });
+        describe("events firing", function () {
+            beforeEach(function () {
+                deviceMotionEventSpy = jasmine.createSpy("DeviceMotionEvent");
+                deviceOrientationEventSpy = jasmine.createSpy("DeviceOrientationEvent");
+                accelerometerInfoChangedEventSpy = jasmine.createSpy("AccelerometerInfoChangedEvent");
 
-    it("should fire DeviceOrientationEvent when setInfo is called", function () {
-        spyOn(db, "saveObject");
-        spyOn(event, "trigger");
+                event.on("DeviceMotionEvent", deviceMotionEventSpy);
+                event.on("DeviceOrientationEvent", deviceOrientationEventSpy);
+                event.on("AccelerometerInfoChangedEvent", accelerometerInfoChangedEventSpy);
+            });
 
-        accelerometer.setInfo({
-            x: MOCK_POSITIONINFO.x,
-            y: MOCK_POSITIONINFO.y,
-            z: MOCK_POSITIONINFO.z,
-            alpha: MOCK_POSITIONINFO.alpha,
-            beta: MOCK_POSITIONINFO.beta,
-            gamma: MOCK_POSITIONINFO.gamma
+            it("should fire DeviceMotionEvent when setInfo is called", function () {
+                accelerometer.setInfo(_pos);
+
+                waits(1);
+                runs(function () {
+                    expect(deviceMotionEventSpy).toHaveBeenCalled();
+                    var _a = deviceMotionEventSpy.mostRecentCall.args[0];
+                    expect(_a.acceleration).toEqual(new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z));
+                    expect(_a.accelerationIncludingGravity).toEqual(new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z));
+                    expect(_a.rotationRate).toEqual(new Rotation(0, 0, 0));
+                    expect(_a.orientation).toEqual(new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma));
+                    expect(_a.timestamp).toBeCloseTo(new Date().getTime(), 5000);
+                });
+            });
+
+            it("should fire DeviceOrientationEvent when setInfo is called", function () {
+                accelerometer.setInfo(_pos);
+
+                waits(1);
+                runs(function () {
+                    expect(deviceOrientationEventSpy).toHaveBeenCalled();
+                    var _a = deviceOrientationEventSpy.mostRecentCall.args[0];
+                    expect(_a.acceleration).toEqual(new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z));
+                    expect(_a.accelerationIncludingGravity).toEqual(new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z));
+                    expect(_a.rotationRate).toEqual(new Rotation(0, 0, 0));
+                    expect(_a.orientation).toEqual(new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma));
+                    expect(_a.timestamp).toBeCloseTo(new Date().getTime(), 5000);
+                });
+            });
+
+            it("should fire AccelerometerInfoChangedEvent when setInfo is called", function () {
+                accelerometer.setInfo(_pos);
+
+                waits(1);
+                runs(function () {
+                    expect(accelerometerInfoChangedEventSpy).toHaveBeenCalled();
+                    var _a = accelerometerInfoChangedEventSpy.mostRecentCall.args[0];
+                    expect(_a.acceleration).toEqual(new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z));
+                    expect(_a.accelerationIncludingGravity).toEqual(new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z));
+                    expect(_a.rotationRate).toEqual(new Rotation(0, 0, 0));
+                    expect(_a.orientation).toEqual(new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma));
+                    expect(_a.timestamp).toBeCloseTo(new Date().getTime(), 5000);
+                });
+            });
         });
-
-        expect(event.trigger).toHaveBeenCalledWith("DeviceOrientationEvent", [{
-            acceleration: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
-            accelerationIncludingGravity: new Acceleration(MOCK_POSITIONINFO.x, MOCK_POSITIONINFO.y, MOCK_POSITIONINFO.z),
-            rotationRate: new Rotation(0, 0, 0),
-            orientation: new Rotation(MOCK_POSITIONINFO.alpha, MOCK_POSITIONINFO.beta, MOCK_POSITIONINFO.gamma),
-            timestamp: new Date().getTime()
-        }]);
     });
 
-    it("test should return a valid cached object when specified", function () {
-        spyOn(db, "saveObject");
-        accelerometer.setInfo(8, 8, 8);
+    describe("on shake", function () {
+        it("test shake should update cached x value", function () {
+            spyOn(global, "setInterval").andCallFake(function (callback) {
+                callback();
+            });
 
-        var info = accelerometer.getInfo(true);
-
-        expect(info.x).not.toBe(8);
-        expect(info.y).not.toBe(8);
-        expect(info.z).not.toBe(8);
-    });
-
-    it("test shake should update cached x value", function () {
-        spyOn(db, "saveObject");
-        spyOn(event, "trigger");
-        spyOn(global, "setInterval").andCallFake(function (callback) {
-            callback();
+            var initialX = 50, accelValues;
+            accelerometer.setInfo(initialX, 0, 0);
+            accelerometer.shake();
+            accelValues = accelerometer.getInfo(true);
+            expect(initialX).not.toBe(accelValues.x);
         });
-
-        var initialX = 50, accelValues;
-        accelerometer.setInfo(initialX, 0, 0);
-        accelerometer.shake();
-        accelValues = accelerometer.getInfo(true);
-        expect(initialX).not.toBe(accelValues.x);
     });
 });
