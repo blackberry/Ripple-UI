@@ -1,3 +1,26 @@
+## v0.9.7 - July 19, 2012
+
+* Fixed an issue with Ripple booting on Chrome 21 dev channel
+* Webworks BB10 support: (https://github.com/blackberry/Ripple-UI/issues?milestone=11&page=1&state=closed)
+ * blackberry.app.exit
+ * device settings for software version and hardware ID
+ * support for consumer and enterprise parameters
+ * support for the swipe down event
+ * support for invoke
+* Fixed a caching issue.
+* Cleaned up browser test failures
+* updated build tooling to work in latest node
+* updated README docs for running as a plugin
+* added support for selecting the platform and version when launching from the querystring
+* Updated Cordova support for 2.0.0 (https://github.com/blackberry/Ripple-UI/issues?milestone=13&page=1&state=closed)
+ * updated the version numbers for phonegap and cordova
+ * navigator camera
+ * Media
+ * File API
+ * cordova specific event support
+ * updated and fixed support for navigator.contacts
+ * added partial support for navigator.device.capture
+
 ## v0.9.6.1 (HOTFIX) - June 21, 2012
 
 * Fixed bug with Chrome Version 21.0.1180.0 dev where Ripple will not boot
