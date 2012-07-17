@@ -105,7 +105,6 @@ console.log(request);
                 console.log("services", request.data);
                 if (request.data === '"start"') {
                     plugin = document.getElementById("pluginRippleBD");
-                    console.log("plugin", plugin);
                     if (plugin) {
                         console.log("return from startBD", plugin.startBD(9910));
                         sendResponse();
@@ -121,6 +120,10 @@ console.log(request);
                         console.log(e);
                     }
                 }
+                break;
+            case "lag":
+            case "network":
+                // methods to be implemented at a later date
                 break;
             default:
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported! "};
