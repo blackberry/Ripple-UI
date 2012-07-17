@@ -173,7 +173,7 @@ tinyHippos.Background = (function () {
             chrome.tabs.getSelected(null, function (tab) {
                 console.log("enable ==> " + tab.url);
                 _persistEnabled(tab.url);
-                chrome.tabs.sendRequest(tab.id, {"action": "enable", "mode": "widget", "tabURL": tab.url }, function (response) {});
+                chrome.tabs.sendRequest(tab.id, {"action": "enable", "mode": "widget", "tabURL": tab.url });
             });
         },
 
@@ -194,7 +194,7 @@ tinyHippos.Background = (function () {
 
                 localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
 
-                chrome.tabs.sendRequest(tab.id, {"action": "disable", "tabURL": tab.url }, function (response) {});
+                chrome.tabs.sendRequest(tab.id, {"action": "disable", "tabURL": tab.url });
             });
         },
 
