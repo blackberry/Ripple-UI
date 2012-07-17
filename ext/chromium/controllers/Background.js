@@ -105,7 +105,6 @@ console.log(request);
                 console.log("services", request.data);
                 if (request.data === '"start"') {
                     plugin = document.getElementById("pluginRippleBD");
-                    console.log("plugin", plugin);
                     if (plugin) {
                         console.log("return from startBD", plugin.startBD(9910));
                         sendResponse();
@@ -121,6 +120,10 @@ console.log(request);
                         console.log(e);
                     }
                 }
+                break;
+            case "lag":
+            case "network":
+                // methods to be implemented at a later date
                 break;
             default:
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported! "};
@@ -209,7 +212,7 @@ console.log(request);
             chrome.tabs.getSelected(null, function (tab) {
                 console.log("enable ==> " + tab.url);
                 _persistEnabled(tab.url);
-                chrome.tabs.sendRequest(tab.id, {"action": "enable", "mode": "widget", "tabURL": tab.url }, function (response) {});
+                chrome.tabs.sendRequest(tab.id, {"action": "enable", "mode": "widget", "tabURL": tab.url});
             });
         },
 
@@ -230,7 +233,7 @@ console.log(request);
 
                 localStorage["tinyhippos-enabled-uri"] = JSON.stringify(jsonObject);
 
-                chrome.tabs.sendRequest(tab.id, {"action": "disable", "tabURL": tab.url }, function (response) {});
+                chrome.tabs.sendRequest(tab.id, {"action": "disable", "tabURL": tab.url });
             });
         },
 
