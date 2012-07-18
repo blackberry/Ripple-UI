@@ -40,7 +40,7 @@ This will describe all the available commands for building and running the tests
 - go to the extension management page (chrome://chrome/extensions/) in chrome.
 - Ensure that you have selected the developer mode checkbox
 - click the Load Unpacked extension button
-- select the chromium or chromestore folders in the pkg/ folder.
+- select the chromestore folders in the pkg/ folder.
 
 NOTE: for development you should be fine to just build with jake and refresh your browser.  If
 you end up editing anything in the ext folder you will need to refresh the extension from
