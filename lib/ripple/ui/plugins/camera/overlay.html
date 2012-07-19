@@ -14,8 +14,18 @@
  * limitations under the License.
 -->
 <section id="camera-window" class="overlay">
-    <video id="camera-video" autoplay></video>
-    <button id="take-picture" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-        <span class="ui-button-text">Take a Picture</span>
-    </button>
+    <section>
+        <img id="camera-image"></img>
+    </section>
+    <section>
+        <input id="picture-upload" type="file" accept="image/*" class="ui-button" style="display:none"></input>
+        <input id="video-upload" type="file" accept="video/*" class="ui-button" style="display:none"></input>
+        <input id="audio-upload" type="file" accept="audio/*" class="ui-button" style="display:none"></input>
+        <button id="select-file" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">Select a Picture</span>
+        </button>
+        <button id="take-file" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">Use Selected Picture</span>
+        </button>
+    </section>
 </section>

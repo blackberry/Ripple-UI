@@ -18,12 +18,14 @@ describe("platform", function () {
         db = require('ripple/db'),
         app = require('ripple/app'),
         builder = require('ripple/platform/builder'),
+        utils = require('ripple/utils'),
         event = require('ripple/event'),
         _console = require('ripple/console');
 
     beforeEach(function () {
         spyOn(db, "retrieveObject");
         spyOn(_console, "log");
+        spyOn(utils, "queryString").andReturn({});
         spyOn(builder, "build").andReturn({
             into: function () {}
         });
@@ -33,9 +35,9 @@ describe("platform", function () {
     it("getList should return correct value", function () {
         var returnedPlatforms = platform.getList();
 
-        expect(typeof returnedPlatforms["phonegap"]["1.0"].id).toEqual("string");
-        expect(typeof returnedPlatforms["phonegap"]["1.0"].name).toEqual("string");
-        expect(typeof returnedPlatforms["phonegap"]["1.0"].type).toEqual("string");
+        expect(typeof returnedPlatforms["phonegap"]["1.0.0"].id).toEqual("string");
+        expect(typeof returnedPlatforms["phonegap"]["1.0.0"].name).toEqual("string");
+        expect(typeof returnedPlatforms["phonegap"]["1.0.0"].type).toEqual("string");
     });
 
     describe("when changing the environment", function () {

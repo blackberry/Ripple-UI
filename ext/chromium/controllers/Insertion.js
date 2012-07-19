@@ -21,16 +21,20 @@
             case "enable":
                 break;
             case "disable":
-                localStorage.removeItem("tinyhippos-enabled-uri");
-                uri = uri.replace(/\?enableripple\=true/, "").replace(/\&enableripple\=true/, "");
+                //HACK: ummm .... I am sorry
+                uri = uri.replace(/enableripple=[^&]*[&]?/i, "").replace(/[\?&]*$/, "");
                 break;
 
             default:
                 throw {name: "MethodNotImplemented", message: "Requested action is not supported!"};
             }
 
-            sendResponse({});
-            location.href = uri;
+            if (location.href !== uri) {
+                location.href = uri;
+            }
+            else {
+                location.reload();
+            }
         });
     }
 

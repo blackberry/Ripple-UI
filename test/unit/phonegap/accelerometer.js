@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("phonegap_accelerometer", function () {
-    var accel = require('ripple/platform/phonegap/1.0/accelerometer'),
+    var accel = require('ripple/platform/phonegap/1.0.0/accelerometer'),
         event = require('ripple/event'),
         platform = require('ripple/platform');
 
