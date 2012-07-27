@@ -31,10 +31,4 @@ window.addEventListener('load', function () {
 
     document.getElementById("popup-disable")
         .addEventListener('click', _handle(background.disable));
-
-    document.getElementById("popup-start")
-        .addEventListener('click', _handle(background.start));
-
-    document.getElementById("popup-stop")
-        .addEventListener('click', _handle(background.stop));
 });

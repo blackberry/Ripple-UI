@@ -57,7 +57,6 @@ tinyHippos.Background = (function () {
 
         chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
             var xhr, postData, data, plugin;
-console.log(request);
             switch (request.action) {
             case "isEnabled":
                 console.log("isEnabled? ==> " + request.tabURL);
@@ -104,21 +103,10 @@ console.log(request);
             case "services":
                 console.log("services", request.data);
                 if (request.data === '"start"') {
-                    plugin = document.getElementById("pluginRippleBD");
-                    if (plugin) {
-                        console.log("return from startBD", plugin.startBD(9910));
-                        sendResponse();
-                    }
+                    _self.start(sendResponse);
                 }
                 else if (request.data === '"stop"') {
-                    xhr = new XMLHTTPRequest();
-                    try {
-                        xhr.open("GET", "http://127.0.0.1:9910/ripple/shutdown", false);
-                        xhr.send();
-                    }
-                    catch (e) {
-                        console.log(e);
-                    }
+                    _self.stop();
                 }
                 break;
             case "lag":
@@ -237,6 +225,28 @@ console.log(request);
             });
         },
 
+        start: function (sendResponse) {
+            var plugin = document.getElementById("pluginRippleBD");
+            if (plugin) {
+                var result = plugin.startBD(9910);
+                console.log("return from startBD", result);
+                if (sendResponse && typeof sendResponse === 'function') {
+                    sendResponse({result: result});
+                }
+            }
+        },
+
+        stop: function () {
+            var xhr = new XMLHTTPRequest();
+            try {
+                xhr.open("GET", "http://127.0.0.1:9910/ripple/shutdown", false);
+                xhr.send();
+            }
+            catch (e) {
+                console.log(e);
+            }
+        },
+
         isEnabled: function (url, enabledURIs) {
             if (url.match(/enableripple=/i)) {
                 _persistEnabled(url);
@@ -265,3 +275,22 @@ console.log(request);
 
     return _self;
 }());
+
+// check to see if Ripple Services need to be enabled
+if (window.localStorage["ripple-services"]) {
+    tinyhippos.background.start();
+}
+
+
+//HACK: need to find a better way to do this since it's
+//WebWorks specific!!!
+window.onunload = function () {
+    var bus = require('ripple/bus');
+    bus.ajax(
+        "GET",
+        "http://127.0.0.1:9910/ripple/shutdown",
+        null,
+        null,
+        null
+    );
+};
