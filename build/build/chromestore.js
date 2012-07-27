@@ -24,10 +24,10 @@ module.exports = function (src, baton) {
                'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chromestore/ &&" +
                'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chromestore/ &&" +
                'cp ' + _c.EXT + "chromestore/manifest.json " + _c.DEPLOY + "chromestore/manifest.json &&" +
-               'cp ' + _c.EXT + "chromestore/controllers/Background.js " + _c.DEPLOY + "chromestore/controllers/Background.js" + 
-               'cp ' + _c.EXT + "chromestore/controllers/PopUp.js " + _c.DEPLOY + "chromestore/controllers/PopUp.js" + 
-               'cp ' + _c.EXT + "chromestore/views/background.html " + _c.DEPLOY + "chromestore/views/background.html" + 
-               'cp ' + _c.EXT + "chromestore/views/popup.html " + _c.DEPLOY + "chromestore/views/popup.html"; 
+               'cp ' + _c.EXT + "chromestore/controllers/Background.js " + _c.DEPLOY + "chromestore/controllers/Background.js &&" + 
+               'cp ' + _c.EXT + "chromestore/controllers/PopUp.js " + _c.DEPLOY + "chromestore/controllers/PopUp.js &&" + 
+               'cp ' + _c.EXT + "chromestore/views/background.html " + _c.DEPLOY + "chromestore/views/background.html &&" + 
+               'cp ' + _c.EXT + "chromestore/views/popup.html " + _c.DEPLOY + "chromestore/views/popup.html";
 
     childProcess.exec(copy, function () {
         var css = _c.ASSETS + "ripple.css",
