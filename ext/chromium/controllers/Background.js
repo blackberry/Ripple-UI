@@ -247,6 +247,23 @@ tinyHippos.Background = (function () {
             }
         },
 
+        autostart: function (start) {
+            if (start) {
+                window.localStorage['ripple-services'] = JSON.stringify(true);
+            }
+            else {
+                delete window.localStorage['ripple-services'];
+            }
+        },
+
+        isAutostart: function () {
+            if (window.localStorage['ripple-services']) {
+                return JSON.parse(window.localStorage['ripple-services']);
+            }
+
+            return false;
+        },
+
         isEnabled: function (url, enabledURIs) {
             if (url.match(/enableripple=/i)) {
                 _persistEnabled(url);
@@ -277,8 +294,9 @@ tinyHippos.Background = (function () {
 }());
 
 // check to see if Ripple Services need to be enabled
-if (window.localStorage["ripple-services"]) {
-    tinyhippos.background.start();
+if (tinyHippos.Background.isAutostart() === true) {
+    tinyHippos.Background.start();
+    console.log("Ripple Services started on http://localhost:9910");
 }
 
 

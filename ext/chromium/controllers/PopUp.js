@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 window.addEventListener('load', function () {
-    var background = chrome.extension.getBackgroundPage().tinyHippos.Background;
+    var background = chrome.extension.getBackgroundPage().tinyHippos.Background,
+        autostart = document.getElementById("popup-autostart");
+
+    autostart.checked = !!background.isAutostart();
 
     function _handle(func) {
         return function () {
@@ -37,4 +40,8 @@ window.addEventListener('load', function () {
 
     document.getElementById("popup-stop")
         .addEventListener('click', _handle(background.stop));
+
+    autostart.addEventListener('change', function () {
+        background.autostart(autostart.checked);
+    });
 });
