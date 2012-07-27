@@ -21,8 +21,16 @@
         </section>
     </section>
     <section class="info ui-widget-content ui-corner-all" style="display: none;">
-        <section id="options-menu-services" class="ui-text-fail irrelevant">
+        <section id="options-menu-services" class="ui-text-fail">
             The Build and Deploy services are currently running at: http://127.0.0.1:9910
+            <hr>
+        </section>
+        <section id="options-menu-services-start" class="ui-text-fail">
+            <p>The build and deploy services are not currently running, would you like to start them?</p>
+            <button id="options-menu-start-service" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Start Services</span>
+            </button>
+            <hr>
         </section>
         <button id="options-menu-build" class="not-ready ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
             <span class="ui-button-text">Package</span>
