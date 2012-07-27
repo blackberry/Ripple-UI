@@ -43,6 +43,8 @@ textarea:focus, input:focus {
 
 p:first-letter, th, li:first-letter, label, button { text-transform: capitalize; }
 
+p { font-size: 1.2em; }
+
 h1 { font-size: 2em; font-weight: bold; text-transform: capitalize; }
 
 h2 { font-size: 1em; font-weight: bold; text-transform: capitalize; }
@@ -58,8 +60,12 @@ hr { color: #1e1e1e; }
     padding: 0 .5em;
 }
 
+#popup-enable-container {
+    text-align: center;
+}
+
 #popup-enable-container button {
-    width: 100%;
+    width: 80%;
     margin: 5px 0 10px 0;
 }
 
