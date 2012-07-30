@@ -106,7 +106,7 @@ tinyHippos.Background = (function () {
                     _self.start(sendResponse);
                 }
                 else if (request.data === '"stop"') {
-                    _self.stop();
+                    _self.stop(sendResponse);
                 }
                 break;
             case "lag":
@@ -236,14 +236,21 @@ tinyHippos.Background = (function () {
             }
         },
 
-        stop: function () {
-            var xhr = new XMLHTTPRequest();
+        stop: function (sendResponse) {
+            var xhr = new XMLHttpRequest();
             try {
                 xhr.open("GET", "http://127.0.0.1:9910/ripple/shutdown", false);
                 xhr.send();
+                if (sendResponse && typeof sendResponse === 'function') {
+                    sendResponse({});
+                }
             }
             catch (e) {
-                console.log(e);
+                if (e.code === 101) {
+                    sendResponse({});
+                    return;
+                }
+                console.log("error", e);
             }
         },
 
@@ -253,6 +260,20 @@ tinyHippos.Background = (function () {
             }
             else {
                 delete window.localStorage['ripple-services'];
+            }
+        },
+
+        serviceIsRunning: function () {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("GET", "http://127.0.0.1:9910/ripple/about", false);
+            xhr.send();
+            console.log(xhr);
+            if (xhr.response) {
+                return true;
+            }
+            else {
+                return false;
             }
         },
 
@@ -295,20 +316,15 @@ tinyHippos.Background = (function () {
 
 // check to see if Ripple Services need to be enabled
 if (tinyHippos.Background.isAutostart() === true) {
-    tinyHippos.Background.start();
-    console.log("Ripple Services started on http://localhost:9910");
+    window.addEventListener("load", function () {
+        tinyHippos.Background.start();
+        console.log("ripple services started on http://localhost:9910");
+    });
 }
 
 
 //HACK: need to find a better way to do this since it's
 //WebWorks specific!!!
 window.onunload = function () {
-    var bus = require('ripple/bus');
-    bus.ajax(
-        "GET",
-        "http://127.0.0.1:9910/ripple/shutdown",
-        null,
-        null,
-        null
-    );
+    tinyHippos.Background.stop();
 };
