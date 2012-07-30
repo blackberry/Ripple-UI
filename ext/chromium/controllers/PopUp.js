@@ -15,7 +15,10 @@
  */
 window.addEventListener('load', function () {
     var background = chrome.extension.getBackgroundPage().tinyHippos.Background,
-        autostart = document.getElementById("popup-autostart");
+        backgroundConsole = chrome.extension.getBackgroundPage().console;
+        autostart = document.getElementById("popup-autostart"),
+        start = document.getElementById("popup-start"),
+        stop = document.getElementById("popup-stop");
 
     autostart.checked = !!background.isAutostart();
 
@@ -24,9 +27,31 @@ window.addEventListener('load', function () {
             try {
                 func();
             } catch (e) {
-                alert(e.message + "\n" + e.stack);
+                backgroundConsole.log(e.message, e.stack);
             }
         };
+    }
+
+    function _manageServices() {
+        var running;
+
+        try {
+            running = background.serviceIsRunning();
+        }
+        catch (e) {
+            running = false;
+        }
+
+        backgroundConsole.log("running: ", running);
+
+        if (running) {
+            start.style.display = "none";
+            stop.style.display = "";
+        }
+        else {
+            start.style.display = "";
+            stop.style.display = "none";
+        }
     }
 
     document.getElementById("popup-enable")
@@ -35,13 +60,21 @@ window.addEventListener('load', function () {
     document.getElementById("popup-disable")
         .addEventListener('click', _handle(background.disable));
 
-    document.getElementById("popup-start")
-        .addEventListener('click', _handle(background.start));
+    start.addEventListener('click', _handle(function () {
+        background.start();
+        window.setTimeout(function () {
+            _manageServices();
+        }, 1000);
+    }));
 
-    document.getElementById("popup-stop")
-        .addEventListener('click', _handle(background.stop));
+    stop.addEventListener('click', _handle(function () {
+        background.stop();
+        _manageServices();
+    }));
 
     autostart.addEventListener('change', function () {
         background.autostart(autostart.checked);
     });
+
+    _manageServices();
 });
