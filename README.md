@@ -49,13 +49,13 @@ If you end up editing anything in the ext folder you will need to refresh the ex
 
 Ripple is (by-design) browser agnostic, and is able to run inside any web browser (with disabled web security).
 
+However, this has (for the most part) only been used in Chrome (and as a result certain things are used that are not supported/tested in other browsers).
+
 To get it running inside Chrome you should start it with these [command line](http://www.chromium.org/developers/how-tos/run-chromium-with-flags) flags:
 
     --app=http://path/to/ripple-ui/pkg/web
     --disable-web-security
     --user-data-dir=/path/to/dummy/profile
-
-This has only really be tested in chrome.
 
 ## Code Guidelines
 
