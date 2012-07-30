@@ -146,6 +146,8 @@ section, header, footer, aside, nav { display: block; }
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    position: relative;
+    overflow: hidden;
 }
 
 .device-wrapper {
@@ -249,7 +251,7 @@ section.left { left: 0; }
 .info-header{
     padding: 0;
     position: relative;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 .info section > span{
@@ -466,14 +468,14 @@ section.left { left: 0; }
     background: rgba(0,0,0,1.0);
 }
 
-.overlay-menu-box::-webkit-scrollbar {  
+.overlay-menu-box::-webkit-scrollbar {
     width: 0.50ex;
-    -webkit-border-radius: 1ex;  
+    -webkit-border-radius: 1ex;
     -moz-border-radius: 1ex;
     border-radius: 1ex;
-}  
-  
-.overlay-menu-box::-webkit-scrollbar-thumb {  
+}
+
+.overlay-menu-box::-webkit-scrollbar-thumb {
     background: #0f55ad;
     -webkit-border-radius: 1ex;
     -moz-border-radius: 1ex;
@@ -824,7 +826,7 @@ section.left { left: 0; }
 
 #options-window {
     width: 100%;
-    height: 100%;    
+    height: 100%;
     position: absolute;
     top: 0;
     display: none;
@@ -834,32 +836,32 @@ section.left { left: 0; }
 
 /* ------------------------------>
     Error Window */
-    
+
 .error-window {
     z-index: 10000;
     width: 100%;
-    height: 100%;    
+    height: 100%;
     position: absolute;
     top: 0;
     text-align:center;
-    vertical-align: middle;    
+    vertical-align: middle;
     display: none;
-    background-color: #2B0000;    
+    background-color: #2B0000;
 }
 
 .error-dialog {
-    z-index: 10001;        
+    z-index: 10001;
     position: absolute;
     top: 250px;
     padding: 20px 0 20px 130px;
     opacity: 1;
     width: 425px;
     height: auto;
-    text-align: center;    
+    text-align: center;
     vertical-align: middle;
-    margin: 0 auto;    
+    margin: 0 auto;
     display: none;
-    color: #F0F0F0;    
+    color: #F0F0F0;
     font-family: Helevetica, Arial;
 }
 
@@ -898,29 +900,29 @@ section.left { left: 0; }
 
 /* ------------------------------>
     First Run Window */
-    
+
 .first-run-window {
     z-index: 9000;
     width: 100%;
-    height: 100%;    
+    height: 100%;
     position: absolute;
     top: 0;
     text-align:center;
-    vertical-align: middle;    
+    vertical-align: middle;
     display: none;
 }
 
 .platform-select-dialog {
-    z-index: 9001;        
+    z-index: 9001;
     position: absolute;
     top: 250px;
     padding: 20px 0 20px 130px;
     opacity: 1;
     width: 450px;
     height: auto;
-    text-align: center;    
+    text-align: center;
     vertical-align: middle;
-    margin: 0 auto;    
+    margin: 0 auto;
     display: none;
 }
 
@@ -1089,3 +1091,170 @@ fieldset {
 }
 
 #tooltip h3, #tooltip div { margin: 0; }
+
+/* Context Menu CSS */
+
+#contextMenuWindow {
+    -webkit-user-select: none;
+}
+
+#contextMenu {
+    height: 100%;
+    width: 613px;
+    border-image: url('../images/core_crosscutmenu_bg.png') 1 1 1 15 fill / 0 0 0 0 repeat;
+    -webkit-box-shadow: -10px 0 25px #121212;
+    box-shadow: -10px 0 25px #121212;
+    -webkit-animation-timing-function: ease-out;
+    position: absolute;
+    right: -633px;
+    top: 0;
+    bottom: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    z-index: 100;
+}
+
+#contextMenuDelete {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 2.5em;
+    color: #fafafa;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -webkit-transition: 0.25s;
+    -webkit-animation-timing-function: ease-out;
+}
+
+.hideContextMenuHandle {
+    display: none;
+}
+
+.hideContextMenuDelete {
+    -webkit-transform: translateZ(0) translate(0,1024px);
+    transform: translateZ(0) translate(0,1024px);
+}
+
+#contextMenuModal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#contextMenuContent {
+    position: relative;
+    width: 100%;
+    font-size: 2.4em;
+    color: #fafafa;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+}
+
+#contextMenuHeader {
+    position: absolute;
+    top: -138px;
+    height: 120px;
+    width: 95%;
+    background-color: #292929;
+    white-space: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    padding-top: 15px;
+    padding-left: 20px;
+    -webkit-transition: 0.25s;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+}
+
+.showMenuHeader {
+    -webkit-transform: translate(0, 138px);
+    transform: translate(0, 138px);
+}
+
+#contextMenuHeadText {
+    height: 60px;
+    font-size: 2.5em;
+    color: #fafafa;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
+
+#contextMenuSubheadText {
+    height: 60px;
+    font-size: 1.9em;
+    color: #cecece;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
+
+.peekContextMenu {
+    -webkit-transform: translate(-121px, 0);
+    transform: translate(-121px, 0);
+}
+
+.showContextMenu {
+    -webkit-transform: translate(-569px, 0);
+    transform: translate(-569px, 0);
+}
+
+.showContextMenuHandle {
+    position: absolute;
+    height: 119px;
+    width: 121px;
+    background-image: url('../images/drag_bar.png');
+}
+
+.showMoreHandleIcon {
+    height: 81px;
+    width: 81px;
+    position: absolute;
+    top: 20px;
+    left: 40px;
+}
+
+.hideContextMenuItem {
+    display: none;
+}
+
+.contextmenuItem {
+    border-bottom: 2px solid #414141;
+    height: 119px;
+    -webkit-transition-duration: 0.35s;
+    -webkit-animation-timing-function: ease-out;
+    white-space: nowrap;
+    color: #FAFAFA;
+    background-color: #000000;
+}
+
+.contextmenuItem:first-child {
+    border-top: 2px solid #414141;
+}
+
+.contextmenuItem img {
+    margin: 20px 19px;
+    vertical-align: middle;
+}
+
+.showContextmenuItem {
+    -webkit-transform: translateZ(0) translate(-462px,0);
+    transform: translateZ(0) translate(-462px,0);
+    border-image: url('../images/core_crosscutmenu_selected.png') 2 1 2 13 / 1 1 1 1;
+    z-index:101;
+}
+
+.peekItem {
+    -webkit-transform: translateZ(0) translate(0, 0);
+    transform: translateZ(0) translate(0, 0);
+    border-image: none;
+}
+
+.fullContextmenuItem {
+    -webkit-transition: background 0.5s;
+    background-color: #66ccff;
+}
