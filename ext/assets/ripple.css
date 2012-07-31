@@ -1098,16 +1098,28 @@ fieldset {
     height: 100%;
     width: 563px;
     border-image: url('images/core_crosscutmenu_bg.png') 1 1 1 15 fill / 0 0 0 0 repeat;
-    -webkit-box-shadow: -10px 0px 25px #121212;
+    -webkit-box-shadow: -10px 0 25px #121212;
+    -moz-box-shadow: -10px 0 25px #121212;
+    box-shadow: -10px 0 25px #121212;
     -webkit-transition-duration: 0.25s;
+    -moz-transition-duration: 0.25s;
+    -o-transition-duration: 0.25s;
+    -ms-transition-duration: 0.25s;
+    transition-duration: 0.25s;
     -webkit-animation-timing-function: ease-out;
+    -moz-animation-timing-function: ease-out;
+    -ms-animation-timing-function: ease-out;
     position: absolute;
     right: -583px;
-    top: 0px;
-    bottom: 0px;
+    top: 0;
+    bottom: 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
     -webkit-box-pack: center;
+    -ms-box-pack: center;
+    -moz-box-pack: center;
     z-index: 100;
 }
 
@@ -1124,7 +1136,11 @@ fieldset {
     background-color: #292929;
     white-space: nowrap;
     -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
     -webkit-box-pack: center;
+    -ms-box-pack: center;
+    -moz-box-pack: center;
     text-overflow: -blackberry-fade;
 }
 
@@ -1142,6 +1158,10 @@ fieldset {
 
 .peekContextMenu {
     -webkit-transform: translate(-121px, 0);
+    -moz-transform: translate(-121px, 0);
+    -o-transform: translate(-121px, 0);
+    -ms-transform: translate(-121px, 0);
+    transform: translate(-121px, 0);
 }
 
 .showContextMenuHandle {
@@ -1152,21 +1172,37 @@ fieldset {
 
 /* Show and hide the menu items themselves */
 .showItem {
-    -webkit-transform:translate(-462px,0);
+    -webkit-transform: translate(-462px,0);
+    -moz-transform: translate(-462px, 0);
+    -o-transform: translate(-462px, 0);
+    -ms-transform: translate(-462px, 0);
+    transform: translate(-462px, 0);
     z-index:101;
 }
 
 .peekItem {
-    -webkit-transform:translate(0px,0);
+    -webkit-transform: translate(0,0);
+    -moz-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
 }
 /* Show and hide the menu */
 .showMenu {
-    -webkit-transform:translate(-583px,0);
+    -webkit-transform: translate(-583px,0);
+    -moz-transform: translate(-583px, 0);
+    -o-transform: translate(-583px, 0);
+    -ms-transform: translate(-583px, 0);
+    transform: translate(-583px, 0);
 }
 
 .hideMenu {
     display: none;
-    -webkit-transform:translate(0px,0);
+    -webkit-transform: translate(0,0);
+    -moz-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
 }
 
 #crosscutMenuContent {
@@ -1177,7 +1213,13 @@ fieldset {
     border-bottom: 2px solid #414141;
     height: 119px;
     -webkit-transition-duration: 0.25s;
+    -moz-transition-duration: 0.25s;
+    -o-transition-duration: 0.25s;
+    -ms-transition-duration: 0.25s;
     -webkit-animation-timing-function: ease-out;
+    -moz-animation-timing-function: ease-out;
+    -o-animation-timing-function: ease-out;
+    -ms-animation-timing-function: ease-out;
     white-space: nowrap;
     color: #FAFAFA;
     background-color: #000000;
@@ -1187,10 +1229,10 @@ fieldset {
     border-top: 2px solid #414141;
 }
 
-    .menuItem img {
-        margin: 20px 19px;
-        vertical-align: middle;
-    }
+.menuItem img {
+    margin: 20px 19px;
+    vertical-align: middle;
+}
 
 .menuItem:active {
     border-image: url('images/core_crosscutmenu_selected.png') 2 1 2 13 / 1 1 1 1;
@@ -1200,9 +1242,4 @@ fieldset {
     width: 81px;
     height: 81px;
 }
-
-.menuImage.browserCancelSelection {
-    background: url('images/Browser_Cancel_Selection.png') 0 0 no-repeat;
-}
-
 
