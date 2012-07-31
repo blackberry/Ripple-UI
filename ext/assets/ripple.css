@@ -1234,7 +1234,7 @@ fieldset {
     vertical-align: middle;
 }
 
-.menuItem:active {
+.menuItemActive {
     border-image: url('images/core_crosscutmenu_selected.png') 2 1 2 13 / 1 1 1 1;
 }
 
