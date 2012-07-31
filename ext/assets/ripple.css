@@ -1113,7 +1113,7 @@ fieldset {
     right: -583px;
     top: 0;
     bottom: 0;
-    display: box;
+    display: -webkit-box;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
     -ms-box-orient: vertical;
