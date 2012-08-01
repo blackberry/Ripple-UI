@@ -114,6 +114,13 @@ input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
 
 .irrelevant { display: none; }
 
+.text-is-selectable {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
 section, header, footer, aside, nav { display: block; }
 
 /* ------------------------------>
