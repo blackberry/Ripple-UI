@@ -27,11 +27,7 @@ describe("context menu", function () {
         it("should exist ", function () {
             expect(typeof contextMenu).not.toBe('undefined' || null);
         });
-
-        it("should have a method named openContextMenu", function () {
-            expect(contextMenu.openContextMenu).toBeDefined();
-        });
-
+        
         it("should have an enabled property", function () {
             expect(contextMenu.enabled).toBeDefined();
         });
