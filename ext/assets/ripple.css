@@ -75,7 +75,7 @@ input, textarea, keygen, select, button, isindex, datagrid {
     border: 0;
 }
 
-.main table{
+.main table {
     font-size: 1.00em;
  }
 
@@ -86,7 +86,7 @@ input, textarea, keygen, select, button, isindex, datagrid {
 }
 
 .main option {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
