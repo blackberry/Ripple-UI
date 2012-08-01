@@ -4,6 +4,3 @@
 [submodule "thirdparty/node-XMLHttpRequest"]
 	path = thirdparty/node-XMLHttpRequest
 	url = http://github.com/driverdan/node-XMLHttpRequest.git
-[submodule "thirdparty/jWorkflow"]
-	path = thirdparty/jWorkflow
-	url = https://github.com/tinyhippos/jWorkflow.git
