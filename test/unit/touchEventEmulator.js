@@ -17,6 +17,8 @@ describe('touchEventEmulator', function () {
     var event = require('ripple/event'),
         jsdom = require('jsdom'),
         win, doc,
+        longPressDuration = 100,
+        longPressWait = 200,
         mockMouseEvent = function (type) {
             var e = doc.createEvent("MouseEvents");
             e.initMouseEvent(type,
@@ -36,7 +38,7 @@ describe('touchEventEmulator', function () {
         };
         doc = win.document;
         var emulator = require('ripple/touchEventEmulator');
-        emulator.mask(win, doc);
+        emulator.mask(win, doc, longPressDuration);
     });
 
     describe('mouse events are converted to touch events', function () {
@@ -97,25 +99,16 @@ describe('touchEventEmulator', function () {
             });
             waitsFor(function () {
                 return eventHandler.wasCalled;
-            }, 'Event handler was not called', 1000);
+            }, 'Event handler was not called', longPressWait);
         });
 
         it('does not fire after a short press', function () {
             runs(function () {
                 a.dispatchEvent(mockMouseEvent('mousedown'));
-                waits(50);
+                waits(longPressDuration / 2);
                 a.dispatchEvent(mockMouseEvent('mouseup'));
             });
-            waits(1000);
-            expect(eventHandler).not.toHaveBeenCalled();
-        });
-
-        it('does not fire after two consecutive short presses', function () {
-            runs(function () {
-                a.dispatchEvent(mockMouseEvent('mousedown'));
-                waits(100);
-                a.dispatchEvent(mockMouseEvent('mousedown'));
-            });
+            waits(longPressWait);
             expect(eventHandler).not.toHaveBeenCalled();
         });
 
@@ -123,13 +116,54 @@ describe('touchEventEmulator', function () {
             var img = doc.createElement('img');
             a.appendChild(img);
             runs(function () {
+                img.dispatchEvent(mockMouseEvent('mousedown'));
+            });
+            waitsFor(function () {
+                return eventHandler.wasCalled;
+            }, 'Event handler was not called', longPressWait);
+            runs(function () {
+                expect(eventHandler).toHaveBeenCalledWith('IMAGE_LINK');
+            });
+        });
+
+        it('fires with LINK context if the target is an anchor', function () {
+            runs(function () {
                 a.dispatchEvent(mockMouseEvent('mousedown'));
             });
             waitsFor(function () {
                 return eventHandler.wasCalled;
-            }, 'Event handler was not called', 1000);
+            }, 'Event handler was not called', longPressWait);
             runs(function () {
                 expect(eventHandler).toHaveBeenCalledWith('LINK');
+            });
+        });
+
+        it('fires with LINK context if the target is inside an anchor', function () {
+            var em = doc.createElement('em');
+            a.appendChild(em);
+            runs(function () {
+                em.dispatchEvent(mockMouseEvent('mousedown'));
+            });
+            waitsFor(function () {
+                return eventHandler.wasCalled;
+            }, 'Event handler was not called', longPressWait);
+            runs(function () {
+                expect(eventHandler).toHaveBeenCalledWith('LINK');
+            });
+        });
+
+        it('traps and buries the subsequent click event after LINK context fires', function () {
+            var clickHandler = jasmine.createSpy();
+            a.addEventListener('click', clickHandler, true);
+            runs(function () {
+                a.dispatchEvent(mockMouseEvent('mousedown'));
+            });
+            waitsFor(function () {
+                return eventHandler.wasCalled;
+            }, 'Event handler was not called', longPressWait);
+            runs(function () {
+                expect(eventHandler).toHaveBeenCalledWith('LINK');
+                expect(clickHandler).not.toHaveBeenCalled();
             });
         });
 
@@ -141,7 +175,7 @@ describe('touchEventEmulator', function () {
             });
             waitsFor(function () {
                 return eventHandler.wasCalled;
-            }, 'Event handler was not called', 1000);
+            }, 'Event handler was not called', longPressWait);
             runs(function () {
                 expect(eventHandler).toHaveBeenCalledWith('IMAGE');
             });
@@ -155,7 +189,7 @@ describe('touchEventEmulator', function () {
             });
             waitsFor(function () {
                 return eventHandler.wasCalled;
-            }, 'Event handler was not called', 1000);
+            }, 'Event handler was not called', longPressWait);
             runs(function () {
                 expect(eventHandler).toHaveBeenCalledWith('INPUT');
             });
@@ -175,7 +209,7 @@ describe('touchEventEmulator', function () {
             });
             waitsFor(function () {
                 return eventHandler.wasCalled;
-            }, 'Event handler was not called', 1000);
+            }, 'Event handler was not called', longPressWait);
             runs(function () {
                 expect(eventHandler).toHaveBeenCalledWith('TEXT');
             });
