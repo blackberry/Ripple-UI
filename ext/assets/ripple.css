@@ -56,6 +56,10 @@ input, textarea, keygen, select, button, isindex, datagrid {
 
 .main {
     font-size: 12px !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* TODO: better css for this specificity */
@@ -71,7 +75,7 @@ input, textarea, keygen, select, button, isindex, datagrid {
     border: 0;
 }
 
-.main table{
+.main table {
     font-size: 1.00em;
  }
 
@@ -82,7 +86,7 @@ input, textarea, keygen, select, button, isindex, datagrid {
 }
 
 .main option {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
@@ -109,6 +113,13 @@ input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
 .h4, .main h4 { font-size: 1em; font-weight: normal; }
 
 .irrelevant { display: none; }
+
+.text-is-selectable {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
 
 section, header, footer, aside, nav { display: block; }
 
