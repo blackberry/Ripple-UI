@@ -56,6 +56,10 @@ input, textarea, keygen, select, button, isindex, datagrid {
 
 .main {
     font-size: 12px !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* TODO: better css for this specificity */
