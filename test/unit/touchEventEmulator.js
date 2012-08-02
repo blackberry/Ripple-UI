@@ -15,8 +15,7 @@
  */
 describe('touchEventEmulator', function () {
     var event = require('ripple/event'),
-        jsdom = require('jsdom'),
-        win, doc,
+        win, doc, body,
         longPressDuration = 100,
         longPressWait = 200,
         mockMouseEvent = function (type) {
@@ -29,23 +28,17 @@ describe('touchEventEmulator', function () {
         };
 
     beforeEach(function () {
-        win = jsdom.jsdom().createWindow('<html><body></body></html>');
-        win.location.path = '';
-        win.getSelection = function () {
-            return {
-                rangeCount: 0
-            };
-        };
+        win = window;
         doc = win.document;
+        body = doc.body;
         var emulator = require('ripple/touchEventEmulator');
         emulator.mask(win, doc, longPressDuration);
     });
 
-    describe('mouse events are converted to touch events', function () {
-        var eventHandler, body;
+    describe('mouse events are translated into touch events', function () {
+        var eventHandler;
 
         beforeEach(function () {
-            body = doc.body;
             eventHandler = jasmine.createSpy();
         });
 
@@ -83,136 +76,31 @@ describe('touchEventEmulator', function () {
         });
     });
 
-    describe('pressing and holding fires a ContextMenuEvent on the ripple event bus', function () {
-        var eventHandler, a;
+    describe('pressing and holding fires a longpress event', function () {
+        var eventHandler;
 
         beforeEach(function () {
-            a = doc.createElement('a');
-            doc.body.appendChild(a);
             eventHandler = jasmine.createSpy();
-            event.on('ContextMenuEvent', eventHandler);
+            event.on('LongPressEvent', eventHandler);
         });
 
         it('fires after a long press', function () {
             runs(function () {
-                a.dispatchEvent(mockMouseEvent('mousedown'));
+                body.dispatchEvent(mockMouseEvent('mousedown'));
             });
             waitsFor(function () {
                 return eventHandler.wasCalled;
-            }, 'Event handler was not called', longPressWait);
+            }, 'longpress was not fired', longPressWait);
         });
 
         it('does not fire after a short press', function () {
             runs(function () {
-                a.dispatchEvent(mockMouseEvent('mousedown'));
-                waits(longPressDuration / 2);
-                a.dispatchEvent(mockMouseEvent('mouseup'));
+                body.dispatchEvent(mockMouseEvent('mousedown'));
+                waits(20);
+                body.dispatchEvent(mockMouseEvent('mouseup'));
             });
             waits(longPressWait);
             expect(eventHandler).not.toHaveBeenCalled();
-        });
-
-        it('fires with IMAGE_LINK context if the target is an image wrapped in a link', function () {
-            var img = doc.createElement('img');
-            a.appendChild(img);
-            runs(function () {
-                img.dispatchEvent(mockMouseEvent('mousedown'));
-            });
-            waitsFor(function () {
-                return eventHandler.wasCalled;
-            }, 'Event handler was not called', longPressWait);
-            runs(function () {
-                expect(eventHandler).toHaveBeenCalledWith('IMAGE_LINK');
-            });
-        });
-
-        it('fires with LINK context if the target is an anchor', function () {
-            runs(function () {
-                a.dispatchEvent(mockMouseEvent('mousedown'));
-            });
-            waitsFor(function () {
-                return eventHandler.wasCalled;
-            }, 'Event handler was not called', longPressWait);
-            runs(function () {
-                expect(eventHandler).toHaveBeenCalledWith('LINK');
-            });
-        });
-
-        it('fires with LINK context if the target is inside an anchor', function () {
-            var em = doc.createElement('em');
-            a.appendChild(em);
-            runs(function () {
-                em.dispatchEvent(mockMouseEvent('mousedown'));
-            });
-            waitsFor(function () {
-                return eventHandler.wasCalled;
-            }, 'Event handler was not called', longPressWait);
-            runs(function () {
-                expect(eventHandler).toHaveBeenCalledWith('LINK');
-            });
-        });
-
-        it('traps and buries the subsequent click event after LINK context fires', function () {
-            var clickHandler = jasmine.createSpy();
-            a.addEventListener('click', clickHandler, true);
-            runs(function () {
-                a.dispatchEvent(mockMouseEvent('mousedown'));
-            });
-            waitsFor(function () {
-                return eventHandler.wasCalled;
-            }, 'Event handler was not called', longPressWait);
-            runs(function () {
-                expect(eventHandler).toHaveBeenCalledWith('LINK');
-                expect(clickHandler).not.toHaveBeenCalled();
-            });
-        });
-
-        it('fires with IMAGE context if the target is an image not wrapped in a link', function () {
-            var img = doc.createElement('img');
-            doc.body.appendChild(img);
-            runs(function () {
-                img.dispatchEvent(mockMouseEvent('mousedown'));
-            });
-            waitsFor(function () {
-                return eventHandler.wasCalled;
-            }, 'Event handler was not called', longPressWait);
-            runs(function () {
-                expect(eventHandler).toHaveBeenCalledWith('IMAGE');
-            });
-        });
-
-        it('fires with INPUT context if the target is a form field', function () {
-            var input = doc.createElement('input');
-            doc.body.appendChild(input);
-            runs(function () {
-                input.dispatchEvent(mockMouseEvent('mousedown'));
-            });
-            waitsFor(function () {
-                return eventHandler.wasCalled;
-            }, 'Event handler was not called', longPressWait);
-            runs(function () {
-                expect(eventHandler).toHaveBeenCalledWith('INPUT');
-            });
-        });
-
-        it('fires with TEXT context if the browser window has a text selection', function () {
-            win.getSelection = function () {
-                return {
-                    rangeCount: 1,
-                    getRangeAt: function () {
-                        return "Hello world!";
-                    }
-                };
-            };
-            runs(function () {
-                a.dispatchEvent(mockMouseEvent('mousedown'));
-            });
-            waitsFor(function () {
-                return eventHandler.wasCalled;
-            }, 'Event handler was not called', longPressWait);
-            runs(function () {
-                expect(eventHandler).toHaveBeenCalledWith('TEXT');
-            });
         });
     });
 });
