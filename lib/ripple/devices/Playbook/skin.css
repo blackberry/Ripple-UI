@@ -30,7 +30,6 @@
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
     background: url('images/Playbook_landscape.png') no-repeat;
 }
@@ -50,7 +49,6 @@
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
     background: url('images/Playbook.png') no-repeat;
 }
