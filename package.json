@@ -17,8 +17,9 @@
     "connect": "2.3.6",
     "jsdom": "0.2.14",
     "cssmin": "0.3.1",
-    "html-minifier": "0.4.5"
+    "html-minifier": "0.4.5",
     "jWorkflow": "0.x.x",
+    "xmlhttprequest": "1.4.2"
   },
   "bundledDependencies": [
     "connect"
