@@ -1154,6 +1154,7 @@ fieldset {
 }
 
 /* Show and hide the menu items themselves */
+
 .showItem {
     -webkit-transform: translate(-462px,0);
     transform: translate(-462px, 0);
@@ -1166,6 +1167,7 @@ fieldset {
 }
 
 /* Show and hide the menu */
+
 .showMenu {
     -webkit-transform: translate(-583px,0);
     transform: translate(-583px, 0);

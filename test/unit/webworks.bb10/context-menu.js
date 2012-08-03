@@ -44,40 +44,42 @@ describe("context menu", function () {
     });
 
     // Make sure API signature is implemented correctly
-    it("has an enabled property", function () {
-        expect(contextMenu.enabled).toBeDefined();
-    });
+    describe("Make sure API signature is implemented correctly", function () {
+        it("has an enabled property", function () {
+            expect(contextMenu.enabled).toBeDefined();
+        });
 
-    it("has a readonly field named CONTEXT_ALL", function () {
-        expect(contextMenu.CONTEXT_ALL).toBeDefined();
-    });
+        it("has a readonly field named CONTEXT_ALL", function () {
+            expect(contextMenu.CONTEXT_ALL).toBeDefined();
+        });
 
-    it("has have a readonly field named CONTEXT_LINK", function () {
-        expect(contextMenu.CONTEXT_LINK).toBeDefined();
-    });
+        it("has have a readonly field named CONTEXT_LINK", function () {
+            expect(contextMenu.CONTEXT_LINK).toBeDefined();
+        });
 
-    it("has a readonly field named CONTEXT_IMAGE_LINK", function () {
-        expect(contextMenu.CONTEXT_IMAGE_LINK).toBeDefined();
-    });
+        it("has a readonly field named CONTEXT_IMAGE_LINK", function () {
+            expect(contextMenu.CONTEXT_IMAGE_LINK).toBeDefined();
+        });
 
-    it("has a readonly field named CONTEXT_IMAGE", function () {
-        expect(contextMenu.CONTEXT_IMAGE).toBeDefined();
-    });
+        it("has a readonly field named CONTEXT_IMAGE", function () {
+            expect(contextMenu.CONTEXT_IMAGE).toBeDefined();
+        });
 
-    it("has a readonly field named CONTEXT_INPUT", function () {
-        expect(contextMenu.CONTEXT_INPUT).toBeDefined();
-    });
+        it("has a readonly field named CONTEXT_INPUT", function () {
+            expect(contextMenu.CONTEXT_INPUT).toBeDefined();
+        });
 
-    it("has a readonly field named CONTEXT_TEXT", function () {
-        expect(contextMenu.CONTEXT_TEXT).toBeDefined();
-    });
+        it("has a readonly field named CONTEXT_TEXT", function () {
+            expect(contextMenu.CONTEXT_TEXT).toBeDefined();
+        });
 
-    it("has addItem field defined", function () {
-        expect(contextMenu.addItem).toBeDefined();
-    });
+        it("has addItem field defined", function () {
+            expect(contextMenu.addItem).toBeDefined();
+        });
 
-    it("has removeItem field defined", function () {
-        expect(contextMenu.removeItem).toBeDefined();
+        it("has removeItem field defined", function () {
+            expect(contextMenu.removeItem).toBeDefined();
+        });
     });
 
     it("allows the enabled property to be set", function () {
