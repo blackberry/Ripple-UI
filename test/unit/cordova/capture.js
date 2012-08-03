@@ -38,12 +38,11 @@ describe("Cordova 2.0 Capture bridge", function () {
             spyOn(camera, "show");
         });
 
-        //this actually blows up quite handsomely on my machine.  Should throw I suspect.
-        xit("can be called with no args", function () {
+        it("can be called with no args", function () {
             expect(capture.captureImage).not.toThrow();
             expect(camera.show).toHaveBeenCalled();
             event.trigger("captured-image", _file, true);
-            expect(captureSpy).toHaveBeenCalledWith();
+            expect(captureSpy).toHaveBeenCalled();
         });
 
         it("can be called without specifying an error callback", function () {

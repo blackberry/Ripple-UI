@@ -38,8 +38,7 @@ describe("Cordova Camera bridge", function () {
             spyOn(camera, "show");
         });
 
-        //blows up
-        xit("can be called with no args", function () {
+        it("can be called with no args", function () {
             expect(_camera.takePicture).not.toThrow();
             expect(camera.show).toHaveBeenCalled();
             event.trigger("captured-image", _file, true);
