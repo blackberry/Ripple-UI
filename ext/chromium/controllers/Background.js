@@ -56,7 +56,7 @@ tinyHippos.Background = (function () {
         xhr.send();
 
         chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
-            var xhr, postData, data, plugin;
+            var xhr, postData, data, plugini, eula;
             switch (request.action) {
             case "isEnabled":
                 console.log("isEnabled? ==> " + request.tabURL);
@@ -66,6 +66,25 @@ tinyHippos.Background = (function () {
                 console.log("enabling ==> " + request.tabURL);
                 tinyHippos.Background.enable();
                 sendResponse();
+                break;
+            case "disable":
+                console.log("disabling ==> " + request.tabURL);
+                tinyHippos.Background.disable();
+                sendResponse();
+                break;
+            case "checkEula":
+                eula = localStorage['ripple-eula'] ? JSON.parse(localStorage['ripple-eula']) : false;
+                if (!eula && !_wasJustInstalled) {
+                    eula = true;
+                    localStorage['ripple-eula'] = JSON.stringify(true);
+                }
+                console.log("EULA signed ==> " + eula);
+                sendResponse(eula);
+                break;
+            case "acceptEula":
+                localStorage['ripple-eula'] = JSON.stringify(true);
+                console.log("EULA accepted!");
+                sendResponse(true);
                 break;
             case "userAgent":
                 console.log("user agent ==> " + request.data);
