@@ -515,6 +515,14 @@ input.ui-button { padding: .4em 1em; }
     background: #1e1e1e;
 }
 
+.eula-window {    
+    background-color: rgba(30, 30, 30, 1);    
+}
+
+.eula-dialog {    
+    color: #F0F0F0;    
+}
+
 .first-run-window {    
     background-color: rgba(30, 30, 30, 1);    
 }
