@@ -62,7 +62,6 @@ window.addEventListener('load', function () {
 
     if (background.checkEula()) {
         document.getElementById("ripple-services").style.display = "";
-        return;
     }
 
     start.addEventListener('click', _handle(function () {
