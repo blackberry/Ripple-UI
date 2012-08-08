@@ -73,11 +73,7 @@ tinyHippos.Background = (function () {
                 sendResponse();
                 break;
             case "checkEula":
-                eula = localStorage['ripple-eula'] ? JSON.parse(localStorage['ripple-eula']) : false;
-                if (!eula && !_wasJustInstalled) {
-                    eula = true;
-                    localStorage['ripple-eula'] = JSON.stringify(true);
-                }
+                eula = tinyHippos.Background.checkEula();
                 console.log("EULA signed ==> " + eula);
                 sendResponse(eula);
                 break;
@@ -184,6 +180,17 @@ tinyHippos.Background = (function () {
                 justInstalled: _wasJustInstalled,
                 version: window.localStorage["ripple-version"]
             };
+        },
+
+        checkEula: function () {
+            var eula = localStorage['ripple-eula'] ? JSON.parse(localStorage['ripple-eula']) : false;
+
+            if (!eula && !_wasJustInstalled) {
+                eula = true;
+                localStorage['ripple-eula'] = JSON.stringify(true);
+            }
+
+            return eula;
         },
 
         bindContextMenu: function () {
