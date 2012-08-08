@@ -60,6 +60,11 @@ window.addEventListener('load', function () {
     document.getElementById("popup-disable")
         .addEventListener('click', _handle(background.disable));
 
+    if (background.checkEula()) {
+        document.getElementById("ripple-services").style.display = "";
+        return;
+    }
+
     start.addEventListener('click', _handle(function () {
         background.start();
         window.setTimeout(function () {
