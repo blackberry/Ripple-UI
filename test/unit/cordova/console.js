@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var devices = require('ripple/devices');
+describe("Cordova 2.0 Console bridge", function () {
+    var _console = require('ripple/platform/cordova/2.0.0/bridge/console');
 
-module.exports = {
-    getDeviceInfo: function (success, fail, args) {
-        var device = devices.getCurrentDevice();
-
-        success({
-            available: true,
-            platform: device.osName,
-            version: device.osVersion,
-            name: device.name,
-            uuid: device.uuid,
-            cordova: "2.0.0"
+    describe("when logging", function () {
+        it("calls the log method", function () {
+            spyOn(console, "log");
+            _console.log(null, null, ["beavers!!!"]);
+            expect(console.log).toHaveBeenCalledWith("beavers!!!");
         });
-    }
-};
+    });
+});
