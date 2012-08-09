@@ -76,6 +76,27 @@
                     <input id="geo-timeout" type="checkbox" />
                 </td>
             </tr>
+            <tr id="geo-gpxreplay-container">
+                <td colspan="2">
+                    <input id="geo-gpxfile" type="file" class="ui-state-default ui-corner-all" />
+                    <button id="geo-gpx-go" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" ><span class="ui-button-text">Go</span></button>
+                    <select id="geo-gpxmultiplier-select" class="ui-state-default ui-corner-all">
+                        <option value="1">1x</option>
+                        <option value="2">2x</option>
+                        <option value="4">4x</option>
+                        <option value="8">8x</option>
+                        <option value="16">16x</option>
+                        <option value="32">32x</option>
+                        <option value="64">64x</option>
+                        <option value="128">128x</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="geo-gpxreplaystatus-container">
+                <td colspan="2">
+                    <label id="geo-gpxreplaystatus"></label>
+                </td>
+            </tr>
         </table>
 
         <div id="geo-map">
