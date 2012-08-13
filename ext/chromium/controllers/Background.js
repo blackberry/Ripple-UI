@@ -183,14 +183,7 @@ tinyHippos.Background = (function () {
         },
 
         checkEula: function () {
-            var eula = localStorage['ripple-eula'] ? JSON.parse(localStorage['ripple-eula']) : false;
-
-            if (!eula && !_wasJustInstalled) {
-                eula = true;
-                localStorage['ripple-eula'] = JSON.stringify(true);
-            }
-
-            return eula;
+            return !!localStorage['ripple-eula'];
         },
 
         bindContextMenu: function () {
