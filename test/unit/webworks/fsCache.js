@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("fsCache", function () {
-    var fs = require('ripple/dbfs'),
+    var fs = require('ripple/platform/webworks.core/2.0.0/fs'),
         event = require('ripple/event'),
         FileProperties = require('ripple/platform/webworks.core/2.0.0/client/FileProperties'),
         bbUtils = require('ripple/platform/webworks.core/2.0.0/client/utils'),
@@ -61,12 +61,12 @@ describe("fsCache", function () {
     });
 
     // TODO: cache (get,set,delete) layer is not under test
-    it("calls refresh on FileSystemInitialized", function () {
+    it("calls refresh on WebWorksFileSystemInitialized", function () {
         spyOn(cache, "refresh");
         spyOn(fs, "mkdir").andCallFake(function (path, success) {
             success();
         });
-        event.trigger("FileSystemInitialized", null, true);
+        event.trigger("WebWorksFileSystemInitialized", null, true);
         expect(cache.refresh).toHaveBeenCalled();
     });
 
