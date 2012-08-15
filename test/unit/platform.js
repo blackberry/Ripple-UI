@@ -35,9 +35,9 @@ describe("platform", function () {
     it("getList should return correct value", function () {
         var returnedPlatforms = platform.getList();
 
-        expect(typeof returnedPlatforms["phonegap"]["1.0.0"].id).toEqual("string");
-        expect(typeof returnedPlatforms["phonegap"]["1.0.0"].name).toEqual("string");
-        expect(typeof returnedPlatforms["phonegap"]["1.0.0"].type).toEqual("string");
+        expect(typeof returnedPlatforms["cordova"]["1.0.0"].id).toEqual("string");
+        expect(typeof returnedPlatforms["cordova"]["1.0.0"].name).toEqual("string");
+        expect(typeof returnedPlatforms["cordova"]["1.0.0"].type).toEqual("string");
     });
 
     describe("when changing the environment", function () {

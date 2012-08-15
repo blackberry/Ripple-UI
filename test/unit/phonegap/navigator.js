@@ -22,7 +22,7 @@ describe("phonegap_navigator", function () {
 
     beforeEach(function () {
         spyOn(devices, "getCurrentDevice").andReturn("WTF");
-        navigator = require('ripple/platform/phonegap/1.0.0/navigator');
+        navigator = require('ripple/platform/cordova/1.0.0/navigator');
     });
 
     it("it fires device ready and logs when tinyHippos Loaded event is raised", function () {

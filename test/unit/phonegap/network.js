@@ -15,7 +15,7 @@
  */
 describe("phonegap_network", function () {
     var deviceSettings = require('ripple/deviceSettings'),
-        network = require('ripple/platform/phonegap/1.0.0/network');
+        network = require('ripple/platform/cordova/1.0.0/network');
 
     it("returns the value from deviceSettings", function () {
         spyOn(deviceSettings, "retrieve").andReturn("tin_cans");
