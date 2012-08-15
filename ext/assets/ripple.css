@@ -447,15 +447,15 @@ section.left { left: 0; }
 }
 
 .overlay-menu-box::-webkit-scrollbar {  
-    width: 0.50ex;
-    -webkit-border-radius: 1ex;  
-    border-radius: 1ex;
+    width: 0.50em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
 }  
   
 .overlay-menu-box::-webkit-scrollbar-thumb {  
     background: #0f55ad;
-    -webkit-border-radius: 1ex;
-    border-radius: 1ex;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
 }
 
 .overlay-menu-item, .overlay-menu-item-default {
