@@ -1,4 +1,4 @@
-## v0.9.8 - Aug 9, 2012
+## v0.9.8 - Aug 15, 2012
 
 * Introduced integrated Build & Deploy Services in RIM hosted Ripple
 * Added ability to select Theme through querystring param for auto-enabling Ripple
