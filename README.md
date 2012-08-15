@@ -33,22 +33,23 @@ To test ripple as an extension in chrome/chromium just load the chromium folder 
 
     jake -T
 
-This will describe all the available commands for building and running the tests
+This will describe all the available commands for building and running the tests.
 
 ## Running as a Chrome Extension
 
-- go to the extension management page (chrome://chrome/extensions/) in chrome.
-- Ensure that you have selected the developer mode checkbox
-- click the Load Unpacked extension button
-- select the chromestore folders in the pkg/ folder.
+* Go to the extension management page (chrome://chrome/extensions/) in chrome.
+* Ensure that you have selected the developer mode checkbox.
+* Click the Load Unpacked extension button.
+* Select the chromestore folders in the pkg/ folder.
 
-NOTE: for development you should be fine to just build with jake and refresh your browser.  If
-you end up editing anything in the ext folder you will need to refresh the extension from
-the extension management page.
+NOTE: For development you should be fine to just build with jake and refresh your browser.
+If you end up editing anything in the ext folder you will need to refresh the extension from the extension management page.
 
 ## Running Inside Other Web Browsers
 
 Ripple is (by-design) browser agnostic, and is able to run inside any web browser (with disabled web security).
+
+However, this has (for the most part) only been used in Chrome (and as a result certain things are used that are not supported/tested in other browsers).
 
 To get it running inside Chrome you should start it with these [command line](http://www.chromium.org/developers/how-tos/run-chromium-with-flags) flags:
 
@@ -56,13 +57,11 @@ To get it running inside Chrome you should start it with these [command line](ht
     --disable-web-security
     --user-data-dir=/path/to/dummy/profile
 
-This has only really be tested in chrome.
-
 ## Code Guidelines
 
-* 4 spaces per editor tab
-* jake lint, no new lint errors introduced
-* all unit tests are green
+* 4 spaces per editor tab.
+* `jake lint`, no new lint errors introduced.
+* All unit tests are green.
 
 ## Reference Material &amp; Community
 

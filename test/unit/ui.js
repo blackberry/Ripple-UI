@@ -15,6 +15,9 @@
  */
 describe("ui", function () {
     var ui = require('ripple/ui'),
+        db = require('ripple/db'),
+        themes = require('ripple/ui/themes'),
+        utils = require('ripple/utils'),
         platform = require('ripple/platform');
 
     function _plugin(name) {
@@ -49,6 +52,32 @@ describe("ui", function () {
             if (module.initialize) {
                 expect(module.initialize).toHaveBeenCalled();
             }
+        });
+    });
+
+    describe("loading a theme", function () {
+        // Note: I did this more as an intergration style of test (explicit unit testing felt superfluous)
+        it("can be done via a URL query string parameter", function () {
+            var searchParams = '?theme=foo'; // theme must exist
+
+            themes.push('foo');
+
+            spyOn(platform, "current").andReturn({ui: {plugins: []}});
+            spyOn(utils, 'location').andReturn({search: searchParams});
+            spyOn(db, 'save');
+            spyOn(document.getElementsByTagName('head')[0], 'appendChild');
+            ui.getSystemPlugins().forEach(function (name) {
+                var module = require(_plugin(name));
+                if (module.initialize) {
+                    spyOn(module, "initialize");
+                }
+            });
+
+            ui.initialize();
+
+            themes.splice(-1, 1);
+
+            expect(db.save).toHaveBeenCalledWith('ui-theme', 'foo');
         });
     });
 });

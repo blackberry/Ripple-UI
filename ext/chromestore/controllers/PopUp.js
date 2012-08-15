@@ -13,34 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module.exports = {
-    "id": "Wave",
-    "name": "Samsung Wave",
-    "manufacturer": "Samsung",
-    "model": "Wave",
-    "osName": "Bada",
-    "osVersion": "n/a",
+window.addEventListener('load', function () {
+    var background = chrome.extension.getBackgroundPage().tinyHippos.Background;
 
-    "screen": {
-        "width": 480,
-        "height": 800
-    },
-    "viewPort": {
-        "portrait": {
-            "width": 480,
-            "height": 800,
-            "paddingTop": 0,
-            "paddingLeft": 0
-        },
-        "landscape": {
-            "width": 800,
-            "height": 480,
-            "paddingTop": 0,
-            "paddingLeft": 0
-        }
-    },
+    function _handle(func) {
+        return function () {
+            try {
+                func();
+            } catch (e) {
+                alert(e.message + "\n" + e.stack);
+            }
+        };
+    }
 
-    "ppi": 283,
-    "userAgent": "?",
-    "platforms": ["web"]
-};
+    document.getElementById("popup-enable")
+        .addEventListener('click', _handle(background.enable));
+
+    document.getElementById("popup-disable")
+        .addEventListener('click', _handle(background.disable));
+});

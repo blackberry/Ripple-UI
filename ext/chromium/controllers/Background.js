@@ -56,8 +56,7 @@ tinyHippos.Background = (function () {
         xhr.send();
 
         chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
-            var xhr, postData, data, plugin;
-console.log(request);
+            var xhr, postData, data, plugini, eula;
             switch (request.action) {
             case "isEnabled":
                 console.log("isEnabled? ==> " + request.tabURL);
@@ -67,6 +66,21 @@ console.log(request);
                 console.log("enabling ==> " + request.tabURL);
                 tinyHippos.Background.enable();
                 sendResponse();
+                break;
+            case "disable":
+                console.log("disabling ==> " + request.tabURL);
+                tinyHippos.Background.disable();
+                sendResponse();
+                break;
+            case "checkEula":
+                eula = tinyHippos.Background.checkEula();
+                console.log("EULA signed ==> " + eula);
+                sendResponse(eula);
+                break;
+            case "acceptEula":
+                localStorage['ripple-eula'] = JSON.stringify(true);
+                console.log("EULA accepted!");
+                sendResponse(true);
                 break;
             case "userAgent":
                 console.log("user agent ==> " + request.data);
@@ -104,21 +118,10 @@ console.log(request);
             case "services":
                 console.log("services", request.data);
                 if (request.data === '"start"') {
-                    plugin = document.getElementById("pluginRippleBD");
-                    if (plugin) {
-                        console.log("return from startBD", plugin.startBD(9910));
-                        sendResponse();
-                    }
+                    _self.start(sendResponse);
                 }
                 else if (request.data === '"stop"') {
-                    xhr = new XMLHTTPRequest();
-                    try {
-                        xhr.open("GET", "http://127.0.0.1:9910/ripple/shutdown", false);
-                        xhr.send();
-                    }
-                    catch (e) {
-                        console.log(e);
-                    }
+                    _self.stop(sendResponse);
                 }
                 break;
             case "lag":
@@ -179,6 +182,10 @@ console.log(request);
             };
         },
 
+        checkEula: function () {
+            return !!localStorage['ripple-eula'];
+        },
+
         bindContextMenu: function () {
             var id = chrome.contextMenus.create({
                 "type": "normal",
@@ -237,6 +244,66 @@ console.log(request);
             });
         },
 
+        start: function (sendResponse) {
+            var plugin = document.getElementById("pluginRippleBD");
+            if (plugin) {
+                var result = plugin.startBD(9910);
+                console.log("return from startBD", result);
+                if (sendResponse && typeof sendResponse === 'function') {
+                    sendResponse({result: result});
+                }
+            }
+        },
+
+        stop: function (sendResponse) {
+            var xhr = new XMLHttpRequest();
+            try {
+                xhr.open("GET", "http://127.0.0.1:9910/ripple/shutdown", false);
+                xhr.send();
+                if (sendResponse && typeof sendResponse === 'function') {
+                    sendResponse({});
+                }
+            }
+            catch (e) {
+                if (e.code === 101) {
+                    sendResponse({});
+                    return;
+                }
+                console.log("error", e);
+            }
+        },
+
+        autostart: function (start) {
+            if (start) {
+                window.localStorage['ripple-services'] = JSON.stringify(true);
+            }
+            else {
+                delete window.localStorage['ripple-services'];
+            }
+        },
+
+        serviceIsRunning: function () {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("GET", "http://127.0.0.1:9910/ripple/about", false);
+            xhr.send();
+            console.log(xhr);
+            if (xhr.response) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+
+        isAutostart: function () {
+            if (window.localStorage['ripple-services']) {
+                return JSON.parse(window.localStorage['ripple-services']);
+            }
+
+            return false;
+        },
+
         isEnabled: function (url, enabledURIs) {
             if (url.match(/enableripple=/i)) {
                 _persistEnabled(url);
@@ -265,3 +332,18 @@ console.log(request);
 
     return _self;
 }());
+
+// check to see if Ripple Services need to be enabled
+if (tinyHippos.Background.isAutostart() === true) {
+    window.addEventListener("load", function () {
+        tinyHippos.Background.start();
+        console.log("ripple services started on http://localhost:9910");
+    });
+}
+
+
+//HACK: need to find a better way to do this since it's
+//WebWorks specific!!!
+window.onunload = function () {
+    tinyHippos.Background.stop();
+};

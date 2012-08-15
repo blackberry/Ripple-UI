@@ -1,3 +1,11 @@
+## v0.9.8 - Aug 15, 2012
+
+* Introduced integrated Build & Deploy Services in RIM hosted Ripple
+* Added ability to select Theme through querystring param for auto-enabling Ripple
+* Minor UI clean up work
+* Added Nexus 7 Device
+* Added Galaxy Nexus Device
+
 ## v0.9.7 - July 19, 2012
 
 * Fixed an issue with Ripple booting on Chrome 21 dev channel
