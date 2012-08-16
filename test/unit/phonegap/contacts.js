@@ -17,11 +17,11 @@ describe("phonegap_contacts", function () {
     var db = require('ripple/db'),
         event = require('ripple/event'),
         utils = require('ripple/utils'),
-        Contact = require('ripple/platform/phonegap/1.0.0/Contact'),
-        ContactError = require('ripple/platform/phonegap/1.0.0/ContactError'),
-        ContactField = require('ripple/platform/phonegap/1.0.0/ContactField'),
-        ContactFindOptions = require('ripple/platform/phonegap/1.0.0/ContactFindOptions'),
-        contacts = require('ripple/platform/phonegap/1.0.0/contacts');
+        Contact = require('ripple/platform/cordova/1.0.0/Contact'),
+        ContactError = require('ripple/platform/cordova/1.0.0/ContactError'),
+        ContactField = require('ripple/platform/cordova/1.0.0/ContactField'),
+        ContactFindOptions = require('ripple/platform/cordova/1.0.0/ContactFindOptions'),
+        contacts = require('ripple/platform/cordova/1.0.0/contacts');
 
     beforeEach(function () {
         spyOn(window, "setTimeout").andCallFake(function (func) {
@@ -30,51 +30,51 @@ describe("phonegap_contacts", function () {
     });
 
     describe("spec", function () {
-        var spec = require('ripple/platform/phonegap/1.0.0/spec');
+        var spec = require('ripple/platform/cordova/1.0.0/spec');
 
         it("includes contacts module according to proper object structure", function () {
             expect(spec.objects.navigator.children.contacts.path)
-                .toEqual("phonegap/1.0.0/contacts");
+                .toEqual("cordova/1.0.0/contacts");
         });
 
         it("includes ContactError module according to proper object structure", function () {
             expect(spec.objects.ContactError.path)
-                .toEqual("phonegap/1.0.0/ContactError");
+                .toEqual("cordova/1.0.0/ContactError");
         });
 
         it("includes Contact module according to proper object structure", function () {
             expect(spec.objects.Contact.path)
-                .toEqual("phonegap/1.0.0/Contact");
+                .toEqual("cordova/1.0.0/Contact");
         });
 
         it("includes ContactName module according to proper object structure", function () {
             expect(spec.objects.ContactName.path)
-                .toEqual("phonegap/1.0.0/ContactName");
+                .toEqual("cordova/1.0.0/ContactName");
         });
 
         it("includes ContactAccount module according to proper object structure", function () {
             expect(spec.objects.ContactAccount.path)
-                .toEqual("phonegap/1.0.0/ContactAccount");
+                .toEqual("cordova/1.0.0/ContactAccount");
         });
 
         it("includes ContactAddress module according to proper object structure", function () {
             expect(spec.objects.ContactAddress.path)
-                .toEqual("phonegap/1.0.0/ContactAddress");
+                .toEqual("cordova/1.0.0/ContactAddress");
         });
 
         it("includes ContactOrganization module according to proper object structure", function () {
             expect(spec.objects.ContactOrganization.path)
-                .toEqual("phonegap/1.0.0/ContactOrganization");
+                .toEqual("cordova/1.0.0/ContactOrganization");
         });
 
         it("includes ContactFindOptions module according to proper object structure", function () {
             expect(spec.objects.ContactFindOptions.path)
-                .toEqual("phonegap/1.0.0/ContactFindOptions");
+                .toEqual("cordova/1.0.0/ContactFindOptions");
         });
 
         it("includes ContactField module according to proper object structure", function () {
             expect(spec.objects.ContactField.path)
-                .toEqual("phonegap/1.0.0/ContactField");
+                .toEqual("cordova/1.0.0/ContactField");
         });
     });
 
