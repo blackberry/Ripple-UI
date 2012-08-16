@@ -19,7 +19,7 @@ var fs = require('fs'),
     rexp_src = new RegExp('\\.js$');
 
 desc("runs jake build");
-task('default', [], require('./build/build'));
+task('default', ['fixwhitespace'], require('./build/build'));
 
 desc("compiles source files for all extensions - jake build [web,npm,chromium]");
 task('build', [], require('./build/build'));
