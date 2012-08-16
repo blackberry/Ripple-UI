@@ -45,9 +45,6 @@ input, textarea, keygen, select, button, isindex, datagrid {
 
 .beta {
     -webkit-transform: rotate(-35deg);
-    -moz-transform: rotate(-35deg);
-    -ms-transform: rotate(-35deg);
-    -o-transform: rotate(-35deg);
     transform: rotate(-35deg);
     position: absolute;
     left: 390px;
@@ -57,8 +54,6 @@ input, textarea, keygen, select, button, isindex, datagrid {
 .main {
     font-size: 12px !important;
     -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
 
@@ -81,7 +76,6 @@ input, textarea, keygen, select, button, isindex, datagrid {
 
 .main input[type^=text], .main input[type^=number], .main select, .main textarea {
     -webkit-appearance: none;
-    -moz-appearance: none;
     padding: 0.4em 1em !important;
 }
 
@@ -116,8 +110,6 @@ input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
 
 .text-is-selectable {
     -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
     user-select: text;
 }
 
@@ -155,7 +147,6 @@ section, header, footer, aside, nav { display: block; }
 
 .viewport-wrapper {
     -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
 }
 
@@ -164,7 +155,6 @@ section, header, footer, aside, nav { display: block; }
     padding: 144px 0 0 41px;
     padding: 55px 25px 105px 25px;
     -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
     border-radius: 20px;
     margin: 0 auto;
 }
@@ -350,12 +340,6 @@ section.left { left: 0; }
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
     -webkit-box-align: center;
-    -moz-box-orient: horizontal;
-    -moz-box-pack: center;
-    -moz-box-align: center;
-    -ms-box-orient: horizontal;
-    -ms-box-pack: center;
-    -ms-box-align: center;
     overflow-y: auto;
     background: rgba(0, 0, 0, 0.25);
 }
@@ -363,28 +347,16 @@ section.left { left: 0; }
 .overlay-dialog-bottomCenter {
     -webkit-box-orient: vertical;
     -webkit-box-pack: end;
-    -moz-box-orient: vertical;
-    -moz-box-pack: end;
-    -ms-box-orient: vertical;
-    -ms-box-pack: end;
 }
 
 .overlay-dialog-topCenter {
     -webkit-box-orient: vertical;
     -webkit-box-pack: start;
-    -moz-box-orient: vertical;
-    -moz-box-pack: start;
-    -ms-box-orient: vertical;
-    -ms-box-pack: start;
 }
 
 .overlay-dialog-middleCenter {
     -webkit-box-orient: vertical;
     -webkit-box-pack: center;
-    -moz-box-orient: vertical;
-    -moz-box-pack: center;
-    -ms-box-orient: vertical;
-    -ms-box-pack: center;
 }
 
 .overlay-dialog-wrapper-full {
@@ -414,7 +386,6 @@ section.left { left: 0; }
 .overlay-dialog-wrapper {
     color: #FFF;
     -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
     border-radius: 8px;
     background: rgba(0,0,0,1.0);
 }
@@ -422,7 +393,6 @@ section.left { left: 0; }
 .overlay-dialog-box {
     padding: 5%;
     -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
     border-radius: 8px;
     background: rgba(0,0,0,1.0);
 }
@@ -449,7 +419,6 @@ section.left { left: 0; }
 
 .overlay-dialog-buttons > input{
     -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
     border-radius: 4px;
     margin: 5px;
 }
@@ -478,17 +447,15 @@ section.left { left: 0; }
 }
 
 .overlay-menu-box::-webkit-scrollbar {  
-    width: 0.50ex;
-    -webkit-border-radius: 1ex;  
-    -moz-border-radius: 1ex;
-    border-radius: 1ex;
+    width: 0.50em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
 }  
   
 .overlay-menu-box::-webkit-scrollbar-thumb {  
     background: #0f55ad;
-    -webkit-border-radius: 1ex;
-    -moz-border-radius: 1ex;
-    border-radius: 1ex;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
 }
 
 .overlay-menu-item, .overlay-menu-item-default {
@@ -522,7 +489,6 @@ section.left { left: 0; }
     padding: .5em 1em;
     font-size: 0.92em;
     -webkit-box-shadow: 0 1px 10px rgb(0,0,0);
-    -moz-box-shadow: 0 1px 10px rgb(0,0,0);
     box-shadow: 0 1px 10px rgb(0,0,0);
     z-index: 1100;
 }
@@ -534,7 +500,6 @@ section.left { left: 0; }
     cursor: pointer;
     padding: 3px 5px;
     -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
 }
 
@@ -559,9 +524,6 @@ section.left { left: 0; }
 
 #layout-landscape {
     -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
 }
 
@@ -619,7 +581,6 @@ section.left { left: 0; }
     color: #000;
     background-color: rgba(180,180,180,0.7);
     -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
     padding: 5px;
     z-index: 800;
@@ -779,7 +740,6 @@ section.left { left: 0; }
     background: #1e1e1e;
     border: solid rgba(204, 204, 204, 0.9);
     -webkit-box-shadow: 0 0 15px rgba(153, 153, 153, 0.75);
-    -moz-box-shadow: 0 0 15px rgba(153, 153, 153, 0.75);
     box-shadow: 0 0 15px rgba(153, 153, 153, 0.75);
 }
 
@@ -821,7 +781,6 @@ section.left { left: 0; }
     top: 30px;
     right: 20px;
     position: absolute;
-    -moz-box-shadow: 0 0 15px rgba(153, 153, 153, 0.75);
     -webkit-box-shadow: 0 0 15px rgba(153, 153, 153, 0.75);
     box-shadow: 0 0 15px rgba(153, 153, 153, 0.75);
 }
@@ -1032,7 +991,6 @@ section.left { left: 0; }
 
 ::-webkit-resizer {
     -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
     border-radius: 4px;
     background-color: #333333;
 }
@@ -1042,7 +1000,6 @@ section.left { left: 0; }
     min-width: 0.8em;
     margin: 0 .25em;
     -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
     border-radius: 4px;
     background-color: #333333;
 }
