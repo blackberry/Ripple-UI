@@ -13,8 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var fs = require('fs'),
+    path = require("path"),
+    rexp_minified = new RegExp("\\.min\\.js$"),
+    rexp_src = new RegExp('\\.js$');
+
 desc("runs jake build");
-task('default', [], require('./build/build'));
+task('default', ['fixwhitespace'], require('./build/build'));
 
 desc("compiles source files for all extensions - jake build [web,npm,chromium]");
 task('build', [], require('./build/build'));
@@ -64,3 +69,90 @@ task('clean', [], function () {
         pass: complete
     });
 }, true);
+
+// courtesy of incubator-cordova-js found here: https://github.com/apache/incubator-cordova-js/blob/master/Jakefile
+var complainedAboutWhitespace = false
+
+desc('complain about what fixwhitespace would fix');
+task('complainwhitespace', function() {
+    processWhiteSpace(function(file, newSource) {
+        if (!complainedAboutWhitespace) {
+            console.log("files with whitespace issues: (to fix: `jake fixwhitespace`)")
+            complainedAboutWhitespace = true
+        }
+        
+        console.log("   " + file)
+    })
+}, true);
+
+desc('converts tabs to four spaces, eliminates trailing white space, converts newlines to proper form - enforcing style guide ftw!');
+task('fixwhitespace', function() {
+    processWhiteSpace(function(file, newSource) {
+        if (!complainedAboutWhitespace) {
+            console.log("fixed whitespace issues in:")
+            complainedAboutWhitespace = true
+        }
+        
+        fs.writeFileSync(file, newSource, 'utf8');
+        console.log("   " + file)
+    })
+}, true);
+
+function forEachFile(root, cbFile, cbDone) {
+    var count = 0;
+
+    function scan(name) {
+        ++count;
+
+        fs.stat(name, function (err, stats) {
+            if (err) cbFile(err);
+
+            if (stats.isDirectory()) {
+                fs.readdir(name, function (err, files) {
+                    if (err) cbFile(err);
+
+                    files.forEach(function (file) {
+                        scan(path.join(name, file));
+                    });
+                    done();
+                });
+            } else if (stats.isFile()) {
+                cbFile(null, name, stats, done);
+            } else {
+                done();
+            }
+        });
+    }
+
+    function done() {
+        --count;
+        if (count === 0 && cbDone) cbDone();
+    }
+
+    scan(root);
+}
+
+function processWhiteSpace(processor) {
+    forEachFile('lib', function(err, file, stats, cbDone) {
+        //if (err) throw err;
+        if (rexp_minified.test(file) || !rexp_src.test(file)) {
+            cbDone();
+        } else {
+            var origsrc = src = fs.readFileSync(file, 'utf8');
+
+            // tabs -> four spaces
+            if (src.indexOf('\t') >= 0) {
+                src = src.split('\t').join('    ');
+            }
+
+            // eliminate trailing white space
+            src = src.replace(/ +\n/g, '\n');
+
+            if (origsrc !== src) {
+                // write it out yo
+                processor(file, src);
+            }
+            cbDone();
+        }
+    }, complete);
+}
