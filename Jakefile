@@ -71,27 +71,10 @@ task('clean', [], function () {
 }, true);
 
 // courtesy of incubator-cordova-js found here: https://github.com/apache/incubator-cordova-js/blob/master/Jakefile
-var complainedAboutWhitespace = false
-
-desc('complain about what fixwhitespace would fix');
-task('complainwhitespace', function() {
-    processWhiteSpace(function(file, newSource) {
-        if (!complainedAboutWhitespace) {
-            console.log("files with whitespace issues: (to fix: `jake fixwhitespace`)")
-            complainedAboutWhitespace = true
-        }
-        
-        console.log("   " + file)
-    })
-}, true);
-
 desc('converts tabs to four spaces, eliminates trailing white space, converts newlines to proper form - enforcing style guide ftw!');
 task('fixwhitespace', function() {
     processWhiteSpace(function(file, newSource) {
-        if (!complainedAboutWhitespace) {
-            console.log("fixed whitespace issues in:")
-            complainedAboutWhitespace = true
-        }
+        console.log("fixed whitespace issues in:")
         
         fs.writeFileSync(file, newSource, 'utf8');
         console.log("   " + file)
