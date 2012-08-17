@@ -19,8 +19,7 @@
     "jWorkflow": "*"
   },
   "bundledDependencies": [
-    "connect",
-    "argsparser"
+    "connect"
   ],
   "files": [
     "pkg/web",

@@ -81,7 +81,6 @@ hr { color: #1e1e1e; }
       float: left;
       margin: 0 0.5em 1em 0;
       -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
       border-radius: 5px;
   }
 
