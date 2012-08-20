@@ -582,6 +582,7 @@ section.left { left: 0; }
     width: 316px;
     height: 316px;
     overflow: hidden;
+    -webkit-user-select: none;
 }
 
 #geo-map-container {
