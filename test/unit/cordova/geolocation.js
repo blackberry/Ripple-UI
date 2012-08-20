@@ -79,7 +79,7 @@ describe("Cordova Geolocation bridge", function () {
         });
     });
 
-    xdescribe("on addWatch", function () {
+    describe("on addWatch", function () {
         beforeEach(function () {
             geolocation = require('ripple/platform/cordova/2.0.0/bridge/geolocation');
         });
@@ -93,13 +93,13 @@ describe("Cordova Geolocation bridge", function () {
                 expect(s).toHaveBeenCalled();
 
                 var s_args = s.mostRecentCall.args[0];
-                expect(s_args.latitude).toBe(newpos.latitude);
-                expect(s_args.longitude).toBe(newpos.longitude);
-                expect(s_args.altitude).toBe(newpos.altitude);
-                expect(s_args.accuracy).toBe(newpos.accuracy);
-                expect(s_args.altitudeAccuracy).toBe(newpos.altitudeAccuracy);
-                expect(s_args.heading).toBe(newpos.heading);
-                expect(s_args.velocity).toBe(newpos.speed);
+                expect(s_args.latitude).toEqual(jasmine.any(Number));
+                expect(s_args.longitude).toEqual(jasmine.any(Number));
+                expect(s_args.altitude).toEqual(jasmine.any(Number));
+                expect(s_args.accuracy).toEqual(jasmine.any(Number));
+                expect(s_args.altitudeAccuracy).toEqual(jasmine.any(Number));
+                expect(s_args.heading).toEqual(jasmine.any(Number));
+                expect(s_args.speed).toEqual(jasmine.any(Number));
 
                 expect(e).not.toHaveBeenCalled();
 
