@@ -23,7 +23,7 @@ describe("fsCache", function () {
         fullPath: "/dude",
         name: "dude",
         isDirectory: false,
-        file: function (success, error) {
+        file: function (success) {
             success({
                 lastModifiedDate: new Date(456),
                 size: 20,
@@ -38,7 +38,7 @@ describe("fsCache", function () {
         fullPath: "/hungry.js",
         name: "hungry.js",
         isDirectory: false,
-        file: function (success, error) {
+        file: function (success) {
             success({
                 lastModifiedDate: new Date(123),
                 size: 50,
@@ -53,7 +53,7 @@ describe("fsCache", function () {
 
     beforeEach(function () {
         spyOn(fs, "read");
-        spyOn(fs, "ls").andCallFake(function (path, success, error) {
+        spyOn(fs, "ls").andCallFake(function (path, success) {
             success(path === "/" ? _root : []);
         });
 
@@ -63,7 +63,7 @@ describe("fsCache", function () {
     // TODO: cache (get,set,delete) layer is not under test
     it("calls refresh on FileSystemInitialized", function () {
         spyOn(cache, "refresh");
-        spyOn(fs, "mkdir").andCallFake(function (path, success, error) {
+        spyOn(fs, "mkdir").andCallFake(function (path, success) {
             success();
         });
         event.trigger("FileSystemInitialized", null, true);
@@ -239,7 +239,7 @@ describe("fsCache", function () {
                 success = jasmine.createSpy();
 
             fs.read.reset();
-            fs.read.andCallFake(function (path, success, error) {
+            fs.read.andCallFake(function (path, success) {
                 setTimeout(function () {
                     success(blob);
                 }, 1);

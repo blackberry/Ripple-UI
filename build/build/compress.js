@@ -17,7 +17,6 @@ var childProcess = require('child_process'),
     _c = require('./conf'),
     utils = require('./utils'),
     childProcess = require('child_process'),
-    fs = require('fs'),
     jWorkflow = require('jWorkflow');
 
 module.exports = function (prev, baton) {
@@ -27,7 +26,7 @@ module.exports = function (prev, baton) {
     function compress(file) {
         cmd.andThen(function (prev, baton) {
             baton.take();
-            childProcess.exec('uglifyjs --overwrite ' + file, function (error, stdout, stdin) {
+            childProcess.exec('uglifyjs --overwrite ' + file, function (error) {
                 if (error) {
                     process.stdout.write("Something bad happened. Is uglify-js installed?");
                     process.stdout.write(error);
