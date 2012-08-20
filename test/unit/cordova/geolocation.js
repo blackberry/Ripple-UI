@@ -106,7 +106,7 @@ describe("Cordova Geolocation bridge", function () {
                 s.reset();
                 e.reset();
 
-                geolocation.clearWatch(0);
+                geolocation.clearWatch(null, null, [0]);
 
                 newpos = movePositionABit(newpos);
 
@@ -147,7 +147,7 @@ describe("Cordova Geolocation bridge", function () {
                 //remove odd numbered watches
                 for (i = 0; i < mS.length; i++) {
                     if ((i % 2) !== 0)
-                    { geolocation.clearWatch(i); }
+                    { geolocation.clearWatch(null, null, [i]); }
                 }
 
                 newpos = movePositionABit(newpos);
