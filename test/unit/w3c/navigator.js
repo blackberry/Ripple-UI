@@ -15,7 +15,6 @@
  */
 var devices = require('ripple/devices'),
     constants = require('ripple/constants'),
-    utils = require('ripple/utils'),
     nav = require('ripple/platform/w3c/1.0/navigator');
 
 describe("w3c navigator", function () {

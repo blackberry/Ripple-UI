@@ -19,7 +19,7 @@ describe("phonegap_compass", function () {
 
     it("clearWatch clears interval", function () {
         spyOn(global, "clearInterval");
-        compass.clearWatch(30);
+        compass.clearWatch(null, null, [30]);
         expect(clearInterval).toHaveBeenCalledWith(30);
     });
 
@@ -80,6 +80,6 @@ describe("phonegap_compass", function () {
 
         expect(failure).not.toHaveBeenCalled();
         expect(success).toHaveBeenCalledWith(info.heading);
-        compass.clearWatch(watchId);
+        compass.clearWatch(null, null, [watchId]);
     });
 });

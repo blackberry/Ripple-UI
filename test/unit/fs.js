@@ -33,7 +33,7 @@ describe("fs", function () {
         _dirEntry = {
             createReader: function () {
                 return {
-                    readEntries: function (success, error) {
+                    readEntries: function (success) {
                         success(_resultEntries);
                     }
                 };
@@ -42,7 +42,7 @@ describe("fs", function () {
 
         _fs = {
             root: {
-                getDirectory: function (path, options, success, error) {
+                getDirectory: function (path, options, success) {
                     success(_dirEntry);
                 }
             }
@@ -50,11 +50,11 @@ describe("fs", function () {
 
         window.TEMPORARY = 0;
         window.PERSISTENT = 1;
-        window.webkitRequestFileSystem = window.requestFileSystem = function (persistenceMethod, fsSize, success, failure) {
+        window.webkitRequestFileSystem = window.requestFileSystem = function (persistenceMethod, fsSize, success) {
             success(_fs);
         };
 
-        window.webkitResolveLocalFileSystemURL = window.resolveLocalFileSystemURL = function (url, success, failure) {};
+        window.webkitResolveLocalFileSystemURL = window.resolveLocalFileSystemURL = function () {};
 
         window.WebKitBlobBuilder = window.BlobBuilder = function () {};
         window.FileReader = global.FileReader = function () {};
@@ -125,7 +125,7 @@ describe("fs", function () {
             var error = jasmine.createSpy(),
                 success = jasmine.createSpy();
 
-            _fs.root.getDirectory = function (path, options, success, error) {
+            _fs.root.getDirectory = function (path, options, success) {
                 success(_resultEntries[0]);
             };
 
@@ -151,7 +151,7 @@ describe("fs", function () {
             var error = jasmine.createSpy(),
                 success = jasmine.createSpy();
 
-            _fs.root.getFile = function (path, options, success, error) {
+            _fs.root.getFile = function (path, options, success) {
                 success(_resultEntries[0]);
             };
 
@@ -226,7 +226,7 @@ describe("fs", function () {
                 }),
                 success = jasmine.createSpy();
 
-            _fs.root.getFile = function (path, options, success, error) {
+            _fs.root.getFile = function (path, options, success) {
                 success(_resultEntries[0]);
             };
 
@@ -255,7 +255,7 @@ describe("fs", function () {
                 }),
                 success = jasmine.createSpy();
 
-            _fs.root.getDirectory = function (path, options, success, error) {
+            _fs.root.getDirectory = function (path, options, success) {
                 success(_resultEntries[0]);
             };
 
@@ -286,7 +286,7 @@ describe("fs", function () {
                 }),
                 success = jasmine.createSpy();
 
-            _fs.root.getDirectory = function (path, options, success, error) {
+            _fs.root.getDirectory = function (path, options, success) {
                 success(_resultEntries[0]);
             };
 
@@ -318,7 +318,7 @@ describe("fs", function () {
                 error = jasmine.createSpy(),
                 success = jasmine.createSpy();
 
-            spyOn(window, "resolveLocalFileSystemURL").andCallFake(function (url, success, error) {
+            spyOn(window, "resolveLocalFileSystemURL").andCallFake(function (url, success) {
                 success(entry);
             });
 
@@ -354,7 +354,7 @@ describe("fs", function () {
                 from = "/foo",
                 to = "/bar";
 
-            spyOn(fs, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success) {
                 success(path.match(/^\/$/) ? rootEntry : fromEntry);
             });
 
@@ -391,7 +391,7 @@ describe("fs", function () {
                 from = "/foo",
                 to = "/bar";
 
-            spyOn(fs, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success) {
                 success(path.match(/^\/$/) ? rootEntry : fromEntry);
             });
 
@@ -433,15 +433,15 @@ describe("fs", function () {
                     getBlob: jasmine.createSpy().andReturn(txt)
                 };
 
-            spyOn(fs, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success) {
                 success(fileEntry);
             });
 
-            spyOn(fs, "touch").andCallFake(function (path, success, error) {
+            spyOn(fs, "touch").andCallFake(function (path, success) {
                 success(fileEntry);
             });
 
-            spyOn(fs, "rm").andCallFake(function (path, success, error) {
+            spyOn(fs, "rm").andCallFake(function (path, success) {
                 success();
             });
 
@@ -544,15 +544,15 @@ describe("fs", function () {
                         getBlob: jasmine.createSpy().andReturn(txt)
                     };
 
-                spyOn(fs, "stat").andCallFake(function (path, success, error) {
+                spyOn(fs, "stat").andCallFake(function (path, success) {
                     success(fileEntry);
                 });
 
-                spyOn(fs, "touch").andCallFake(function (path, success, error) {
+                spyOn(fs, "touch").andCallFake(function (path, success) {
                     success(fileEntry);
                 });
 
-                spyOn(fs, "rm").andCallFake(function (path, success, error) {
+                spyOn(fs, "rm").andCallFake(function (path, success) {
                     success();
                 });
 
@@ -587,7 +587,7 @@ describe("fs", function () {
                     })
                 };
 
-            spyOn(fs, "stat").andCallFake(function (path, success, error) {
+            spyOn(fs, "stat").andCallFake(function (path, success) {
                 success(fileEntry);
             });
 
