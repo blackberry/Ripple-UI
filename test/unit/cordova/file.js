@@ -119,7 +119,7 @@ describe("Cordova file bridge", function () {
         };
         s = jasmine.createSpy("success");
         e = jasmine.createSpy("error");
-        webkitRequestFileSystemSpy = jasmine.createSpy("webkitRequestFileSystem").andCallFake(function (a, b, win, fail) {
+        webkitRequestFileSystemSpy = jasmine.createSpy("webkitRequestFileSystem").andCallFake(function (a, b, win) {
             win(_fs);
         });
         window.webkitRequestFileSystem = webkitRequestFileSystemSpy;
@@ -159,13 +159,13 @@ describe("Cordova file bridge", function () {
             return {
                 onerror: function () { },
                 onload: function () { },
-                readAsText: function (b, e) {
+                readAsText: function (b) {
                     if (b.name.substr(b.name.lastIndexOf("."), 5) === ".fail" > -1)
                     { this.onerror({ code: "unit test error" }); }
                     else
                     { this.onload({ target: { result: "bunch of fake text supposedly read from a file" } }); }
                 },
-                readAsDataURL: function (b, e) {
+                readAsDataURL: function (b) {
                     if (b.name.substr(b.name.lastIndexOf("."), 5) === ".fail" > -1)
                     { this.onerror({ code: "unit test error" }); }
                     else

@@ -391,7 +391,7 @@ describe("phonegap_contacts", function () {
                 spyOn(db, "saveObject");
                 spyOn(db, "retrieveObject").andReturn([]);
 
-                event.trigger("phonegap-contact-save", [contact, function (item) {
+                event.trigger("phonegap-contact-save", [contact, function () {
                     expect(db.saveObject).toHaveBeenCalledWith("phonegap-contacts", [contact]);
                 }, error], true);
             });

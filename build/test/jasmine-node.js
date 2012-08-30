@@ -28,7 +28,7 @@ function run(targets, done) {
         global[key] = jasmine[key];
     });
 
-    reporter.reportRunnerStarting = function (runner) {
+    reporter.reportRunnerStarting = function () {
         started = new Date().getTime();
     };
 

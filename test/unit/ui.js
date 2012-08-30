@@ -32,7 +32,7 @@ describe("ui", function () {
             ],
             jWorkflow_order = jWorkflow.order;
 
-        spyOn(jWorkflow, "order").andCallFake(function (func) {
+        spyOn(jWorkflow, "order").andCallFake(function () {
             return jWorkflow_order();
         });
 
