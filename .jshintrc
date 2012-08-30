@@ -5,6 +5,7 @@
         "WebKitBlobBuilder", "BlobBuilder",
         "webkitNotifications",
         "FileError",
+        "Blob",
         "DOMDocument",
         "$", "it", "describe",
         "xit", "xdescribe",
