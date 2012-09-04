@@ -1,0 +1,91 @@
+h1 {
+    cursor: pointer;
+    color: #002B36;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    font-weight: normal;
+}
+
+h1:hover {
+    text-decoration: underline;
+}
+
+h1:active {
+    color: #839496;
+}
+
+h2, h3 {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+}
+
+span, pre {
+    font: Monospace;
+    font-size: 12px;
+    background-color: #002B36;
+    color: #999999;
+}
+
+pre {
+    height: 0;
+    overflow: hidden;
+    margin: 0 2em;
+    padding: 0;
+    border-radius: 8px;
+}
+
+    .viewable {
+        padding: 1em;
+        margin: 1em 2em;
+        height: auto;
+    }
+
+.error {
+    background-color: #333333;
+}
+
+.count {
+    opacity: 0.8;
+    position: relative;
+    left: -0.25em;
+    padding-right: .2em;
+    padding-left: .2em;
+}
+
+    .pass .count {
+        background: transparent;
+        color: #BFFFBF;
+    }
+
+    .error .count {
+        background: transparent;
+        color: #F8D5D8;
+    }
+
+.totals {
+    float: right;
+    color: #839496;
+    padding: 1em;
+    margin: 1em 2em;
+    font-size: 14px;
+    background-color: #002B36;
+    border-radius: 8px;
+}
+
+    .totals div {
+        opacity: 0.8;
+    }
+
+    .total-coverage {
+        color: #BFFFBF;
+    }
+
+    .total-covered {
+        color: #BFFFBF;
+    }
+
+    .total-skipped {
+        color: #F8D5D8;
+    }

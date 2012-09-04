@@ -72,7 +72,9 @@ function _setupEnv(ready) {
     });
 }
 
-module.exports = function (customPaths, done) {
+module.exports = function (customPaths, done, opts) {
+    if (!opts) { opts = {}; }
+
     //HACK: this should be  taken out if our pull request in jasmine is accepted.
     jasmine.core.Matchers.prototype.toThrow = function (expected) {
         var result = false,
@@ -120,7 +122,8 @@ module.exports = function (customPaths, done) {
         }
 
         global.ripple = function (p) {
-            return require(path.normalize(path.join(__dirname, "..", "lib", "client")) + "/" + p);
+            return require(path.normalize(path.join(__dirname, "..",
+                        (opts.withCoverage ? path.join("cov", "lib") : "lib"), "client")) + "/" + p);
         };
 
         jasmine.run(targets, function (runner) {

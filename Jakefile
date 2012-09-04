@@ -30,6 +30,13 @@ task('test', [], function () {
                 Array.prototype.slice.apply(arguments) : null);
 });
 
+namespace('test', function () {
+    desc("runs jake test with code coverage");
+    task('cov', [], function (customPaths) {
+        require('./build/test/cov')(customPaths, complete);
+    }, true);
+});
+
 desc("boot test server for running all tests in the browser");
 task('btest', [], require('./build/btest'));
 
