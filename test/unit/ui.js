@@ -65,6 +65,10 @@ describe("ui", function () {
             spyOn(platform, "current").andReturn({ui: {plugins: []}});
             spyOn(utils, 'location').andReturn({search: searchParams});
             spyOn(db, 'save');
+            spyOn(db, 'retrieve');
+            spyOn(db, 'retrieveObject');
+            spyOn(db, 'saveObject');
+            spyOn(db, 'remove');
             spyOn(document.getElementsByTagName('head')[0], 'appendChild');
             ui.getSystemPlugins().forEach(function (name) {
                 var module = require(_plugin(name));
