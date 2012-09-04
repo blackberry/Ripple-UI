@@ -32,8 +32,7 @@ function _spawn(proc, args, done) {
 }
 
 function _lintJS(files, done) {
-    var options = ["--reporter", "build/lint/reporter.js", "--show-non-errors"];
-    _spawn('jshint', files.concat(options), done);
+    _spawn('jshint', files, done);
 }
 
 function _lintCSS(files, done) {
