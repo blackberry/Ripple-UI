@@ -59,7 +59,6 @@ describe("webworks bb10 io.filetransfer", function () {
         });
     });
 
-    // TODO:
     describe("upload a local file to a remote server", function () {
         var path = "path/to/some/local/file",
             server = "http://path/to/http/upload/server",
