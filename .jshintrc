@@ -1,10 +1,12 @@
 {
     "predef": [ 
         "stagewebview",
+        "FormData",
         "FileReader", "FileWriter",
         "WebKitBlobBuilder", "BlobBuilder",
         "webkitNotifications",
         "FileError",
+        "Blob",
         "DOMDocument",
         "$", "it", "describe",
         "xit", "xdescribe",

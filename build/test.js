@@ -35,6 +35,7 @@ function _extraMocks() {
     window.navigator.geolocation = {};
     window.navigator.javaEnabled = function () {};
 
+    global.FormData = window.FormData = function () {};
     global.location = window.location = {protocol: "http"};
     global.NamedNodeMap = function () {
         return [];
