@@ -324,12 +324,6 @@ section.left { left: 0; }
 /* ------------------------------>
     overlay UI */
 
-#overlay-views {
-    position: absolute;
-    width: inherit;
-    height: inherit;
-}
-
 .overlay {
     z-index: 10000;
     width: 100%;
