@@ -41,13 +41,15 @@ function _lintCSS(files, done) {
     _spawn('csslint', files.concat(options), function (/*code*/) {
         // TODO: There is a lingering CSS error that can not be turned off.
         //       Once fix, pass code back into this callback.
-        done();
+        done(0);
     });
 }
 
 module.exports = function (done, files) {
     var cssDirs = ["ext/assets/ripple.css", "ext/chromium/styles", "lib", "test"];
-    _lintJS(files && files.length > 0 ? files : ["."], function () {
-        _lintCSS(files && files.length > 0 ? files : cssDirs, done);
+    _lintJS(files && files.length > 0 ? files : ["."], function (jscode) {
+        _lintCSS(files && files.length > 0 ? files : cssDirs, function (csscode) {
+            done((jscode === 0 && csscode === 0) ? 0 : 1);
+        });
     });
 };
