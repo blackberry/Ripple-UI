@@ -22,6 +22,7 @@ describe("fs", function () {
         _baton,
         _fs,
         _oldLocation,
+        _resolveLocalFileSystemURLSpy,
         _domain = "http://127.0.0.1:3000";
 
     beforeEach(function () {
@@ -54,7 +55,8 @@ describe("fs", function () {
             success(_fs);
         };
 
-        window.webkitResolveLocalFileSystemURL = window.resolveLocalFileSystemURL = function () {};
+        _resolveLocalFileSystemURLSpy = jasmine.createSpy("resolveLocalFileSystemURL");
+        window.webkitResolveLocalFileSystemURL = window.resolveLocalFileSystemURL = _resolveLocalFileSystemURLSpy;
 
         window.WebKitBlobBuilder = window.BlobBuilder = function () {};
         window.Blob = global.Blob = function () {};
@@ -347,16 +349,16 @@ describe("fs", function () {
                 error = jasmine.createSpy(),
                 success = jasmine.createSpy();
 
-            spyOn(window, "resolveLocalFileSystemURL").andCallFake(function (url, success) {
+            _resolveLocalFileSystemURLSpy.andCallFake(function (url, success) {
                 success(entry);
             });
 
             fs.stat("/bob", success, error);
 
-            expect(window.resolveLocalFileSystemURL.argsForCall[0][0])
+            expect(_resolveLocalFileSystemURLSpy.argsForCall[0][0])
                 .toEqual("filesystem:" + _domain + "/temporary//bob");
-            expect(typeof window.resolveLocalFileSystemURL.argsForCall[0][1]).toEqual("function");
-            expect(window.resolveLocalFileSystemURL.argsForCall[0][2]).toEqual(error);
+            expect(typeof _resolveLocalFileSystemURLSpy.argsForCall[0][1]).toEqual("function");
+            expect(_resolveLocalFileSystemURLSpy.argsForCall[0][2]).toEqual(error);
             expect(success).toHaveBeenCalledWith(entry);
         });
     });
