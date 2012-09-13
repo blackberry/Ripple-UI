@@ -14,36 +14,85 @@
  * limitations under the License.
  */
 var childProcess = require('child_process'),
+    fs = require('fs'),
     _c = require('./conf'),
     utils = require('./utils'),
     childProcess = require('child_process'),
-    jWorkflow = require('jWorkflow');
+    jWorkflow = require('jWorkflow'),
+    cssmin = require('cssmin').cssmin,
+    htmlmin = require('html-minifier').minify;
+
+function compressJS(workflow, file) {
+    workflow.andThen(function (prev, baton) {
+        baton.take();
+        childProcess.exec('uglifyjs --overwrite ' + file, function (err) {
+            if (err) {
+                process.stdout.write("Something bad happened. Is uglify-js installed?");
+                process.stdout.write(err);
+                process.exit(1);
+            } else {
+                baton.pass();
+            }
+        });
+    });
+}
+
+function compressCSS(workflow, file) {
+    workflow.andThen(function (prev, baton) {
+        baton.take();
+        fs.readFile(file, "utf-8", function (err, data) {
+            if (err) {
+                process.stdout.write("Something bad happened while minifying css.");
+                process.stdout.write(err);
+                process.exit(1);
+            } else {
+                fs.writeFile(file, cssmin(data), function () {
+                    baton.pass();
+                });
+            }
+        });
+    });
+}
+
+function compressHTML(workflow, file) {
+    workflow.andThen(function (prev, baton) {
+        baton.take();
+        fs.readFile(file, "utf-8", function (err, data) {
+            if (err) {
+                process.stdout.write("Something bad happened while minifying html.");
+                process.stdout.write(err);
+                process.exit(1);
+            } else {
+                fs.writeFile(file, htmlmin(data, {removeComments: true, collapseWhitespace: true}), function () {
+                    baton.pass();
+                });
+            }
+        });
+    });
+}
 
 module.exports = function (prev, baton) {
-    var files = [],
-        cmd = jWorkflow.order();
-
-    function compress(file) {
-        cmd.andThen(function (prev, baton) {
-            baton.take();
-            childProcess.exec('uglifyjs --overwrite ' + file, function (error) {
-                if (error) {
-                    process.stdout.write("Something bad happened. Is uglify-js installed?");
-                    process.stdout.write(error);
-                    process.exit(1);
-                } else {
-                    baton.pass();
-                }
-            });
-        });
-    }
+    var cmd = jWorkflow.order(),
+        files = {
+            css: [],
+            html: [],
+            js: []
+        };
 
     process.stdout.write("compressing...");
     baton.take();
 
-    utils.collect(_c.DEPLOY, files);
+    function matches(regex, str) {
+        return !!str.match(regex);
+    }
 
-    files.forEach(compress);
+    utils.collect(_c.DEPLOY, files.js, matches.bind(this, /\.js$/));
+    utils.collect(_c.DEPLOY, files.css, matches.bind(this, /\.css$/));
+    utils.collect(_c.DEPLOY, files.html, matches.bind(this, /\.html$/));
+
+    files.js.forEach(compressJS.bind(this, cmd));
+    files.css.forEach(compressCSS.bind(this, cmd));
+    files.html.forEach(compressHTML.bind(this, cmd));
 
     cmd.start(baton.pass);
 };
