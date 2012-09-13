@@ -22,9 +22,17 @@ describe("xhr", function () {
         XHR_cors = require('ripple/xhr/cors'),
         XHR_jsonp = require('ripple/xhr/jsonp');
 
+    function _isEmptyObject(obj) {
+        var name;
+        for (name in obj) {
+            return false;
+        }
+        return true;
+    }
+
     function _validate(XHR) {
         var obj = new XHR();
-        expect(obj).not.toEqual({});
+        expect(_isEmptyObject(obj)).toBe(false);
         expect(typeof obj.open).toBe("function");
         expect(typeof obj.send).toBe("function");
     }
