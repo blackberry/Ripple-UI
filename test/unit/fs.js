@@ -23,6 +23,7 @@ describe("fs", function () {
         _fs,
         _oldLocation,
         _resolveLocalFileSystemURLSpy,
+        _requestFileSystemSpy,
         _domain = "http://127.0.0.1:3000";
 
     beforeEach(function () {
@@ -51,9 +52,10 @@ describe("fs", function () {
 
         window.TEMPORARY = 0;
         window.PERSISTENT = 1;
-        window.webkitRequestFileSystem = window.requestFileSystem = function (persistenceMethod, fsSize, success) {
+        _requestFileSystemSpy = jasmine.createSpy("requestFileSystem");
+        window.webkitRequestFileSystem = window.requestFileSystem = _requestFileSystemSpy.andCallFake(function (persistenceMethod, fsSize, success) {
             success(_fs);
-        };
+        });
 
         _resolveLocalFileSystemURLSpy = jasmine.createSpy("resolveLocalFileSystemURL");
         window.webkitResolveLocalFileSystemURL = window.resolveLocalFileSystemURL = _resolveLocalFileSystemURLSpy;
@@ -91,31 +93,21 @@ describe("fs", function () {
 
     describe("initialize", function () {
         it("uses requestFileSystem", function () {
-            spyOn(window, "requestFileSystem");
-            fs.initialize(null, _baton);
-
             expect(window.requestFileSystem.argsForCall[0][0]).toEqual(window.TEMPORARY);
             expect(window.requestFileSystem.argsForCall[0][1]).toEqual(10 * 1024 * 1024);
         });
 
         it("takes and passes the baton", function () {
-            spyOn(window, "requestFileSystem");
-            fs.initialize(null, _baton);
-
             expect(_baton.take).toHaveBeenCalled();
             expect(_baton.pass).toHaveBeenCalled();
         });
 
         it("triggers FileSystemIntialized", function () {
-            spyOn(window, "requestFileSystem");
-            fs.initialize(null, _baton);
-
             expect(event.trigger).toHaveBeenCalledWith("FileSystemInitialized", null, true);
         });
 
         it("uses webkitRequestFileSystem when requestFileSystem is not present", function () {
             delete window.requestFileSystem;
-            spyOn(window, "webkitRequestFileSystem");
             fs.initialize(null, _baton);
 
             expect(window.webkitRequestFileSystem.argsForCall[0][0]).toEqual(window.TEMPORARY);
