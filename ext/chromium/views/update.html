@@ -19,25 +19,13 @@
         <title>Ripple Update</title>
         <link media="screen" rel="stylesheet" type="text/css" href="../styles/extension.css" />
         <link media="screen" rel="stylesheet" type="text/css" href="../themes/dark/theme.css" />
+        <script type="text/javascript" src="../controllers/update.js"></script>
     </head>
     <body>
         <div class="update-container" style="color: #F0F0F0">
             <img src="../images/Icon_48x48.png" class="notification-icon" alt="" />
-
-            <h2><script type="text/javascript" charset="utf-8">
-                var metaData = chrome.extension.getBackgroundPage().tinyHippos.Background.metaData();
-                document.write(metaData.justInstalled ? "Welcome to Ripple" : "Ripple has been updated");
-            </script></h2>
-            <p><script type="text/javascript" charset="utf-8">
-                var html = "";
-                if (metaData.justInstalled) {
-                    html = "Visit our <a href=\"http://developer.blackberry.com/html5/documentation\" target=\"_blank\">documentation site</a> to get started.";
-                } else {
-                    html = "See what's new in <a href=\"https://github.com/blackberry/Ripple-UI/blob/master/doc/CHANGELOG.md\"" +
-                        " target=\"_blank\">v" + metaData.version + "</a>.";
-                }
-                document.write(html);
-            </script></p>
+            <h2 id="title"></h2>
+            <p id="body"></p>
         </div>
     </body>
 </html>

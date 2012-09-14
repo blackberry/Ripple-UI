@@ -15,6 +15,8 @@
  */
 var childProcess = require('child_process'),
     fs = require('fs'),
+    path = require('path'),
+    utils = require('./utils'),
     _c = require('./conf');
 
 module.exports = function (src, baton) {
@@ -36,7 +38,9 @@ module.exports = function (src, baton) {
             updatesSrc = _c.DEPLOY + "chromestore/updates.xml",
             updatesDeploy = _c.DEPLOY + "updates.xml",
             js = _c.DEPLOY + "chromestore/ripple.js",
+            manifestJSON = JSON.parse(fs.readFileSync(manifest, "utf-8")),
             bootstrap = _c.DEPLOY + "chromestore/bootstrap.js",
+            resourceList = [],
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
                           .replace(/#DIALOG_VIEWS#/g, src.dialogs)
@@ -44,9 +48,6 @@ module.exports = function (src, baton) {
                           .replace(/'/g, _c.ESCAPED_QUOTES);
 
         fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
-
-        fs.writeFileSync(manifest, fs.readFileSync(manifest, "utf-8")
-                         .replace(new RegExp('"version": ""', 'g'), '"version": "' + src.info.version + '"'));
 
         fs.writeFileSync(updatesDeploy, fs.readFileSync(updatesSrc, "utf-8")
                          .replace(new RegExp('version=""', 'g'), 'version="' + src.info.version + '"'));
@@ -60,6 +61,15 @@ module.exports = function (src, baton) {
             src.js +
             "require('ripple/bootstrap').bootstrap();"
         );
+
+        utils.collect(_c.DEPLOY + "/chromestore", resourceList, function () { return true; });
+
+        manifestJSON.version = src.info.version;
+        manifestJSON.web_accessible_resources = resourceList.map(function (p) {
+            return p.replace(path.normalize(_c.DEPLOY + "/chromestore/"), '');
+        });
+
+        fs.writeFileSync(manifest, JSON.stringify(manifestJSON), "utf-8");
 
         baton.pass(src);
     });
