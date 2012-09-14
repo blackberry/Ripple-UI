@@ -165,7 +165,7 @@ describe("fs", function () {
 
             expect(fs.mkdir.argsForCall[1][2]).toBe(error);
 
-            expect(fs.stat).toHaveBeenCalledWith(dirpath, success, error);
+            expect(fs.stat).toHaveBeenCalledWith(dirpath, success, error, {});
         });
     });
 
