@@ -16,30 +16,28 @@
 var childProcess = require('child_process'),
     fs = require('fs'),
     path = require('path'),
-    utils = require('./utils'),
-    _c = require('./conf');
+    utils = require('./../utils'),
+    _c = require('./../conf');
 
 module.exports = function (src, baton) {
     baton.take();
 
-    var copy = 'cp -r ' + _c.EXT + "chromium " + _c.DEPLOY + "chromestore/ && " +
-               'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chromestore/ &&" +
-               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chromestore/ &&" +
-               'cp ' + _c.EXT + "chromestore/manifest.json " + _c.DEPLOY + "chromestore/manifest.json &&" +
-               'cp ' + _c.EXT + "chromestore/controllers/Background.js " + _c.DEPLOY + "chromestore/controllers/Background.js &&" + 
-               'cp ' + _c.EXT + "chromestore/controllers/PopUp.js " + _c.DEPLOY + "chromestore/controllers/PopUp.js &&" + 
-               'cp ' + _c.EXT + "chromestore/views/background.html " + _c.DEPLOY + "chromestore/views/background.html &&" + 
-               'cp ' + _c.EXT + "chromestore/views/popup.html " + _c.DEPLOY + "chromestore/views/popup.html";
+    var copy = 'cp -r ' + _c.EXT + "chrome.extension " + _c.DEPLOY + "chrome.extension/ && " +
+               'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chrome.extension/ &&" +
+               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chrome.extension/ &&" +
+               'cp ' + _c.EXT + "chrome.extension/manifest.json " + _c.DEPLOY + "chrome.extension/manifest.json &&" +
+               'cp ' + _c.EXT + "chrome.extension/controllers/Background.js " + _c.DEPLOY + "chrome.extension/controllers/Background.js &&" + 
+               'cp ' + _c.EXT + "chrome.extension/controllers/PopUp.js " + _c.DEPLOY + "chrome.extension/controllers/PopUp.js &&" + 
+               'cp ' + _c.EXT + "chrome.extension/views/background.html " + _c.DEPLOY + "chrome.extension/views/background.html &&" + 
+               'cp ' + _c.EXT + "chrome.extension/views/popup.html " + _c.DEPLOY + "chrome.extension/views/popup.html";
 
     childProcess.exec(copy, function () {
         var css = _c.ASSETS + "ripple.css",
-            cssDeploy = _c.DEPLOY + "chromestore/ripple.css",
-            manifest = _c.DEPLOY + "chromestore/manifest.json",
-            updatesSrc = _c.DEPLOY + "chromestore/updates.xml",
-            updatesDeploy = _c.DEPLOY + "updates.xml",
-            js = _c.DEPLOY + "chromestore/ripple.js",
+            cssDeploy = _c.DEPLOY + "chrome.extension/ripple.css",
+            manifest = _c.DEPLOY + "chrome.extension/manifest.json",
             manifestJSON = JSON.parse(fs.readFileSync(manifest, "utf-8")),
-            bootstrap = _c.DEPLOY + "chromestore/bootstrap.js",
+            js = _c.DEPLOY + "chrome.extension/ripple.js",
+            bootstrap = _c.DEPLOY + "chrome.extension/bootstrap.js",
             resourceList = [],
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
@@ -48,10 +46,6 @@ module.exports = function (src, baton) {
                           .replace(/'/g, _c.ESCAPED_QUOTES);
 
         fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
-
-        fs.writeFileSync(updatesDeploy, fs.readFileSync(updatesSrc, "utf-8")
-                         .replace(new RegExp('version=""', 'g'), 'version="' + src.info.version + '"'));
-        fs.unlinkSync(updatesSrc);
 
         fs.writeFileSync(bootstrap,
                          "window.th_panel = {" + "LAYOUT_HTML: '" + doc + "'};" +
@@ -62,11 +56,11 @@ module.exports = function (src, baton) {
             "require('ripple/bootstrap').bootstrap();"
         );
 
-        utils.collect(_c.DEPLOY + "/chromestore", resourceList, function () { return true; });
+        utils.collect(_c.DEPLOY + "/chrome.extension", resourceList, function () { return true; });
 
         manifestJSON.version = src.info.version;
         manifestJSON.web_accessible_resources = resourceList.map(function (p) {
-            return p.replace(path.normalize(_c.DEPLOY + "/chromestore/"), '');
+            return p.replace(path.normalize(_c.DEPLOY + "/chrome.extension/"), '');
         });
 
         fs.writeFileSync(manifest, JSON.stringify(manifestJSON), "utf-8");

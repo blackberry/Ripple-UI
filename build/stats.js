@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var _c = require('./conf');
+
 module.exports = function () {
     var libs = [],
         tests = [],
@@ -70,8 +72,8 @@ module.exports = function () {
         }
     }
 
-    collect(__dirname + "/../lib/", libs);
-    collect(__dirname + "/../test/", tests);
+    collect(_c.LIB, libs);
+    collect(_c.ROOT + "test", tests);
 
     libs.sort();
     tests.sort();

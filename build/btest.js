@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var connect = require('connect'),
+    fs = require('fs'),
+    utils = require('./utils'),
+    _c = require('./conf'),
+    pack = require('./pack');
+
 module.exports = function () {
-    var connect = require('connect'),
-        fs = require('fs'),
-        utils = require('./build/utils'),
-        tests = [],
-        html = fs.readFileSync(__dirname + "/btest/test.html", "utf-8"),
-        pack = require('./build/pack'),
-        conf = require('./build/conf'),
+    var tests = [],
+        html = fs.readFileSync(_c.BUILD + "btest/test.html", "utf-8"),
         doc,
         modules,
         specs,
         app = connect()
-            .use(connect.static(__dirname + "/../lib/"))
-            .use(connect.static(__dirname + "/../"))
+            .use(connect.static(_c.LIB))
+            .use(connect.static(_c.ROOT))
             .use('/', function (req, res) {
                 res.writeHead(200, {
                     "Cache-Control": "max-age=0",
@@ -36,13 +37,13 @@ module.exports = function () {
             });
 
     //HACK: Openlayers causes weird stuff with the browser runner, so lets remove it from the list until we fix it
-    conf.thirdpartyIncludes = conf.thirdpartyIncludes.filter(function (filename) {
+    _c.thirdpartyIncludes = _c.thirdpartyIncludes.filter(function (filename) {
         return !filename.match(/openlayers\.js/i);
     });
 
     modules = pack();
 
-    utils.collect(__dirname + "/../test", tests);
+    utils.collect(_c.ROOT + "test", tests);
 
     specs = tests.reduce(function (str, file) {
         str += '<script src="' +

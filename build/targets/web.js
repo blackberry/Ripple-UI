@@ -16,8 +16,8 @@
 var childProcess = require('child_process'),
     fs = require('fs'),
     path = require('path'),
-    utils = require('./utils'),
-    _c = require('./conf');
+    utils = require('./../utils'),
+    _c = require('./../conf');
 
 function copy(from, callback) {
     var cmd = 'cp -r ' + from + ' ' + _c.DEPLOY + "web";
@@ -54,6 +54,8 @@ module.exports = function (src, baton) {
         var css = _c.ASSETS + "ripple.css",
             cssDeploy = _c.DEPLOY + "web/ripple.css",
             cacheDeploy = _c.DEPLOY + "web/cache.manifest",
+            cacheTarget = _c.EXT + "web/cache.manifest",
+            cacheData = fs.readFileSync(cacheTarget, "utf-8"),
             index = _c.DEPLOY + "web/index.html",
             js = _c.DEPLOY + "web/ripple.js",
             doc = src.html.replace(/#URL_PREFIX#/g, "")
@@ -67,7 +69,7 @@ module.exports = function (src, baton) {
             "require('ripple/ui').register('omnibar');" +
             "require('ripple/bootstrap').bootstrap();");
 
-        fs.writeFileSync(cacheDeploy, fs.readFileSync(_c.CACHE_MANIFEST, "utf-8") + _cache());
+        fs.writeFileSync(cacheDeploy, cacheData + _cache());
 
         copy(_c.PACKAGE_JSON, function () {
             baton.pass(src);

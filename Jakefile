@@ -21,7 +21,7 @@ var fs = require('fs'),
 desc("runs jake build");
 task('default', ['fixwhitespace'], require('./build/build'));
 
-desc("compiles source files for all extensions - jake build [web,npm,chromium]");
+desc("compiles source files for targets/* - usage: jake build [target] where target is the folder name (defaults to all)");
 task('build', [], require('./build/build'));
 
 desc("test and lint before building (with js compression)");
@@ -64,7 +64,7 @@ task('stats', [], require('./build/stats'));
 
 desc("cleans any built extension directories");
 task('clean', [], function () {
-    require('./build/build/clean')(null, {
+    require('./build/clean')(null, {
         take: function () {},
         pass: complete
     });

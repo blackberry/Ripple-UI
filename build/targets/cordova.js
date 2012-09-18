@@ -15,7 +15,7 @@
  */
 var childProcess = require('child_process'),
     fs = require('fs'),
-    _c = require('./conf');
+    _c = require('./../conf');
 
 function create(path) {
     return function (prev, baton) {
@@ -36,9 +36,9 @@ function copy(from, to) {
 function write(src) {
     return function () {
         var css = _c.ASSETS + "ripple.css",
-            cssDeploy = _c.DEPLOY + "app/www/ripple.css",
-            index = _c.DEPLOY + "app/www/index.html",
-            js = _c.DEPLOY + "app/www/ripple.js",
+            cssDeploy = _c.DEPLOY + "cordova/www/ripple.css",
+            index = _c.DEPLOY + "cordova/www/index.html",
+            js = _c.DEPLOY + "cordova/www/ripple.js",
             doc = src.html.replace(/#URL_PREFIX#/g, "")
                           .replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#DIALOG_VIEWS#/g, src.dialogs)
@@ -57,11 +57,11 @@ module.exports = function (src, baton) {
     var jWorkflow = require("jWorkflow");
     baton.take();
 
-    jWorkflow.order(create('app'))
-             .andThen(create('app/www'))
-             .andThen(copy(_c.EXT + "app", ""))
-             .andThen(copy(_c.ASSETS, "app/www"))
-             .andThen(copy(_c.PACKAGE_JSON, "app/www"))
+    jWorkflow.order(create('cordova'))
+             .andThen(create('cordova/www'))
+             .andThen(copy(_c.EXT + "cordova", ""))
+             .andThen(copy(_c.ASSETS, "cordova/www"))
+             .andThen(copy(_c.PACKAGE_JSON, "cordova/www"))
              .andThen(write(src))
              .start(baton.pass);
 };

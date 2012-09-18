@@ -17,7 +17,8 @@ var lint = require('./lint'),
     build = require('./build'),
     childProcess = require('child_process'),
     fs = require('fs'),
-    fail = fs.readFileSync(__dirname + "/../thirdparty/fail.txt", "utf-8");
+    _c = require('./conf'),
+    fail = fs.readFileSync(_c.THIRDPARTY + "fail.txt", "utf-8");
 
 function ok(code) {
     if (code || code === 1) {

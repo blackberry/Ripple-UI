@@ -27,20 +27,18 @@ This script will pull down the needed npm packages and initialize the submodules
 
     jake
 
-This will build ripple to the pkg/ folder. In that folder there is a web directory and a chromium directory.
-
-To test ripple as an extension in chrome/chromium just load the chromium folder as an unpacked extension.
+This will build ripple to the `pkg/` folder. In that folder there are various targets that can be used.
 
     jake -T
 
-This will describe all the available commands for building and running the tests.
+This will describe all the available commands for building and running the tests, etc.
 
 ## Running as a Chrome Extension
 
 * Go to the extension management page (chrome://chrome/extensions/) in chrome.
 * Ensure that you have selected the developer mode checkbox.
 * Click the Load Unpacked extension button.
-* Select the chromestore folders in the pkg/ folder.
+* Select the chrome.extension folder in the pkg/ folder.
 
 NOTE: For development you should be fine to just build with jake and refresh your browser.
 If you end up editing anything in the ext folder you will need to refresh the extension from the extension management page.

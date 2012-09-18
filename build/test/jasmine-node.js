@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var utils = require('./../build/utils'),
-    jasmine = require(__dirname + '/../../thirdparty/jasmine/lib/jasmine-core/jasmine');
+var utils = require('./../utils'),
+    _c = require('./../conf'),
+    jasmine = require(_c.THIRDPARTY + 'jasmine/lib/jasmine-core/jasmine');
 
 function run(targets, done) {
     var suites = [],

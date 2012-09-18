@@ -17,7 +17,8 @@ var jsdom = require('jsdom'),
     fs = require('fs'),
     jWorkflow = require('jWorkflow'),
     jasmine = require('./test/jasmine-node'),
-    nodeXMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+    nodeXMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
+    _c = require('./conf');
 
 function _extraMocks() {
     global.screen = {
@@ -28,7 +29,7 @@ function _extraMocks() {
     };
 
     global.XMLHttpRequest = window.XMLHttpRequest = nodeXMLHttpRequest;
-    require(__dirname + "/../thirdparty/Math.uuid");
+    require(_c.THIRDPARTY + "Math.uuid");
     global.jWorkflow = jWorkflow;
 
     window.navigator.userAgent = "foo";
@@ -44,10 +45,10 @@ function _extraMocks() {
 }
 
 function _setupEnv(ready) {
-    var layout = fs.readFileSync(__dirname + "/../ext/assets/index.html", "utf-8"),
+    var layout = fs.readFileSync(_c.ASSETS + "index.html", "utf-8"),
         thirdparty = [
-            __dirname + "/../thirdparty/jquery.js",
-            __dirname + "/../thirdparty/jquery.ui.js"
+            _c.THIRDPARTY + "jquery.js",
+            _c.THIRDPARTY + "jquery.ui.js"
         ];
 
     jsdom.env(layout, thirdparty, function (error, window) {
@@ -105,7 +106,7 @@ module.exports = function (done) {
     };
 
     _setupEnv(function () {
-        var targets = __dirname + "/../test";
+        var targets = _c.ROOT + "test";
 
         jasmine.run(targets.split(' '), function (runner) {
             var failed = runner.results().failedCount === 0 ? 0 : 1;

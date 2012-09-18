@@ -14,28 +14,30 @@
  * limitations under the License.
  */
 var childProcess = require('child_process'),
-    utils = require('./utils'),
+    utils = require('./../utils'),
     fs = require('fs'),
     path = require('path'),
-    _c = require('./conf');
+    _c = require('./../conf'),
+    _EXT_DIR = "rim.chrome.extension";
 
 module.exports = function (src, baton) {
     baton.take();
 
-    var copy = 'cp -r ' + _c.EXT + "chromium " + _c.DEPLOY + " && " +
-               'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chromium/ &&" +
-               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chromium/" +
-               'cp -r ' + _c.ROOT + "services " + _c.DEPLOY + "chromium/" +
-               'cp -r ' + _c.ROOT + "plugins " + _c.DEPLOY + "chromium/";
+    var copy = 'cp -r ' + _c.EXT + "chrome.extension " + _c.DEPLOY + _EXT_DIR + " && " +
+               'cp -rf ' + _c.EXT + _EXT_DIR + " " + _c.DEPLOY + " && " +
+               'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + _EXT_DIR + "/ &&" +
+               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + _EXT_DIR + "/" +
+               'cp -r ' + _c.ROOT + "services " + _c.DEPLOY + _EXT_DIR + "/" +
+               'cp -r ' + _c.ROOT + "plugins " + _c.DEPLOY + _EXT_DIR + "/";
 
     childProcess.exec(copy, function () {
         var css = _c.ASSETS + "ripple.css",
-            cssDeploy = _c.DEPLOY + "chromium/ripple.css",
-            manifest = _c.DEPLOY + "chromium/manifest.json",
-            updatesSrc = _c.DEPLOY + "chromium/updates.xml",
-            updatesDeploy = _c.DEPLOY + "updates.xml",
-            js = _c.DEPLOY + "chromium/ripple.js",
-            bootstrap = _c.DEPLOY + "chromium/bootstrap.js",
+            cssDeploy = _c.DEPLOY + _EXT_DIR + "/ripple.css",
+            manifest = _c.DEPLOY + _EXT_DIR + "/manifest.json",
+            updatesSrc = _c.EXT + _EXT_DIR + "/updates.xml",
+            updatesDeploy = _c.DEPLOY + _EXT_DIR + "/updates.xml",
+            js = _c.DEPLOY + _EXT_DIR + "/ripple.js",
+            bootstrap = _c.DEPLOY + _EXT_DIR + "/bootstrap.js",
             manifestJSON = JSON.parse(fs.readFileSync(manifest, "utf-8")),
             resourceList = [],
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
@@ -48,7 +50,6 @@ module.exports = function (src, baton) {
 
         fs.writeFileSync(updatesDeploy, fs.readFileSync(updatesSrc, "utf-8")
                          .replace(new RegExp('version=""', 'g'), 'version="' + src.info.version + '"'));
-        fs.unlinkSync(updatesSrc);
 
         fs.writeFileSync(bootstrap,
                          "window.th_panel = {" + "LAYOUT_HTML: '" + doc + "'};" +
@@ -59,11 +60,11 @@ module.exports = function (src, baton) {
             "require('ripple/bootstrap').bootstrap();"
         );
 
-        utils.collect(_c.DEPLOY + "/chromium", resourceList, function () { return true; });
+        utils.collect(_c.DEPLOY + _EXT_DIR, resourceList, function () { return true; });
 
         manifestJSON.version = src.info.version;
         manifestJSON.web_accessible_resources = resourceList.map(function (p) {
-            return p.replace(path.normalize(_c.DEPLOY + "/chromium/"), '');
+            return p.replace(path.normalize(_c.DEPLOY + _EXT_DIR + "/"), '');
         });
 
         fs.writeFileSync(manifest, JSON.stringify(manifestJSON), "utf-8");
