@@ -93,7 +93,7 @@ describe("webworks.tablet system event", function () {
                 function () {
                     expect(listener).toHaveBeenCalledWith(80);
                     // TODO: why does this cause tests to fail
-                    //global.XMLHttpRequest = window.XMLHttpRequest = _oldXHR;
+                    global.XMLHttpRequest = window.XMLHttpRequest = _oldXHR;
                 }
             ]);
         });
