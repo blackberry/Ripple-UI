@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 var childProcess = require('child_process'),
+    utils = require('./utils'),
     fs = require('fs'),
+    path = require('path'),
     _c = require('./conf');
 
 module.exports = function (src, baton) {
@@ -34,6 +36,8 @@ module.exports = function (src, baton) {
             updatesDeploy = _c.DEPLOY + "updates.xml",
             js = _c.DEPLOY + "chromium/ripple.js",
             bootstrap = _c.DEPLOY + "chromium/bootstrap.js",
+            manifestJSON = JSON.parse(fs.readFileSync(manifest, "utf-8")),
+            resourceList = [],
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
                           .replace(/#DIALOG_VIEWS#/g, src.dialogs)
@@ -41,9 +45,6 @@ module.exports = function (src, baton) {
                           .replace(/'/g, _c.ESCAPED_QUOTES);
 
         fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
-
-        fs.writeFileSync(manifest, fs.readFileSync(manifest, "utf-8")
-                         .replace(new RegExp('"version": ""', 'g'), '"version": "' + src.info.version + '"'));
 
         fs.writeFileSync(updatesDeploy, fs.readFileSync(updatesSrc, "utf-8")
                          .replace(new RegExp('version=""', 'g'), 'version="' + src.info.version + '"'));
@@ -57,6 +58,15 @@ module.exports = function (src, baton) {
             src.js +
             "require('ripple/bootstrap').bootstrap();"
         );
+
+        utils.collect(_c.DEPLOY + "/chromium", resourceList, function () { return true; });
+
+        manifestJSON.version = src.info.version;
+        manifestJSON.web_accessible_resources = resourceList.map(function (p) {
+            return p.replace(path.normalize(_c.DEPLOY + "/chromium/"), '');
+        });
+
+        fs.writeFileSync(manifest, JSON.stringify(manifestJSON), "utf-8");
 
         baton.pass(src);
     });
