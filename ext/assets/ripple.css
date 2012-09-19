@@ -981,6 +981,12 @@ section.left { left: 0; }
     }
 
 
+    .platform-select-buttons button {
+        margin: 0 auto 0.75em auto;
+        display: block;
+    }
+
+
 /* ------------------------------>
     Main Scrolling */
 
