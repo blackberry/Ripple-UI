@@ -1,7 +1,11 @@
 {
     "version": "",
+    "manifest_version": 2,
     "name": "Ripple Emulator (Beta)",
-    "background_page":"views/background.html",
+    "background": {
+        "page": "views/background.html"
+    },
+    "web_accessible_resources": [],
     "plugins": [
         { "path": "plugins/npRippleBD.dll" },
         { "path": "plugins/RippleBD.plugin" }
@@ -12,7 +16,7 @@
         "48":"images/Icon_48x48.png"
     },
     "browser_action":{
-        "popup":"views/popup.html",
+        "default_popup":"views/popup.html",
         "default_icon":"images/Icon_48x48.png",
         "default_title":"Ripple"
     },
