@@ -76,7 +76,7 @@ describe('touchEventEmulator', function () {
         });
     });
 
-    describe('pressing and holding fires a longpress event', function () {
+    xdescribe('pressing and holding fires a longpress event', function () {
         var eventHandler;
 
         beforeEach(function () {
