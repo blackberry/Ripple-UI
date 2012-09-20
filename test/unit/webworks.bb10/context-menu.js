@@ -93,11 +93,6 @@ describe("context menu", function () {
         expect(ui.showOverlay).toHaveBeenCalled();
     });
 
-    it("receives LayoutChanged event", function () {
-        events.trigger('LayoutChanged', [], true);
-        expect(ui.showOverlay).toHaveBeenCalled();
-    });
-
     it("can have custom items added and removed", function () {
         contextMenu.addItem([contextMenu.CONTEXT_ALL], goodAction, customMenuCallback);
         contextMenu.removeItem([contextMenu.CONTEXT_ALL], goodAction.actionId);
@@ -105,6 +100,7 @@ describe("context menu", function () {
 
     it("supports firing custom menu events", function () {
         contextMenu.addItem([contextMenu.CONTEXT_ALL], goodAction, customMenuCallback);
+        expect(customMenuCallback).not.toHaveBeenCalled();
         events.trigger('contextmenu.executeMenuAction', [goodAction.actionId], true);
         expect(customMenuCallback).toHaveBeenCalled();
 
@@ -139,6 +135,17 @@ describe("context menu", function () {
         expect(customMenuCallback).wasCalled();
 
         contextMenu.removeItem([contextMenu.CONTEXT_ALL], goodAction.actionId);
+        events.trigger('contextmenu.executeMenuAction', [goodAction.actionId], true);
+        expect(customMenuCallback.callCount).toEqual(1);
+    });
+
+    it("doesn't invoke callback for a removed custom menu item", function () {
+        var goodAction = {actionId: "Action", label: "Reaction", icon: "inaction.png"};
+        contextMenu.addItem([contextMenu.CONTEXT_IMAGE_LINK], goodAction, customMenuCallback);
+        events.trigger('contextmenu.executeMenuAction', [goodAction.actionId], true);
+        expect(customMenuCallback).wasCalled();
+
+        contextMenu.removeItem([contextMenu.CONTEXT_IMAGE_LINK], goodAction.actionId);
         events.trigger('contextmenu.executeMenuAction', [goodAction.actionId], true);
         expect(customMenuCallback.callCount).toEqual(1);
     });
