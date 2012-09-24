@@ -1,16 +1,17 @@
 {
-    "predef": [ 
+    "predef": [
         "stagewebview",
         "FileReader", "FileWriter",
         "WebKitBlobBuilder", "BlobBuilder",
         "webkitNotifications",
         "FileError",
+        "Blob",
         "DOMDocument",
         "$", "it", "describe",
         "xit", "xdescribe",
         "itBrowser", "describeBrowser",
         "beforeEach", "afterEach",
-        "runs", "waits",
+        "runs", "waits", "waitsFor",
         "DOMElement",
         "it", "describe",
         "spyOn", "expect",
@@ -67,11 +68,11 @@
         "OpenLayers",
         "cordova"
     ],
- 
+
     "node" : true,
     "es5" : true,
     "browser" : false,
- 
+
     "boss" : false,
     "curly": false,
     "bitwise" : true,
@@ -94,5 +95,6 @@
     "regexp": false,
     "undef": true,
     "sub": true,
-    "strict": false
+    "strict": false,
+    "unused": true
 }

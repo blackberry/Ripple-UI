@@ -255,7 +255,7 @@ describe("webworks.core io.file", function () {
                         path = "filepath",
                         data = "filedata";
 
-                    spyOn(cache.file, "readFile").andCallFake(function (p, success, async) {
+                    spyOn(cache.file, "readFile").andCallFake(function (p, success) {
                         success(data);
                     });
 
@@ -276,7 +276,7 @@ describe("webworks.core io.file", function () {
                         path = "filepath",
                         data = "filedata";
 
-                    spyOn(cache.file, "readFile").andCallFake(function (p, success, async) {
+                    spyOn(cache.file, "readFile").andCallFake(function (p, success) {
                         success(data);
                     });
 

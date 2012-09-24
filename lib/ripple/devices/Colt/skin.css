@@ -30,7 +30,6 @@
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
     background: url('images/Colt.png') no-repeat;
     background-size: 940px;
@@ -50,7 +49,6 @@
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
     background: url('images/Colt-Landscape.png') no-repeat;
     background-size: 1821px;

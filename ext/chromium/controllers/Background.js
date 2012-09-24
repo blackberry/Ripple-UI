@@ -75,19 +75,19 @@ tinyHippos.Background = (function () {
             case "checkEula":
                 eula = tinyHippos.Background.checkEula();
                 console.log("EULA signed ==> " + eula);
-                sendResponse(eula);
+                sendResponse({"eula": eula});
                 break;
             case "acceptEula":
                 localStorage['ripple-eula'] = JSON.stringify(true);
                 console.log("EULA accepted!");
-                sendResponse(true);
+                sendResponse({"eula": true});
                 break;
             case "userAgent":
                 console.log("user agent ==> " + request.data);
                 userAgent = request.data;
                 break;
             case "version":
-                sendResponse(version);
+                sendResponse({"version": version});
                 break;
             case "xhr":
                 xhr = new XMLHttpRequest();
