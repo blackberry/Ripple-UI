@@ -1,4 +1,6 @@
 ## v0.9.9 - September 25, 2012
+pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
+
 * WebWorks BB10 support:
  * Added support for FileSystem API
  * Added support for rim:permissions config.xml validation
