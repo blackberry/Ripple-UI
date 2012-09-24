@@ -1,3 +1,32 @@
+## v0.9.9 - September 25, 2012
+* WebWorks BB10 support:
+ * Added support for FileSystem API
+ * Added support for rim:permissions config.xml validation
+ * Update userAgent on BB10 Dev Alpha device
+ * Added support for virtual keyboard events
+ * Added new deployment target (device/simulator) for Build and Deploy Services
+
+* Cordova updates:
+ * Combined Cordova and PhoneGap platforms (under separate version)
+ * Fixed platform version selection bug
+ * Fixed FileWrite fail in Cordova 2.0.0
+ * Added core W3C objects to cordova to properly support platforms that rely on those objects being there natively
+ * Fixed default contacts not being modifiable
+ * Inject BB10 WebWorks when loading the BB10 Dev Alpha device
+ * Fixed clearWatch bug in geoloacation API
+
+* General updates:
+ * Added support Geolocation routing using gpx files
+ * Added support for (-webkit)-device-pixel-ratio for media query support
+ * Fixed first-run check to display initial platform selection screen on first run
+ * Fixed links not being underlined
+ * Added the iPad 3 device
+ * Split the iPhone 4/4S into its own device
+ * Updated Chrome Extension to use Manifest V2
+ * Fixed enableripple querystring to default to specified platform for Chrome Store version of Ripple
+ * Fixed version number not showing up in About Ripple dialog
+ * Updated config.xml missing/invalide message to be more descriptive
+
 ## v0.9.8 - Aug 15, 2012
 
 * Introduced integrated Build & Deploy Services in RIM hosted Ripple
