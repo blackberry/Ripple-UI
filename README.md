@@ -57,6 +57,14 @@ To get it running inside Chrome you should start it with these [command line](ht
     --disable-web-security
     --user-data-dir=/path/to/dummy/profile
 
+## Contributing
+
+The `master` branch is the latest (stable) release. The `next` branch is where all development happens.
+
+If you like the project, and want to contribute code, please issue a pull request (on [GitHub](https://github.com/blackberry/Ripple-UI/pulls)) into the `next` branch.
+
+Note: You will need to be an [official contributor](http://blackberry.github.com/howToContribute.html) before your code can be accepted.
+
 ## Code Guidelines
 
 * 4 spaces per editor tab.
