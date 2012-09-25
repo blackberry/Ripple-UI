@@ -213,13 +213,13 @@ Contributors:
 -------------------------------------------------------
 --> Kudos to third party awesomeness:
 
-* browser-require *
+* Almond *
 
-https://github.com/rsms/browser-require
+https://github.com/jrburke/almond
 
 The MIT License
-http://www.opensource.org/licenses/mit-license.php
-Copyright (c) 2010 Rasmus Andersson http://hunch.se/
+Copyright (c) 2010-2011, The Dojo Foundation
+https://github.com/jrburke/almond/blob/master/LICENSE
 
 -------------------------------------------------------
 * jWorkflow *

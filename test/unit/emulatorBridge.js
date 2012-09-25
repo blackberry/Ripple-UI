@@ -65,7 +65,7 @@ describeBrowser("emulator_bridge", function () {
             }
         });
 
-        emulatorBridge.link(_emulatedFrame.contentWindow);
+        emulatorBridge.init(_emulatedFrame.contentWindow);
     });
 
     afterEach(function () {

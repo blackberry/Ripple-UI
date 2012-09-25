@@ -46,7 +46,7 @@ function _handle(func) {
     };
 }
 
-module.exports = _handle(function (ext, opts, complete) {
+module.exports = _handle(function (ext, opts) {
     opts = opts || {};
 
     var build = jWorkflow.order(clean)

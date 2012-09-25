@@ -67,7 +67,7 @@ tinyHippos.Background = (function () {
                 sendResponse();
                 break;
             case "version":
-                sendResponse(version);
+                sendResponse({"version": version});
                 break;
             case "xhr":
                 var xhr = new XMLHttpRequest(),
@@ -199,7 +199,7 @@ tinyHippos.Background = (function () {
         },
 
         isEnabled: function (url, enabledURIs) {
-            if (url.match(/enableripple=true/i)) {
+            if (url.match(/enableripple=/i)) {
                 _persistEnabled(url);
                 return true;
             }

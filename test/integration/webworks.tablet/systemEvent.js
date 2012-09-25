@@ -45,10 +45,6 @@ describe("webworks.tablet system event", function () {
         spyOn(helpers, "proxyEnabled").andReturn(false);
     });
 
-    afterEach(function () {
-        global.XMLHttpRequest = window.XMLHttpRequest = _oldXHR;
-    });
-
     describe("deviceBatteryStateChange", function () {
         it("de-registers onBatterStateChange", function () {
             var listener = jasmine.createSpy();
@@ -63,6 +59,7 @@ describe("webworks.tablet system event", function () {
                 },
                 function () {
                     expect(listener).not.toHaveBeenCalled();
+                    global.XMLHttpRequest = window.XMLHttpRequest = _oldXHR;
                 }
             ]);
         });
@@ -77,6 +74,7 @@ describe("webworks.tablet system event", function () {
                 },
                 function () {
                     expect(listener).toHaveBeenCalledWith(3); // UNPLUGGED
+                    global.XMLHttpRequest = window.XMLHttpRequest = _oldXHR;
                 }
             ]);
         });
@@ -94,6 +92,8 @@ describe("webworks.tablet system event", function () {
                 },
                 function () {
                     expect(listener).toHaveBeenCalledWith(80);
+                    // TODO: why does this cause tests to fail
+                    global.XMLHttpRequest = window.XMLHttpRequest = _oldXHR;
                 }
             ]);
         });
@@ -111,6 +111,7 @@ describe("webworks.tablet system event", function () {
                 },
                 function () {
                     expect(listener).not.toHaveBeenCalled();
+                    global.XMLHttpRequest = window.XMLHttpRequest = _oldXHR;
                 }
             ]);
         });

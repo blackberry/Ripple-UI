@@ -1,6 +1,6 @@
 {
   "name": "ripple",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "A browser based html5 mobile application development and testing tool",
   "homepage": "http://github.com/blackberry/Rippe-UI",
   "author": {
@@ -16,11 +16,12 @@
   "dependencies": {
     "connect": "2.3.6",
     "jsdom": "0.2.14",
-    "jWorkflow": "*"
+    "jWorkflow": "*",
+    "cssmin": "0.3.1",
+    "html-minifier": "0.4.5"
   },
   "bundledDependencies": [
-    "connect",
-    "argsparser"
+    "connect"
   ],
   "files": [
     "pkg/web",

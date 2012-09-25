@@ -303,7 +303,7 @@ describe("utils", function () {
     });
 
     it("some_true_array", function () {
-        expect(utils.some(_array, function (v, i) {
+        expect(utils.some(_array, function (v) {
             return v === 4;
         })).toEqual(true);
     });

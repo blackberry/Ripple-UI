@@ -26,7 +26,7 @@ describeBrowser("tooltip", function () {
         )).toEqual(true);
     });
 
-    it("seems to create a tooltip properly", function (test, runner) {
+    it("seems to create a tooltip properly", function () {
         tooltip.create(".loader", {
             bodyHandler: function () {
                 return "test!";

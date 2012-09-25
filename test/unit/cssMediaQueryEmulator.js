@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  Copyright 2011 Research In Motion Limited.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module.exports = {
-    getPicture: function (cameraSuccess, cameraError, cameraOptions) {
-        if (cameraError) {
-            cameraError.apply(null, ["not implemented"]);
-        }
-        else {
-            throw "not implemented";
-        }
-    }
-};
+xdescribe("cssMediaQueryEmulator", function () {
+    var cssMediaQueryEmulator = require('ripple/cssMediaQueryEmulator');
+
+    describe("on init", function () {
+        cssMediaQueryEmulator.init();
+    });
+});
