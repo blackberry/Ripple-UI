@@ -1,3 +1,6 @@
+## v0.9.10 - September 26, 2012
+Incremental update to fix a release error for the http://developer.blackberry.com hosted version of Ripple
+
 ## v0.9.9 - September 25, 2012
 pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 
