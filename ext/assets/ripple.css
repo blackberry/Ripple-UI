@@ -870,7 +870,7 @@ section.left { left: 0; }
     EULA Window */
     
 .eula-window {
-    z-index: 9000;
+    z-index: 8000;
     width: 100%;
     height: 100%;    
     position: absolute;
@@ -881,7 +881,7 @@ section.left { left: 0; }
 }
 
 .eula-dialog {
-    z-index: 9001;        
+    z-index: 8001;        
     position: absolute;
     top: 200px;
     padding: 20px 0 20px 130px;
