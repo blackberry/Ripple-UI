@@ -107,7 +107,7 @@
                 document.write(
                     xhr.responseText
                         .replace(/\n/g, '')
-                        .match(/<body>(.*)<\/body>/g)[0]
+                        .match(/<body[^>]*>(.*)<\/body>/g)[0]
                         .replace(/<script.*<\/script>/g, '')
                 );
             </script>
