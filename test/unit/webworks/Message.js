@@ -104,7 +104,7 @@ describe("webworks Message", function () {
                 expect("gord@tinyHippos.com", msg.replyTo, "replyTo");
             });
 
-            it("when calling send with missing feilds it throws an exception", function () {
+            it("when calling send with missing fields it throws an exception", function () {
                 var msg = new Message(new Service());
                 expect(msg.send).toThrow();
             });
