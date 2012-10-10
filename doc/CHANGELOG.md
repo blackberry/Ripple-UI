@@ -18,7 +18,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
  * Added core W3C objects to cordova to properly support platforms that rely on those objects being there natively
  * Fixed default contacts not being modifiable
  * Inject BB10 WebWorks when loading the BB10 Dev Alpha device
- * Fixed clearWatch bug in geoloacation API
+ * Fixed clearWatch bug in geolocation API
 
 * General updates:
  * Added support Geolocation routing using gpx files
