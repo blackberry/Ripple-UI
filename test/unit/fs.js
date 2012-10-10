@@ -102,7 +102,7 @@ describe("fs", function () {
             expect(_baton.pass).toHaveBeenCalled();
         });
 
-        it("triggers FileSystemIntialized", function () {
+        it("triggers FileSystemInitialized", function () {
             expect(event.trigger).toHaveBeenCalledWith("FileSystemInitialized", null, true);
         });
 
