@@ -17,7 +17,7 @@ var jsdom = require('jsdom'),
     fs = require('fs'),
     jWorkflow = require('jWorkflow'),
     jasmine = require('./test/jasmine-node'),
-    nodeXMLHttpRequest = require(__dirname + '/../thirdparty/node-XMLHttpRequest/XMLHttpRequest').XMLHttpRequest;
+    nodeXMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 function _extraMocks() {
     global.screen = {

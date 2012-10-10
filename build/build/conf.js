@@ -38,7 +38,7 @@ module.exports = {
         "jXHR.js",
         "3d.js",
         "draw.js",
-        "jWorkflow/jworkflow-min-0.4.0.js",
+        "../node_modules/jWorkflow/lib/jWorkflow.js",
         "OpenLayers.js"
     ]
 };

@@ -432,7 +432,7 @@ describe("utils", function () {
 
     it("Copy_copies_a_date_properly", function () {
         var date = new Date();
-        //use unix timestamp since date objects dont work here.
+        //use unix timestamp since date objects don't work here.
         expect(utils.copy(date).getTime()).toEqual(date.getTime());
     });
 
@@ -632,9 +632,7 @@ describe("utils", function () {
                 expect(utils.rippleLocation()).toBe("http://127.0.0.1:6767/i/will/put/ripple/here/");
             });
 
-            //Test for github issue #315
-            xit("returns the correct path when folder has a . in it", function () {
-                
+            it("returns the correct path when folder has a . in it", function () {
                 spyOn(utils, "location").andReturn({
                     href: "http://127.0.0.1/bb10.sample/",
                     protocol: "http:",

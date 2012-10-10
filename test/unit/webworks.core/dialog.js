@@ -55,7 +55,7 @@ describe("webworks dialog", function () {
                 });
             });
 
-            it("passes resposne data to callback when complete", function () {
+            it("passes response data to callback when complete", function () {
                 var callback = jasmine.createSpy();
 
                 spyOn(transport, "call").andCallFake(function (a, b, callback) {
@@ -86,7 +86,7 @@ describe("webworks dialog", function () {
                 });
             });
 
-            it("passes resposne data to callback when complete", function () {
+            it("passes response data to callback when complete", function () {
                 var callback = jasmine.createSpy();
 
                 spyOn(transport, "call").andCallFake(function (a, b, callback) {

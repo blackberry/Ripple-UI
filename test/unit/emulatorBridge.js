@@ -79,32 +79,32 @@ describeBrowser("emulator_bridge", function () {
 
     // --------- Tests -------- \\
 
-    it("screen availHeight is overriden properly", function () {
+    it("screen availHeight is overridden properly", function () {
         var viewport = _emulatedViewport;
         expect(viewport.clientHeight).toEqual(screen.availHeight);
     });
 
-    it("screen availWidth is overriden properly", function () {
+    it("screen availWidth is overridden properly", function () {
         var viewport = _emulatedViewport;
         expect(viewport.clientWidth).toEqual(screen.availWidth);
     });
 
-    it("screen height is overriden properly", function () {
+    it("screen height is overridden properly", function () {
         var viewport = _emulatedViewport;
         expect(viewport.clientHeight).toEqual(screen.height);
     });
 
-    it("screen width is overriden properly", function () {
+    it("screen width is overridden properly", function () {
         var viewport = _emulatedViewport;
         expect(viewport.clientWidth).toEqual(screen.availWidth);
     });
 
-    it("window.innerHeight is overriden properly", function () {
+    it("window.innerHeight is overridden properly", function () {
         var viewport = _emulatedViewport;
         expect(viewport.clientHeight).toEqual(window.innerHeight);
     });
 
-    it("window.innerWidth is overriden properly", function () {
+    it("window.innerWidth is overridden properly", function () {
         var viewport = _emulatedViewport;
         expect(viewport.clientWidth).toEqual(window.innerWidth);
     });
