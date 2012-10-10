@@ -72,7 +72,7 @@ describe("Cordova Geolocation bridge", function () {
                 expect(s).not.toHaveBeenCalled();
             });
 
-            it("fails to fail when a timeout occurs and no error callback is specifed", function () {
+            it("fails to fail when a timeout occurs and no error callback is specified", function () {
                 geolocation.getLocation(s);
                 expect(s).not.toHaveBeenCalled();
             });

@@ -244,7 +244,7 @@ describe("webworks_app", function () {
         expect(event.trigger.callCount).toBe(1);
     });
 
-    it("request forground hides the background overlay", function () {
+    it("request foreground hides the background overlay", function () {
         spyOn(ui, "hideOverlay");
         appServer.requestForeground();
         expect(ui.hideOverlay.mostRecentCall.args[0]).toBe("background-window");

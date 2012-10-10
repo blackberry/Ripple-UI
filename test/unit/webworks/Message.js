@@ -42,7 +42,7 @@ describe("webworks Message", function () {
                 expect(identity.getDefaultService).toHaveBeenCalled();
             });
 
-            it("when constructing with a service it doesn't get the defeault email service", function () {
+            it("when constructing with a service it doesn't get the default email service", function () {
                 spyOn(identity, "getDefaultService");
                 new Message(new Service());
                 expect(identity.getDefaultService).not.toHaveBeenCalled();
@@ -104,7 +104,7 @@ describe("webworks Message", function () {
                 expect("gord@tinyHippos.com", msg.replyTo, "replyTo");
             });
 
-            it("when calling send with missing feilds it throws an exception", function () {
+            it("when calling send with missing fields it throws an exception", function () {
                 var msg = new Message(new Service());
                 expect(msg.send).toThrow();
             });
@@ -115,7 +115,7 @@ describe("webworks Message", function () {
                     msg = new Message(service);
 
                 msg.toRecipients = "gord@tinyhippos.com";
-                msg.subject = "wheres the beef?";
+                msg.subject = "where's the beef?";
                 msg.send();
 
                 expect(msg.uid).toEqual(42);
@@ -251,7 +251,7 @@ describe("webworks Message", function () {
                 m.subject = "asdf";
                 m.body = "asdf";
                 m.folder = Message.FOLDER_DELETED;
-                m.status = Message.STATUS_ERROR_OCCURED;
+                m.status = Message.STATUS_ERROR_OCCURRED;
 
                 message.save(null, {message: m});
                 expect(messages[m.uid].folder).toBe(Message.FOLDER_DRAFT);
@@ -276,7 +276,7 @@ describe("webworks Message", function () {
                 expect(messages[m.uid]).toEqual(m);
             });
 
-            it("doesn't write to some properties when saving an exsiting message", function () {
+            it("doesn't write to some properties when saving an existing message", function () {
                 var messages = {
                         "123": new Message(new Service())
                     },
