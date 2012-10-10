@@ -4966,7 +4966,7 @@ $.effects.explode = function(o) {
 	var el = $(this).show().css('visibility', 'hidden');
 	var offset = el.offset();
 
-	//Substract the margins - not fixing the problem yet.
+	//Subtract the margins - not fixing the problem yet.
 	offset.top -= parseInt(el.css("marginTop"),10) || 0;
 	offset.left -= parseInt(el.css("marginLeft"),10) || 0;
 
