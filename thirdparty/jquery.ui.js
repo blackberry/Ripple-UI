@@ -8607,20 +8607,20 @@ $.extend(Datepicker.prototype, {
 			for (var col = 0; col < numMonths[1]; col++) {
 				var selectedDate = this._daylightSavingAdjust(new Date(drawYear, drawMonth, inst.selectedDay));
 				var cornerClass = ' ui-corner-all';
-				var calender = '';
+				var calendar = '';
 				if (isMultiMonth) {
-					calender += '<div class="ui-datepicker-group';
+					calendar += '<div class="ui-datepicker-group';
 					if (numMonths[1] > 1)
 						switch (col) {
-							case 0: calender += ' ui-datepicker-group-first';
+							case 0: calendar += ' ui-datepicker-group-first';
 								cornerClass = ' ui-corner-' + (isRTL ? 'right' : 'left'); break;
-							case numMonths[1]-1: calender += ' ui-datepicker-group-last';
+							case numMonths[1]-1: calendar += ' ui-datepicker-group-last';
 								cornerClass = ' ui-corner-' + (isRTL ? 'left' : 'right'); break;
-							default: calender += ' ui-datepicker-group-middle'; cornerClass = ''; break;
+							default: calendar += ' ui-datepicker-group-middle'; cornerClass = ''; break;
 						}
-					calender += '">';
+					calendar += '">';
 				}
-				calender += '<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix' + cornerClass + '">' +
+				calendar += '<div class="ui-datepicker-header ui-widget-header ui-helper-clearfix' + cornerClass + '">' +
 					(/all|left/.test(cornerClass) && row == 0 ? (isRTL ? next : prev) : '') +
 					(/all|right/.test(cornerClass) && row == 0 ? (isRTL ? prev : next) : '') +
 					this._generateMonthYearHeader(inst, drawMonth, drawYear, minDate, maxDate,
@@ -8633,7 +8633,7 @@ $.extend(Datepicker.prototype, {
 					thead += '<th' + ((dow + firstDay + 6) % 7 >= 5 ? ' class="ui-datepicker-week-end"' : '') + '>' +
 						'<span title="' + dayNames[day] + '">' + dayNamesMin[day] + '</span></th>';
 				}
-				calender += thead + '</tr></thead><tbody>';
+				calendar += thead + '</tr></thead><tbody>';
 				var daysInMonth = this._getDaysInMonth(drawYear, drawMonth);
 				if (drawYear == inst.selectedYear && drawMonth == inst.selectedMonth)
 					inst.selectedDay = Math.min(inst.selectedDay, daysInMonth);
@@ -8641,7 +8641,7 @@ $.extend(Datepicker.prototype, {
 				var numRows = (isMultiMonth ? 6 : Math.ceil((leadDays + daysInMonth) / 7)); // calculate the number of rows to generate
 				var printDate = this._daylightSavingAdjust(new Date(drawYear, drawMonth, 1 - leadDays));
 				for (var dRow = 0; dRow < numRows; dRow++) { // create date picker rows
-					calender += '<tr>';
+					calendar += '<tr>';
 					var tbody = (!showWeek ? '' : '<td class="ui-datepicker-week-col">' +
 						this._get(inst, 'calculateWeek')(printDate) + '</td>');
 					for (var dow = 0; dow < 7; dow++) { // create date picker days
@@ -8673,16 +8673,16 @@ $.extend(Datepicker.prototype, {
 						printDate.setDate(printDate.getDate() + 1);
 						printDate = this._daylightSavingAdjust(printDate);
 					}
-					calender += tbody + '</tr>';
+					calendar += tbody + '</tr>';
 				}
 				drawMonth++;
 				if (drawMonth > 11) {
 					drawMonth = 0;
 					drawYear++;
 				}
-				calender += '</tbody></table>' + (isMultiMonth ? '</div>' + 
+				calendar += '</tbody></table>' + (isMultiMonth ? '</div>' + 
 							((numMonths[0] > 0 && col == numMonths[1]-1) ? '<div class="ui-datepicker-row-break"></div>' : '') : '');
-				group += calender;
+				group += calendar;
 			}
 			html += group;
 		}
