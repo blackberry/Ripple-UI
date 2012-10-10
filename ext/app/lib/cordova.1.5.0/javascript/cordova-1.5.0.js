@@ -1679,7 +1679,7 @@ module.exports = compass;
 define('cordova/plugin/CompassError', function(require, exports, module) {
 /**
  *  CompassError.
- *  An error code assigned by an implementation when an error has occured
+ *  An error code assigned by an implementation when an error has occurred
  * @constructor
  */
 var CompassError = function(err) {
@@ -1953,7 +1953,7 @@ module.exports = ContactAddress;
 define('cordova/plugin/ContactError', function(require, exports, module) {
 /**
  *  ContactError.
- *  An error code assigned by an implementation when an error has occured
+ *  An error code assigned by an implementation when an error has occurred
  * @constructor
  */
 var ContactError = function(err) {
