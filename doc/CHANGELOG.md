@@ -107,7 +107,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 * (fix) [iPhone] fixed viewport size to match screen size
 * (fix) [iPhone] fixed screen size display
 * (fix) [OpenLayers] fixed stylesheet link
-* (fix) [touch] fixed element.ontouchX buinding
+* (fix) [touch] fixed element.ontouchX binding
 * (fix) [touch] fixed event.screenX/Y values 
 * (fix) [tests] fixed failing tests in browser runner
 * (update) removed End of Life notice
