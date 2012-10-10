@@ -276,7 +276,7 @@ describe("webworks Message", function () {
                 expect(messages[m.uid]).toEqual(m);
             });
 
-            it("doesn't write to some properties when saving an exsiting message", function () {
+            it("doesn't write to some properties when saving an existing message", function () {
                 var messages = {
                         "123": new Message(new Service())
                     },
