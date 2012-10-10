@@ -138,7 +138,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 ## v0.9.0 - October 18, 2011
 
 * Added Omnibar plugin to web build
-* Removed vodaphone, opera, wac platforms
+* Removed vodafone, opera, wac platforms
 * Added agnostic filesystem api (thin wrapper for W3C File API)
 * Added support for blackberry.io.file and blackberry.io.dir (including blackberry.utils.stringToBlog and blobtoString)
 * Added APIs for blackberry.app.event.onSwipeDown and blackberry.app.event.onSwipeStart for WebWorks Tablet
