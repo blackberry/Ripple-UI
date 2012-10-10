@@ -23,7 +23,7 @@ describe("jquery", function () {
         expect(typeof jQuery.ui).toEqual("object");
     });
 
-    it("ui accordian is an abated function", function () {
+    it("ui accordion is an abated function", function () {
         expect(typeof jQuery.ui.accordion).toEqual("function");
     });
 
