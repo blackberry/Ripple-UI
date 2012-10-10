@@ -30,7 +30,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
  * Updated Chrome Extension to use Manifest V2
  * Fixed enableripple querystring to default to specified platform for Chrome Store version of Ripple
  * Fixed version number not showing up in About Ripple dialog
- * Updated config.xml missing/invalide message to be more descriptive
+ * Updated config.xml missing/invalid message to be more descriptive
 
 ## v0.9.8 - Aug 15, 2012
 
