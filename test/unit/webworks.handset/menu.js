@@ -101,7 +101,7 @@ describe("webworks menu", function () {
             expect(menuItem.isSeparator).toBeFalsy();
         });
 
-        it("create a new menu item as a seperator", function () {
+        it("create a new menu item as a separator", function () {
             var menuItem = new MenuItem(true, 2);
             expect(menuItem.isSeparator).toBeTruthy();
         });
@@ -112,7 +112,7 @@ describe("webworks menu", function () {
             }).toThrow();
         });
 
-        it("throws an exception if caption is not provided and seperator is false", function () {
+        it("throws an exception if caption is not provided and separator is false", function () {
             expect(function () {
                 new MenuItem(false, 1);
             }).toThrow();
