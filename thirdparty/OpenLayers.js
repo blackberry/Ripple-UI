@@ -2168,7 +2168,7 @@ else{feat.setAttribute("id",props.featurecoordsys.id);}}
 if(props.filtercoordsys!=null){var filt=this.createElementNS("","FILTERCOORDSYS");propElem.appendChild(filt);if(props.filtercoordsys.id===0){filt.setAttribute("string",props.filtercoordsys.string);}
 else{filt.setAttribute("id",props.filtercoordsys.id);}}
 if(props.envelope!=null){var env=this.createElementNS("","ENVELOPE");propElem.appendChild(env);env.setAttribute("minx",props.envelope.minx);env.setAttribute("miny",props.envelope.miny);env.setAttribute("maxx",props.envelope.maxx);env.setAttribute("maxy",props.envelope.maxy);}
-var imagesz=this.createElementNS("","IMAGESIZE");propElem.appendChild(imagesz);imagesz.setAttribute("height",props.imagesize.height);imagesz.setAttribute("width",props.imagesize.width);if(props.imagesize.height!=props.imagesize.printheight||props.imagesize.width!=props.imagesize.printwidth){imagesz.setAttribute("printheight",props.imagesize.printheight);imagesz.setArrtibute("printwidth",props.imagesize.printwidth);}
+var imagesz=this.createElementNS("","IMAGESIZE");propElem.appendChild(imagesz);imagesz.setAttribute("height",props.imagesize.height);imagesz.setAttribute("width",props.imagesize.width);if(props.imagesize.height!=props.imagesize.printheight||props.imagesize.width!=props.imagesize.printwidth){imagesz.setAttribute("printheight",props.imagesize.printheight);imagesz.setAttribute("printwidth",props.imagesize.printwidth);}
 if(props.background!=null){var backgrnd=this.createElementNS("","BACKGROUND");propElem.appendChild(backgrnd);backgrnd.setAttribute("color",props.background.color.r+","+
 props.background.color.g+","+
 props.background.color.b);if(props.background.transcolor!==null){backgrnd.setAttribute("transcolor",props.background.transcolor.r+","+
