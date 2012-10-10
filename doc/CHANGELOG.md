@@ -122,7 +122,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 * (fix) [BB device] blackberry.io.dir.getParentDirectory generates exception (issue #228)
 * (fix) [BB device] blackberry.io.dir.exists generates exceptions (issue #227)
 * (fix) require('ripple/***') breaks in node 0.5.x/0.6.x (issue #226)
-* (fix) [ripple/boostrap] does not pass event object to listeners on window load/DOMContentLoaded (issue #217)
+* (fix) [ripple/bootstrap] does not pass event object to listeners on window load/DOMContentLoaded (issue #217)
 * (fix) [lib/deviceMotionEmulator] does not pass all arguments to window.addEventListener/removeEventListener (issue #216)
 * (removed hotfix) window load event handlers are not triggered when navigating inside app (issue #190)
 
