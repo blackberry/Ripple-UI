@@ -318,7 +318,7 @@ window.addEventListener = function(evt, handler, capture) {
 
 document.removeEventListener = function(evt, handler, capture) {
   var e = evt.toLowerCase();
-  // If unsubcribing from an event that is handled by a plugin
+  // If unsubscribing from an event that is handled by a plugin
   if (typeof documentEventHandlers[e] != "undefined") {
     documentEventHandlers[e].unsubscribe(handler);
   } else {
@@ -328,7 +328,7 @@ document.removeEventListener = function(evt, handler, capture) {
 
 window.removeEventListener = function(evt, handler, capture) {
   var e = evt.toLowerCase();
-  // If unsubcribing from an event that is handled by a plugin
+  // If unsubscribing from an event that is handled by a plugin
   if (typeof windowEventHandlers[e] != "undefined") {
     windowEventHandlers[e].unsubscribe(handler);
   } else {
