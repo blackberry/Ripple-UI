@@ -5265,10 +5265,10 @@ function _exec(win, fail, clazz, action, args) {
         if (origResult.length > 0) {
             eval("evalResult = " + origResult + ";");
 
-            // If status is OK, then return evalResultalue back to caller
+            // If status is OK, then return evalResult value back to caller
             if (evalResult.status === Cordova.callbackStatus.OK) {
 
-                // If there is a success callback, then call it now with returned evalResultalue
+                // If there is a success callback, then call it now with returned evalResult value
                 if (win) {
                     // Clear callback if not expecting any more results
                     if (!evalResult.keepCallback) {
@@ -5282,7 +5282,7 @@ function _exec(win, fail, clazz, action, args) {
                     delete Cordova.callbacks[callbackId];
                 }
             } else {
-                // If there is a fail callback, then call it now with returned evalResultalue
+                // If there is a fail callback, then call it now with returned evalResult value
                 if (fail) {
 
                     // Clear callback if not expecting any more results
