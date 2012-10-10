@@ -8196,7 +8196,7 @@ jQuery.extend({
 		opt.duration = jQuery.fx.off ? 0 : typeof opt.duration === "number" ? opt.duration :
 			opt.duration in jQuery.fx.speeds ? jQuery.fx.speeds[opt.duration] : jQuery.fx.speeds._default;
 
-		// Queueing
+		// Queuing
 		opt.old = opt.complete;
 		opt.complete = function( noUnmark ) {
 			if ( opt.queue !== false ) {
