@@ -115,7 +115,7 @@ describe("webworks Message", function () {
                     msg = new Message(service);
 
                 msg.toRecipients = "gord@tinyhippos.com";
-                msg.subject = "wheres the beef?";
+                msg.subject = "where's the beef?";
                 msg.send();
 
                 expect(msg.uid).toEqual(42);
