@@ -42,7 +42,7 @@ describe("webworks Message", function () {
                 expect(identity.getDefaultService).toHaveBeenCalled();
             });
 
-            it("when constructing with a service it doesn't get the defeault email service", function () {
+            it("when constructing with a service it doesn't get the default email service", function () {
                 spyOn(identity, "getDefaultService");
                 new Message(new Service());
                 expect(identity.getDefaultService).not.toHaveBeenCalled();
