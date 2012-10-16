@@ -73,7 +73,7 @@
         </script>
 
         <!-- jWorkflow -->
-        <script src="thirdparty/jWorkflow/jworkflow-min-0.4.0.js" type="text/javascript" charset="utf-8"></script>
+        <script src="node_modules/jWorkflow/lib/jWorkflow.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- thirdparty -->
         <script src="thirdparty/almond.js" type="text/javascript" charset="utf-8"></script>
@@ -107,7 +107,7 @@
                 document.write(
                     xhr.responseText
                         .replace(/\n/g, '')
-                        .match(/<body>(.*)<\/body>/g)[0]
+                        .match(/<body[^>]*>(.*)<\/body>/g)[0]
                         .replace(/<script.*<\/script>/g, '')
                 );
             </script>
