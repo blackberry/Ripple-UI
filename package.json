@@ -2,7 +2,7 @@
   "name": "ripple",
   "version": "0.9.10",
   "description": "A browser based html5 mobile application development and testing tool",
-  "homepage": "http://github.com/blackberry/Rippe-UI",
+  "homepage": "http://github.com/blackberry/Ripple-UI",
   "author": {
     "name": "Research In Motion",
     "url": "http://github.com/blackberry/Ripple-UI"
@@ -12,7 +12,15 @@
     "url": "http://www.apache.org/licenses/LICENSE-2.0"
   }],
   "main": "lib/index",
+  "bin": { "ripple": "./bin/ripple" },
+  "main": "./lib/index",
   "dependencies": {
+    "express": "3.0.0rc5",
+    "connect-xcors": "0.5.2",
+    "request": "2.11.4",
+    "colors" : "0.6.0-1"
+  },
+  "devDependencies": {
     "connect": "2.3.6",
     "jsdom": "0.2.14",
     "cssmin": "0.3.1",
@@ -20,16 +28,17 @@
     "jWorkflow": "0.x.x",
     "xmlhttprequest": "1.4.2"
   },
-  "bundledDependencies": [
-    "connect"
-  ],
   "files": [
-    "pkg/web",
-    "node_modules",
     "README.md",
     "LICENSE",
-    "lib",
+    "index.js",
+    "server",
+    "cli",
+    "doc",
     "bin"
   ],
-  "private": true
+  "engines": {
+    "node": ">= 0.8.0",
+    "npm":  ">= 1.1.0"
+  }
 }

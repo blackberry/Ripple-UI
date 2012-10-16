@@ -1,5 +1,0 @@
-// This is here for a reason.
-// This is so you can do things like `NODE_PATH=/path/to/ripple/lib node external_script`.
-// This gets around that pesky forcing of relative requires in Node (these days).
-// See the `jakefile` for how this is used in this project.
-require('./../test')();

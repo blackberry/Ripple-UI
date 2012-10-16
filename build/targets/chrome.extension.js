@@ -53,7 +53,7 @@ module.exports = function (src, baton) {
 
         fs.writeFileSync(js,
             src.js +
-            "require('ripple/bootstrap').bootstrap();"
+            "require('ripple/client/bootstrap').bootstrap();"
         );
 
         utils.collect(_c.DEPLOY + "/chrome.extension", resourceList, function () { return true; });

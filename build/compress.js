@@ -27,8 +27,8 @@ function compressJS(workflow, file) {
         baton.take();
         childProcess.exec('uglifyjs --overwrite ' + file, function (err) {
             if (err) {
-                process.stdout.write("Something bad happened. Is uglify-js installed?");
-                process.stdout.write(err);
+                console.log("Something bad happened. Is uglify-js installed?");
+                console.log(err);
                 process.exit(1);
             } else {
                 baton.pass();
@@ -42,8 +42,8 @@ function compressCSS(workflow, file) {
         baton.take();
         fs.readFile(file, "utf-8", function (err, data) {
             if (err) {
-                process.stdout.write("Something bad happened while minifying css.");
-                process.stdout.write(err);
+                console.log("Something bad happened while minifying css.");
+                console.log(err);
                 process.exit(1);
             } else {
                 fs.writeFile(file, cssmin(data), function () {
@@ -59,8 +59,8 @@ function compressHTML(workflow, file) {
         baton.take();
         fs.readFile(file, "utf-8", function (err, data) {
             if (err) {
-                process.stdout.write("Something bad happened while minifying html.");
-                process.stdout.write(err);
+                console.log("Something bad happened while minifying html.");
+                console.log(err);
                 process.exit(1);
             } else {
                 fs.writeFile(file, htmlmin(data, {removeComments: true, collapseWhitespace: true}), function () {
@@ -79,7 +79,7 @@ module.exports = function (prev, baton) {
             js: []
         };
 
-    process.stdout.write("compressing...");
+    console.log("compressing...");
     baton.take();
 
     function matches(regex, str) {

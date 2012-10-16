@@ -15,6 +15,7 @@
  */
 var connect = require('connect'),
     fs = require('fs'),
+    path = require('path'),
     utils = require('./utils'),
     _c = require('./conf'),
     pack = require('./pack');
@@ -43,7 +44,7 @@ module.exports = function () {
 
     modules = pack();
 
-    utils.collect(_c.ROOT + "test", tests);
+    utils.collect(path.join(_c.ROOT, "test", "unit", "client"), tests);
 
     specs = tests.reduce(function (str, file) {
         str += '<script src="' +

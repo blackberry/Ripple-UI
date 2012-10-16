@@ -66,8 +66,8 @@ module.exports = function (src, baton) {
         fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
         fs.writeFileSync(index, doc);
         fs.writeFileSync(js, src.js +
-            "require('ripple/ui').register('omnibar');" +
-            "require('ripple/bootstrap').bootstrap();");
+            "require('ripple/client/ui').register('omnibar');" +
+            "require('ripple/client/bootstrap').bootstrap();");
 
         fs.writeFileSync(cacheDeploy, cacheData + _cache());
 

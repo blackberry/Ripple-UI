@@ -47,7 +47,7 @@ function _lintCSS(files, done) {
 }
 
 module.exports = function (done, files) {
-    var cssDirs = ["assets/ripple.css", "targets/chrome.extension/styles", "lib", "test"];
+    var cssDirs = ["assets/ripple.css", "targets/chrome.extension/styles", "client", "server", "test"];
     _lintJS(files && files.length > 0 ? files : ["."], function (jscode) {
         _lintCSS(files && files.length > 0 ? files : cssDirs, function (csscode) {
             done((jscode === 0 && csscode === 0) ? 0 : 1);

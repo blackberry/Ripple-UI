@@ -15,6 +15,8 @@
  */
 var jsdom = require('jsdom'),
     fs = require('fs'),
+    path = require('path'),
+    utils = require('./utils'),
     jWorkflow = require('jWorkflow'),
     jasmine = require('./test/jasmine-node'),
     nodeXMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
@@ -70,7 +72,7 @@ function _setupEnv(ready) {
     });
 }
 
-module.exports = function (done) {
+module.exports = function (customPaths, done) {
     //HACK: this should be  taken out if our pull request in jasmine is accepted.
     jasmine.core.Matchers.prototype.toThrow = function (expected) {
         var result = false,
@@ -106,9 +108,18 @@ module.exports = function (done) {
     };
 
     _setupEnv(function () {
-        var targets = _c.ROOT + "test";
+        var targets;
+       
+        if (customPaths) {
+            targets = [];
+            customPaths.forEach(function (customPath) {
+                utils.collect(path.join(process.cwd(), customPath), targets);
+            });
+        } else {
+            targets = [_c.ROOT + "test"];
+        }
 
-        jasmine.run(targets.split(' '), function (runner) {
+        jasmine.run(targets, function (runner) {
             var failed = runner.results().failedCount === 0 ? 0 : 1;
             (typeof done !== "function" ? process.exit : done)(failed);
         });

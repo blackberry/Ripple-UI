@@ -113,6 +113,11 @@ input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
     user-select: text;
 }
 
+.prefix-with-right-arrow:before {
+    content: '\25BA';
+    padding-right: 3px;
+}
+
 section, header, footer, aside, nav { display: block; }
 
 /* ------------------------------>
