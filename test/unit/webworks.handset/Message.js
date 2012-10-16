@@ -251,7 +251,7 @@ describe("webworks Message", function () {
                 m.subject = "asdf";
                 m.body = "asdf";
                 m.folder = Message.FOLDER_DELETED;
-                m.status = Message.STATUS_ERROR_OCCURED;
+                m.status = Message.STATUS_ERROR_OCCURRED;
 
                 message.save(null, {message: m});
                 expect(messages[m.uid].folder).toBe(Message.FOLDER_DRAFT);

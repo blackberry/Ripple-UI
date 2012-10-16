@@ -318,7 +318,7 @@ window.addEventListener = function(evt, handler, capture) {
 
 document.removeEventListener = function(evt, handler, capture) {
   var e = evt.toLowerCase();
-  // If unsubcribing from an event that is handled by a plugin
+  // If unsubscribing from an event that is handled by a plugin
   if (typeof documentEventHandlers[e] != "undefined") {
     documentEventHandlers[e].unsubscribe(handler);
   } else {
@@ -328,7 +328,7 @@ document.removeEventListener = function(evt, handler, capture) {
 
 window.removeEventListener = function(evt, handler, capture) {
   var e = evt.toLowerCase();
-  // If unsubcribing from an event that is handled by a plugin
+  // If unsubscribing from an event that is handled by a plugin
   if (typeof windowEventHandlers[e] != "undefined") {
     windowEventHandlers[e].unsubscribe(handler);
   } else {
@@ -511,7 +511,7 @@ define('cordova/exec', function(require, exports, module) {
  * Execute a cordova command.  It is up to the native side whether this action
  * is synchronous or asynchronous.  The native side can return:
  *      Synchronous: PluginResult object as a JSON string
- *      Asynchrounous: Empty string ""
+ *      Asynchronous: Empty string ""
  * If async, the native side will cordova.callbackSuccess or cordova.callbackError,
  * depending upon the result of the action.
  *
@@ -1679,7 +1679,7 @@ module.exports = compass;
 define('cordova/plugin/CompassError', function(require, exports, module) {
 /**
  *  CompassError.
- *  An error code assigned by an implementation when an error has occured
+ *  An error code assigned by an implementation when an error has occurred
  * @constructor
  */
 var CompassError = function(err) {
@@ -1953,7 +1953,7 @@ module.exports = ContactAddress;
 define('cordova/plugin/ContactError', function(require, exports, module) {
 /**
  *  ContactError.
- *  An error code assigned by an implementation when an error has occured
+ *  An error code assigned by an implementation when an error has occurred
  * @constructor
  */
 var ContactError = function(err) {
@@ -2203,7 +2203,7 @@ DirectoryEntry.prototype.createReader = function() {
  * Creates or looks up a directory
  *
  * @param {DOMString} path either a relative or absolute path from this directory in which to look up or create a directory
- * @param {Flags} options to create or excluively create the directory
+ * @param {Flags} options to create or exclusively create the directory
  * @param {Function} successCallback is called with the new entry
  * @param {Function} errorCallback is called with a FileError
  */
@@ -2235,7 +2235,7 @@ DirectoryEntry.prototype.removeRecursively = function(successCallback, errorCall
  * Creates or looks up a file
  *
  * @param {DOMString} path either a relative or absolute path from this directory in which to look up or create a file
- * @param {Flags} options to create or excluively create the file
+ * @param {Flags} options to create or exclusively create the file
  * @param {Function} successCallback is called with the new entry
  * @param {Function} errorCallback is called with a FileError
  */
@@ -2647,7 +2647,7 @@ var FileReader = function() {
 
     // Event handlers
     this.onloadstart = null;    // When the read starts.
-    this.onprogress = null;     // While reading (and decoding) file or fileBlob data, and reporting partial file data (progess.loaded/progress.total)
+    this.onprogress = null;     // While reading (and decoding) file or fileBlob data, and reporting partial file data (progress.loaded/progress.total)
     this.onload = null;         // When the read has successfully completed.
     this.onerror = null;        // When the read has failed (see errors).
     this.onloadend = null;      // When the request has completed (either in success or failure).
@@ -4597,7 +4597,7 @@ for ( var key in fieldMappings) {
  * @param {String}
  *            type the type of address (e.g. work, home)
  * @param {blackberry.pim.Address}
- *            bbAddress a BlakcBerry Address object
+ *            bbAddress a BlackBerry Address object
  * @return {ContactAddress} a contact address object or null if the specified
  *         address is null
  */
@@ -5265,10 +5265,10 @@ function _exec(win, fail, clazz, action, args) {
         if (origResult.length > 0) {
             eval("evalResult = " + origResult + ";");
 
-            // If status is OK, then return evalResultalue back to caller
+            // If status is OK, then return evalResult value back to caller
             if (evalResult.status === Cordova.callbackStatus.OK) {
 
-                // If there is a success callback, then call it now with returned evalResultalue
+                // If there is a success callback, then call it now with returned evalResult value
                 if (win) {
                     // Clear callback if not expecting any more results
                     if (!evalResult.keepCallback) {
@@ -5282,7 +5282,7 @@ function _exec(win, fail, clazz, action, args) {
                     delete Cordova.callbacks[callbackId];
                 }
             } else {
-                // If there is a fail callback, then call it now with returned evalResultalue
+                // If there is a fail callback, then call it now with returned evalResult value
                 if (fail) {
 
                     // Clear callback if not expecting any more results
