@@ -18,7 +18,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
  * Added core W3C objects to cordova to properly support platforms that rely on those objects being there natively
  * Fixed default contacts not being modifiable
  * Inject BB10 WebWorks when loading the BB10 Dev Alpha device
- * Fixed clearWatch bug in geoloacation API
+ * Fixed clearWatch bug in geolocation API
 
 * General updates:
  * Added support Geolocation routing using gpx files
@@ -30,7 +30,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
  * Updated Chrome Extension to use Manifest V2
  * Fixed enableripple querystring to default to specified platform for Chrome Store version of Ripple
  * Fixed version number not showing up in About Ripple dialog
- * Updated config.xml missing/invalide message to be more descriptive
+ * Updated config.xml missing/invalid message to be more descriptive
 
 ## v0.9.8 - Aug 15, 2012
 
@@ -107,7 +107,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 * (fix) [iPhone] fixed viewport size to match screen size
 * (fix) [iPhone] fixed screen size display
 * (fix) [OpenLayers] fixed stylesheet link
-* (fix) [touch] fixed element.ontouchX buinding
+* (fix) [touch] fixed element.ontouchX binding
 * (fix) [touch] fixed event.screenX/Y values 
 * (fix) [tests] fixed failing tests in browser runner
 * (update) removed End of Life notice
@@ -122,7 +122,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 * (fix) [BB device] blackberry.io.dir.getParentDirectory generates exception (issue #228)
 * (fix) [BB device] blackberry.io.dir.exists generates exceptions (issue #227)
 * (fix) require('ripple/***') breaks in node 0.5.x/0.6.x (issue #226)
-* (fix) [ripple/boostrap] does not pass event object to listeners on window load/DOMContentLoaded (issue #217)
+* (fix) [ripple/bootstrap] does not pass event object to listeners on window load/DOMContentLoaded (issue #217)
 * (fix) [lib/deviceMotionEmulator] does not pass all arguments to window.addEventListener/removeEventListener (issue #216)
 * (removed hotfix) window load event handlers are not triggered when navigating inside app (issue #190)
 
@@ -138,7 +138,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 ## v0.9.0 - October 18, 2011
 
 * Added Omnibar plugin to web build
-* Removed vodaphone, opera, wac platforms
+* Removed vodafone, opera, wac platforms
 * Added agnostic filesystem api (thin wrapper for W3C File API)
 * Added support for blackberry.io.file and blackberry.io.dir (including blackberry.utils.stringToBlog and blobtoString)
 * Added APIs for blackberry.app.event.onSwipeDown and blackberry.app.event.onSwipeStart for WebWorks Tablet

@@ -56,7 +56,7 @@ describe("ui", function () {
     });
 
     describe("loading a theme", function () {
-        // Note: I did this more as an intergration style of test (explicit unit testing felt superfluous)
+        // Note: I did this more as an integration style of test (explicit unit testing felt superfluous)
         it("can be done via a URL query string parameter", function () {
             var searchParams = '?theme=foo'; // theme must exist
 

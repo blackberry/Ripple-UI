@@ -49,7 +49,7 @@ describe("webworks XMLHttpRequest", function () {
             delete webworks.blackberry.the;
         });
 
-        it("passes the GET paramaters as a parsed, decoded hash", function () {
+        it("passes the GET parameters as a parsed, decoded hash", function () {
             var url = "webworks://blackberry/thing/about/the",
                 xhr = new XHR(),
                 data = "?arg=" + encodeURIComponent(JSON.stringify("abc://")) +
@@ -148,7 +148,7 @@ describe("webworks XMLHttpRequest", function () {
             delete webworks.blackberry.abc;
         });
 
-        it("parses individual get paramters as JSON", function () {
+        it("parses individual get parameters as JSON", function () {
             var url = "webworks://blackberry/cde",
                 xhr = new XHR(),
                 obj = {whatup: "dude"},
