@@ -24,8 +24,8 @@ describe("Cordova file bridge", function () {
         _fileEntry = {
             isFile: true,
             isDirectory: false,
-            name: "testfile.txt",
-            fullpath: "/testfile.txt",
+            name: "test/testfile.txt",
+            fullpath: "/test/testfile.txt",
         },
         _directoryEntry = {
             isFile: false,
@@ -728,7 +728,7 @@ describe("Cordova file bridge", function () {
         });
 
         it("can be called without an error callback", function () {
-            file.write(s, null, [_fileEntry, text, position]);
+            file.write(s, null, [_fileEntry.fullpath, text, position]);
             waits(1);
             runs(function () {
                 expect(s).toHaveBeenCalledWith(text.length + position);
@@ -736,7 +736,7 @@ describe("Cordova file bridge", function () {
         });
 
         it("can be called with valid callbacks and sane arguments", function () {
-            file.write(s, e, [_fileEntry, text, position]);
+            file.write(s, e, [_fileEntry.fullpath, text, position]);
             waits(1);
             runs(function () {
                 expect(s).toHaveBeenCalledWith(text.length + position);
@@ -746,7 +746,7 @@ describe("Cordova file bridge", function () {
 
         it("obeys the position directive", function () {
             position = 1024;
-            file.write(s, e, [_fileEntry, text, position]);
+            file.write(s, e, [_fileEntry.fullpath, text, position]);
             waits(1);
             runs(function () {
                 expect(s).toHaveBeenCalledWith(text.length + position);
@@ -756,7 +756,7 @@ describe("Cordova file bridge", function () {
 
         it("calls the error callback if wired to do so", function () {
             text = text + " FAIL " + text;
-            file.write(s, e, [_fileEntry, text, position]);
+            file.write(s, e, [_fileEntry.fullpath, text, position]);
             waits(1);
             runs(function () {
                 expect(s).not.toHaveBeenCalled();
