@@ -32,9 +32,9 @@ function _XMLHttpRequest() {
     };
 
     xhr.open = function (method, url) {
-        var isLocalRequest = helpers.isLocalRequest(url);
+        var isSameOriginRequest = helpers.isSameOriginRequest(url);
 
-        if (!isLocalRequest) {
+        if (!isSameOriginRequest) {
             url = (helpers.proxyIsRemote() ? constants.API_URL : helpers.localProxyRoute()) +
                     "/xhr_proxy?tinyhippos_apikey=ABC&tinyhippos_rurl=" + escape(url);
 
@@ -42,7 +42,7 @@ function _XMLHttpRequest() {
 
         origMethods.open.apply(xhr, Array.prototype.slice.call(arguments));
 
-        if (!isLocalRequest) {
+        if (!isSameOriginRequest) {
             xhr.setRequestHeader("X-Ripple-User-Agent", navigator.userAgent);
         }
     };

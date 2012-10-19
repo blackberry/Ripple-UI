@@ -19,9 +19,11 @@ var constants = require('ripple/client/constants'),
     _self;
 
 _self = {
-    isLocalRequest: function (url) {
-        return (!!(url.match(constants.REGEX.LOCAL_URI)) || !url.match(constants.REGEX.EXTERNAL_URI)) ||
-                !!(location.host && url.match(location.host));
+    isSameOriginRequest: function (url) {
+        var sameorigin = url.match(location.origin.replace(/www\./, '')) ||
+                         !url.match(constants.REGEX.NON_RELATIVE_URI);
+
+        return !!sameorigin;
     },
 
     proxyEnabled: function () {

@@ -37,8 +37,8 @@ function _XMLHttpRequest() {
         _url,
         _async;
 
-    function _localURI() {
-        return _url && helpers.isLocalRequest(_url);
+    function _sameOriginRequest() {
+        return _url && helpers.isSameOriginRequest(_url);
     }
 
     function _set(prop, value) {
@@ -54,7 +54,7 @@ function _XMLHttpRequest() {
     }
 
     xhr.setRequestHeader = function () {
-        if (_localURI()) {
+        if (_sameOriginRequest()) {
             origMethods.setRequestHeader.apply(xhr, Array.prototype.slice.call(arguments));
         } else {
             _console.error("XMLHttpRequest :: setRequestHeader does not work with JSONP.");
@@ -62,13 +62,13 @@ function _XMLHttpRequest() {
     };
 
     xhr.getResponseHeader = function (header) {
-        return _localURI() ?
+        return _sameOriginRequest() ?
                 origMethods.getAllResponseHeaders.apply(xhr, [header]) :
                 _headers[header] || null;
     };
 
     xhr.getAllResponseHeaders = function () {
-        return _localURI() ?
+        return _sameOriginRequest() ?
                 origMethods.getAllResponseHeaders.apply(xhr) :
                 utils.reduce(_headers, function (str, value, key) {
                     return str + key + ": " + value + '\n';
@@ -79,7 +79,7 @@ function _XMLHttpRequest() {
         _url = url;
         _async = async !== false ? true : false;
 
-        if (_localURI()) {
+        if (_sameOriginRequest()) {
             origMethods.open.apply(xhr, Array.prototype.slice.call(arguments));
         } else {
             _reset();
@@ -133,7 +133,7 @@ function _XMLHttpRequest() {
     };
 
     xhr.send = function (data) {
-        if (_localURI()) {
+        if (_sameOriginRequest()) {
             origMethods.send(data);
             return;
         }
@@ -154,7 +154,7 @@ function _XMLHttpRequest() {
     };
 
     xhr.abort = function () {
-        if (_localURI()) {
+        if (_sameOriginRequest()) {
             origMethods.abort();
             return;
         }
