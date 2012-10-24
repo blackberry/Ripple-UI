@@ -15,22 +15,25 @@
  */
 var fs = require('fs'),
     jWorkflow = require('jWorkflow'),
-    quotes = require('./build/quotes'),
-    pack = require('./build/pack'),
-    clean = require('./build/clean'),
-    compress = require('./build/compress'),
-    chromium = require('./build/chromium'),
-    chromestore = require('./build/chromestore'),
-    app = require('./build/app'),
-    web = require('./build/web');
+    quotes = require('./quotes'),
+    pack = require('./pack'),
+    clean = require('./clean'),
+    _c = require('./conf'),
+    compress = require('./compress'),
+    chromeExt = require('./targets/chrome.extension'),
+    rimChromeExt = require('./targets/rim.chrome.extension'),
+    npm = require('./targets/npm'),
+    npmRIM = require('./targets/rim.npm'),
+    cordova = require('./targets/cordova'),
+    web = require('./targets/web');
 
 function _done(error) {
     if (error) {
-        process.stdout.write(fs.readFileSync(__dirname + "/../thirdparty/fail.txt", "utf-8"));
+        process.stdout.write(fs.readFileSync(_c.THIRDPARTY + "fail.txt", "utf-8"));
         process.stdout.write(error);
         process.exit(1);
     } else {
-        process.stdout.write(fs.readFileSync(__dirname + "/../thirdparty/dredd.txt", "utf-8"));
+        process.stdout.write(fs.readFileSync(_c.THIRDPARTY + "dredd.txt", "utf-8"));
         quotes.random();
         process.exit();
     }
@@ -56,20 +59,28 @@ module.exports = _handle(function (ext, opts) {
     case 'web':
         build.andThen(web);
         break;
-    case 'chromium':
-        build.andThen(chromium);
+    case 'chrome.extension':
+        build.andThen(chromeExt);
         break;
-    case 'chromestore':
-        build.andThen(chromestore);
+    case 'rim.chrome.extension':
+        build.andThen(rimChromeExt);
         break;
-    case 'app':
-        build.andThen(app);
+    case 'npm':
+        build.andThen(npm);
+        break;
+    case 'rim.npm':
+        build.andThen(npmRIM);
+        break;
+    case 'cordova':
+        build.andThen(cordova);
         break;
     default:
-        build.andThen(chromium)
-             .andThen(chromestore)
+        build.andThen(chromeExt)
+             .andThen(rimChromeExt)
+             .andThen(npm)
+             .andThen(npmRIM)
              .andThen(web)
-             .andThen(app);
+             .andThen(cordova);
     }
 
     if (opts.compress) {

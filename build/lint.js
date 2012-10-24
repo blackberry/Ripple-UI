@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 var childProcess = require('child_process'),
+    _c = require('./conf'),
     fs = require('fs');
 
 function _spawn(proc, args, done) {
@@ -36,7 +37,7 @@ function _lintJS(files, done) {
 }
 
 function _lintCSS(files, done) {
-    var rules = JSON.parse(fs.readFileSync(__dirname + "/../.csslintrc", "utf-8")),
+    var rules = JSON.parse(fs.readFileSync(_c.ROOT + ".csslintrc", "utf-8")),
         options = ["--errors=" + rules, "--format=compact", "--quiet"];
     _spawn('csslint', files.concat(options), function (/*code*/) {
         // TODO: There is a lingering CSS error that can not be turned off.
@@ -46,7 +47,7 @@ function _lintCSS(files, done) {
 }
 
 module.exports = function (done, files) {
-    var cssDirs = ["ext/assets/ripple.css", "ext/chromium/styles", "lib", "test"];
+    var cssDirs = ["assets/ripple.css", "targets/chrome.extension/styles", "client", "server", "test"];
     _lintJS(files && files.length > 0 ? files : ["."], function (jscode) {
         _lintCSS(files && files.length > 0 ? files : cssDirs, function (csscode) {
             done((jscode === 0 && csscode === 0) ? 0 : 1);
