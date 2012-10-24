@@ -58,13 +58,13 @@ describe("db", function () {
         expect(storedValue).toEqual("test value");
     });
 
-    it("save_doesnt_retreive_without_prefix", function () {
+    it("save_doesnt_retrieve_without_prefix", function () {
         db.save("testKey", "test value");
         var storedValue = db.retrieve("testKey", "testPrefix-");
         expect(storedValue).toBeFalsy();
     });
 
-    it("save_doesnt_retreive_with_prefix", function () {
+    it("save_doesnt_retrieve_with_prefix", function () {
         db.save("testKey", "test value", "testPrefix-");
         var storedValue = db.retrieve("testKey");
         expect(storedValue).toEqual(undefined);
@@ -93,7 +93,7 @@ describe("db", function () {
     });
 
     //HACK: This test should be readded
-    xit("saveObject_doesnt_retreive_without_prefix", function () {
+    xit("saveObject_doesnt_retrieve_without_prefix", function () {
         var testJSON = {
                 test: "test value"
             },
@@ -104,7 +104,7 @@ describe("db", function () {
         expect(storedValue).toEqual(undefined);
     });
 
-    it("saveObject_doesnt_retreive_with_prefix", function () {
+    it("saveObject_doesnt_retrieve_with_prefix", function () {
         var testJSON = {
                 test: "test value"
             },
@@ -169,7 +169,7 @@ describe("db", function () {
         expect(prefixValue).toEqual(undefined);
     });
 
-    it("can_retreive_all_for_a_prefix", function () {
+    it("can_retrieve_all_for_a_prefix", function () {
         db.save("testKey", "test value", "testPrefix-");
         db.save("testKey2", "test value 2", "testPrefix-");
         db.save("testKey3", "test value 3", "testPrefix2-");

@@ -31,7 +31,7 @@ describe("phonegap_accelerometer", function () {
         });
     });
 
-    // TODO: why does this fail when not run atomicly
+    // TODO: why does this fail when not run atomically
     xit("acceleration info is updated on AccelerometerInfoChangedEvent", function () {
         event.trigger("AccelerometerInfoChangedEvent", [{
             x: 9.8,

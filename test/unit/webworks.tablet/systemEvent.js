@@ -97,7 +97,7 @@ describe("webworks.tablet system event", function () {
                 expect(typeof args[2]).toEqual("function");
             });
 
-            it("invokes handler upon successfull response from server", function () {
+            it("invokes handler upon successful response from server", function () {
                 var listener = jasmine.createSpy(),
                     res = {
                         code: 1,
@@ -129,7 +129,7 @@ describe("webworks.tablet system event", function () {
                 expect(typeof args[2]).toEqual("function");
             });
 
-            it("invokes handler upon successfull response from server", function () {
+            it("invokes handler upon successful response from server", function () {
                 var listener = jasmine.createSpy(),
                     res = {
                         code: 1,

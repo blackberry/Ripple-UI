@@ -432,7 +432,7 @@ describe("utils", function () {
 
     it("Copy_copies_a_date_properly", function () {
         var date = new Date();
-        //use unix timestamp since date objects dont work here.
+        //use unix timestamp since date objects don't work here.
         expect(utils.copy(date).getTime()).toEqual(date.getTime());
     });
 

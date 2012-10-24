@@ -394,7 +394,7 @@ describe("webworks finder", function () {
             });
         });
 
-        it("can sort decending", function () {
+        it("can sort descending", function () {
             var fe = new FilterExpression("bar", "==", true),
                 result = select.from(things).orderBy("foo", "desc").where(fe);
 
