@@ -63,6 +63,7 @@ function _setContainers(containers, device, orientation) {
 function _getDimensions(device, orientation) {
     var cssPixelRatio = (device.mediaQueryEmulation && device.mediaQueryEmulation["-webkit-device-pixel-ratio"]) ? device.mediaQueryEmulation["-webkit-device-pixel-ratio"] : 1;
     return {
+        cssPixelRatio: cssPixelRatio,
         deviceWidth: Math.floor((orientation === "portrait" ? device.screen.width : device.screen.height) / cssPixelRatio),
         deviceHeight: Math.floor((orientation === "portrait" ? device.screen.height : device.screen.width) / cssPixelRatio),
         paddingLeft: device.viewPort[orientation].paddingLeft,
@@ -98,6 +99,7 @@ _self = {
         _setOrientation(layout);
 
         _win.onorientationchange = undefined;
+        _win.devicePixelRatio = window.devicePixelRatio;
     },
     // TODO: redo/refactor this in general, seems bloated, also devices REQUIRE viewport schemas which they shouldn't
     resize: function (device) {
@@ -118,6 +120,8 @@ _self = {
         if (!device.skin) {
             _formatSkin(containers, dimensions);
         }
+
+        window.devicePixelRatio = dimensions.cssPixelRatio;
 
         event.trigger("ScreenChangeDimensions", [dimensions.viewPort.width, dimensions.viewPort.height]);
     },

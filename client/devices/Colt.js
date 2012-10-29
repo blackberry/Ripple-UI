@@ -59,5 +59,8 @@ module.exports = {
 
     "ppi": 356,
     "userAgent": "Mozilla/5.0 (BB10; Touch) AppleWebKit/537.1+ (KHTML, like Gecko) Version/10.0.0.1337 Mobile Safari/537.1+",
-    "platforms": ["web", "webworks.bb10", "cordova"]
+    "platforms": ["web", "webworks.bb10", "cordova"],
+    "mediaQueryEmulation": {
+        "-webkit-device-pixel-ratio": 2.24
+    }
 };
