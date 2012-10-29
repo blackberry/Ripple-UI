@@ -19,6 +19,10 @@ In particular, the assets under ext/assets/images are excluded from the Apache S
 
 ## Getting Started
 
+If you plan to dive into the source, be sure to check out the [HACKING](https://github.com/blackberry/Ripple-UI/blob/master/HACKING.md) file.
+
+To get started, you need to setup a few things, first- run (in the project root):
+
     ./configure
 
 This script will pull down the needed npm packages and initialize the submodules.
