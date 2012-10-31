@@ -57,6 +57,9 @@ module.exports = {
             children: {
                 geolocation: {
                     path: "w3c/1.0/geolocation"
+                },
+                webkitBattery: {
+                    path: "webworks.bb10/1.0.0/webkitBattery"
                 }
             }
         },

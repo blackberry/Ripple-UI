@@ -102,7 +102,27 @@ module.exports = {
             "callback": function (setting) {
                 event.trigger("DeviceBatteryLevelChanged", [setting]);
             }
-        }
+        },
+        "chargingTime": {
+            "name": "Charging Time",
+            "control": {
+                "type": "number",
+                "value": 0
+            },
+            "callback": function (setting) {
+                event.trigger("DeviceBatteryChargingTimeChanged", [setting]);
+            }
+        },
+        "dischargingTime": {
+            "name": "Discharging Time",
+            "control": {
+                "type": "number",
+                "value": 1000
+            },
+            "callback": function (setting) {
+                event.trigger("DeviceBatteryDischargingTimeChanged", [setting]);
+            }
+        },
     },
     "Perimeters": {
         "perimeter": {
