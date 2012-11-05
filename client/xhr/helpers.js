@@ -15,15 +15,24 @@
  */
 var constants = require('ripple/client/constants'),
     db = require('ripple/client/db'),
+    utils = require('ripple/client/utils'),
     PROXY_SETTINGS_LIST = constants.XHR.PROXY_SETTINGS_LIST,
     _self;
 
 _self = {
     isSameOriginRequest: function (url) {
-        var sameorigin = url.match(location.origin.replace(/www\./, '')) ||
-                         !url.match(constants.REGEX.NON_RELATIVE_URI);
+        var sameOrigin;
 
-        return !!sameorigin;
+        url = utils.parseUrl(url);
+
+        if (url.port !== location.port) {
+            return false;
+        }
+
+        sameOrigin = url.href.match(location.origin.replace(/www\./, '')) ||
+                         !url.href.match(constants.REGEX.NON_RELATIVE_URI);
+
+        return !!sameOrigin;
     },
 
     proxyEnabled: function () {
