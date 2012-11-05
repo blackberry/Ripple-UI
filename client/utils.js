@@ -512,5 +512,20 @@ self = module.exports = {
 
     defineReadOnlyField: function (obj, field, value) {
         Object.defineProperty(obj, field, {"value": value, "writable": false});
+    },
+
+    parseUrl: function (url) {
+        var a = document.createElement("a");
+
+        a.href = url;
+
+        return {
+            href: a.href,
+            host: a.host,
+            origin: a.origin,
+            port: a.port,
+            protocol: a.protocol,
+            search: a.search
+        };
     }
 };
