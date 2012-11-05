@@ -18,10 +18,13 @@ var camera = require('ripple/client/ui/plugins/camera'),
     event = require('ripple/client/event');
 
 module.exports = {
-    captureImage: function (success) {
+    captureImage: function (success, error, args) {
         event.once("captured-image", function (uri, file) {
             file.fullPath = uri;
             success([file]);
+        });
+        event.once("image-capture-cancelled", function () {
+            error({code: "CAPTURE_NO_MEDIA_FILES"});
         });
         camera.show();
     }

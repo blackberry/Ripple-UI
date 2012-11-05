@@ -19,6 +19,7 @@ var ui = require('ripple/client/ui'),
     upload = document.getElementById('file-upload'),
     select = document.getElementById('select-file'),
     take = document.getElementById('take-file'),
+    optOut = document.getElementById('camera-cancel'),
     result = document.getElementById("camera-result");
 
 function getType() {
@@ -54,6 +55,12 @@ module.exports = {
         take.addEventListener('click', function () {
             event.trigger('captured-' + getType(), [result.firstChild.src, upload.files[0]]);
             module.exports.hide();
+        });
+
+        optOut.addEventListener('click', function () {
+            console.log('capture-image cancelled');
+            event.trigger('image-capture-cancelled');
+            ui.hideOverlay("camera-window");
         });
     },
     show: function (type) {
