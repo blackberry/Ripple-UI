@@ -28,7 +28,11 @@ module.exports = function (src, baton) {
     order.andThen(function (prev, subbaton) {
         subbaton.take();
         childProcess.exec('mkdir ' + _c.DEPLOY + 'npm', function () {
-            subbaton.pass();
+            childProcess.exec('mkdir ' + _c.DEPLOY + 'npm/server', function () {
+                childProcess.exec('mkdir ' + _c.DEPLOY + 'npm/thirdparty', function () {
+                    subbaton.pass();
+                });
+            });
         });
     });
 
