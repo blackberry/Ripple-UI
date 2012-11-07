@@ -35,7 +35,7 @@ function copy(from, to) {
 
 function write(src) {
     return function () {
-        var css = _c.ASSETS + "ripple.css",
+        var css = _c.ASSETS + "client/ripple.css",
             cssDeploy = _c.DEPLOY + "cordova/www/ripple.css",
             index = _c.DEPLOY + "cordova/www/index.html",
             js = _c.DEPLOY + "cordova/www/ripple.js",
@@ -60,7 +60,8 @@ module.exports = function (src, baton) {
     jWorkflow.order(create('cordova'))
              .andThen(create('cordova/www'))
              .andThen(copy(_c.EXT + "cordova", ""))
-             .andThen(copy(_c.ASSETS, "cordova/www"))
+             .andThen(create('cordova/www/assets'))
+             .andThen(copy(_c.ASSETS + "client/*", "cordova/www/assets"))
              .andThen(copy(_c.PACKAGE_JSON, "cordova/www"))
              .andThen(write(src))
              .start(baton.pass);

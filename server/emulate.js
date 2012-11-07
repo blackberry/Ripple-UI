@@ -36,7 +36,7 @@ module.exports = {
 
         app.use(express.static(options.path));
 
-        app.use(options.route + "/enable/", express.static(__dirname + "/www/"));
+        app.use(options.route + "/enable/", express.static(__dirname + "/../assets/server"));
 
         console.log();
         console.log("INFO:".green + " Load the URL below (in Chrome) to auto-enable Ripple.");

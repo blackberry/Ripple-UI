@@ -25,13 +25,13 @@ module.exports = function (src, baton) {
 
     var copy = 'cp -r ' + _c.EXT + "chrome.extension " + _c.DEPLOY + _EXT_DIR + " && " +
                'cp -rf ' + _c.EXT + _EXT_DIR + " " + _c.DEPLOY + " && " +
-               'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + _EXT_DIR + "/ &&" +
-               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + _EXT_DIR + "/" +
+               'cp -r ' + _c.ASSETS + "client/images " + _c.DEPLOY + _EXT_DIR + "/ &&" +
+               'cp -r ' + _c.ASSETS + "client/themes " + _c.DEPLOY + _EXT_DIR + "/" +
                'cp -r ' + _c.ROOT + "services " + _c.DEPLOY + _EXT_DIR + "/" +
                'cp -r ' + _c.ROOT + "plugins " + _c.DEPLOY + _EXT_DIR + "/";
 
     childProcess.exec(copy, function () {
-        var css = _c.ASSETS + "ripple.css",
+        var css = _c.ASSETS + "client/ripple.css",
             cssDeploy = _c.DEPLOY + _EXT_DIR + "/ripple.css",
             manifest = _c.DEPLOY + _EXT_DIR + "/manifest.json",
             updatesSrc = _c.EXT + _EXT_DIR + "/updates.xml",

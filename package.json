@@ -33,6 +33,7 @@
     "index.js",
     "server",
     "cli",
+    "assets/server",
     "thirdparty/ludicrous.js",
     "doc",
     "bin"

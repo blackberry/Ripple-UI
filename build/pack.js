@@ -64,7 +64,7 @@ module.exports = function () {
         });
     });
 
-    src.html = fs.readFileSync(_c.ASSETS + "index.html", "utf-8");
+    src.html = fs.readFileSync(_c.ASSETS + "client/index.html", "utf-8");
 
     src.skins += compile(devicesCSS);
     src.panels += compile(panels);

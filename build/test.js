@@ -47,7 +47,7 @@ function _extraMocks() {
 }
 
 function _setupEnv(ready) {
-    var layout = fs.readFileSync(_c.ASSETS + "index.html", "utf-8"),
+    var layout = fs.readFileSync(_c.ASSETS + "client/index.html", "utf-8"),
         thirdparty = [
             _c.THIRDPARTY + "jquery.js",
             _c.THIRDPARTY + "jquery.ui.js"

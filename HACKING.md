@@ -9,7 +9,7 @@ This file describes the directory structure, build process and overall dev workf
 
 ## Folder Structure
 
-* `assets` -> any static assets for the client (ex css, html, themes).
+* `assets` -> any static assets (ex css, html, themes).
 
 * `bin` -> traditionally (in node projects), any "executable" files.
 
@@ -101,7 +101,7 @@ Before your plugin is loaded, you must add it to a list so the UI module knows t
 
 Themes are currently implemented as jQuery.UI themes. You can create custom themes with the [ThemeRoller](http://jqueryui.com/themeroller/).
 
-Note: The `client/ui/themes` file is just a simple file that is used to define the folders a theme is in when copied to a target folder (see `assets/themes`).
+Note: The `client/ui/themes` file is just a simple file that is used to define the folders a theme is in when copied to a target folder (see `assets/client/themes`).
 
 ## Testing
 
