@@ -851,7 +851,7 @@ section.left { left: 0; }
     }
 
     .error-hippo {
-        background: url("images/dontPanic.png") no-repeat center;
+        /*background: url("images") no-repeat center;*/
         background-size: 100% 100%;
         position: absolute;
         width: 230px;
