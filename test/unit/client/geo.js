@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("geo", function () {
-    var geo = require('ripple/client/geo'),
-        db = require('ripple/client/db'),
-        event = require('ripple/client/event');
+    var geo = ripple('geo'),
+        db = ripple('db'),
+        event = ripple('event');
 
     describe("getPositionInfo", function () {
         it("returns valid values", function () {

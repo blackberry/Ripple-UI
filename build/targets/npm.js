@@ -30,7 +30,9 @@ module.exports = function (src, baton) {
         childProcess.exec('mkdir ' + _c.DEPLOY + 'npm', function () {
             childProcess.exec('mkdir ' + _c.DEPLOY + 'npm/thirdparty', function () {
                 childProcess.exec('mkdir ' + _c.DEPLOY + 'npm/assets', function () {
-                    subbaton.pass();
+                    childProcess.exec('mkdir ' + _c.DEPLOY + 'npm/lib', function () {
+                        subbaton.pass();
+                    });
                 });
             });
         });

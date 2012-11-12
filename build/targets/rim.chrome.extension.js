@@ -57,7 +57,7 @@ module.exports = function (src, baton) {
 
         fs.writeFileSync(js,
             src.js +
-            "require('ripple/client/bootstrap').bootstrap();"
+            "ripple('bootstrap').bootstrap();"
         );
 
         utils.collect(_c.DEPLOY + _EXT_DIR, resourceList, function () { return true; });

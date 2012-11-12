@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 describe("webworks_appEvent", function () {
-    var appEvent = require('ripple/client/platform/webworks.handset/2.0.0/server/appEvent'),
-        client = require('ripple/client/platform/webworks.handset/2.0.0/client/appEvent'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        event = require('ripple/client/event'),
+    var appEvent = ripple('platform/webworks.handset/2.0.0/server/appEvent'),
+        client = ripple('platform/webworks.handset/2.0.0/client/appEvent'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        event = ripple('event'),
         MockBaton = function () {
             this.take = jasmine.createSpy('baton.take');
             this.pass = jasmine.createSpy('baton.pass');

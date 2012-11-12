@@ -15,7 +15,7 @@
  */
 describe("blackberry.invoke.card", function () {
     var card, camera,
-        event = require('ripple/client/event');
+        event = ripple('event');
 
     describe("when invoking the camera", function () {
         var save,
@@ -31,11 +31,11 @@ describe("blackberry.invoke.card", function () {
                 addEventListener: jasmine.createSpy("addEventListener")
             });
 
-            camera = require('ripple/client/ui/plugins/camera');
+            camera = ripple('ui/plugins/camera');
             spyOn(camera, "show");
             spyOn(event, "once");
 
-            card = require('ripple/client/platform/webworks.bb10/1.0.0/card');
+            card = ripple('platform/webworks.bb10/1.0.0/card');
         });
 
         describe("when looking at constents", function () {

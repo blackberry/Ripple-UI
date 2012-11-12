@@ -13,6 +13,7 @@
   }],
   "bin": { "ripple": "./bin/ripple" },
   "scripts": {"preinstall": "node thirdparty/ludicrous.js"},
+  "main": "./lib/index",
   "dependencies": {
     "express": "3.0.0rc5",
     "connect-xcors": "0.5.2",
@@ -30,9 +31,9 @@
   "files": [
     "README.md",
     "LICENSE",
-    "index.js",
-    "server",
-    "cli",
+    "lib/index.js",
+    "lib/server",
+    "lib/cli",
     "assets/server",
     "thirdparty/ludicrous.js",
     "doc",

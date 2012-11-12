@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 describe("webworks_app", function () {
-    var appServer = require('ripple/client/platform/webworks.tablet/2.0.0/server/app'),
-        appClient = require('ripple/client/platform/webworks.tablet/2.0.0/client/app'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        event = require('ripple/client/event'),
-        app = require('ripple/client/app');
+    var appServer = ripple('platform/webworks.tablet/2.0.0/server/app'),
+        appClient = ripple('platform/webworks.tablet/2.0.0/client/app'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        event = ripple('event'),
+        app = ripple('app');
 
     describe("client", function () {
         var data = "data";

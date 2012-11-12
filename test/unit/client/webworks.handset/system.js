@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 describe("webworks.handset system", function () {
-    var system = require('ripple/client/platform/webworks.core/2.0.0/server/system'),
-        systemEvent = require('ripple/client/platform/webworks.handset/2.0.0/server/systemEvent'),
-        client = require('ripple/client/platform/webworks.handset/2.0.0/client/system'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        utils = require('ripple/client/utils');
+    var system = ripple('platform/webworks.core/2.0.0/server/system'),
+        systemEvent = ripple('platform/webworks.handset/2.0.0/server/systemEvent'),
+        client = ripple('platform/webworks.handset/2.0.0/client/system'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        utils = ripple('utils');
 
     describe("using webworks.handset server", function () {
         it("exposes the system module", function () {
-            var webworks = require('ripple/client/platform/webworks.handset/2.0.0/server'),
+            var webworks = ripple('platform/webworks.handset/2.0.0/server'),
                 obj = {};
             obj.event = systemEvent;
             utils.mixin(system, obj);

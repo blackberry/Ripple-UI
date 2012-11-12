@@ -72,6 +72,9 @@ module.exports = function () {
     src.overlays += compile(overlays);
 
     src.js += "window.require = null;window.define = null;";
+    src.js += "var ripple = function (p) {" +
+                  "return require('ripple/client/' + p);" +
+              "};";
 
     src.js += _c.thirdpartyIncludes.reduce(function (buffer, file) {
         return buffer + fs.readFileSync(_c.THIRDPARTY + file, "utf-8");

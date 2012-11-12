@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("phonegap_compass", function () {
-    var compass = require('ripple/client/platform/cordova/1.0.0/compass'),
-        geo = require('ripple/client/geo');
+    var compass = ripple('platform/cordova/1.0.0/compass'),
+        geo = ripple('geo');
 
     it("clearWatch clears interval", function () {
         spyOn(global, "clearInterval");

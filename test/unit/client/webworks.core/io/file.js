@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 describe("webworks.core io.file", function () {
-    var server = require('ripple/client/platform/webworks.core/2.0.0/server/io/file'),
-        client = require('ripple/client/platform/webworks.core/2.0.0/client/io/file'),
-        cache = require('ripple/client/platform/webworks.core/2.0.0/fsCache'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        notifications = require('ripple/client/notifications'),
+    var server = ripple('platform/webworks.core/2.0.0/server/io/file'),
+        client = ripple('platform/webworks.core/2.0.0/client/io/file'),
+        cache = ripple('platform/webworks.core/2.0.0/fsCache'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        notifications = ripple('notifications'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
             this.pass = jasmine.createSpy("baton.pass");
@@ -28,7 +28,7 @@ describe("webworks.core io.file", function () {
     describe("handset", function () {
         describe("platform spec index", function () {
             it("includes module according to proper object structure", function () {
-                var spec = require('ripple/client/platform/webworks.handset/2.0.0/spec');
+                var spec = ripple('platform/webworks.handset/2.0.0/spec');
                 expect(spec.objects.blackberry.children.io.children.file).toEqual({
                     path: "webworks.core/2.0.0/client/io/file",
                     feature: "blackberry.io.file"
@@ -38,7 +38,7 @@ describe("webworks.core io.file", function () {
 
         describe("server index", function () {
             it("exposes the server module", function () {
-                var webworks = require('ripple/client/platform/webworks.handset/2.0.0/server');
+                var webworks = ripple('platform/webworks.handset/2.0.0/server');
                 expect(webworks.blackberry.io.file).toEqual(server);
             });
         });
@@ -47,7 +47,7 @@ describe("webworks.core io.file", function () {
     describe("tablet", function () {
         describe("platform spec index", function () {
             it("includes module according to proper object structure", function () {
-                var spec = require('ripple/client/platform/webworks.tablet/2.0.0/spec');
+                var spec = ripple('platform/webworks.tablet/2.0.0/spec');
                 expect(spec.objects.blackberry.children.io.children.file).toEqual({
                     path: "webworks.core/2.0.0/client/io/file",
                     feature: "blackberry.io.file" // required, but permissions are optional (see docs)
@@ -57,7 +57,7 @@ describe("webworks.core io.file", function () {
 
         describe("server index", function () {
             it("exposes the server module", function () {
-                var webworks = require('ripple/client/platform/webworks.tablet/2.0.0/server');
+                var webworks = ripple('platform/webworks.tablet/2.0.0/server');
                 expect(webworks.blackberry.io.file).toEqual(server);
             });
         });

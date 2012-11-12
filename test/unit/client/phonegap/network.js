@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("phonegap_network", function () {
-    var deviceSettings = require('ripple/client/deviceSettings'),
-        network = require('ripple/client/platform/cordova/1.0.0/network');
+    var deviceSettings = ripple('deviceSettings'),
+        network = ripple('platform/cordova/1.0.0/network');
 
     it("returns the value from deviceSettings", function () {
         spyOn(deviceSettings, "retrieve").andReturn("tin_cans");

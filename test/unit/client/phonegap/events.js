@@ -1,6 +1,6 @@
 describe("phonegap events", function () {
-    var spec = require('ripple/client/platform/cordova/1.0.0/spec'),
-        emulatorBridge = require('ripple/client/emulatorBridge'),
+    var spec = ripple('platform/cordova/1.0.0/spec'),
+        emulatorBridge = ripple('emulatorBridge'),
         events = spec.events;
 
     function _expectsEventToFire(name) {

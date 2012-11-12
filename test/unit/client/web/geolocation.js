@@ -1,8 +1,8 @@
 describe("w3c_geolocation", function () {
     var w3c = "w3c/1.0/",
-        web = "ripple/client/platform/web/default/",
-        spec = require(web  + 'spec'),
-        ui = require(web  + 'spec/ui');
+        web = "platform/web/default/",
+        spec = ripple(web  + 'spec'),
+        ui = ripple(web  + 'spec/ui');
 
     describe("spec", function () {
         it("includes require modules", function () {

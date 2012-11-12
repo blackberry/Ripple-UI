@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 describe("platform", function () {
-    var platform = require('ripple/client/platform'),
-        db = require('ripple/client/db'),
-        app = require('ripple/client/app'),
-        builder = require('ripple/client/platform/builder'),
-        utils = require('ripple/client/utils'),
-        event = require('ripple/client/event'),
-        _console = require('ripple/client/console');
+    var platform = ripple('platform'),
+        db = ripple('db'),
+        app = ripple('app'),
+        builder = ripple('platform/builder'),
+        utils = ripple('utils'),
+        event = ripple('event'),
+        _console = ripple('console');
 
     beforeEach(function () {
         spyOn(db, "retrieveObject");

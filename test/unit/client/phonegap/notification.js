@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("phonegap notifications", function () {
-    var notification = require('ripple/client/platform/cordova/1.0.0/notification'),
-        goodVibrations = require('ripple/client/ui/plugins/goodVibrations'),
-        notifications = require('ripple/client/notifications');
+    var notification = ripple('platform/cordova/1.0.0/notification'),
+        goodVibrations = ripple('ui/plugins/goodVibrations'),
+        notifications = ripple('notifications');
 
     beforeEach(function () {
         spyOn(console, "log");

@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require(__dirname + '/../cli').interpret(process.argv);
+require('./../lib/cli').interpret(process.argv);

@@ -15,8 +15,8 @@
  */
 describe("Cordova Device Bridge", function () {
     describe("on getDeviceInfo", function () {
-        var _devices = require('ripple/client/platform/cordova/2.0.0/bridge/device'),
-        devices = require('ripple/client/devices'),
+        var _devices = ripple('platform/cordova/2.0.0/bridge/device'),
+        devices = ripple('devices'),
         s,
         e,
         _deviceInfo = {
@@ -25,7 +25,7 @@ describe("Cordova Device Bridge", function () {
             osVersion: "0.1.0",
             name: "Unit Test Device",
             uuid: Math.uuid(),
-            cordova: "2.0.0" //hard-coded in ripple/client/platform/cordova/2.0.0/bridge/device.js
+            cordova: "2.0.0" //hard-coded in lib/client/platform/cordova/2.0.0/bridge/device.js
         };
 
         beforeEach(function () {

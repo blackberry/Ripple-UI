@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 describe("ui", function () {
-    var ui = require('ripple/client/ui'),
-        db = require('ripple/client/db'),
-        themes = require('ripple/client/ui/themes'),
-        utils = require('ripple/client/utils'),
-        platform = require('ripple/client/platform');
+    var ui = ripple('ui'),
+        db = ripple('db'),
+        themes = ripple('ui/themes'),
+        utils = ripple('utils'),
+        platform = ripple('platform');
 
     function _plugin(name) {
-        return 'ripple/client/ui/plugins/' + name;
+        return 'ui/plugins/' + name;
     }
 
     it("initializes core ui plugin modules", function () {
@@ -39,7 +39,7 @@ describe("ui", function () {
         spyOn(platform, "current").andReturn({ui: {plugins: platformPlugins}});
 
         plugins.concat(platformPlugins).forEach(function (name) {
-            var module = require(_plugin(name));
+            var module = ripple(_plugin(name));
             if (module.initialize) {
                 spyOn(module, "initialize");
             }
@@ -48,7 +48,7 @@ describe("ui", function () {
         ui.initialize();
 
         plugins.concat(platformPlugins).forEach(function (name) {
-            var module = require(_plugin(name));
+            var module = ripple(_plugin(name));
             if (module.initialize) {
                 expect(module.initialize).toHaveBeenCalled();
             }
@@ -71,7 +71,7 @@ describe("ui", function () {
             spyOn(db, 'remove');
             spyOn(document.getElementsByTagName('head')[0], 'appendChild');
             ui.getSystemPlugins().forEach(function (name) {
-                var module = require(_plugin(name));
+                var module = ripple(_plugin(name));
                 if (module.initialize) {
                     spyOn(module, "initialize");
                 }

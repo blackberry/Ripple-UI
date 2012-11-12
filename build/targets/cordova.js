@@ -48,8 +48,8 @@ function write(src) {
 
         fs.writeFileSync(index, doc);
         fs.writeFileSync(js, src.js +
-            "require('ripple/client/ui').register('omnibar');" +
-            "require('ripple/client/bootstrap').bootstrap();");
+            "ripple('ui').register('omnibar');" +
+            "ripple('bootstrap').bootstrap();");
     };
 }
 

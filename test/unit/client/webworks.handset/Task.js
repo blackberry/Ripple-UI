@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 describe("webworks Task", function () {
-    var Task = require('ripple/client/platform/webworks.handset/2.0.0/server/Task'),
-        TaskClient = require('ripple/client/platform/webworks.handset/2.0.0/client/Task'),
-        Recurrence = require('ripple/client/platform/webworks.handset/2.0.0/client/Recurrence'),
-        Reminder = require('ripple/client/platform/webworks.handset/2.0.0/client/Reminder'),
-        webworks = require('ripple/client/platform/webworks.handset/2.0.0/server'),
-        db = require('ripple/client/db'),
-        select = require('ripple/client/platform/webworks.core/2.0.0/select'),
-        FilterExpression = require('ripple/client/platform/webworks.handset/2.0.0/client/FilterExpression'),
-        spec = require('ripple/client/platform/webworks.handset/2.0.0/spec'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport');
+    var Task = ripple('platform/webworks.handset/2.0.0/server/Task'),
+        TaskClient = ripple('platform/webworks.handset/2.0.0/client/Task'),
+        Recurrence = ripple('platform/webworks.handset/2.0.0/client/Recurrence'),
+        Reminder = ripple('platform/webworks.handset/2.0.0/client/Reminder'),
+        webworks = ripple('platform/webworks.handset/2.0.0/server'),
+        db = ripple('db'),
+        select = ripple('platform/webworks.core/2.0.0/select'),
+        FilterExpression = ripple('platform/webworks.handset/2.0.0/client/FilterExpression'),
+        spec = ripple('platform/webworks.handset/2.0.0/spec'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport');
 
     describe("server index", function () {
         it("exposes the module", function () {

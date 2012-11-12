@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 xdescribe("webworks.tablet system event", function () {
-    var systemEvent = require('ripple/client/platform/webworks.tablet/2.0.0/client/systemEvent'),
-        spec = require('ripple/client/platform/webworks.tablet/2.0.0/spec'),
-        ww_XMLHttpRequest = require('ripple/client/platform/webworks.core/2.0.0/XMLHttpRequest'),
-        helpers = require('ripple/client/xhr/helpers'),
-        xhr = require('ripple/client/xhr'),
-        platform = require('ripple/client/platform'),
-        console = require('ripple/client/console'),
-        event = require('ripple/client/event'),
+    var systemEvent = ripple('platform/webworks.tablet/2.0.0/client/systemEvent'),
+        spec = ripple('platform/webworks.tablet/2.0.0/spec'),
+        ww_XMLHttpRequest = ripple('platform/webworks.core/2.0.0/XMLHttpRequest'),
+        helpers = ripple('xhr/helpers'),
+        xhr = ripple('xhr'),
+        platform = ripple('platform'),
+        console = ripple('console'),
+        event = ripple('event'),
         _oldXHR;
 
     function _run(delay, methods) {
@@ -38,7 +38,7 @@ xdescribe("webworks.tablet system event", function () {
         _oldXHR = window.XMLHttpRequest;
         xhr.initialize();
         global.XMLHttpRequest = window.XMLHttpRequest = ww_XMLHttpRequest
-            .create('ripple/client/platform/webworks.tablet/2.0.0/server');
+            .create(ripple + 'client/platform/webworks.tablet/2.0.0/server');
 
         spyOn(platform, "current").andReturn(spec);
         spyOn(console, "log");

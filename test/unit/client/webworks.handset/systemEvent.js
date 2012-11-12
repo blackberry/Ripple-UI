@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 describe("webworks.handset system event", function () {
-    var sysEvent = require('ripple/client/platform/webworks.handset/2.0.0/server/systemEvent'),
-        client = require('ripple/client/platform/webworks.handset/2.0.0/client/systemEvent'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        event = require('ripple/client/event'),
+    var sysEvent = ripple('platform/webworks.handset/2.0.0/server/systemEvent'),
+        client = ripple('platform/webworks.handset/2.0.0/client/systemEvent'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        event = ripple('event'),
         MockBaton = function () {
             this.take = jasmine.createSpy('baton.take');
             this.pass = jasmine.createSpy('baton.pass');
         };
 
     describe("core platform spec", function () {
-        var events = require('ripple/client/platform/webworks.core/2.0.0/spec/events');
+        var events = ripple('platform/webworks.core/2.0.0/spec/events');
 
         describe("events", function () {
             describe("app.event.onBackground callback", function () {
@@ -47,7 +47,7 @@ describe("webworks.handset system event", function () {
 
     describe("handset platform spec", function () {
         describe("events", function () {
-            var events = require('ripple/client/platform/webworks.handset/2.0.0/spec').events;
+            var events = ripple('platform/webworks.handset/2.0.0/spec').events;
 
             describe("system.event.onHardwareKey callback", function () {
                 it("triggers HardwareKey", function () {
@@ -68,7 +68,7 @@ describe("webworks.handset system event", function () {
     });
     describe("using server", function () {
         it("exposes the system event module", function () {
-            var webworks = require('ripple/client/platform/webworks.handset/2.0.0/server');
+            var webworks = ripple('platform/webworks.handset/2.0.0/server');
             expect(webworks.blackberry.system.event).toEqual(sysEvent);
         });
     });

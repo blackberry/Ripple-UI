@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 describe("webworks.core io.dir", function () {
-    var server = require('ripple/client/platform/webworks.core/2.0.0/server/io/dir'),
-        client = require('ripple/client/platform/webworks.core/2.0.0/client/io/dir'),
-        cache = require('ripple/client/platform/webworks.core/2.0.0/fsCache'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
+    var server = ripple('platform/webworks.core/2.0.0/server/io/dir'),
+        client = ripple('platform/webworks.core/2.0.0/client/io/dir'),
+        cache = ripple('platform/webworks.core/2.0.0/fsCache'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
         FILE = "file://";
 
     describe("tablet", function () {
         describe("platform spec index", function () {
             it("includes module according to proper object structure", function () {
-                var spec = require('ripple/client/platform/webworks.tablet/2.0.0/spec');
+                var spec = ripple('platform/webworks.tablet/2.0.0/spec');
                 expect(spec.objects.blackberry.children.io.children.dir).toEqual({
                     path: "webworks.tablet/2.0.0/client/io/dir",
                     feature: "blackberry.io.dir"
@@ -33,7 +33,7 @@ describe("webworks.core io.dir", function () {
 
         describe("server index", function () {
             it("exposes the server module", function () {
-                var webworks = require('ripple/client/platform/webworks.tablet/2.0.0/server');
+                var webworks = ripple('platform/webworks.tablet/2.0.0/server');
                 expect(webworks.blackberry.io.dir).toEqual(server);
             });
         });

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 describe("devices", function () {
-    var devices = require('ripple/client/devices'),
-        event = require('ripple/client/event'),
-        platform = require('ripple/client/platform'),
-        emulatorBridge = require('ripple/client/emulatorBridge'),
-        bus = require('ripple/client/bus'),
-        db = require('ripple/client/db');
+    var devices = ripple('devices'),
+        event = ripple('event'),
+        platform = ripple('platform'),
+        emulatorBridge = ripple('emulatorBridge'),
+        bus = ripple('bus'),
+        db = ripple('db');
 
     beforeEach(function () {
         spyOn(db, "retrieveObject");

@@ -15,9 +15,9 @@
  */
 describe("deviceSettings", function () {
 
-    var deviceSettings = require('ripple/client/deviceSettings'),
-        platform = require('ripple/client/platform'),
-        db = require('ripple/client/db');
+    var deviceSettings = ripple('deviceSettings'),
+        platform = ripple('platform'),
+        db = ripple('db');
 
     beforeEach(function () {
         spyOn(platform, "current").andReturn({

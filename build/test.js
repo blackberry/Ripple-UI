@@ -119,6 +119,10 @@ module.exports = function (customPaths, done) {
             targets = [_c.ROOT + "test"];
         }
 
+        global.ripple = function (p) {
+            return require(path.normalize(path.join(__dirname, "..", "lib", "client")) + "/" + p);
+        };
+
         jasmine.run(targets, function (runner) {
             var failed = runner.results().failedCount === 0 ? 0 : 1;
             (typeof done !== "function" ? process.exit : done)(failed);

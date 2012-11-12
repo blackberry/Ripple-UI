@@ -15,9 +15,9 @@
  */
 
 describe("Cordova Network Bridge", function () {
-    var network = require('ripple/client/platform/cordova/2.0.0/bridge/network'),
-        event = require('ripple/client/event'),
-        deviceSettings = require('ripple/client/deviceSettings'),
+    var network = ripple('platform/cordova/2.0.0/bridge/network'),
+        event = ripple('event'),
+        deviceSettings = ripple('deviceSettings'),
         s,
         e,
         connectionChangedSpy;

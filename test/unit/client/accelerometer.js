@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 describe("accelerometer", function () {
-    var accelerometer = require('ripple/client/accelerometer'),
-        Rotation = require('ripple/client/platform/w3c/1.0/Rotation'),
-        Acceleration = require('ripple/client/platform/w3c/1.0/Acceleration'),
-        event = require('ripple/client/event'),
-        db = require('ripple/client/db'),
+    var accelerometer = ripple('accelerometer'),
+        Rotation = ripple('platform/w3c/1.0/Rotation'),
+        Acceleration = ripple('platform/w3c/1.0/Acceleration'),
+        event = ripple('event'),
+        db = ripple('db'),
         MOCK_POSITIONINFO = {
             x: 4,
             y: 5,

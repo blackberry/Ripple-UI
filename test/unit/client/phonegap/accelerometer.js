@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("phonegap_accelerometer", function () {
-    var accel = require('ripple/client/platform/cordova/1.0.0/accelerometer'),
-        event = require('ripple/client/event'),
-        platform = require('ripple/client/platform');
+    var accel = ripple('platform/cordova/1.0.0/accelerometer'),
+        event = ripple('event'),
+        platform = ripple('platform');
 
     beforeEach(function () {
         spyOn(platform, "current").andReturn({name: "foo"});

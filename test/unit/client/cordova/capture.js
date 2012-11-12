@@ -28,9 +28,9 @@ describe("Cordova 2.0 Capture bridge", function () {
                 addEventListener: jasmine.createSpy("addEventListener")
             });
 
-            camera = require('ripple/client/ui/plugins/camera');
-            capture = require('ripple/client/platform/cordova/2.0.0/bridge/capture');
-            event = require('ripple/client/event');
+            camera = ripple('ui/plugins/camera');
+            capture = ripple('platform/cordova/2.0.0/bridge/capture');
+            event = ripple('event');
             s = jasmine.createSpy("success");
             e = jasmine.createSpy("error");
             captureSpy = jasmine.createSpy("captured-image");

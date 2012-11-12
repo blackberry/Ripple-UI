@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("blackberry.io", function () {
-    var target = require('ripple/client/platform/webworks.bb10/1.0.0/io'),
-        app = require('ripple/client/app'),
+    var target = ripple('platform/webworks.bb10/1.0.0/io'),
+        app = ripple('app'),
         _id = "myappid";
 
     beforeEach(function () {

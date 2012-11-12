@@ -15,10 +15,10 @@
  */
 
 describe("Cordova 2.0.0 Notification Bridge", function () {
-    var notifications = require('ripple/client/notifications'),
-        goodVibrations = require('ripple/client/ui/plugins/goodVibrations'),
-        notification = require('ripple/client/platform/cordova/2.0.0/bridge/notification'),
-        console = require('ripple/client/console'),
+    var notifications = ripple('notifications'),
+        goodVibrations = ripple('ui/plugins/goodVibrations'),
+        notification = ripple('platform/cordova/2.0.0/bridge/notification'),
+        console = ripple('console'),
         s,
         e;
 

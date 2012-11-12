@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 describe("phonegap_navigator", function () {
-    var event = require('ripple/client/event'),
-        devices = require('ripple/client/devices'),
-        emulatorBridge = require('ripple/client/emulatorBridge'),
+    var event = ripple('event'),
+        devices = ripple('devices'),
+        emulatorBridge = ripple('emulatorBridge'),
         navigator,
-        _console = require('ripple/client/console');
+        _console = ripple('console');
 
     beforeEach(function () {
         spyOn(devices, "getCurrentDevice").andReturn("WTF");
-        navigator = require('ripple/client/platform/cordova/1.0.0/navigator');
+        navigator = ripple('platform/cordova/1.0.0/navigator');
     });
 
     it("it fires device ready and logs when tinyHippos Loaded event is raised", function () {

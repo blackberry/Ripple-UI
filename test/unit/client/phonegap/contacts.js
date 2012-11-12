@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 describe("phonegap_contacts", function () {
-    var db = require('ripple/client/db'),
-        event = require('ripple/client/event'),
-        utils = require('ripple/client/utils'),
-        Contact = require('ripple/client/platform/cordova/1.0.0/Contact'),
-        ContactError = require('ripple/client/platform/cordova/1.0.0/ContactError'),
-        ContactField = require('ripple/client/platform/cordova/1.0.0/ContactField'),
-        ContactFindOptions = require('ripple/client/platform/cordova/1.0.0/ContactFindOptions'),
-        contacts = require('ripple/client/platform/cordova/1.0.0/contacts');
+    var db = ripple('db'),
+        event = ripple('event'),
+        utils = ripple('utils'),
+        Contact = ripple('platform/cordova/1.0.0/Contact'),
+        ContactError = ripple('platform/cordova/1.0.0/ContactError'),
+        ContactField = ripple('platform/cordova/1.0.0/ContactField'),
+        ContactFindOptions = ripple('platform/cordova/1.0.0/ContactFindOptions'),
+        contacts = ripple('platform/cordova/1.0.0/contacts');
 
     beforeEach(function () {
         spyOn(window, "setTimeout").andCallFake(function (func) {
@@ -30,7 +30,7 @@ describe("phonegap_contacts", function () {
     });
 
     describe("spec", function () {
-        var spec = require('ripple/client/platform/cordova/1.0.0/spec');
+        var spec = ripple('platform/cordova/1.0.0/spec');
 
         it("includes contacts module according to proper object structure", function () {
             expect(spec.objects.navigator.children.contacts.path)

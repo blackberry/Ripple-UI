@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("Cordova 2.0 Console bridge", function () {
-    var _console = require('ripple/client/platform/cordova/2.0.0/bridge/console');
+    var _console = ripple('platform/cordova/2.0.0/bridge/console');
 
     describe("when logging", function () {
         it("calls the log method", function () {

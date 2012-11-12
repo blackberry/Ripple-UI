@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 describe("fsCache", function () {
-    var fs = require('ripple/client/platform/webworks.core/2.0.0/fs'),
-        event = require('ripple/client/event'),
-        FileProperties = require('ripple/client/platform/webworks.core/2.0.0/client/FileProperties'),
-        bbUtils = require('ripple/client/platform/webworks.core/2.0.0/client/utils'),
-        cache = require('ripple/client/platform/webworks.core/2.0.0/fsCache'),
+    var fs = ripple('platform/webworks.core/2.0.0/fs'),
+        event = ripple('event'),
+        FileProperties = ripple('platform/webworks.core/2.0.0/client/FileProperties'),
+        bbUtils = ripple('platform/webworks.core/2.0.0/client/utils'),
+        cache = ripple('platform/webworks.core/2.0.0/fsCache'),
         _root = [{
         fullPath: "/dude",
         name: "dude",

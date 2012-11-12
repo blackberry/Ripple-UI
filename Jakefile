@@ -98,7 +98,7 @@ function forEachFile(root, cbFile, cbDone) {
 }
 
 function processWhiteSpace(processor) {
-    var modules = ['cli', 'client', 'server', 'index.js']
+    var modules = ['lib'];
     
     modules.forEach(function (module) {
         forEachFile(module, function(err, file, stats, cbDone) {

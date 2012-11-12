@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 describe("xhr", function () {
-    var utils = require('ripple/client/utils'),
-        xhr = require('ripple/client/xhr'),
-        helpers = require('ripple/client/xhr/helpers'),
+    var utils = ripple('utils'),
+        xhr = ripple('xhr'),
+        helpers = ripple('xhr/helpers'),
         XHR_orig = window.XMLHttpRequest,
-        XHR_base = require('ripple/client/xhr/base'),
-        XHR_cors = require('ripple/client/xhr/cors'),
-        XHR_jsonp = require('ripple/client/xhr/jsonp');
+        XHR_base = ripple('xhr/base'),
+        XHR_cors = ripple('xhr/cors'),
+        XHR_jsonp = ripple('xhr/jsonp');
 
     function _isEmptyObject(obj) {
         var name;

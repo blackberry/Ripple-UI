@@ -15,12 +15,12 @@
  */
 describe("webworks pim.category", function () {
 
-    var categoryClient = require('ripple/client/platform/webworks.handset/2.0.0/client/category'),
-        categoryServer = require('ripple/client/platform/webworks.handset/2.0.0/server/category'),
-        spec = require('ripple/client/platform/webworks.handset/2.0.0/spec'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        webworks = require('ripple/client/platform/webworks.handset/2.0.0/server'),
-        db = require('ripple/client/db');
+    var categoryClient = ripple('platform/webworks.handset/2.0.0/client/category'),
+        categoryServer = ripple('platform/webworks.handset/2.0.0/server/category'),
+        spec = ripple('platform/webworks.handset/2.0.0/spec'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        webworks = ripple('platform/webworks.handset/2.0.0/server'),
+        db = ripple('db');
 
     describe("server index", function () {
         it("exposes the category module", function () {
