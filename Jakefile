@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var fs = require('fs'),
-    path = require("path"),
-    rexp_minified = new RegExp("\\.min\\.js$"),
-    rexp_src = new RegExp('\\.js$');
+var fs = require('fs');
 
 desc("runs jake build");
 task('default', ['fixwhitespace'], require('./build/build'));
@@ -52,76 +49,12 @@ task('clean', [], function () {
     });
 }, true);
 
-// courtesy of incubator-cordova-js found here: https://github.com/apache/incubator-cordova-js/blob/master/Jakefile
 desc('converts tabs to four spaces, eliminates trailing white space, converts newlines to proper form - enforcing style guide ftw!');
 task('fixwhitespace', function() {
-    processWhiteSpace(function(file, newSource) {
-        console.log("fixed whitespace issues in:")
-        
+    require('./build/whitespace').fix(function(file, newSource) {
+        console.log("fixed whitespace issues in:");
         fs.writeFileSync(file, newSource, 'utf8');
-        console.log("   " + file)
-    })
+        console.log("   " + file);
+    }, complete);
 }, true);
 
-function forEachFile(root, cbFile, cbDone) {
-    var count = 0;
-
-    function scan(name) {
-        ++count;
-
-        fs.stat(name, function (err, stats) {
-            if (err) cbFile(err);
-
-            if (stats.isDirectory()) {
-                fs.readdir(name, function (err, files) {
-                    if (err) cbFile(err);
-
-                    files.forEach(function (file) {
-                        scan(path.join(name, file));
-                    });
-                    done();
-                });
-            } else if (stats.isFile()) {
-                cbFile(null, name, stats, done);
-            } else {
-                done();
-            }
-        });
-    }
-
-    function done() {
-        --count;
-        if (count === 0 && cbDone) cbDone();
-    }
-
-    scan(root);
-}
-
-function processWhiteSpace(processor) {
-    var modules = ['lib'];
-    
-    modules.forEach(function (module) {
-        forEachFile(module, function(err, file, stats, cbDone) {
-            //if (err) throw err;
-            if (rexp_minified.test(file) || !rexp_src.test(file)) {
-                cbDone();
-            } else {
-                var origsrc = src = fs.readFileSync(file, 'utf8');
-
-                // tabs -> four spaces
-                if (src.indexOf('\t') >= 0) {
-                    src = src.split('\t').join('    ');
-                }
-
-                // eliminate trailing white space
-                src = src.replace(/ +\n/g, '\n');
-
-                if (origsrc !== src) {
-                    // write it out yo
-                    processor(file, src);
-                }
-                cbDone();
-            }
-        }, complete);
-    });
-}
