@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 describe("webworks_sms", function () {
-    var sms = require('ripple/client/platform/webworks.handset/2.0.0/server/sms'),
-        smsClient = require('ripple/client/platform/webworks.handset/2.0.0/client/sms'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        event = require('ripple/client/event'),
-        platform = require('ripple/client/platform'),
-        notifications = require('ripple/client/notifications'),
-        _console = require('ripple/client/console'),
+    var sms = ripple('platform/webworks.handset/2.0.0/server/sms'),
+        smsClient = ripple('platform/webworks.handset/2.0.0/client/sms'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        event = ripple('event'),
+        platform = ripple('platform'),
+        notifications = ripple('notifications'),
+        _console = ripple('console'),
         MockBaton = function () {
             this.take = jasmine.createSpy('baton.take');
             this.pass = jasmine.createSpy('baton.pass');
@@ -32,14 +32,14 @@ describe("webworks_sms", function () {
 
     describe("in server", function () {
         it("exposes the sms module", function () {
-            var webworks = require('ripple/client/platform/webworks.handset/2.0.0/server');
+            var webworks = ripple('platform/webworks.handset/2.0.0/server');
             expect(webworks.blackberry.message.sms).toEqual(sms);
         });
     });
 
     describe("in spec", function () {
         it("includes sms module according to proper object structure", function () {
-            var spec = require('ripple/client/platform/webworks.handset/2.0.0/spec');
+            var spec = ripple('platform/webworks.handset/2.0.0/spec');
             expect(spec.objects.blackberry.children.message.children.sms.path)
                 .toEqual("webworks.handset/2.0.0/client/sms");
         });

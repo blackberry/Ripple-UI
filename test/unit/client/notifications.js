@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("notifications", function () {
-    var notifications = require('ripple/client/notifications'),
-        exception = require('ripple/client/exception'),
-        constants = require('ripple/client/constants');
+    var notifications = ripple('notifications'),
+        exception = ripple('exception'),
+        constants = ripple('constants');
 
     beforeEach(function () {
         var box = document.getElementById(constants.NOTIFICATIONS.MAIN_CONTAINER_CLASS),

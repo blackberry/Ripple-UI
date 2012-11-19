@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("webworks transport", function () {
-    var spec = require('ripple/client/platform/webworks.handset/2.0.0/spec'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport');
+    var spec = ripple('platform/webworks.handset/2.0.0/spec'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport');
 
     describe("spec index", function () {
         it("includes module according to proper object structure", function () {

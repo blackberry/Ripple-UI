@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describeBrowser("tooltip", function () {
-    var tooltip = require('ripple/client/ui/plugins/tooltip');
+    var tooltip = ripple('ui/plugins/tooltip');
 
     it("tooltip toggles properly", function () {
         var currentToggleState = jQuery.tooltip.blocked,

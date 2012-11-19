@@ -28,7 +28,13 @@ module.exports = function (src, baton) {
     order.andThen(function (prev, subbaton) {
         subbaton.take();
         childProcess.exec('mkdir ' + _c.DEPLOY + 'npm', function () {
-            subbaton.pass();
+            childProcess.exec('mkdir ' + _c.DEPLOY + 'npm/thirdparty', function () {
+                childProcess.exec('mkdir ' + _c.DEPLOY + 'npm/assets', function () {
+                    childProcess.exec('mkdir ' + _c.DEPLOY + 'npm/lib', function () {
+                        subbaton.pass();
+                    });
+                });
+            });
         });
     });
 

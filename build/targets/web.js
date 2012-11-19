@@ -50,8 +50,8 @@ function _cache() {
 module.exports = function (src, baton) {
     baton.take();
 
-    copy(_c.ASSETS, function () {
-        var css = _c.ASSETS + "ripple.css",
+    copy(_c.ASSETS + "client", function () {
+        var css = _c.ASSETS + "client/ripple.css",
             cssDeploy = _c.DEPLOY + "web/ripple.css",
             cacheDeploy = _c.DEPLOY + "web/cache.manifest",
             cacheTarget = _c.EXT + "web/cache.manifest",
@@ -66,8 +66,8 @@ module.exports = function (src, baton) {
         fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
         fs.writeFileSync(index, doc);
         fs.writeFileSync(js, src.js +
-            "require('ripple/client/ui').register('omnibar');" +
-            "require('ripple/client/bootstrap').bootstrap();");
+            "ripple('ui').register('omnibar');" +
+            "ripple('bootstrap').bootstrap();");
 
         fs.writeFileSync(cacheDeploy, cacheData + _cache());
 

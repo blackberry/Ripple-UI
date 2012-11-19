@@ -15,7 +15,7 @@
  */
 describe("db", function () {
 
-    var db = require('ripple/client/db'),
+    var db = ripple('db'),
         old_openDatabase;
 
     beforeEach(function () {

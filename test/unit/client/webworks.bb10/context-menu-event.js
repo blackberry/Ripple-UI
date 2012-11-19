@@ -15,7 +15,7 @@
  */
 describe('ContextMenuEvent', function () {
 
-    var event = require('ripple/client/event'),
+    var event = ripple('event'),
         eventHandler,
         a,
         win = window,
@@ -40,7 +40,7 @@ describe('ContextMenuEvent', function () {
         };
 
 
-    require('ripple/client/platform/webworks.bb10/1.0.0/context-menu-event');
+    ripple('platform/webworks.bb10/1.0.0/context-menu-event');
 
     window.getSelection = function () {
         return {

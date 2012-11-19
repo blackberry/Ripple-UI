@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 describe("webworks.core system", function () {
-    var system = require('ripple/client/platform/webworks.core/2.0.0/server/system'),
-        client = require('ripple/client/platform/webworks.core/2.0.0/client/system'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        deviceSpec = require('ripple/client/platform/webworks.handset/2.0.0/spec/device'),
-        app = require('ripple/client/app'),
-        utils = require('ripple/client/utils'),
-        deviceSettings = require('ripple/client/deviceSettings'),
-        notifications = require('ripple/client/notifications'),
-        Playbook = require('ripple/client/devices/Playbook'),
-        devices = require('ripple/client/devices'),
-        platform = require('ripple/client/platform');
+    var system = ripple('platform/webworks.core/2.0.0/server/system'),
+        client = ripple('platform/webworks.core/2.0.0/client/system'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        deviceSpec = ripple('platform/webworks.handset/2.0.0/spec/device'),
+        app = ripple('app'),
+        utils = ripple('utils'),
+        deviceSettings = ripple('deviceSettings'),
+        notifications = ripple('notifications'),
+        Playbook = ripple('devices/Playbook'),
+        devices = ripple('devices'),
+        platform = ripple('platform');
 
     describe("client", function () {
         describe("hasCapability", function () {

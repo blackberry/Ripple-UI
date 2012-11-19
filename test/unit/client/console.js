@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("console", function () {
-    var _console = require('ripple/client/console');
+    var _console = ripple('console');
 
     beforeEach(function () {
         _console.prefix = null;

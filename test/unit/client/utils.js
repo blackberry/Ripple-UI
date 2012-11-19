@@ -18,8 +18,8 @@ describe("utils", function () {
         _object = {},
         _foreachArray = [],
         _foreachObj = {},
-        exception = require('ripple/client/exception'),
-        utils = require('ripple/client/utils');
+        exception = ripple('exception'),
+        utils = ripple('utils');
 
     beforeEach(function () {
         _array = [1, 2, 3, 4, 5];
@@ -497,8 +497,8 @@ describe("utils", function () {
     });
 
     describe("appLocation", function () {
-        var omnibar = require('ripple/client/ui/plugins/omnibar'),
-        ui = require('ripple/client/ui');
+        var omnibar = ripple('ui/plugins/omnibar'),
+        ui = ripple('ui');
 
         describe("properly parses the omnibar url", function () {
             beforeEach(function () {

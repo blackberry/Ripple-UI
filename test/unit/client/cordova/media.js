@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("cordova media bridge object", function () {
-    var media = require('ripple/client/platform/cordova/2.0.0/bridge/media'),
+    var media = ripple('platform/cordova/2.0.0/bridge/media'),
         audio = {
             play: jasmine.createSpy("audio.play"),
             pause: jasmine.createSpy("audio.pause"),

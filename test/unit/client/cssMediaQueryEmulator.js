@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 xdescribe("cssMediaQueryEmulator", function () {
-    var cssMediaQueryEmulator = require('ripple/client/cssMediaQueryEmulator');
+    var cssMediaQueryEmulator = ripple('cssMediaQueryEmulator');
 
     describe("on init", function () {
         cssMediaQueryEmulator.init();

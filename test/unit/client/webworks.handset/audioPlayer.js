@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 describe("webworks audio.Player", function () {
-    var player = require('ripple/client/platform/webworks.handset/2.0.0/server/audioPlayer'),
-        Player = require('ripple/client/platform/webworks.handset/2.0.0/client/AudioPlayer'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        utils = require('ripple/client/utils'),
+    var player = ripple('platform/webworks.handset/2.0.0/server/audioPlayer'),
+        Player = ripple('platform/webworks.handset/2.0.0/client/AudioPlayer'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        utils = ripple('utils'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
             this.pass = jasmine.createSpy("baton.pass");
         },
-        notifications = require('ripple/client/notifications'),
+        notifications = ripple('notifications'),
         _createElement = utils.createElement,
         _emulatedError;
 
@@ -50,7 +50,7 @@ describe("webworks audio.Player", function () {
 
     describe("in spec", function () {
         it("includes module in correct spot", function () {
-            var webworks = require('ripple/client/platform/webworks.handset/2.0.0/server');
+            var webworks = ripple('platform/webworks.handset/2.0.0/server');
             expect(webworks.blackberry.audio.player).toBe(player);
         });
     });

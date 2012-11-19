@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("Cordova Contacts Bridge", function () {
-    var contacts = require('ripple/client/platform/cordova/2.0.0/bridge/contacts'),
-    db = require('ripple/client/db'),
+    var contacts = ripple('platform/cordova/2.0.0/bridge/contacts'),
+    db = ripple('db'),
     contact = {
         "name": { formatted: "Mark Dineen" },
         "id": Math.uuid(undefined, 16),

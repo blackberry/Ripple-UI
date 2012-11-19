@@ -21,13 +21,13 @@ describe("resizer", function () {
         _emulatedHtml,
         _emulatedViewport,
         _emulatedDevice,
-        iPhone3 = require('ripple/client/devices/iPhone3'),
-        devices = require('ripple/client/devices'),
-        event = require('ripple/client/event'),
-        db = require('ripple/client/db'),
-        platform = require('ripple/client/platform'),
-        _console = require('ripple/client/console'),
-        resizer = require('ripple/client/resizer');
+        iPhone3 = ripple('devices/iPhone3'),
+        devices = ripple('devices'),
+        event = ripple('event'),
+        db = ripple('db'),
+        platform = ripple('platform'),
+        _console = ripple('console'),
+        resizer = ripple('resizer');
 
     beforeEach(function () {
         spyOn(devices, "getCurrentDevice").andReturn(iPhone3);

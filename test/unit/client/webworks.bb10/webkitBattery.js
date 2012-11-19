@@ -15,7 +15,7 @@
  */
 
 describe("webkitBattery", function () {
-    var battery = require("ripple/client/platform/webworks.bb10/1.0.0/webkitBattery");
+    var battery = ripple('platform/webworks.bb10/1.0.0/webkitBattery');
 
     describe("when checking the interface", function () {
         it("has a charging property", function () {
@@ -72,7 +72,7 @@ describe("webkitBattery", function () {
     });
 
     describe("the values come from the device settings", function () {
-        var deviceSettings = require('ripple/client/deviceSettings');
+        var deviceSettings = ripple('deviceSettings');
 
         it("gets the value for charging", function () {
             spyOn(deviceSettings, "retrieveAsBoolean").andReturn("Leonardo");
@@ -100,7 +100,7 @@ describe("webkitBattery", function () {
     });
 
     describe("when subscribing to events", function () {
-        var event = require('ripple/client/event');
+        var event = ripple('event');
 
         describe("and using the onX properties", function () {
             it("calls the onlevelchange function on the DeviceBatteryLevelChanged event", function () {

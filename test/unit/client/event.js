@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("event", function () {
-    var event = require('ripple/client/event');
+    var event = ripple('event');
 
     describe("the on method", function () {
         afterEach(function () {

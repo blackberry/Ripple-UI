@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("fs", function () {
-    var fs = require('ripple/client/fs'),
-        event = require('ripple/client/event'),
-        utils = require('ripple/client/utils'),
+    var fs = ripple('fs'),
+        event = ripple('event'),
+        utils = ripple('utils'),
         _resultEntries,
         _dirEntry,
         _baton,

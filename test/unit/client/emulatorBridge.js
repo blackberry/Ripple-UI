@@ -15,8 +15,8 @@
  */
 // TODO: make more modular (be able to boot one module at a time)
 describeBrowser("emulator_bridge", function () {
-    var emulatorBridge = require('ripple/client/emulatorBridge'),
-        platform = require('ripple/client/platform'),
+    var emulatorBridge = ripple('emulatorBridge'),
+        platform = ripple('platform'),
         old_gElById,
         _currentPlatformInit,
         _emulatedBody,

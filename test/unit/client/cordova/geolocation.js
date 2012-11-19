@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("Cordova Geolocation bridge", function () {
-    var geo = require('ripple/client/geo'),
-        event = require('ripple/client/event'),
-        geolocation = require('ripple/client/platform/cordova/2.0.0/bridge/geolocation'),
+    var geo = ripple('geo'),
+        event = ripple('event'),
+        geolocation = ripple('platform/cordova/2.0.0/bridge/geolocation'),
         s,
         e,
         newpos = {
@@ -81,7 +81,7 @@ describe("Cordova Geolocation bridge", function () {
 
     describe("on addWatch", function () {
         beforeEach(function () {
-            geolocation = require('ripple/client/platform/cordova/2.0.0/bridge/geolocation');
+            geolocation = ripple('platform/cordova/2.0.0/bridge/geolocation');
         });
 
         describe("on PositionInfoUpdatedEvent", function () {

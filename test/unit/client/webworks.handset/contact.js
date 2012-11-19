@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 describe("webworks contact", function () {
-    var contact = require('ripple/client/platform/webworks.handset/2.0.0/server/contact'),
-        Contact = require('ripple/client/platform/webworks.handset/2.0.0/client/Contact'),
-        webworks = require('ripple/client/platform/webworks.handset/2.0.0/server'),
-        db = require('ripple/client/db'),
-        select = require('ripple/client/platform/webworks.core/2.0.0/select'),
-        FilterExpression = require('ripple/client/platform/webworks.handset/2.0.0/client/FilterExpression'),
-        spec = require('ripple/client/platform/webworks.handset/2.0.0/spec'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport');
+    var contact = ripple('platform/webworks.handset/2.0.0/server/contact'),
+        Contact = ripple('platform/webworks.handset/2.0.0/client/Contact'),
+        webworks = ripple('platform/webworks.handset/2.0.0/server'),
+        db = ripple('db'),
+        select = ripple('platform/webworks.core/2.0.0/select'),
+        FilterExpression = ripple('platform/webworks.handset/2.0.0/client/FilterExpression'),
+        spec = ripple('platform/webworks.handset/2.0.0/spec'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport');
 
     describe("server index", function () {
         it("exposes the module", function () {

@@ -47,7 +47,7 @@ function _extraMocks() {
 }
 
 function _setupEnv(ready) {
-    var layout = fs.readFileSync(_c.ASSETS + "index.html", "utf-8"),
+    var layout = fs.readFileSync(_c.ASSETS + "client/index.html", "utf-8"),
         thirdparty = [
             _c.THIRDPARTY + "jquery.js",
             _c.THIRDPARTY + "jquery.ui.js"
@@ -118,6 +118,10 @@ module.exports = function (customPaths, done) {
         } else {
             targets = [_c.ROOT + "test"];
         }
+
+        global.ripple = function (p) {
+            return require(path.normalize(path.join(__dirname, "..", "lib", "client")) + "/" + p);
+        };
 
         jasmine.run(targets, function (runner) {
             var failed = runner.results().failedCount === 0 ? 0 : 1;

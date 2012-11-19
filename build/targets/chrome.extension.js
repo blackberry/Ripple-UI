@@ -23,8 +23,8 @@ module.exports = function (src, baton) {
     baton.take();
 
     var copy = 'cp -r ' + _c.EXT + "chrome.extension " + _c.DEPLOY + "chrome.extension/ && " +
-               'cp -r ' + _c.ASSETS + "images " + _c.DEPLOY + "chrome.extension/ &&" +
-               'cp -r ' + _c.ASSETS + "themes " + _c.DEPLOY + "chrome.extension/ &&" +
+               'cp -r ' + _c.ASSETS + "client/images " + _c.DEPLOY + "chrome.extension/ &&" +
+               'cp -r ' + _c.ASSETS + "client/themes " + _c.DEPLOY + "chrome.extension/ &&" +
                'cp ' + _c.EXT + "chrome.extension/manifest.json " + _c.DEPLOY + "chrome.extension/manifest.json &&" +
                'cp ' + _c.EXT + "chrome.extension/controllers/Background.js " + _c.DEPLOY + "chrome.extension/controllers/Background.js &&" + 
                'cp ' + _c.EXT + "chrome.extension/controllers/PopUp.js " + _c.DEPLOY + "chrome.extension/controllers/PopUp.js &&" + 
@@ -32,7 +32,7 @@ module.exports = function (src, baton) {
                'cp ' + _c.EXT + "chrome.extension/views/popup.html " + _c.DEPLOY + "chrome.extension/views/popup.html";
 
     childProcess.exec(copy, function () {
-        var css = _c.ASSETS + "ripple.css",
+        var css = _c.ASSETS + "client/ripple.css",
             cssDeploy = _c.DEPLOY + "chrome.extension/ripple.css",
             manifest = _c.DEPLOY + "chrome.extension/manifest.json",
             manifestJSON = JSON.parse(fs.readFileSync(manifest, "utf-8")),
@@ -53,7 +53,7 @@ module.exports = function (src, baton) {
 
         fs.writeFileSync(js,
             src.js +
-            "require('ripple/client/bootstrap').bootstrap();"
+            "ripple('bootstrap').bootstrap();"
         );
 
         utils.collect(_c.DEPLOY + "/chrome.extension", resourceList, function () { return true; });

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 describe("cli", function () {
-    var cli = require('ripple/cli'),
-        parser = require('ripple/cli/parser'),
-        proxy = require('ripple/cli/proxy'),
-        help = require('ripple/cli/help'),
+    var cli = require('./../../../lib/cli'),
+        parser = require('./../../../lib/cli/parser'),
+        proxy = require('./../../../lib/cli/proxy'),
+        help = require('./../../../lib/cli/help'),
         basicArgs = ["node", "ripple"];
 
     describe("passing parsed cli args to a cli module", function () {

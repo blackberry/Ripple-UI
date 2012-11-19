@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("deviceMotionEmulator", function () {
-    var event = require('ripple/client/event'),
-        deviceMotionEmulator = require('ripple/client/deviceMotionEmulator');
+    var event = ripple('event'),
+        deviceMotionEmulator = ripple('deviceMotionEmulator');
 
     beforeEach(function () {
         spyOn(event, "on");

@@ -1,8 +1,3 @@
 npm install -g jake jshint csslint uglify-js
 npm install
 git submodule update --init
-
-rm node_modules/ripple
-cd node_modules
-npm link ../.
-cd ../

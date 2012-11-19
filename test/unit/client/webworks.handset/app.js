@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 describe("webworks_app", function () {
-    var appServer = require('ripple/client/platform/webworks.handset/2.0.0/server/app'),
-        appClient = require('ripple/client/platform/webworks.handset/2.0.0/client/app'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        ui = require('ripple/client/ui'),
-        event = require('ripple/client/event'),
-        app = require('ripple/client/app'),
-        notifications = require('ripple/client/notifications'),
+    var appServer = ripple('platform/webworks.handset/2.0.0/server/app'),
+        appClient = ripple('platform/webworks.handset/2.0.0/client/app'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        ui = ripple('ui'),
+        event = ripple('event'),
+        app = ripple('app'),
+        notifications = ripple('notifications'),
         frame;
 
     beforeEach(function () {

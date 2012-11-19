@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("blackberry", function () {
-    var blackberry = require('ripple/client/platform/webworks.handset/2.0.0/client/blackberry'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        spec = require('ripple/client/platform/webworks.handset/2.0.0/spec');
+    var blackberry = ripple('platform/webworks.handset/2.0.0/client/blackberry'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        spec = ripple('platform/webworks.handset/2.0.0/spec');
 
     describe("in spec/index", function () {
         it("includes blackberry module according to proper object structure", function () {

@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 describe("webworks phone", function () {
-    var phone = require('ripple/client/platform/webworks.handset/2.0.0/server/phone'),
-        Phone = require('ripple/client/platform/webworks.handset/2.0.0/client/Phone'),
-        PhoneCall = require('ripple/client/platform/webworks.handset/2.0.0/client/PhoneCall'),
-        CallLog = require('ripple/client/platform/webworks.handset/2.0.0/client/CallLog'),
-        PhoneLogs = require('ripple/client/platform/webworks.handset/2.0.0/client/PhoneLogs'),
-        FilterExpression = require('ripple/client/platform/webworks.handset/2.0.0/client/FilterExpression'),
-        webworks = require('ripple/client/platform/webworks.handset/2.0.0/server'),
-        spec = require('ripple/client/platform/webworks.handset/2.0.0/spec'),
-        select = require('ripple/client/platform/webworks.core/2.0.0/select'),
-        event = require('ripple/client/event'),
+    var phone = ripple('platform/webworks.handset/2.0.0/server/phone'),
+        Phone = ripple('platform/webworks.handset/2.0.0/client/Phone'),
+        PhoneCall = ripple('platform/webworks.handset/2.0.0/client/PhoneCall'),
+        CallLog = ripple('platform/webworks.handset/2.0.0/client/CallLog'),
+        PhoneLogs = ripple('platform/webworks.handset/2.0.0/client/PhoneLogs'),
+        FilterExpression = ripple('platform/webworks.handset/2.0.0/client/FilterExpression'),
+        webworks = ripple('platform/webworks.handset/2.0.0/server'),
+        spec = ripple('platform/webworks.handset/2.0.0/spec'),
+        select = ripple('platform/webworks.core/2.0.0/select'),
+        event = ripple('event'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
             this.pass = jasmine.createSpy("baton.pass");
         },
-        db = require('ripple/client/db'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport');
+        db = ripple('db'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport');
 
     describe("server index", function () {
         it("exposes phone", function () {

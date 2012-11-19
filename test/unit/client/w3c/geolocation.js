@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("w3c_geolocation", function () {
-    var geo = require('ripple/client/geo'),
-        geolocation = require('ripple/client/platform/w3c/1.0/geolocation'),
-        PositionError = require('ripple/client/platform/w3c/1.0/PositionError'),
+    var geo = ripple('geo'),
+        geolocation = ripple('platform/w3c/1.0/geolocation'),
+        PositionError = ripple('platform/w3c/1.0/PositionError'),
         success,
         error;
 

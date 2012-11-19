@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe('touchEventEmulator', function () {
-    var event = require('ripple/client/event'),
+    var event = ripple('event'),
         win, doc, body,
         longPressDuration = 100,
         longPressWait = 200,
@@ -31,7 +31,7 @@ describe('touchEventEmulator', function () {
         win = window;
         doc = win.document;
         body = doc.body;
-        var emulator = require('ripple/client/touchEventEmulator');
+        var emulator = ripple('touchEventEmulator');
         emulator.init(win, doc, longPressDuration);
     });
 

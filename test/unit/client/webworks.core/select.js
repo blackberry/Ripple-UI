@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("webworks finder", function () {
-    var select = require('ripple/client/platform/webworks.core/2.0.0/select'),
-        utils = require('ripple/client/utils'),
-        FilterExpression = require('ripple/client/platform/webworks.handset/2.0.0/client/FilterExpression');
+    var select = ripple('platform/webworks.core/2.0.0/select'),
+        utils = ripple('utils'),
+        FilterExpression = ripple('platform/webworks.handset/2.0.0/client/FilterExpression');
 
     describe("when searching properties that are equal", function () {
         var items = [

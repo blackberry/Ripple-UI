@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 describe("Cordova file bridge", function () {
-    var file = require('ripple/client/platform/cordova/2.0.0/bridge/file'),
+    var file = ripple('platform/cordova/2.0.0/bridge/file'),
         s,
         e,
         webkitRequestFileSystemSpy,

@@ -5,23 +5,24 @@ This file describes the directory structure, build process and overall dev workf
 ## General Dev Workflow Notes
 
 * `jake` is used as the go to mechanism to build, test, run code quality checks, etc (see `jake -T`).
-* There is no `lib` folder because of how require is used in the various (js code) portions of the project.
 
 ## Folder Structure
 
-* `assets` -> any static assets for the client (ex css, html, themes).
+* `assets` -> any static assets (ex css, html, themes).
 
 * `bin` -> traditionally (in node projects), any "executable" files.
 
 * `build` -> any JS modules that are used via `jake ...`.
 
-* `cli` -> any code that is used by the cli (executed via `bin/ripple`).
+* `lib` -> any core library code.
 
-* `client` -> the client code. for the most part, this should be any client JS run in the browser.
+  * `lib/cli` -> any code that is used by the cli (executed via `bin/ripple`).
+
+  * `lib/client` -> the client code. for the most part, this should be any client JS run in the browser.
+
+  * `lib/server` -> the server portion of the code. for the most part, this is any code that is (mainly) run in node that is part of the back end of Ripple.
 
 * `doc` -> any documentation files, which include things like the `cli` help files.
-
-* `server` -> the server portion of the code. for the most part, this is any code that is (mainly) run in node that is part of the back end of Ripple.
 
 * `test` -> any test spec files and assets.
 
@@ -41,13 +42,29 @@ Usually, you will only need to run this once. However, if you get errors about a
 
 ## Core Lib
 
-This (for the most part) includes any JavaScript files used in the code base (mainly, `cli`, `client`, and `server`).
+This (for the most part) includes any JavaScript files used in the code base, which (for the most part) reside in `lib`.
 
 JavaScript in Ripple is organized into CommonJS (based) modules, and are written in a modular pattern. Prototypal class based patterns are avoided, if possible. Some exceptions occur: one being if an emulated API is more easily implemented as such.
 
-In Ripple, you require a module as so:
+If you are writing modules that explicitly run in a node environment (ex `cli` and `server`), the "stock" `require` is used (with relative pathing):
 
-    require('ripple/top_level_dir/...');
+    require('./relative/path/to/foo');
+
+If you are writing modules in `lib/client`, you will notice the pattern is slightly different. There is also a separate function `ripple`, that is used to resolve a path.
+
+    ripple('client_module/*');
+
+In this browser, this essentially translates to:
+
+    require('ripple/lib/client/' + path);
+
+But, if you are running tests in node (another reason why this was used), it will translate to something like this:
+
+    require('/absolute/path/to/ripple-git-repo/lib/client/' + path);
+
+Mainly, this was implemented to avoid the pitfalls of relative pathing in a large set of JavaScript modules (with a rather deep directory structure), rather than consistently utilizing relative pathing for Browser modules (and making it all work properly with something like [browserify](https://github.com/substack/node-browserify)).
+
+`require('ripple/lib/client/...')` will still work, but the `ripple` function should be primarily used in browser specific modules (for consistency).
 
 ### Client Platforms
 
@@ -101,7 +118,7 @@ Before your plugin is loaded, you must add it to a list so the UI module knows t
 
 Themes are currently implemented as jQuery.UI themes. You can create custom themes with the [ThemeRoller](http://jqueryui.com/themeroller/).
 
-Note: The `client/ui/themes` file is just a simple file that is used to define the folders a theme is in when copied to a target folder (see `assets/themes`).
+Note: The `client/ui/themes` file is just a simple file that is used to define the folders a theme is in when copied to a target folder (see `assets/client/themes`).
 
 ## Testing
 
@@ -157,4 +174,4 @@ Essentially, it has its own navigation bar, and can be loaded as a static web pa
 
 You can package the `cli` and `server` components into an NPM package.
 
-`npm install -g pkg/npm` (or `rim.npm`) to install.
+`npm install -g pkg/npm` to install.
