@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("cordova accelerometer bridge", function () {
-    var accel = require('ripple/client/platform/cordova/2.0.0/bridge/accelerometer'),
-        event = require('ripple/client/event');
+    var accel = ripple('platform/cordova/2.0.0/bridge/accelerometer'),
+        event = ripple('event');
 
     beforeEach(function () {
         spyOn(window, "setInterval").andReturn(1);

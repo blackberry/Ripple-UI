@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 describe("context menu", function () {
-    var ui = require('ripple/client/ui'),
+    var ui = ripple('ui'),
         contextMenu,
-        events = require('ripple/client/event'),
+        events = ripple('event'),
         goodAction = {
             actionId: 'MyItem',
             label: 'My Item',
@@ -35,7 +35,7 @@ describe("context menu", function () {
 
     beforeEach(function () {
         spyOn(ui, 'showOverlay');
-        contextMenu = require('ripple/client/platform/webworks.bb10/1.0.0/context-menu');
+        contextMenu = ripple('platform/webworks.bb10/1.0.0/context-menu');
         customMenuCallback = jasmine.createSpy('customMenuCallback');
     });
 

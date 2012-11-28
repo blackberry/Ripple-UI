@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("phonegap_device", function () {
-    var device = require('ripple/client/platform/cordova/1.0.0/device'),
-        devices = require('ripple/client/devices');
+    var device = ripple('platform/cordova/1.0.0/device'),
+        devices = ripple('devices');
 
     it("asks the device for the name", function () {
         spyOn(devices, "getCurrentDevice")

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 describe("webworks_app", function () {
-    var target = require('ripple/client/platform/webworks.bb10/1.0.0/app'),
-        event = require('ripple/client/event'),
-        bb10event = require('ripple/client/platform/webworks.bb10/1.0.0/event'),
-        app = require('ripple/client/app');
+    var target = ripple('platform/webworks.bb10/1.0.0/app'),
+        event = ripple('event'),
+        bb10event = ripple('platform/webworks.bb10/1.0.0/event'),
+        app = ripple('app');
 
     describe("blackberry.app events", function () {
         var listener,

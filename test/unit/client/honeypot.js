@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 describe("honeypot", function () {
-    var honeypot = require('ripple/client/honeypot');
+    var honeypot = ripple('honeypot');
 
     describe("when monitoring", function () {
         describe("with andReturn", function () {

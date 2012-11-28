@@ -15,7 +15,7 @@
  */
 
 describe("cli", function () {
-    var parser = require('ripple/cli/parser'),
+    var parser = require('./../../../lib/cli/parser'),
         basicArgs = ["node", "ripple"],
         parsed;
 

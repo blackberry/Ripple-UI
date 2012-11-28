@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 describe("webworks menu", function () {
-    var menu = require('ripple/client/platform/webworks.handset/2.0.0/server/menu'),
-        client = require('ripple/client/platform/webworks.handset/2.0.0/client/menu'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        MenuItem = require('ripple/client/platform/webworks.handset/2.0.0/client/MenuItem'),
-        event = require('ripple/client/event'),
-        ui = require('ripple/client/ui'),
+    var menu = ripple('platform/webworks.handset/2.0.0/server/menu'),
+        client = ripple('platform/webworks.handset/2.0.0/client/menu'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        MenuItem = ripple('platform/webworks.handset/2.0.0/client/MenuItem'),
+        event = ripple('event'),
+        ui = ripple('ui'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
             this.pass = jasmine.createSpy("baton.pass");
@@ -27,14 +27,14 @@ describe("webworks menu", function () {
 
     describe("using server", function () {
         it("exposes the menu module", function () {
-            var webworks = require('ripple/client/platform/webworks.handset/2.0.0/server');
+            var webworks = ripple('platform/webworks.handset/2.0.0/server');
             expect(webworks.blackberry.ui.menu).toEqual(menu);
         });
     });
 
     describe("in spec", function () {
         it("includes ui module according to proper object structure", function () {
-            var spec = require('ripple/client/platform/webworks.handset/2.0.0/spec');
+            var spec = ripple('platform/webworks.handset/2.0.0/spec');
             expect(spec.objects.blackberry.children.ui.children.menu.path)
                 .toEqual("webworks.handset/2.0.0/client/menu");
         });

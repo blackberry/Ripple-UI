@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("exception", function () {
-    var exception = require('ripple/client/exception'),
-        _console = require('ripple/client/console');
+    var exception = ripple('exception'),
+        _console = ripple('console');
 
     describe("handle", function () {
         it("throws exception if wrong number of arguments", function () {

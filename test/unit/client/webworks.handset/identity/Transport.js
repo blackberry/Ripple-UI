@@ -15,8 +15,8 @@
  */
 describe("webworks identity.Transport", function () {
 
-    var Transport = require('ripple/client/platform/webworks.handset/2.0.0/client/identity/Transport'),
-        spec = require('ripple/client/platform/webworks.handset/2.0.0/spec');
+    var Transport = ripple('platform/webworks.handset/2.0.0/client/identity/Transport'),
+        spec = ripple('platform/webworks.handset/2.0.0/spec');
 
     describe("in spec", function () {
         it("includes Transport module according to proper object structure", function () {

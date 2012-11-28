@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 describeBrowser("platform builder", function () {
-    var builder = require('ripple/client/platform/builder'),
-        app = require('ripple/client/app');
+    var builder = ripple('platform/builder'),
+        app = ripple('app');
 
     it("it requires in the module for the path", function () {
         var target = {};
 
-        spyOn(window, "require");
+        spyOn(window, "ripple");
 
         builder.build({
             test: {
@@ -28,7 +28,7 @@ describeBrowser("platform builder", function () {
             }
         }).into(target);
 
-        expect(window.require).toHaveBeenCalledWith("ripple/client/platform/xmen/1.0/cyclops");
+        expect(window.ripple).toHaveBeenCalledWith("platform/xmen/1.0/cyclops");
     });
 
     it("it creates the children", function () {

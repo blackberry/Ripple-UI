@@ -15,11 +15,11 @@
  */
 describe("webworks identity.phone", function () {
 
-    var phoneClient = require('ripple/client/platform/webworks.handset/2.0.0/client/identity/phone'),
-        phone = require('ripple/client/platform/webworks.handset/2.0.0/server/identity/phone'),
-        spec = require('ripple/client/platform/webworks.handset/2.0.0/spec'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        webworks = require('ripple/client/platform/webworks.handset/2.0.0/server');
+    var phoneClient = ripple('platform/webworks.handset/2.0.0/client/identity/phone'),
+        phone = ripple('platform/webworks.handset/2.0.0/server/identity/phone'),
+        spec = ripple('platform/webworks.handset/2.0.0/spec'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        webworks = ripple('platform/webworks.handset/2.0.0/server');
 
     describe("using server", function () {
         it("exposes the phone module", function () {

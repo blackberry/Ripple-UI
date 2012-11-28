@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 describe("webworks push", function () {
-    var push = require('ripple/client/platform/webworks.handset/2.0.0/server/push'),
-        client = require('ripple/client/platform/webworks.handset/2.0.0/client/push'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        PushData = require('ripple/client/platform/webworks.handset/2.0.0/client/PushData'),
-        event = require('ripple/client/event'),
+    var push = ripple('platform/webworks.handset/2.0.0/server/push'),
+        client = ripple('platform/webworks.handset/2.0.0/client/push'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        PushData = ripple('platform/webworks.handset/2.0.0/client/PushData'),
+        event = ripple('event'),
         MockBaton = function () {
             this.take = jasmine.createSpy("baton.take");
             this.pass = jasmine.createSpy("baton.pass");
@@ -33,14 +33,14 @@ describe("webworks push", function () {
 
     describe("using server", function () {
         it("exposes the push module", function () {
-            var webworks = require('ripple/client/platform/webworks.handset/2.0.0/server');
+            var webworks = ripple('platform/webworks.handset/2.0.0/server');
             expect(webworks.blackberry.push).toEqual(push);
         });
     });
 
     describe("in spec", function () {
         it("includes push module according to proper object structure", function () {
-            var spec = require('ripple/client/platform/webworks.handset/2.0.0/spec');
+            var spec = ripple('platform/webworks.handset/2.0.0/spec');
             expect(spec.objects.blackberry.children.push.path)
                 .toEqual("webworks.handset/2.0.0/client/push");
         });

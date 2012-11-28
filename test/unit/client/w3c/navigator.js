@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var devices = require('ripple/client/devices'),
-    constants = require('ripple/client/constants'),
-    nav = require('ripple/client/platform/w3c/1.0/navigator');
+var devices = ripple('devices'),
+    constants = ripple('constants'),
+    nav = ripple('platform/w3c/1.0/navigator');
 
 describe("w3c navigator", function () {
     it("returns the useragent from the current device", function () {

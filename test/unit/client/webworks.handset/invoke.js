@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 describe("webworks.handset invoke", function () {
-    var webworks = require('ripple/client/platform/webworks.handset/2.0.0/server'),
-        Invoke = require('ripple/client/platform/webworks.handset/2.0.0/client/invoke'),
-        notifications = require('ripple/client/notifications'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport');
+    var webworks = ripple('platform/webworks.handset/2.0.0/server'),
+        Invoke = ripple('platform/webworks.handset/2.0.0/client/invoke'),
+        notifications = ripple('notifications'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport');
 
     it("raises a notification when calling invoke", function () {
         spyOn(notifications, "openNotification");

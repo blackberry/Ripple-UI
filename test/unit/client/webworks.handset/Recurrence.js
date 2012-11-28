@@ -15,8 +15,8 @@
  */
 describe("webworks pim.Recurrence", function () {
 
-    var Recurrence = require('ripple/client/platform/webworks.handset/2.0.0/client/Recurrence'),
-        spec = require('ripple/client/platform/webworks.handset/2.0.0/spec');
+    var Recurrence = ripple('platform/webworks.handset/2.0.0/client/Recurrence'),
+        spec = ripple('platform/webworks.handset/2.0.0/spec');
 
     describe("in spec", function () {
         it("includes module according to proper object structure", function () {

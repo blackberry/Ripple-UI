@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("cordova compass bridge", function () {
-    var geo = require('ripple/client/geo'),
-        target = require('ripple/client/platform/cordova/2.0.0/bridge/compass'),
+    var geo = ripple('geo'),
+        target = ripple('platform/cordova/2.0.0/bridge/compass'),
         heading = {direction: "southish"};
 
     beforeEach(function () {

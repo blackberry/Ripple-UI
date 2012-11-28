@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 describe("webworks identity", function () {
-    var identity = require('ripple/client/platform/webworks.handset/2.0.0/server/identity'),
-        deviceSpec = require('ripple/client/platform/webworks.handset/2.0.0/spec/device'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        identityClient = require('ripple/client/platform/webworks.handset/2.0.0/client/identity'),
-        platform = require('ripple/client/platform'),
-        utils = require('ripple/client/utils'),
-        deviceSettings = require('ripple/client/deviceSettings'),
-        spec = require('ripple/client/platform/webworks.handset/2.0.0/spec'),
-        webworks = require('ripple/client/platform/webworks.handset/2.0.0/server');
+    var identity = ripple('platform/webworks.handset/2.0.0/server/identity'),
+        deviceSpec = ripple('platform/webworks.handset/2.0.0/spec/device'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        identityClient = ripple('platform/webworks.handset/2.0.0/client/identity'),
+        platform = ripple('platform'),
+        utils = ripple('utils'),
+        deviceSettings = ripple('deviceSettings'),
+        spec = ripple('platform/webworks.handset/2.0.0/spec'),
+        webworks = ripple('platform/webworks.handset/2.0.0/server');
 
     describe("using server", function () {
         it("exposes the identity module", function () {

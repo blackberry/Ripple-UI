@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("connection", function () {
-    var target = require('ripple/client/platform/webworks.bb10/1.0.0/connection'),
-        deviceSettings = require('ripple/client/deviceSettings');
+    var target = ripple('platform/webworks.bb10/1.0.0/connection'),
+        deviceSettings = ripple('deviceSettings');
 
     it("gets the value from device settings for the type", function () {
         spyOn(deviceSettings, "retrieve").andReturn("smoke signals");

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 describe("event", function () {
-    var target = require('ripple/client/platform/webworks.bb10/1.0.0/event'),
-        event = require('ripple/client/event');
+    var target = ripple('platform/webworks.bb10/1.0.0/event'),
+        event = ripple('event');
 
     describe("general event stuff", function () {
         describe("when adding", function () {
@@ -55,7 +55,7 @@ describe("event", function () {
             });
 
             it("will not register a handler if feature is not present in config.xml", function () {
-                var app = require("ripple/client/app"),
+                var app = ripple('app'),
                     cb = jasmine.createSpy();
 
                 spyOn(app, "getInfo").andReturn({
@@ -70,7 +70,7 @@ describe("event", function () {
             });
 
             it("will throw an exception if the feature is not specified in config.xml", function () {
-                var app = require("ripple/client/app"),
+                var app = ripple('app'),
                     cb = jasmine.createSpy();
 
                 spyOn(app, "getInfo").andReturn({
@@ -97,7 +97,7 @@ describe("event", function () {
         });
 
         describe("specific event handlers", function () {
-            var settings = require('ripple/client/deviceSettings');
+            var settings = ripple('deviceSettings');
 
             beforeEach(function () {
                 spyOn(settings, "retrieve").andReturn("22");

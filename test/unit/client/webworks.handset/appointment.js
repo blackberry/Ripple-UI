@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 describe("webworks pim appointment", function () {
-    var appointment = require('ripple/client/platform/webworks.handset/2.0.0/server/appointment'),
-        Appointment = require('ripple/client/platform/webworks.handset/2.0.0/client/Appointment'),
-        Recurrence = require('ripple/client/platform/webworks.handset/2.0.0/client/Recurrence'),
-        Reminder = require('ripple/client/platform/webworks.handset/2.0.0/client/Reminder'),
-        transport = require('ripple/client/platform/webworks.core/2.0.0/client/transport'),
-        db = require('ripple/client/db'),
-        utils = require('ripple/client/utils'),
-        select = require('ripple/client/platform/webworks.core/2.0.0/select'),
-        FilterExpression = require('ripple/client/platform/webworks.handset/2.0.0/client/FilterExpression'),
-        webworks = require('ripple/client/platform/webworks.handset/2.0.0/server');
+    var appointment = ripple('platform/webworks.handset/2.0.0/server/appointment'),
+        Appointment = ripple('platform/webworks.handset/2.0.0/client/Appointment'),
+        Recurrence = ripple('platform/webworks.handset/2.0.0/client/Recurrence'),
+        Reminder = ripple('platform/webworks.handset/2.0.0/client/Reminder'),
+        transport = ripple('platform/webworks.core/2.0.0/client/transport'),
+        db = ripple('db'),
+        utils = ripple('utils'),
+        select = ripple('platform/webworks.core/2.0.0/select'),
+        FilterExpression = ripple('platform/webworks.handset/2.0.0/client/FilterExpression'),
+        webworks = ripple('platform/webworks.handset/2.0.0/server');
 
     describe("using server", function () {
         it("exposes the appointment module", function () {
