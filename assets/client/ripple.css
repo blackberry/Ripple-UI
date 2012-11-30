@@ -120,6 +120,15 @@ input:focus, textarea:focus, isindex:focus, keygen:focus, select:focus {
 
 section, header, footer, aside, nav { display: block; }
 
+.small-button{
+    width: 32%;
+}
+
+.small-button span{
+    font-size: 0.7em;
+}
+
+
 /* ------------------------------>
     Top Section */
 
