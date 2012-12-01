@@ -34,6 +34,11 @@ var fs = require('fs'),
 function forEachFile(root, cbFile, cbDone) {
     var count = 0;
 
+    function done() {
+        --count;
+        if (count === 0 && cbDone) cbDone();
+    }
+
     function scan(name) {
         ++count;
 
@@ -55,11 +60,6 @@ function forEachFile(root, cbFile, cbDone) {
                 done();
             }
         });
-    }
-
-    function done() {
-        --count;
-        if (count === 0 && cbDone) cbDone();
     }
 
     scan(root);

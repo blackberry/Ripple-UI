@@ -60,7 +60,9 @@ module.exports = function (src, baton) {
             "ripple('bootstrap').bootstrap();"
         );
 
-        utils.collect(_c.DEPLOY + _EXT_DIR, resourceList, function () { return true; });
+        utils.collect(_c.DEPLOY + _EXT_DIR, resourceList, function () {
+            return true;
+        });
 
         manifestJSON.version = src.info.version;
         manifestJSON.web_accessible_resources = resourceList.map(function (p) {
