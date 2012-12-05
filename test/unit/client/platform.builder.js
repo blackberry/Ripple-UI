@@ -34,7 +34,7 @@ describeBrowser("platform builder", function () {
     it("it creates the children", function () {
         var target = {};
 
-        spyOn(window, "require").andReturn({});
+        spyOn(window, "ripple").andReturn({});
 
         builder.build({
             magneto: {
