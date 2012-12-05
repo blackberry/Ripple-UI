@@ -29,7 +29,7 @@ module.exports = {
     SPACES_AND_TABS: /\n+|\s+|\t{2,}/g,
     ESCAPED_QUOTES: '\'+"\'"+\'',
     thirdpartyIncludes: [
-        "almond.js",
+        "ripple-require.js",
         "jquery.js",
         "jquery.ui.js",
         "jquery.tooltip.js",

@@ -81,15 +81,11 @@ module.exports = function (opts) {
         return buffer + fs.readFileSync(_c.THIRDPARTY + file, "utf-8");
     }, "");
 
-    src.js += "window.ripple = function (p) {\n" +
-              "    return require('ripple/client/' + p);\n" +
-              "};\n" +
-
-              "ripple.define = define;\n";
+    src.js += "window.ripple = ripple;\n";
 
     src.js += compile(lib, function (file, path) {
-        return "ripple.define('" + path.replace(_path.resolve(_c.LIB), "ripple/client").replace(/\.js$/, '') +
-               "', function (require, exports, module) {\n" + file + "});\n";
+        return "ripple.define('" + path.replace(_path.resolve(_c.LIB) + "/", "").replace(/\.js$/, '') +
+               "', function (ripple, exports, module) {\n" + file + "});\n";
     });
 
     if (!opts.noclosure) {

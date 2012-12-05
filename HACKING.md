@@ -50,21 +50,21 @@ If you are writing modules that explicitly run in a node environment (ex `cli` a
 
     require('./relative/path/to/foo');
 
-If you are writing modules in `lib/client`, you will notice the pattern is slightly different. There is also a separate function `ripple`, that is used to resolve a path.
+If you are writing modules in `lib/client`, you will notice the pattern is slightly different.
 
-    ripple('client_module/*');
+There is no `require` method, only a `ripple` method (that functions the same), as well as a `ripple.define` method to define modules.
 
-In this browser, this essentially translates to:
+Example:
 
-    require('ripple/lib/client/' + path);
+    ripple('db');
 
-But, if you are running tests in node (another reason why this was used), it will translate to something like this:
+..Will require a module relative to `lib/client` (in this case, `lib/client/db`).
+
+_But_, if you are running tests in node (another reason why this was done), a `ripple` call will translate to something like this:
 
     require('/absolute/path/to/ripple-git-repo/lib/client/' + path);
 
 Mainly, this was implemented to avoid the pitfalls of relative pathing in a large set of JavaScript modules (with a rather deep directory structure), rather than consistently utilizing relative pathing for Browser modules (and making it all work properly with something like [browserify](https://github.com/substack/node-browserify)).
-
-`require('ripple/lib/client/...')` will still work, but the `ripple` function should be primarily used in browser specific modules (for consistency).
 
 ### Client Platforms
 
