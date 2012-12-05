@@ -18,7 +18,7 @@ var fs = require('fs'),
     _path = require('path'),
     _c = require('./conf');
 
-module.exports = function () {
+module.exports = function (opts) {
     var lib = [],
         devicesCSS = [],
         overlays = [],
@@ -48,6 +48,8 @@ module.exports = function () {
         }, "");
     }
 
+    if (!opts) { opts = {}; }
+
     src.js += "/*! \n  " + _c.APPNAME +
               " v" + src.info.version + " :: Built On " + new Date() + "\n\n" +
               fs.readFileSync(_c.LICENSE, "utf-8") + "*/\n";
@@ -71,21 +73,28 @@ module.exports = function () {
     src.dialogs += compile(dialogs);
     src.overlays += compile(overlays);
 
-    src.js += "window.require = null;window.define = null;";
-    src.js += "var ripple = function (p) {" +
-                  "return require('ripple/client/' + p);" +
-              "};";
+    if (!opts.noclosure) {
+        src.js += "(function () {\n";
+    }
 
     src.js += _c.thirdpartyIncludes.reduce(function (buffer, file) {
         return buffer + fs.readFileSync(_c.THIRDPARTY + file, "utf-8");
     }, "");
 
-    src.js += "define.unordered = true;";
+    src.js += "window.ripple = function (p) {\n" +
+              "    return require('ripple/client/' + p);\n" +
+              "};\n" +
+
+              "ripple.define = define;\n";
 
     src.js += compile(lib, function (file, path) {
-        return "define('" + path.replace(_path.resolve(_c.LIB), "ripple/client").replace(/\.js$/, '') +
+        return "ripple.define('" + path.replace(_path.resolve(_c.LIB), "ripple/client").replace(/\.js$/, '') +
                "', function (require, exports, module) {\n" + file + "});\n";
     });
+
+    if (!opts.noclosure) {
+        src.js += "\n}());";
+    }
 
     return src;
 };

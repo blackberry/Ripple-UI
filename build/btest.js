@@ -42,7 +42,7 @@ module.exports = function () {
         return !filename.match(/openlayers\.js/i);
     });
 
-    modules = pack();
+    modules = pack({noclosure: true});
 
     utils.collect(path.join(_c.ROOT, "test", "unit", "client"), tests);
 
