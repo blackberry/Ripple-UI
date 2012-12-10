@@ -25,18 +25,18 @@ describe("deviceSettings", function () {
             }
         });
     });
-    it("test retrieve returns undefined when not found", function () {
+    it("retrieve returns undefined when not found", function () {
         expect(deviceSettings.retrieve("blah")).toBeFalsy();
     });
 
-    it("test retrieve returns a falsy variable when found", function () {
+    it("retrieve returns a falsy variable when found", function () {
         spyOn(db, "saveObject");
         deviceSettings.register("testSetting", false);
         deviceSettings.persist();
         expect(db.saveObject.mostRecentCall.args[1].testSetting).toEqual(false);
     });
 
-    it("test creates and retrieves setting", function () {
+    it("creates and retrieves setting", function () {
         var testSetting = {
             "someSettings": ""
         };
@@ -44,7 +44,7 @@ describe("deviceSettings", function () {
         expect(deviceSettings.retrieve("testSetting")).toEqual(testSetting);
     });
 
-    it("test creates and persists setting", function () {
+    it("creates and persists setting", function () {
         spyOn(db, "saveObject");
         var testSetting = {
             "someSettings": ""
@@ -54,7 +54,7 @@ describe("deviceSettings", function () {
         expect(deviceSettings.retrieve("testSetting")).toEqual(testSetting);
     });
 
-    it("test updates and persists setting", function () {
+    it("updates and persists setting", function () {
         spyOn(db, "saveObject");
         var testSetting = {
             "someSettings": ""
