@@ -71,29 +71,6 @@
               return result;
             };
         </script>
-
-        <!-- jWorkflow -->
-        <script src="node_modules/jWorkflow/lib/jWorkflow.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- thirdparty -->
-        <script src="thirdparty/almond.js" type="text/javascript" charset="utf-8"></script>
-        <script src="thirdparty/Math.uuid.js" type="text/javascript" charset="utf-8"></script>
-        <script src="thirdparty/jquery.js" type="text/javascript" charset="utf-8"></script>
-        <script src="thirdparty/jquery.ui.js" type="text/javascript" charset="utf-8"></script>
-        <script src="thirdparty/jquery.tooltip.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- define Math.uuid as a ghost -->
-        <script type="text/javascript" charset="utf-8">
-            define.unordered = true;
-            define('thirdparty/Math.uuid', function (require, exports, module) {});
-        </script>
-
-        <!-- define jWorkflow as module -->
-        <script type="text/javascript" charset="utf-8">
-            define('jWorkflow', function (require, exports, module) {
-                module.exports = window.jWorkflow;
-            });
-        </script>
     </head>
     <body>
 
