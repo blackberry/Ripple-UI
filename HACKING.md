@@ -174,4 +174,4 @@ Essentially, it has its own navigation bar, and can be loaded as a static web pa
 
 You can package the `cli` and `server` components into an NPM package.
 
-`npm install -g pkg/npm` to install.
+`npm install -g .` to install.

@@ -77,7 +77,7 @@ Eventually, this will be available on the NPM registry. For now (to install):
     cd ripple
     ./configure
     jake
-    npm install -g pkg/npm
+    npm install -g .
 
 This will install a global script called `ripple`. To see usage, run:
 
@@ -85,7 +85,7 @@ This will install a global script called `ripple`. To see usage, run:
 
 Note: If you don't want to use NPM, you can just do this:
 
-    node pkg/npm/bin/ripple help
+    node bin/ripple help
 
 ## Contributing
 
