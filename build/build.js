@@ -23,6 +23,7 @@ var fs = require('fs'),
     chromeExt = require('./targets/chrome.extension'),
     rimChromeExt = require('./targets/rim.chrome.extension'),
     cordova = require('./targets/cordova'),
+    hosted = require('./targets/hosted'),
     web = require('./targets/web');
 
 function _done(error) {
@@ -66,10 +67,14 @@ module.exports = _handle(function (ext, opts) {
     case 'cordova':
         build.andThen(cordova);
         break;
+    case 'hosted':
+        build.andThen(hosted);
+        break;
     default:
         build.andThen(chromeExt)
              .andThen(rimChromeExt)
              .andThen(web)
+             .andThen(hosted)
              .andThen(cordova);
     }
 

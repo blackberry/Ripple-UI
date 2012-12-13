@@ -51,19 +51,17 @@ For more information see [doc/chrome_extension.md](https://github.com/blackberry
 
 ## Running Inside Other Web Browsers
 
-Ripple is (by-design) browser agnostic, and is able to run inside any web browser (with disabled web security).
+Ripple is (by-design) browser agnostic, and _should_ be able to run inside any web browser.
 
-However, this has (for the most part) only been used in Chrome (and as a result certain things are used that are not supported/tested in other browsers).
+If you want to run it inside other browsers, you will need to use the `pkg/hosted` target, paired with the CLI's `emulate` command.
 
-If you want to run it inside other browsers, you will need to use the `pkg/web` target. This is essentially a standalone version of the UI.
+Ex (using the NPM package):
 
-**Note: This is not actively maintained, and may not work as expected.**
+    ripple emulate --path to/my/app
 
-To get it running inside Chrome you should start it with these [command line](http://www.chromium.org/developers/how-tos/run-chromium-with-flags) flags:
+Then navigating to (your app's html file):
 
-    --app=http://path/to/ripple-ui/pkg/web
-    --disable-web-security
-    --user-data-dir=/path/to/dummy/profile
+    http://localhost:PORT/index.html?enableripple=true
 
 ## CLI & NPM Package
 

@@ -36,6 +36,7 @@
     "lib/server",
     "lib/cli",
     "assets/server",
+    "pkg/hosted",
     "thirdparty/ludicrous.js",
     "doc",
     "bin"
