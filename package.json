@@ -17,6 +17,7 @@
   "dependencies": {
     "express": "3.0.0rc5",
     "connect-xcors": "0.5.2",
+    "socket.io": "1.x.x",
     "request": "2.11.4",
     "colors" : "0.6.0-1"
   },
