@@ -32,12 +32,11 @@ module.exports = function (src, baton) {
         var css = path.join(_c.ASSETS + "client", "ripple.css"),
             cssDeploy = path.join(PKG_BUILD_DIR, "ripple.css"),
             jsDeploy = path.join(PKG_BUILD_DIR, "ripple.js"),
-            htmlDeploy = path.join(PKG_BUILD_DIR, "ripple.html"),
+            htmlDeploy = path.join(PKG_BUILD_DIR, "index.html"),
             html = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
                           .replace(/#DIALOG_VIEWS#/g, src.dialogs)
-                          .replace(/#URL_PREFIX#/g, "/")
-                          .replace(_c.SPACES_AND_TABS, " ");
+                          .replace(/#URL_PREFIX#/g, "/ripple/assets/");
 
         fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
 

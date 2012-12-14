@@ -59,6 +59,10 @@ Ex (using the NPM package):
 
     ripple emulate --path to/my/app
 
+    # or
+
+    ripple emulate --remote http://remote-site.com
+
 Then navigating to (your app's html file):
 
     http://localhost:PORT/index.html?enableripple=true
