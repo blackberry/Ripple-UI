@@ -22,13 +22,33 @@
     </section>
 
     <section class="info ui-widget-content ui-corner-all" style="display: none;">
-        <h2>Connected Device</h2> 
+        <section id="device-proxy-error" style="display:block;">
+            <p class="ui-text-fail">
+                Cannot connect to Ripple socket services. Please start
+                the device proxy services by intalling the Ripple CLI and 
+                running "ripple emulate".
+            </p>
+            <label class="ui-text-label">Services URL:</label>
+            <input id="device-proxy-ripple-url" class="ui-state-default ui-corner-all" />
+            <button id="device-proxy-connect" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Connect</span>
+            </button>
+        </section>
 
-        <div id="device-proxy-connected">connected device info goes here</div>
+        <section id="device-proxy-device-not-connected" style="display: none;">
+            <p>
+                Ripple is connected to socket services. To connect a device,
+                install the <a href="https://github.com/gtanner/ripple-companion" target="_blank">Ripple companion app</a> 
+                and scan the QR code below or enter the URL listed.
+            </p>
+            <img id="device-proxy-qr-code" alt="qr code"/>
+            <p id="device-proxy-device-url"></p>
+        </section>
 
-        <button id="device-proxy-connect" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-            <span class="ui-button-text">Connect a Device</span>
-        </button>
+        <section id="device-proxy-device-connected" style="display: none;">
+            <h2>Connected Device:</h2> 
+            <div id="device-proxy-connected-device"></div>
+        </section>
     </section>
 </section>
 
