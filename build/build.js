@@ -22,8 +22,7 @@ var fs = require('fs'),
     compress = require('./compress'),
     chromeExt = require('./targets/chrome.extension'),
     rimChromeExt = require('./targets/rim.chrome.extension'),
-    hosted = require('./targets/hosted'),
-    web = require('./targets/web');
+    hosted = require('./targets/hosted');
 
 function _done(error) {
     if (error) {
@@ -54,9 +53,6 @@ module.exports = _handle(function (ext, opts) {
                          .andThen(pack);
 
     switch (ext) {
-    case 'web':
-        build.andThen(web);
-        break;
     case 'chrome.extension':
         build.andThen(chromeExt);
         break;
@@ -69,7 +65,6 @@ module.exports = _handle(function (ext, opts) {
     default:
         build.andThen(chromeExt)
              .andThen(rimChromeExt)
-             .andThen(web)
              .andThen(hosted);
     }
 

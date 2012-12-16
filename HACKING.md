@@ -166,12 +166,6 @@ Currently, there is support for the Chrome extension framework. You can install 
 
 You can also (as an alternative) use the NPM package to host your app (remotely _or_ locally), as it can inject the client UI (i.e. what the Chrome extension does) without needing the Extension. (See the NPM and Hosted Injection sections below for details).
 
-### Standalone UI
-
-This was created when there was need to have the ability to run a "standalone" version that did not require an extension framework.
-
-Essentially, it has its own navigation bar, and can be loaded as a static web page (see README and `pkg/web`).
-
 ### NPM Package
 
 You can package the `cli` and `server` components into an NPM package, and also allows you to do other things, such as inject ripple without the extension (using the `hosted` build target).
