@@ -25,7 +25,8 @@ var childProcess = require('child_process'),
 function compressJS(workflow, file) {
     workflow.andThen(function (prev, baton) {
         baton.take();
-        childProcess.exec('uglifyjs --overwrite ' + file, function (err) {
+        console.log("minifying:", file);
+        childProcess.exec('uglifyjs --output ' + file + " " + file, function (err) {
             if (err) {
                 console.log("Something bad happened. Is uglify-js installed?");
                 console.log(err);
