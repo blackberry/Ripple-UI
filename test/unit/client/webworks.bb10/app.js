@@ -79,6 +79,8 @@ describe("webworks_app", function () {
     });
 
     describe("checks the config for", function () {
+        var emulatorBridge;
+
         function testConfigAccess(prop, expected) {
             var conf = {},
                 result;
@@ -90,6 +92,23 @@ describe("webworks_app", function () {
             expect(app.getInfo).toHaveBeenCalled();
             expect(result).toBe(expected);
         }
+
+        function testConfigAccessLocalized(prop, expected, lang) {
+            var conf = {},
+                result;
+
+            conf[prop] = expected;
+            spyOn(app, "getInfo").andReturn(conf);
+
+            result = target[prop];
+            expect(app.getInfo).toHaveBeenCalled();
+            expect(result).toBe(expected[lang]);
+        }
+
+        beforeEach(function () {
+            emulatorBridge = ripple('emulatorBridge');
+            spyOn(emulatorBridge, "window").andReturn({navigator: {language: "en-CA"}});
+        });
 
         it("the author name", function () {
             testConfigAccess("author", "Ernest Hemingway");
@@ -112,7 +131,7 @@ describe("webworks_app", function () {
         });
 
         it("the description", function () {
-            testConfigAccess("description", "I am on a boat");
+            testConfigAccessLocalized("description", {"default": "I am on a boat"}, "default");
         });
 
         it("the id", function () {
@@ -128,7 +147,7 @@ describe("webworks_app", function () {
         });
 
         it("the name", function () {
-            testConfigAccess("name", "Who");
+            testConfigAccessLocalized("name", {"default": "who"}, "default");
         });
 
         it("the version", function () {
