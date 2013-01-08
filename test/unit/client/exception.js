@@ -124,32 +124,4 @@ describe("exception", function () {
             throw "Exception was expected, none was thrown";
         });
     });
-
-    describe("throwMaskedException", function () {
-        it("throws custom exception", function () {
-            spyOn(_console, "error");
-
-            try {
-                exception.throwMaskedException("TestExceptionType", "test message");
-                throw "Exception was expected, none was thrown";
-            } catch (e) {
-                expect(_console.error.callCount).toBe(1);
-                expect(e.name).toEqual(exception.types.tinyHipposMaskedException);
-                expect(e.message).toEqual("tinyhippos terminated your script due to exception");
-            }
-        });
-
-        it("throws custom exception with custom message", function () {
-            spyOn(_console, "error");
-
-            try {
-                exception.throwMaskedException("TestExceptionType");
-                throw "Exception was expected, none was thrown";
-            } catch (e) {
-                expect(_console.error.callCount).toBe(1);
-                expect(e.name).toEqual(exception.types.tinyHipposMaskedException);
-                expect(typeof e.message).toEqual("string");
-            }
-        });
-    });
 });
