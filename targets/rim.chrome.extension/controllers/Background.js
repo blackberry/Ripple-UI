@@ -137,7 +137,7 @@ tinyHippos.Background = (function () {
         chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
             if (tinyHippos.Background.isEnabled(details.url)) {
                 var ua = details.requestHeaders.reduce(function (match, header) {
-                    return match || header.name === 'User-Agent' || match;
+                    return header.name === "User-Agent" ? header : match;
                 });
 
                 ua.value = userAgent || ua.value;
