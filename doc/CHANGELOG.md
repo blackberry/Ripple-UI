@@ -1,3 +1,6 @@
+## v0.9.11 - January 14, 2013
+pull request can be found here:
+
 ## v0.9.10 - September 26, 2012
 Incremental update to fix a release error for the http://developer.blackberry.com hosted version of Ripple
 
