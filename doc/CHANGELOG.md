@@ -1,3 +1,57 @@
+## v0.9.11 - January 14, 2013
+
+Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/675
+
+* Updated resizer to divide device pixels by css pixel ratio when formatting the iframe. Changed affected devices
+* Added the Acer A500 device
+* Fixed `utils.rippleLocation()` returning wrong value if path has "." in it
+* Fixed UI getting messed up when using RTL dir attribute (on body of Ripple's client UI)
+* Updated two torch models (9810 and 9850/60) PPI numbers per RIM specs
+* Updated (RIM Chrome Extension) updates.xml to include the correct path to the crx as it changed with the micro site refresh
+* Updated Cross origin (HTTPS) XHR proxy URL to be https (so calls use SSL between client & server)
+* Fixed don't panic screen showing up when in file:/// scheme
+* Fixed webworksready event firing multiple times when iframe was refreshed
+* Fixed dark UI theme font (was using 'Helevetica', vs 'Helvetica')
+* Fixed the error window dialog (css) font (was using 'Helevetica', vs 'Helvetica')
+* Added parseUrl method to utils
+* Fixed XHR requests to localhost with different ports not being proxied
+* Update OpenLayers to v2.12
+* Fixed user-agent not being set properly (in BlackBerry distribution of Ripple
+* Fixed Ripple sending bad Accept (or other) headers to servers (in BlackBerry distribution of Ripple)
+* Fixed the Accelerometer UI when it would stop modifying Alpha values after resetting all values (by double clicking on the UI)
+* Fixed the sizing of the image (overlay) that shows up after selecting image (for an emulated Camera capture call) to fit inside the overlay window
+* Fixed the platform selection page that shows up at first run displaying over top of the EULA (in the BlackBerry distrobution)
+* Updated the "Stay On This Page" dialog to only show up when page enters reload loop (vs every refresh)
+
+* WebWorks BB10
+  * Added support for blackberry.invoke.card.invokeCamera
+  * Added support for BB10 webkitBattery
+  * Added support for blackberry.app.windowState
+  * Added support for localized nodes in config.xml
+  * Fixed BB10's `webkitResolveLocalFileSystemURL` was using an undefined method
+  * Fixed typos in the BB10 config spec that caused the `occurrence` attribute to be ignored
+  * Fix build and deployment (UI) bug when target is not selected
+  * Update BB10 Dev Alpha device with correct pixel ratio and added devicePixelRatio to the window object
+  * Added a helpful error when registering for an unsupported (BB10) event
+  * Fixed blackberry.app returning incorrect values
+
+* Cordova
+  * Fixed write file bug in File API
+  * Fixed for supporting cordova 2.3 js files
+  * Added support for online / offline event firing on network settings change
+  * Fixed a bug that would throw an exception if you tried to trigger a platform event (without cordova.js in your project)
+  * Added a custom message if user has not included their Cordova v2.x.x file in their project (when triggering platform events)
+  * Added a cancel button when requesting Camera
+
+* W3C (i.e. Cordova, WebWorks, Mobile Web)
+  * Fixed `watchPosition` shouldn't invoke error when passed undefined options
+  * Fixed `clearWatch` should not throw an exception if given invalid id
+
+* CLI * New (https://github.com/blackberry/Ripple-UI/master/next#cli--npm-package)
+  * CLI (and NPM package install)
+  * Implemented a node based cross origin XMLHttpRequest proxy (that can be booted via the CLI)
+  * Ability to use CLI to statically host your (web) app
+
 ## v0.9.10 - September 26, 2012
 Incremental update to fix a release error for the http://developer.blackberry.com hosted version of Ripple
 
