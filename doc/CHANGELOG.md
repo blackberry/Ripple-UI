@@ -1,3 +1,57 @@
+## v0.9.11 - January 14, 2013
+
+Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/675
+
+* Updated resizer to divide device pixels by css pixel ratio when formatting the iframe. Changed affected devices
+* Added the Acer A500 device
+* Fixed `utils.rippleLocation()` returning wrong value if path has "." in it
+* Fixed UI getting messed up when using RTL dir attribute (on body of Ripple's client UI)
+* Updated two torch models (9810 and 9850/60) PPI numbers per RIM specs
+* Updated (RIM Chrome Extension) updates.xml to include the correct path to the crx as it changed with the micro site refresh
+* Updated Cross origin (HTTPS) XHR proxy URL to be https (so calls use SSL between client & server)
+* Fixed don't panic screen showing up when in file:/// scheme
+* Fixed webworksready event firing multiple times when iframe was refreshed
+* Fixed dark UI theme font (was using 'Helevetica', vs 'Helvetica')
+* Fixed the error window dialog (css) font (was using 'Helevetica', vs 'Helvetica')
+* Added parseUrl method to utils
+* Fixed XHR requests to localhost with different ports not being proxied
+* Update OpenLayers to v2.12
+* Fixed user-agent not being set properly (in BlackBerry distribution of Ripple
+* Fixed Ripple sending bad Accept (or other) headers to servers (in BlackBerry distribution of Ripple)
+* Fixed the Accelerometer UI when it would stop modifying Alpha values after resetting all values (by double clicking on the UI)
+* Fixed the sizing of the image (overlay) that shows up after selecting image (for an emulated Camera capture call) to fit inside the overlay window
+* Fixed the platform selection page that shows up at first run displaying over top of the EULA (in the BlackBerry distrobution)
+* Updated the "Stay On This Page" dialog to only show up when page enters reload loop (vs every refresh)
+
+* WebWorks BB10
+  * Added support for blackberry.invoke.card.invokeCamera
+  * Added support for BB10 webkitBattery
+  * Added support for blackberry.app.windowState
+  * Added support for localized nodes in config.xml
+  * Fixed BB10's `webkitResolveLocalFileSystemURL` was using an undefined method
+  * Fixed typos in the BB10 config spec that caused the `occurrence` attribute to be ignored
+  * Fix build and deployment (UI) bug when target is not selected
+  * Update BB10 Dev Alpha device with correct pixel ratio and added devicePixelRatio to the window object
+  * Added a helpful error when registering for an unsupported (BB10) event
+  * Fixed blackberry.app returning incorrect values
+
+* Cordova
+  * Fixed write file bug in File API
+  * Fixed for supporting cordova 2.3 js files
+  * Added support for online / offline event firing on network settings change
+  * Fixed a bug that would throw an exception if you tried to trigger a platform event (without cordova.js in your project)
+  * Added a custom message if user has not included their Cordova v2.x.x file in their project (when triggering platform events)
+  * Added a cancel button when requesting Camera
+
+* W3C (i.e. Cordova, WebWorks, Mobile Web)
+  * Fixed `watchPosition` shouldn't invoke error when passed undefined options
+  * Fixed `clearWatch` should not throw an exception if given invalid id
+
+* CLI * New (https://github.com/blackberry/Ripple-UI#cli--npm-package)
+  * CLI (and NPM package install)
+  * Implemented a node based cross origin XMLHttpRequest proxy (that can be booted via the CLI)
+  * Ability to use CLI to statically host your (web) app
+
 ## v0.9.10 - September 26, 2012
 Incremental update to fix a release error for the http://developer.blackberry.com hosted version of Ripple
 
@@ -18,7 +72,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
  * Added core W3C objects to cordova to properly support platforms that rely on those objects being there natively
  * Fixed default contacts not being modifiable
  * Inject BB10 WebWorks when loading the BB10 Dev Alpha device
- * Fixed clearWatch bug in geoloacation API
+ * Fixed clearWatch bug in geolocation API
 
 * General updates:
  * Added support Geolocation routing using gpx files
@@ -30,7 +84,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
  * Updated Chrome Extension to use Manifest V2
  * Fixed enableripple querystring to default to specified platform for Chrome Store version of Ripple
  * Fixed version number not showing up in About Ripple dialog
- * Updated config.xml missing/invalide message to be more descriptive
+ * Updated config.xml missing/invalid message to be more descriptive
 
 ## v0.9.8 - Aug 15, 2012
 
@@ -107,7 +161,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 * (fix) [iPhone] fixed viewport size to match screen size
 * (fix) [iPhone] fixed screen size display
 * (fix) [OpenLayers] fixed stylesheet link
-* (fix) [touch] fixed element.ontouchX buinding
+* (fix) [touch] fixed element.ontouchX binding
 * (fix) [touch] fixed event.screenX/Y values 
 * (fix) [tests] fixed failing tests in browser runner
 * (update) removed End of Life notice
@@ -122,7 +176,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 * (fix) [BB device] blackberry.io.dir.getParentDirectory generates exception (issue #228)
 * (fix) [BB device] blackberry.io.dir.exists generates exceptions (issue #227)
 * (fix) require('ripple/***') breaks in node 0.5.x/0.6.x (issue #226)
-* (fix) [ripple/boostrap] does not pass event object to listeners on window load/DOMContentLoaded (issue #217)
+* (fix) [ripple/bootstrap] does not pass event object to listeners on window load/DOMContentLoaded (issue #217)
 * (fix) [lib/deviceMotionEmulator] does not pass all arguments to window.addEventListener/removeEventListener (issue #216)
 * (removed hotfix) window load event handlers are not triggered when navigating inside app (issue #190)
 
@@ -138,7 +192,7 @@ pull request can be found here: https://github.com/blackberry/Ripple-UI/pull/563
 ## v0.9.0 - October 18, 2011
 
 * Added Omnibar plugin to web build
-* Removed vodaphone, opera, wac platforms
+* Removed vodafone, opera, wac platforms
 * Added agnostic filesystem api (thin wrapper for W3C File API)
 * Added support for blackberry.io.file and blackberry.io.dir (including blackberry.utils.stringToBlog and blobtoString)
 * Added APIs for blackberry.app.event.onSwipeDown and blackberry.app.event.onSwipeStart for WebWorks Tablet

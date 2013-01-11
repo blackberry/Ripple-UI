@@ -30,7 +30,7 @@ export BUILD_STATUS=$?
 
 #if build was good then package zip
 if [ $BUILD_STATUS = 0 ]; then 
-    cd ../..
+    cd ../../
     zip -9 -r $OUTPUT/ripple_ui.zip  $PKG
 fi
 exit $BUILD_STATUS

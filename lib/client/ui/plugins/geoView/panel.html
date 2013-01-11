@@ -1,0 +1,131 @@
+<!--
+ *  Copyright 2011 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<section id="gps-container" class="ui-box ui-state-default ui-corner-all">
+    <section class="h2 info-header">
+        <section class="collapse-handle">Geo Location</section>
+        <section class="drag-handle ui-state-default ui-corner-all ui-state-hover">
+            <span class="ui-icon ui-icon-arrow-4"></span>
+        </section>
+    </section>
+
+    <section class="info ui-widget-content ui-corner-all" style="display: none;">
+        <p></p>
+
+        <table class="panel-table">
+            <tr>
+                <td><label id="label-geo-latitude" class="ui-text-label" for="geo-latitude">Latitude</label></td>
+                <td><input id="geo-latitude" class="ui-state-default ui-corner-all" type="number" value=""></td>
+            </tr>
+            <tr>
+                <td><label id="label-geo-longitude" class="ui-text-label" for="geo-longitude">Longitude</label>
+                </td>
+                <td><input id="geo-longitude" class="ui-state-default ui-corner-all" type="number" value=""></td>
+            </tr>
+            <tr>
+                <td><label id="label-geo-altitude" class="ui-text-label" for="geo-altitude">Altitude</label></td>
+                <td><input id="geo-altitude" class="ui-state-default ui-corner-all" type="number" value=""></td>
+            </tr>
+            <tr id="geo-cellid-container">
+                <td><label id="label-geo-cellid" class="ui-text-label" for="geo-cellid">Cell Id</label></td>
+                <td><input id="geo-cellid" class="ui-state-default ui-corner-all" type="number" value=""></td>
+            </tr>
+            <tr>
+                <td><label id="label-geo-accuracy" class="ui-text-label" for="geo-accuracy">Accuracy</label></td>
+                <td><input id="geo-accuracy" class="ui-state-default ui-corner-all" type="number" value=""></td>
+            </tr>
+            <tr>
+                <td><label id="label-geo-altitudeaccuracy" class="ui-text-label" for="geo-altitudeaccuracy">Altitude Accuracy</label></td>
+                <td><input id="geo-altitudeaccuracy" class="ui-state-default ui-corner-all" type="number" value=""></td>
+            </tr>
+            <tr id="geo-heading-container">
+                <td><label id="label-geo-heading" class="ui-text-label" for="geo-heading">Heading</label></td>
+                <td>
+                    <label id="geo-heading-label" class="range-label-left">N</label>
+                    <input id="geo-heading" type="range" value="0" min="0" max="359.5" step="0.5" class="ui-state-default ui-corner-all">
+                </td>
+            </tr>
+            <tr id="geo-speed-container">
+                <td><label id="label-geo-speed" class="ui-text-label" for="geo-speed">Speed</label></td>
+                <td><input id="geo-speed" class="ui-state-default ui-corner-all" type="number" value=""></td>
+            </tr>
+            <tr id="geo-delay-container">
+                <td><span class="ui-text-label">GPS Delay (seconds)</span></td>
+                <td>
+                    <label id="geo-delay-label" class="range-label-left">0</label>
+                    <input id="geo-delay" type="range" value="0" min="0" max="30" class="ui-state-default ui-corner-all">
+                </td>
+            </tr>
+            <tr id="geo-timeout-container">
+                <td>
+                    <span class="ui-text-label">Simulate GPS Timeout</span>
+                </td>
+                <td>
+                    <input id="geo-timeout" type="checkbox" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span class="ui-text-label">Navigation Simulator</span><br/>
+                    How do I create a GPX file? <a href="https://github.com/blackberry/Ripple-UI/doc/gpx.md" class="main" target="_blank">Learn more</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input id="geo-gpxfile" type="file" class="ui-state-default ui-corner-all" />
+                    <button id="geo-gpx-go" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" ><span class="ui-button-text">Go</span></button>
+                    <select id="geo-gpxmultiplier-select" class="ui-state-default ui-corner-all">
+                        <option value="1">1x</option>
+                        <option value="2">2x</option>
+                        <option value="4">4x</option>
+                        <option value="8">8x</option>
+                        <option value="16">16x</option>
+                        <option value="32">32x</option>
+                        <option value="64">64x</option>
+                        <option value="128">128x</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="geo-gpxreplaystatus-container">
+                <td colspan="2">
+                    <label id="geo-gpxreplaystatus"></label>
+                </td>
+            </tr>
+        </table>
+
+        <div id="geo-map">
+            <div id="geo-map-container" style="width: 100%; height: 100%;"></div>
+            <div id="geo-map-marker"></div>
+            <div id="geo-map-direction">
+                <div id="geo-map-arrow"></div>
+                <div id="geo-map-direction-label"></div>
+            </div>
+        </div>
+
+        <section class="geo-map-zoom-controls">
+            <button id="geo-map-zoom-decrease" class="geo-map-zoom-btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">-</span>
+            </button>
+            <button id="geo-map-zoom-increase" class="geo-map-zoom-btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">+</span>
+            </button>
+
+            <section class="h3 geo-map-zoomlevel">
+                Zoom Level:&nbsp;
+                <span id="geo-map-zoomlevel-value"></span>
+            </section>
+        </section>
+    </section>
+</section>

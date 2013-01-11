@@ -15,9 +15,10 @@
  */
 var lint = require('./lint'),
     build = require('./build'),
-    childProcess = require('child_process'),
+    test = require('./test'),
     fs = require('fs'),
-    fail = fs.readFileSync(__dirname + "/../thirdparty/fail.txt", "utf-8");
+    _c = require('./conf'),
+    fail = fs.readFileSync(_c.THIRDPARTY + "fail.txt", "utf-8");
 
 function ok(code) {
     if (code || code === 1) {
@@ -26,28 +27,8 @@ function ok(code) {
     }
 }
 
-function test(callback) {
-    var env = process.env,
-        lib = process.cwd() + '/lib',
-        script = process.cwd() + '/build/scripts/runTestsInNode',
-        child;
-
-    env.NODE_PATH = lib;
-    child = childProcess.spawn(process.execPath, [script], {'env': env});
-
-    function log(data) {
-        process.stdout.write(new Buffer(data).toString('utf-8'));
-    }
-
-    child.stdout.on('data', log);
-    child.stderr.on('data', log);
-    child.on('exit', function (code) {
-        callback(code);
-    });
-}
-
 module.exports = function () {
-    test(function (code) {
+    test(null, function (code) {
         ok(code, "red tests");
         lint(function (code) {
             ok(code);

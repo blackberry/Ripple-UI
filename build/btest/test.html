@@ -71,29 +71,6 @@
               return result;
             };
         </script>
-
-        <!-- jWorkflow -->
-        <script src="thirdparty/jWorkflow/jworkflow-min-0.4.0.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- thirdparty -->
-        <script src="thirdparty/almond.js" type="text/javascript" charset="utf-8"></script>
-        <script src="thirdparty/Math.uuid.js" type="text/javascript" charset="utf-8"></script>
-        <script src="thirdparty/jquery.js" type="text/javascript" charset="utf-8"></script>
-        <script src="thirdparty/jquery.ui.js" type="text/javascript" charset="utf-8"></script>
-        <script src="thirdparty/jquery.tooltip.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- define Math.uuid as a ghost -->
-        <script type="text/javascript" charset="utf-8">
-            define.unordered = true;
-            define('thirdparty/Math.uuid', function (require, exports, module) {});
-        </script>
-
-        <!-- define jWorkflow as module -->
-        <script type="text/javascript" charset="utf-8">
-            define('jWorkflow', function (require, exports, module) {
-                module.exports = window.jWorkflow;
-            });
-        </script>
     </head>
     <body>
 
@@ -101,13 +78,13 @@
         <section style="display: none;">
             <script type="text/javascript" charset="utf-8">
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", "ext/assets/index.html", false);
+                xhr.open("GET", "assets/client/index.html", false);
                 xhr.send(null);
                 // lazy hack
                 document.write(
                     xhr.responseText
                         .replace(/\n/g, '')
-                        .match(/<body>(.*)<\/body>/g)[0]
+                        .match(/<body[^>]*>(.*)<\/body>/g)[0]
                         .replace(/<script.*<\/script>/g, '')
                 );
             </script>

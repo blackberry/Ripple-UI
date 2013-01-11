@@ -13,3 +13,4 @@ build_output/
 pkg
 /plugins
 services
+npm-debug.log
