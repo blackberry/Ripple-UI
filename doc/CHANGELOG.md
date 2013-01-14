@@ -53,7 +53,7 @@ Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull
   * Fixed `watchPosition` shouldn't invoke error when passed undefined options
   * Fixed `clearWatch` should not throw an exception if given invalid id
 
-* CLI * New (https://github.com/blackberry/Ripple-UI/master/next#cli--npm-package)
+* CLI * New (https://github.com/blackberry/Ripple-UI#cli--npm-package)
   * CLI (and NPM package install)
   * Implemented a node based cross origin XMLHttpRequest proxy (that can be booted via the CLI)
   * Ability to use CLI to statically host your (web) app
