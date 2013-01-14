@@ -2,7 +2,7 @@
 
 Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/683
 
-* Fixed corss origin proxy bug. Updated to new URL.
+* Fixed cross origin proxy bug. Updated to new URL.
 
 ## v0.9.11 - January 12, 2013
 
