@@ -1,4 +1,10 @@
-## v0.9.11 - January 14, 2013
+## v0.9.12 - January 14, 2013
+
+Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/683
+
+* Fixed corss origin proxy bug. Updated to new URL.
+
+## v0.9.11 - January 12, 2013
 
 Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/675
 
