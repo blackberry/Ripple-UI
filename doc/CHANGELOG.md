@@ -1,6 +1,6 @@
 ## v0.9.13 - February 05, 2013
 
-Pull Request (for release commits): 
+Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/710
 
 * Added support for BlackBerry Z10 device
 * Added support for Blackberry Q10 device
