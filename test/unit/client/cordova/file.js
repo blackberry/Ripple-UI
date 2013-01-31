@@ -138,6 +138,8 @@ describe("Cordova file bridge", function () {
         });
         window.webkitResolveLocalFileSystemURL = webkitResolveLocalFileSystemURLSpy;
 
+        global.Blob = Blob;
+
         window.WebKitBlobBuilder = function () {
             return {
                 _blobBuffer: "",
