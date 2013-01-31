@@ -1,3 +1,13 @@
+## v0.9.13 - February 05, 2013
+
+Pull Request (for release commits): 
+
+* Added support for BlackBerry Z10 device
+* Added support for Blackberry Q10 device
+* Added support for OPTIONS verb for Cross Origin Proxy
+* Added JavaScript console clearing prior to bootup (Chrome v23+ only)
+* Fixed blobBuilder being depricated (community contribution by @maxme)
+
 ## v0.9.12 - January 14, 2013
 
 Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/683
