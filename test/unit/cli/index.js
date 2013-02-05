@@ -16,7 +16,7 @@
 describe("cli", function () {
     var cli = require('./../../../lib/cli'),
         parser = require('./../../../lib/cli/parser'),
-        proxy = require('./../../../lib/cli/proxy'),
+        proxy = require('./../../../lib/cli/xhr-proxy'),
         help = require('./../../../lib/cli/help'),
         basicArgs = ["node", "ripple"];
 
@@ -30,26 +30,26 @@ describe("cli", function () {
         });
 
         it("requires cli/command_name and uses the `call` method if no subcommand is given", function () {
-            spyOn(parser, "parse").andReturn({commands: ["proxy"], options: {}});
-            cli.interpret(basicArgs.concat(["proxy"]));
+            spyOn(parser, "parse").andReturn({commands: ["xhr-proxy"], options: {}});
+            cli.interpret(basicArgs.concat(["xhr-proxy"]));
             expect(proxy.call).toHaveBeenCalled();
         });
 
         it("requires cli/command_name and uses the method named after the sub command, if given", function () {
             spyOn(parser, "parse").andReturn({
-                commands: ["proxy", "start"],
+                commands: ["xhr-proxy", "start"],
                 options: {"a": true}
             });
-            cli.interpret(basicArgs.concat(["proxy", "start"]));
+            cli.interpret(basicArgs.concat(["xhr-proxy", "start"]));
             expect(proxy.start).toHaveBeenCalledWith({"a": true});
         });
 
         it("passes any given cli options to the command module", function () {
             spyOn(parser, "parse").andReturn({
-                commands: ["proxy"],
+                commands: ["xhr-proxy"],
                 options: {"a": true}
             });
-            cli.interpret(basicArgs.concat(["proxy", "--a"]));
+            cli.interpret(basicArgs.concat(["xhr-proxy", "--a"]));
             expect(proxy.call).toHaveBeenCalledWith({"a": true});
         });
     });
