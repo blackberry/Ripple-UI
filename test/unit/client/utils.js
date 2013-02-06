@@ -400,100 +400,57 @@ describe("utils", function () {
         expect(utils.mixin(obj, anotherObj)).toBe(anotherObj);
     });
 
-    it("Copy_copies_an_object_literal_properly", function () {
-        var obj = {
-                test: "hello world",
-                testtwo: "hello again"
-            },
-            obj2 = utils.copy(obj);
+    describe("copy", function () {
+        it("passes through null", function () {
+            expect(utils.copy(null)).toBe(null);
+        });
 
-        expect(obj).toEqual(obj2);
-        expect(obj).toEqual(obj2);
-    });
+        it("passes through undefined", function () {
+            expect(utils.copy(undefined)).toBe(undefined);
+        });
 
-    it("Copy_copies_a_integer_properly", function () {
-        var num = 1,
-            num2 = utils.copy(1);
-        expect(num).toEqual(num2);
-    });
+        it("passes through a Number", function () {
+            expect(utils.copy(1)).toBe(1);
+        });
 
-    it("Copy_copies_a_string_properly", function () {
-        var str = "hello world",
-            str2 = utils.copy(str);
-        expect(str).toEqual(str2);
-    });
+        it("passes through a String", function () {
+            var str = "hello world";
+            expect(utils.copy(str)).toBe(str);
+        });
 
-    it("Copy_copies_a_boolean_properly", function () {
-        var bool = true,
-            bool2 = false;
-        expect(utils.copy(bool)).toEqual(bool);
-        expect(utils.copy(bool2)).toEqual(bool2);
-    });
+        it("passes through a Boolean", function () {
+            expect(utils.copy(true)).toBe(true);
+            expect(utils.copy(false)).toBe(false);
+        });
 
-    it("Copy_copies_a_date_properly", function () {
-        var date = new Date();
-        //use unix timestamp since date objects don't work here.
-        expect(utils.copy(date).getTime()).toEqual(date.getTime());
-    });
+        it("returns a new Date", function () {
+            var date = new Date(),
+                dateCopy = utils.copy(date);
 
-    it("Copy_copies_a_regex_properly", function () {
-        var regex = /a/;
-        expect(utils.copy(regex) instanceof RegExp).toBe(true);
-    });
+            expect(dateCopy instanceof Date).toBe(true, "Not a Date");
+            expect(date).not.toBe(dateCopy);
+            expect(date.getTime()).toBe(dateCopy.getTime());
+        });
 
-    it("Copy_makes_an_actual_copy_of_an_integer", function () {
-        var num = 1,
-            num2 = utils.copy(num);
-        num = 4;
-        expect(num).not.toEqual(num2);
-    });
+        it("returns a new RegExp", function () {
+            var regex = /a/,
+                regexCopy = utils.copy(regex);
 
-    it("Copy_makes_an_actual_copy_of_a_boolean", function () {
-        var bool = true,
-            bool2 = utils.copy(bool);
-        bool = false;
-        expect(bool).not.toEqual(bool2);
-    });
+            expect(regexCopy instanceof RegExp).toBe(true, "Not a RegExp");
+            expect(regexCopy).not.toBe(regex);
+            expect(regexCopy.toString()).toBe(regex.toString());
+        });
 
-    it("Copy_makes_an_actual_copy_of_a_string", function () {
-        var str = "hello world",
-            str2 = utils.copy(str);
-        str = "foo";
-        expect(str).not.toEqual(str2);
-    });
+        it("copies nested Object properties", function () {
+            var obj = {
+                    a: "hello world",
+                    b: "hello again"
+                },
+                objCopy = utils.copy(obj);
 
-    it("Copy_makes_an_actual_copy_of_a_date", function () {
-        var date = new Date(),
-            date2 = utils.copy(date);
-        date2 = "foo";
-        expect(date).not.toEqual(date2);
-    });
-
-    it("Copy_makes_an_actual_copy_of_a_regex", function () {
-
-        var regex = /a/,
-            regex2 = utils.copy(regex);
-
-        regex.woo = "hoo";
-        expect(regex2.woo).not.toBe("hoo");
-    });
-
-    it("Copy_makes_an_actual_copy_of_an_object_literal", function () {
-        var obj = {
-                test: "hello world",
-                testtwo: "hello again"
-            },
-            obj2 = utils.copy(obj);
-        obj = {foo: "foo!!"};
-        expect(obj).not.toEqual(obj2);
-    });
-
-    it("can copy null and return null", function () {
-        expect(utils.copy(null)).toBe(null);
-    });
-
-    it("can copy undefined and return undefined", function () {
-        expect(utils.copy(undefined)).toBe(undefined);
+            expect(obj).not.toBe(objCopy);
+            expect(obj).toEqual(objCopy);
+        });
     });
 
     describe("appLocation", function () {
