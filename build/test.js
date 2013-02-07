@@ -18,6 +18,8 @@ var jsdom = require('jsdom'),
     path = require('path'),
     utils = require('./utils'),
     jWorkflow = require('jWorkflow'),
+    moment = require('moment'),
+    accounting = require('accounting'),
     jasmine = require('./test/jasmine-node'),
     nodeXMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     _c = require('./conf');
@@ -33,6 +35,8 @@ function _extraMocks() {
     global.XMLHttpRequest = window.XMLHttpRequest = nodeXMLHttpRequest;
     require(_c.THIRDPARTY + "Math.uuid");
     global.jWorkflow = jWorkflow;
+    global.moment = moment;
+    global.accounting = accounting;
 
     window.navigator.userAgent = "foo";
     window.navigator.geolocation = {};

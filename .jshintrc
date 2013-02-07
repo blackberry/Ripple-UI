@@ -67,7 +67,9 @@
         "require", "Contact", "Position", "Coordinates", "Node",
         "OpenLayers",
         "cordova",
-        "ripple"
+        "ripple",
+        "moment",
+        "accounting"
     ],
 
     "node" : true,
