@@ -38,6 +38,7 @@ module.exports = function (src, baton) {
             manifestJSON = JSON.parse(fs.readFileSync(manifest, "utf-8")),
             js = _c.DEPLOY + "chrome.extension/ripple.js",
             bootstrap = _c.DEPLOY + "chrome.extension/bootstrap.js",
+            htmlui = _c.DEPLOY + "chrome.extension/ui.html",
             resourceList = [],
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
@@ -46,6 +47,8 @@ module.exports = function (src, baton) {
                           .replace(/'/g, _c.ESCAPED_QUOTES);
 
         fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
+
+        fs.writeFileSync(htmlui, doc, "utf-8");
 
         fs.writeFileSync(bootstrap,
                          "window.th_panel = {" + "LAYOUT_HTML: '" + doc + "'};" +

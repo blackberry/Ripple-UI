@@ -164,14 +164,24 @@ Currently, there is support for the Chrome extension framework. You can install 
 
 **TO BE DOCUMENTED**: Aspects of the Chrome Extension JS and how it all comes together.
 
-### Standalone UI
-
-This was created when there was need to have the ability to run a "standalone" version that did not require an extension framework.
-
-Essentially, it has its own navigation bar, and can be loaded as a static web page (see README and `pkg/web`).
+You can also (as an alternative) use the NPM package to host your app (remotely _or_ locally), as it can inject the client UI (i.e. what the Chrome extension does) without needing the Extension. (See the NPM and Hosted Injection sections below for details).
 
 ### NPM Package
 
-You can package the `cli` and `server` components into an NPM package.
+You can package the `cli` and `server` components into an NPM package, and also allows you to do other things, such as inject ripple without the extension (using the `hosted` build target).
 
-`npm install -g pkg/npm` to install.
+`npm install -g .` to install.
+
+### Hosted Injection
+
+To inject the client UI using the NPM package, you can do something like:
+
+    ripple emulate --path to/my/local/app
+
+    # or
+
+    ripple emulate --remote http://google.com
+
+And navigate to the logged URL (with the enableripple=** query string param). Ex (on Ubuntu):
+
+    google-chrome http://localhost:PORT/?enableripple=true

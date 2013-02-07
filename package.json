@@ -15,9 +15,9 @@
   "scripts": {"preinstall": "node thirdparty/ludicrous.js"},
   "main": "./lib/index",
   "dependencies": {
-    "express": "3.0.0rc5",
+    "express": "3.1.0",
     "connect-xcors": "0.5.2",
-    "request": "2.11.4",
+    "request": "2.12.0",
     "colors" : "0.6.0-1"
   },
   "devDependencies": {
@@ -36,6 +36,7 @@
     "lib/server",
     "lib/cli",
     "assets/server",
+    "pkg/hosted",
     "thirdparty/ludicrous.js",
     "doc",
     "bin"

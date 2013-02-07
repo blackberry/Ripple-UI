@@ -606,7 +606,7 @@ section.left { left: 0; }
     position: absolute;
     top: 158px;
     left: 143px;
-    background: url(../images/arrow.png);
+    background: url(images/arrow.png);
     width: 22px;
     height: 30px;
     z-index: 800;
@@ -1181,7 +1181,7 @@ fieldset {
 #contextMenu {
     height: 100%;
     width: 613px;
-    border-image: url('../images/webworks/bb10/core_crosscutmenu_bg.png') 1 1 1 15 fill / 0 0 0 0 repeat;
+    border-image: url('images/webworks/bb10/core_crosscutmenu_bg.png') 1 1 1 15 fill / 0 0 0 0 repeat;
     -webkit-box-shadow: -10px 0 25px #121212;
     box-shadow: -10px 0 25px #121212;
     -webkit-animation-timing-function: ease-out;
@@ -1287,7 +1287,7 @@ fieldset {
     position: absolute;
     height: 119px;
     width: 121px;
-    background-image: url('../images/webworks/bb10/drag_bar.png');
+    background-image: url('images/webworks/bb10/drag_bar.png');
 }
 
 .showMoreHandleIcon {
@@ -1324,7 +1324,7 @@ fieldset {
 .showContextmenuItem {
     -webkit-transform: translateZ(0) translate(-462px,0);
     transform: translateZ(0) translate(-462px,0);
-    border-image: url('../images/webworks/bb10/core_crosscutmenu_selected.png') 2 1 2 13 / 1 1 1 1;
+    border-image: url('images/webworks/bb10/core_crosscutmenu_selected.png') 2 1 2 13 / 1 1 1 1;
     z-index:101;
 }
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 describe("db", function () {
-
     var db = ripple('db'),
         old_openDatabase;
 
+    // TODO: Write tests for localStorage usage (when openDatabase does not exist)
     beforeEach(function () {
         old_openDatabase = window.openDatabase;
 
@@ -38,6 +38,7 @@ describe("db", function () {
             };
             return self;
         };
+
         jWorkflow.order(db.initialize, db).start();
     });
 
@@ -92,8 +93,7 @@ describe("db", function () {
         expect(storedValue).toEqual(testJSON);
     });
 
-    //HACK: This test should be readded
-    xit("saveObject_doesnt_retrieve_without_prefix", function () {
+    it("saveObject_doesnt_retrieve_without_prefix", function () {
         var testJSON = {
                 test: "test value"
             },
@@ -156,19 +156,6 @@ describe("db", function () {
         expect(prefixValue).toEqual(undefined);
     });
 
-    it("removeAll_removes_all_removes_prefix_subset", function () {
-        db.save("testKey", "test value");
-        db.save("testKey", "test value", "testPrefix-");
-
-        db.removeAll("testPrefix-");
-
-        var storedValue = db.retrieve("testKey"),
-            prefixValue = db.retrieve("testKey", "testPrefix-");
-
-        expect(storedValue).toEqual("test value");
-        expect(prefixValue).toEqual(undefined);
-    });
-
     it("can_retrieve_all_for_a_prefix", function () {
         db.save("testKey", "test value", "testPrefix-");
         db.save("testKey2", "test value 2", "testPrefix-");
@@ -180,5 +167,4 @@ describe("db", function () {
             expect(items.testKey3).toEqual(undefined);
         });
     });
-
 });
