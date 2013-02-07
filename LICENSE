@@ -453,3 +453,20 @@ hullbreach@hullbreachonline.com
   file. Gears may use these objects to transparently fix bugs and compatibility
   issues. Applications that use the code below will continue to work seamlessly
   when that happens.
+-------------------------------------------------------
+* accountingjs *
+
+http://josscrowcroft.github.com/accounting.js/
+
+The MIT License
+http://www.opensource.org/licenses/mit-license.php
+Copyright (c) 2011 Joss Crowcroft
+
+-------------------------------------------------------
+* momentjs *
+
+https://github.com/timrwood/moment/
+
+The MIT License
+http://www.opensource.org/licenses/mit-license.php
+Copyright (c) 2011-2012 Tim Wood

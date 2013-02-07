@@ -38,6 +38,12 @@ module.exports = {
         "3d.js",
         "draw.js",
         "../node_modules/jWorkflow/lib/jWorkflow.js",
-        "OpenLayers.js"
+        "OpenLayers.js",
+        "../node_modules/moment/moment.js",
+        "../node_modules/moment/lang/en-ca.js",
+        "../node_modules/moment/lang/fr-ca.js",
+        "../node_modules/moment/lang/fr.js",
+        "../node_modules/moment/lang/de.js",
+        "../node_modules/accounting/accounting.js"
     ]
 };

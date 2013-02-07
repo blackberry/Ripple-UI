@@ -18,7 +18,9 @@
     "express": "3.1.0",
     "connect-xcors": "0.5.2",
     "request": "2.12.0",
-    "colors" : "0.6.0-1"
+    "colors" : "0.6.0-1",
+    "moment" : "1.x.x",
+    "accounting" : "0.x.x"
   },
   "devDependencies": {
     "connect": "2.3.6",
