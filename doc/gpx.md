@@ -1,6 +1,6 @@
 
-GPX is a platform-independent serialization schema that we have used to allow Ripple to simulate
-geolocation routes.  There are several ways you can generate GPX files for use with Ripple, here 
+GPX is a platform-independent serialization schema that we have used to allow --- to simulate
+geolocation routes.  There are several ways you can generate GPX files for use with ---, here 
 are three examples:
 
 1. Record an actual route using the Endomondo mobile app (http://endomondo.com).  After you have

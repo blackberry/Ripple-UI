@@ -337,7 +337,7 @@ tinyHippos.Background = (function () {
 if (tinyHippos.Background.isAutostart() === true) {
     window.addEventListener("load", function () {
         tinyHippos.Background.start();
-        console.log("ripple services started on http://localhost:9910");
+        console.log("services started on http://localhost:9910");
     });
 }
 

@@ -1,4 +1,4 @@
-# Ripple
+# 
 
 A browser based, platform agnostic mobile application development and testing tool.
  
@@ -31,7 +31,7 @@ This script will pull down the needed npm packages and initialize the submodules
 
     jake
 
-This will build ripple to the `pkg/` folder. In that folder there are various targets that can be used.
+This will build to the `pkg/` folder. In that folder there are various targets that can be used.
 
     jake -T
 
@@ -51,7 +51,7 @@ For more information see [doc/chrome_extension.md](https://github.com/blackberry
 
 ## Running Inside Other Web Browsers
 
-Ripple is (by-design) browser agnostic, and _should_ be able to run inside any web browser.
+is (by-design) browser agnostic, and is able to run inside any web browser (with disabled web security).
 
 If you want to run it inside other browsers, you will need to use the `pkg/hosted` target, paired with the CLI's `emulate` command.
 
@@ -105,8 +105,8 @@ Note: You will need to be an [official contributor](http://blackberry.github.com
 
 ## Reference Material &amp; Community
 
-You can also find associated reference material for the Ripple tool as well as contributor forums at the following locations.
+You can also find associated reference material for the tool as well as contributor forums at the following locations.
 
-* [Blackberry Contributor Forums](http://supportforums.blackberry.com/t5/Ripple-Contributions/bd-p/ripple)
+* [Contributor Forums](http://supportforums.blackberry.com/t5/Ripple-Contributions/bd-p/ripple)
 * [Developer Documentation](https://github.com/blackberry/Ripple-UI/tree/master/doc)
 

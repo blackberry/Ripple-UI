@@ -1,4 +1,4 @@
-# Hacking Ripple
+# Hacking 
 
 This file describes the directory structure, build process and overall dev workflow for the project.
 
@@ -20,7 +20,7 @@ This file describes the directory structure, build process and overall dev workf
 
   * `lib/client` -> the client code. for the most part, this should be any client JS run in the browser.
 
-  * `lib/server` -> the server portion of the code. for the most part, this is any code that is (mainly) run in node that is part of the back end of Ripple.
+  * `lib/server` -> the server portion of the code. for the most part, this is any code that is (mainly) run in node that is part of the back end of .
 
 * `doc` -> any documentation files, which include things like the `cli` help files.
 
@@ -44,7 +44,7 @@ Usually, you will only need to run this once. However, if you get errors about a
 
 This (for the most part) includes any JavaScript files used in the code base, which (for the most part) reside in `lib`.
 
-JavaScript in Ripple is organized into CommonJS (based) modules, and are written in a modular pattern. Prototypal class based patterns are avoided, if possible. Some exceptions occur: one being if an emulated API is more easily implemented as such.
+JavaScript in is organized into CommonJS (based) modules, and are written in a modular pattern. Prototypal class based patterns are avoided, if possible. Some exceptions occur: one being if an emulated API is more easily implemented as such.
 
 If you are writing modules that explicitly run in a node environment (ex `cli` and `server`), the "stock" `require` is used (with relative pathing):
 
@@ -156,7 +156,7 @@ Note: A target can be anything, really. For example, there is an NPM package tar
 
 ## Using Built Targets
 
-There are various ways in which to use aspects of Ripple.
+There are various ways in which to use aspects of .
 
 ### Browser Extension
 

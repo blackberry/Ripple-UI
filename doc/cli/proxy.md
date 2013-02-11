@@ -1,6 +1,6 @@
 # Synopsis
 
-    ripple proxy [--port xxxx] [--route xxxx]
+    --- proxy [--port xxxx] [--route xxxx]
 
 # Description
 
@@ -13,4 +13,4 @@
 
 # Example usage
 
-    ripple proxy --port 1234
+    --- proxy --port 1234
