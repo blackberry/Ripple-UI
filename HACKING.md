@@ -160,7 +160,7 @@ There are various ways in which to use aspects of .
 
 ### Browser Extension
 
-Currently, there is support for the Chrome extension framework. You can install it as an unpacked extension (either the vanilla or Blackberry version).
+Currently, there is support for the Chrome extension framework. You can install it as an unpacked extension (either the vanilla or BLANK version).
 
 **TO BE DOCUMENTED**: Aspects of the Chrome Extension JS and how it all comes together.
 
@@ -168,7 +168,7 @@ You can also (as an alternative) use the NPM package to host your app (remotely 
 
 ### NPM Package
 
-You can package the `cli` and `server` components into an NPM package, and also allows you to do other things, such as inject ripple without the extension (using the `hosted` build target).
+You can package the `cli` and `server` components into an NPM package, and also allows you to do other things, such as inject it without the extension (using the `hosted` build target).
 
 `npm install -g .` to install.
 

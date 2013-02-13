@@ -15,7 +15,7 @@
 */
 window.addEventListener("load", function () {
     var metaData = chrome.extension.getBackgroundPage().tinyHippos.Background.metaData(),
-        title = metaData.justInstalled ? "Welcome to Ripple" : "Ripple has been updated",
+        title = metaData.justInstalled ? "Welcome to Emulator" : "Emulator has been updated",
         body = "";
 
     document.getElementById("title").innerText = title;

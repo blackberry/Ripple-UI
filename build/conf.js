@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 module.exports = {
-    APPNAME: "Ripple Mobile Environment Emulator",
+    APPNAME: "Mobile Environment Emulator",
     LICENSE: "LICENSE",
     PACKAGE_JSON: __dirname + "/../package.json",
     ROOT: __dirname + "/../",

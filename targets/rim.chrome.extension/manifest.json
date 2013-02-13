@@ -1,7 +1,7 @@
 {
     "version": "",
     "manifest_version": 2,
-    "name": "Ripple Emulator (Beta)",
+    "name": "Emulator (Beta)",
     "background": {
         "page": "views/background.html"
     },
@@ -18,7 +18,7 @@
     "browser_action":{
         "default_popup":"views/popup.html",
         "default_icon":"images/Icon_48x48.png",
-        "default_title":"Ripple"
+        "default_title":"Emulator"
     },
     "content_scripts":[{
         "run_at": "document_start",

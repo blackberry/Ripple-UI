@@ -1,6 +1,6 @@
-# Using Ripple As A Chrome Extension
+# Using As A Chrome Extension
 
-One of the (main) build targets for Ripple is a Chrome (browser) extension.
+One of the (main) build targets is a Chrome (browser) extension.
 
 Using the extension is pretty straightforward. There are many ways to get it, but this will focus on building it and loading it as an unpacked extension.
 
@@ -27,12 +27,12 @@ If you end up editing anything in the ext folder you will need to refresh the ex
 
 There are two ways to host your application and emulate it with the Chrome extension.
 
-The main way is to host your application on a local (or remote) http server, and enable Ripple on that page.
+The main way is to host your application on a local (or remote) http server, and enable it on that page.
 
-You can enable Ripple on the current URL by:
+You can enable it on the current URL by:
 
 * Right clicking on the page and using the "Emulator" context menu, or..
-* Use the Ripple pop up menu (icon) in the Chrome toolbar (i.e. where all other extensions have icons).
+* Use the pop up menu (icon) in the Chrome toolbar (i.e. where all other extensions have icons).
 
 ## Enabling On The File Scheme
 
@@ -49,4 +49,4 @@ If you still wish to do so, you will need to do a few things.
 Also, in addition to the flag you may need to:
 
 * Open the Extensions tab
-* Locate Ripple in the list, and check off the "Allow access to file URLs" checkbox
+* Locate it in the list, and check off the "Allow access to file URLs" checkbox

@@ -333,7 +333,7 @@ tinyHippos.Background = (function () {
     return _self;
 }());
 
-// check to see if Ripple Services need to be enabled
+// check to see if Services need to be enabled
 if (tinyHippos.Background.isAutostart() === true) {
     window.addEventListener("load", function () {
         tinyHippos.Background.start();
@@ -343,7 +343,7 @@ if (tinyHippos.Background.isAutostart() === true) {
 
 
 //HACK: need to find a better way to do this since it's
-//WebWorks specific!!!
+//specific!!!
 window.onunload = function () {
     tinyHippos.Background.stop();
 };
