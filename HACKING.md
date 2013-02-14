@@ -152,7 +152,7 @@ For any target specific builds (that have any assets placed in `targets/target_n
 
 For every target that is built, they should (and will) be placed in the `pkg/` folder.
 
-Note: A target can be anything, really. For example, there is an NPM package target, which does not include any of the client (UI), whilst there is a Chrome Extension target that does not include any of the server/cli components (i.e. some can be used in conjunction with each other).
+Note: A target can be anything, really. There is a Chrome Extension target that does not include any of the server/cli components (i.e. some can be used in conjunction with each other).
 
 ## Using Built Targets
 
