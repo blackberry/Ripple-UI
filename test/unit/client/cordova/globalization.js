@@ -365,7 +365,7 @@ describe("cordova globalization bridge", function () {
             it("returns TIME when length is short", function () {
                 args[0].options.formatLength = "short";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "TIME",
                     timezone: "???",
                     utc_offset: 0,
@@ -387,7 +387,7 @@ describe("cordova globalization bridge", function () {
             it("returns TIME when length is long", function () {
                 args[0].options.formatLength = "long";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "TIME",
                     timezone: "???",
                     utc_offset: 0,
@@ -398,7 +398,7 @@ describe("cordova globalization bridge", function () {
             it("returns TIME when length is full", function () {
                 args[0].options.formatLength = "full";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "TIME",
                     timezone: "???",
                     utc_offset: 0,
@@ -426,7 +426,7 @@ describe("cordova globalization bridge", function () {
             it("returns TIME when length is medium", function () {
                 args[0].options.formatLength = "medium";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "LL",
                     timezone: "???",
                     utc_offset: 0,
@@ -437,7 +437,7 @@ describe("cordova globalization bridge", function () {
             it("returns TIME when length is long", function () {
                 args[0].options.formatLength = "long";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "LLL",
                     timezone: "???",
                     utc_offset: 0,
@@ -448,7 +448,7 @@ describe("cordova globalization bridge", function () {
             it("returns TIME when length is full", function () {
                 args[0].options.formatLength = "full";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "LLLL",
                     timezone: "???",
                     utc_offset: 0,
@@ -465,7 +465,7 @@ describe("cordova globalization bridge", function () {
             it("returns L TIME when length is short", function () {
                 args[0].options.formatLength = "short";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "L TIME",
                     timezone: "???",
                     utc_offset: 0,
@@ -476,7 +476,7 @@ describe("cordova globalization bridge", function () {
             it("returns LL TIME when length is medium", function () {
                 args[0].options.formatLength = "medium";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "LL TIME",
                     timezone: "???",
                     utc_offset: 0,
@@ -487,7 +487,7 @@ describe("cordova globalization bridge", function () {
             it("returns LLL TIME when length is long", function () {
                 args[0].options.formatLength = "long";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "LLL TIME",
                     timezone: "???",
                     utc_offset: 0,
@@ -498,7 +498,7 @@ describe("cordova globalization bridge", function () {
             it("returns LLLL TIME when length is full", function () {
                 args[0].options.formatLength = "full";
                 glob.getDatePattern(success, fail, args);
-                expect(success).toHaveBeenCalledWith({ 
+                expect(success).toHaveBeenCalledWith({
                     pattern: "LLLL TIME",
                     timezone: "???",
                     utc_offset: 0,

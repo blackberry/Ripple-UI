@@ -26,9 +26,9 @@ module.exports = function (src, baton) {
                'cp -r ' + _c.ASSETS + "client/images " + _c.DEPLOY + "chrome.extension/ &&" +
                'cp -r ' + _c.ASSETS + "client/themes " + _c.DEPLOY + "chrome.extension/ &&" +
                'cp ' + _c.EXT + "chrome.extension/manifest.json " + _c.DEPLOY + "chrome.extension/manifest.json &&" +
-               'cp ' + _c.EXT + "chrome.extension/controllers/Background.js " + _c.DEPLOY + "chrome.extension/controllers/Background.js &&" + 
-               'cp ' + _c.EXT + "chrome.extension/controllers/PopUp.js " + _c.DEPLOY + "chrome.extension/controllers/PopUp.js &&" + 
-               'cp ' + _c.EXT + "chrome.extension/views/background.html " + _c.DEPLOY + "chrome.extension/views/background.html &&" + 
+               'cp ' + _c.EXT + "chrome.extension/controllers/Background.js " + _c.DEPLOY + "chrome.extension/controllers/Background.js &&" +
+               'cp ' + _c.EXT + "chrome.extension/controllers/PopUp.js " + _c.DEPLOY + "chrome.extension/controllers/PopUp.js &&" +
+               'cp ' + _c.EXT + "chrome.extension/views/background.html " + _c.DEPLOY + "chrome.extension/views/background.html &&" +
                'cp ' + _c.EXT + "chrome.extension/views/popup.html " + _c.DEPLOY + "chrome.extension/views/popup.html";
 
     childProcess.exec(copy, function () {
@@ -59,8 +59,8 @@ module.exports = function (src, baton) {
             "ripple('bootstrap').bootstrap();"
         );
 
-        utils.collect(_c.DEPLOY + "/chrome.extension", resourceList, function () { 
-            return true; 
+        utils.collect(_c.DEPLOY + "/chrome.extension", resourceList, function () {
+            return true;
         });
 
         manifestJSON.version = src.info.version;
