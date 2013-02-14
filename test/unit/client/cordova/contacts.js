@@ -52,7 +52,7 @@ describe("Cordova Contacts Bridge", function () {
         s = jasmine.createSpy("success");
         e = jasmine.createSpy("error");
         global.navigator = {
-            contacts: { 
+            contacts: {
                 create: jasmine.createSpy("navigator.contacts.create").andCallFake(function (obj) {
                     return obj;
                 })
@@ -105,13 +105,13 @@ describe("Cordova Contacts Bridge", function () {
     });
     
     describe("on save", function () {
-        beforeEach(function () { 
+        beforeEach(function () {
             spyOn(db, "saveObject");
             spyOn(db, "retrieveObject").andReturn([contact]);
         });
 
         it("throws an exception if called with no args", function () {
-            expect(function () { contacts.save(); }).toThrow();            
+            expect(function () { contacts.save(); }).toThrow();
         });
 
         it("can be called without specifying an error callback", function () {
@@ -139,13 +139,13 @@ describe("Cordova Contacts Bridge", function () {
     });
 
     describe("on remove", function () {
-        beforeEach(function () { 
+        beforeEach(function () {
             spyOn(db, "saveObject");
             spyOn(db, "retrieveObject").andReturn([contact]);
         });
 
         it("throws an exception if called with no args", function () {
-            expect(contacts.remove).toThrow();            
+            expect(contacts.remove).toThrow();
         });
 
         it("can be called without specifying an error callback", function () {
@@ -157,8 +157,8 @@ describe("Cordova Contacts Bridge", function () {
 
         it("throw an exception if called with an invalid id", function () {
             contacts.remove(s, e, [ 321654 ]);
-            expect(db.saveObject).not.toHaveBeenCalled(); 
-            expect(s).not.toHaveBeenCalled(); 
+            expect(db.saveObject).not.toHaveBeenCalled();
+            expect(s).not.toHaveBeenCalled();
             //error callback not implemented
             //expect(e).toHaveBeenCalled();
         });
