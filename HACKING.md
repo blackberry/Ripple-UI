@@ -148,11 +148,11 @@ You can build via `jake build`.
 
 Any files used are located in `build/*`. To start, check out `build/build.js`.
 
+During build, there is the concept of a build target. A build target is for packaging project components (usually `lib/client`) into usable solutions. For example, there is a target for creating Ripple as a Chrome Extension, while there is also a "hosted" target that is used by the CLI & NPM package.
+
 For any target specific builds (that have any assets placed in `targets/target_name`), there are corresponding modules that build said targets, which are located in `build/targets/*`.
 
 For every target that is built, they should (and will) be placed in the `pkg/` folder.
-
-Note: A target can be anything, really. There is a Chrome Extension target that does not include any of the server/cli components (i.e. some can be used in conjunction with each other).
 
 ## Using Built Targets
 
