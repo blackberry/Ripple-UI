@@ -17,6 +17,7 @@ body {
     font-size: 0.75em;
     margin: 0;
     border: 0;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .layout {
@@ -45,7 +46,7 @@ p:first-letter, th, li:first-letter, label, button { text-transform: capitalize;
 
 p { font-size: 1.2em; }
 
-h1 { font-size: 2em; font-weight: bold; text-transform: capitalize; }
+h1 { font-size: 1.5em; font-weight: bold; text-transform: capitalize; }
 
 h2 { font-size: 1em; font-weight: bold; text-transform: capitalize; }
 
