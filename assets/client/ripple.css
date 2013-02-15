@@ -24,6 +24,7 @@ html, body {
     height : 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    font-family: "Helvetica", Arial, sans-serif;
 }
 
 input, textarea, keygen, select, button, isindex, datagrid {
@@ -846,7 +847,6 @@ section.left { left: 0; }
     margin: 0 auto;
     display: none;
     color: #F0F0F0;
-    font-family: Helvetica, Arial;
 }
 
     .error-logo {
