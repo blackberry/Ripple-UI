@@ -7,7 +7,7 @@ var childProcess = require('child_process'),
     coverjs = __dirname + "/../../node_modules/coverjs/bin/cover.js",
     _coveragePort = 7070,
     _coverageAssets = __dirname + '/../../test/assets/cov';
-        
+
 function instrument(callback) {
     var args = ["-r", "-o", "cov", "lib", "test", "-e", "test/assets/cov"],
         cmd = childProcess.spawn(coverjs, args);
@@ -38,7 +38,7 @@ function cleanup(callback) {
 
 module.exports = function (customPaths, done) {
     instrument(function () {
-        global.__$coverObject = {}; // global.window trips up use of global.__$coverObject being used
+        global.__$coverObject = {};
 
         test(customPaths || ["cov/test"], function () {
             console.log("Generating coverage report...");

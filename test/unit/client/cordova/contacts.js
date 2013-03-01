@@ -103,7 +103,7 @@ describe("Cordova Contacts Bridge", function () {
             expect(e).not.toHaveBeenCalled();
         });
     });
-    
+
     describe("on save", function () {
         beforeEach(function () {
             spyOn(db, "saveObject");

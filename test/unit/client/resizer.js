@@ -179,7 +179,7 @@ describe("resizer", function () {
                 delete win.orientation;
                 delete window.orientation;
             });
-            
+
             it("sets window.orientation to 0 when portrait", function () {
                 resizer.changeLayoutType("portrait");
                 expect(window.orientation).toBe(0);

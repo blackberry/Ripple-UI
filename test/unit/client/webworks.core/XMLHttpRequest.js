@@ -170,9 +170,9 @@ describe("webworks XMLHttpRequest", function () {
             var url = "webworks://blackberry/postoffice",
                 xhr = new XHR(),
                 data = {
-                    the: "cat",
-                    in: "the",
-                    hat: "!!!"
+                    "the": "cat",
+                    "in": "the",
+                    "hat": "!!!"
                 };
 
             webworks.blackberry.postoffice = function (args, postData) {

@@ -50,7 +50,7 @@ describe("cordova compass bridge", function () {
             var success = jasmine.createSpy("success");
 
             target.getHeading(success);
-            
+
             expect(geo.getPositionInfo).toHaveBeenCalled();
             expect(success).toHaveBeenCalledWith({
                 magneticHeading: heading,

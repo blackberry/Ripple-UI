@@ -115,7 +115,7 @@ module.exports = function (customPaths, done, opts) {
 
     _setupEnv(function () {
         var targets;
-       
+
         if (customPaths) {
             targets = [];
             customPaths.forEach(function (customPath) {

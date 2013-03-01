@@ -29,7 +29,7 @@ describe("cordova globalization bridge", function () {
         glob = ripple('platform/cordova/2.0.0/bridge/globalization');
         success = jasmine.createSpy("success");
         fail = jasmine.createSpy("fail");
-           
+
         spyOn(moment, "lang").andReturn("cv");
     });
 
@@ -675,7 +675,7 @@ describe("cordova globalization bridge", function () {
                 glob.numberToString(success, fail, args);
                 expect(success).toHaveBeenCalledWith({value: "1,255%"});
             });
-            
+
             it("calls the success callback with the result for 0", function () {
                 var args = [{number: 0, options: {type: 'percent'}}];
                 glob.numberToString(success, fail, args);
@@ -702,7 +702,7 @@ describe("cordova globalization bridge", function () {
                 expect(success).toHaveBeenCalledWith({value: 123});
             });
         });
-        
+
         describe("type is decimal", function () {
             var args = [{numberString: "1,234", options: {type: 'decimal'}}];
 
