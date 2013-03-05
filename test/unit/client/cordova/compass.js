@@ -15,13 +15,34 @@
  */
 describe("cordova compass bridge", function () {
     var geo = ripple('geo'),
-        target = ripple('platform/cordova/2.0.0/bridge/compass'),
+        target,
+        bridge = ripple('emulatorBridge'),
         heading = {direction: "southish"};
 
     beforeEach(function () {
         spyOn(geo, "getPositionInfo").andReturn({
             heading: heading
         });
+
+        spyOn(bridge, "window").andReturn({
+            CompassHeading: function (m, t, a) {
+                return {
+                    magneticHeading: m,
+                    trueHeading: t,
+                    headingAccuracy: a,
+                    timestamp: 1
+                };
+            }
+        });
+
+        spyOn(window, "setInterval").andReturn(1);
+        spyOn(window, "clearInterval");
+
+        target = ripple('platform/cordova/2.0.0/bridge/compass');
+    });
+
+    afterEach(function () {
+        target.stop();
     });
 
     describe("when calling getHeading", function () {
@@ -29,7 +50,7 @@ describe("cordova compass bridge", function () {
             var success = jasmine.createSpy("success");
 
             target.getHeading(success);
-            
+
             expect(geo.getPositionInfo).toHaveBeenCalled();
             expect(success).toHaveBeenCalledWith({
                 magneticHeading: heading,
@@ -37,6 +58,47 @@ describe("cordova compass bridge", function () {
                 headingAccuracy: 100,
                 timestamp: jasmine.any(Number)
             });
+        });
+    });
+
+    describe("when starting", function () {
+        it("starts an interval", function () {
+            var s = jasmine.createSpy("success"),
+                f = jasmine.createSpy("fail");
+
+            target.start(s, f);
+            expect(window.setInterval).toHaveBeenCalledWith(jasmine.any(Function), 50);
+        });
+
+        it("the interval function calls the success callback with the AccelerometerInfoChangedEvent", function () {
+            var s = jasmine.createSpy("success"),
+                f = jasmine.createSpy("fail");
+
+            target.start(s, f);
+
+            window.setInterval.mostRecentCall.args[0]();
+
+            expect(geo.getPositionInfo).toHaveBeenCalled();
+            expect(s).toHaveBeenCalledWith({
+                magneticHeading: heading,
+                trueHeading: heading,
+                headingAccuracy: 100,
+                timestamp: jasmine.any(Number)
+            });
+
+            expect(f).not.toHaveBeenCalled();
+        });
+    });
+
+    describe("when stopping", function () {
+        it("it clears the interval", function () {
+            var s = jasmine.createSpy("success"),
+                f = jasmine.createSpy("fail");
+
+            target.start(s, f);
+            target.stop();
+
+            expect(window.clearInterval).toHaveBeenCalledWith(1);
         });
     });
 });

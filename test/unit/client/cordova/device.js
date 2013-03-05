@@ -70,5 +70,4 @@ describe("Cordova Device Bridge", function () {
             expect(e).not.toHaveBeenCalled();
         });
     });
-
 });

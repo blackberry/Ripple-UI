@@ -148,11 +148,11 @@ You can build via `jake build`.
 
 Any files used are located in `build/*`. To start, check out `build/build.js`.
 
+During build, there is the concept of a build target. A build target is for packaging project components (usually `lib/client`) into usable solutions. For example, there is a target for creating Ripple as a Chrome Extension, while there is also a "hosted" target that is used by the CLI & NPM package.
+
 For any target specific builds (that have any assets placed in `targets/target_name`), there are corresponding modules that build said targets, which are located in `build/targets/*`.
 
 For every target that is built, they should (and will) be placed in the `pkg/` folder.
-
-Note: A target can be anything, really. For example, there is an NPM package target, which does not include any of the client (UI), whilst there is a Chrome Extension target that does not include any of the server/cli components (i.e. some can be used in conjunction with each other).
 
 ## Using Built Targets
 
@@ -164,14 +164,24 @@ Currently, there is support for the Chrome extension framework. You can install 
 
 **TO BE DOCUMENTED**: Aspects of the Chrome Extension JS and how it all comes together.
 
-### Standalone UI
-
-This was created when there was need to have the ability to run a "standalone" version that did not require an extension framework.
-
-Essentially, it has its own navigation bar, and can be loaded as a static web page (see README and `pkg/web`).
+You can also (as an alternative) use the NPM package to host your app (remotely _or_ locally), as it can inject the client UI (i.e. what the Chrome extension does) without needing the Extension. (See the NPM and Hosted Injection sections below for details).
 
 ### NPM Package
 
-You can package the `cli` and `server` components into an NPM package.
+You can package the `cli` and `server` components into an NPM package, and also allows you to do other things, such as inject ripple without the extension (using the `hosted` build target).
 
-`npm install -g pkg/npm` to install.
+`npm install -g .` to install.
+
+### Hosted Injection
+
+To inject the client UI using the NPM package, you can do something like:
+
+    ripple emulate --path to/my/local/app
+
+    # or
+
+    ripple emulate --remote http://google.com
+
+And navigate to the logged URL (with the enableripple=** query string param). Ex (on Ubuntu):
+
+    google-chrome http://localhost:PORT/?enableripple=true

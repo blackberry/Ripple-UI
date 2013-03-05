@@ -26,9 +26,9 @@ module.exports = function (src, baton) {
                'cp -r ' + _c.ASSETS + "client/images " + _c.DEPLOY + "chrome.extension/ &&" +
                'cp -r ' + _c.ASSETS + "client/themes " + _c.DEPLOY + "chrome.extension/ &&" +
                'cp ' + _c.EXT + "chrome.extension/manifest.json " + _c.DEPLOY + "chrome.extension/manifest.json &&" +
-               'cp ' + _c.EXT + "chrome.extension/controllers/Background.js " + _c.DEPLOY + "chrome.extension/controllers/Background.js &&" + 
-               'cp ' + _c.EXT + "chrome.extension/controllers/PopUp.js " + _c.DEPLOY + "chrome.extension/controllers/PopUp.js &&" + 
-               'cp ' + _c.EXT + "chrome.extension/views/background.html " + _c.DEPLOY + "chrome.extension/views/background.html &&" + 
+               'cp ' + _c.EXT + "chrome.extension/controllers/Background.js " + _c.DEPLOY + "chrome.extension/controllers/Background.js &&" +
+               'cp ' + _c.EXT + "chrome.extension/controllers/PopUp.js " + _c.DEPLOY + "chrome.extension/controllers/PopUp.js &&" +
+               'cp ' + _c.EXT + "chrome.extension/views/background.html " + _c.DEPLOY + "chrome.extension/views/background.html &&" +
                'cp ' + _c.EXT + "chrome.extension/views/popup.html " + _c.DEPLOY + "chrome.extension/views/popup.html";
 
     childProcess.exec(copy, function () {
@@ -38,6 +38,7 @@ module.exports = function (src, baton) {
             manifestJSON = JSON.parse(fs.readFileSync(manifest, "utf-8")),
             js = _c.DEPLOY + "chrome.extension/ripple.js",
             bootstrap = _c.DEPLOY + "chrome.extension/bootstrap.js",
+            htmlui = _c.DEPLOY + "chrome.extension/ui.html",
             resourceList = [],
             doc = src.html.replace(/#OVERLAY_VIEWS#/g, src.overlays)
                           .replace(/#PANEL_VIEWS#/g, src.panels)
@@ -46,6 +47,8 @@ module.exports = function (src, baton) {
                           .replace(/'/g, _c.ESCAPED_QUOTES);
 
         fs.writeFileSync(cssDeploy, fs.readFileSync(css, "utf-8") + src.skins);
+
+        fs.writeFileSync(htmlui, doc, "utf-8");
 
         fs.writeFileSync(bootstrap,
                          "window.th_panel = {" + "LAYOUT_HTML: '" + doc + "'};" +
@@ -56,8 +59,8 @@ module.exports = function (src, baton) {
             "ripple('bootstrap').bootstrap();"
         );
 
-        utils.collect(_c.DEPLOY + "/chrome.extension", resourceList, function () { 
-            return true; 
+        utils.collect(_c.DEPLOY + "/chrome.extension", resourceList, function () {
+            return true;
         });
 
         manifestJSON.version = src.info.version;

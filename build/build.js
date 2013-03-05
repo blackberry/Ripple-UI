@@ -22,9 +22,7 @@ var fs = require('fs'),
     compress = require('./compress'),
     chromeExt = require('./targets/chrome.extension'),
     rimChromeExt = require('./targets/rim.chrome.extension'),
-    npm = require('./targets/npm'),
-    cordova = require('./targets/cordova'),
-    web = require('./targets/web');
+    hosted = require('./targets/hosted');
 
 function _done(error) {
     if (error) {
@@ -55,27 +53,19 @@ module.exports = _handle(function (ext, opts) {
                          .andThen(pack);
 
     switch (ext) {
-    case 'web':
-        build.andThen(web);
-        break;
     case 'chrome.extension':
         build.andThen(chromeExt);
         break;
     case 'rim.chrome.extension':
         build.andThen(rimChromeExt);
         break;
-    case 'npm':
-        build.andThen(npm);
-        break;
-    case 'cordova':
-        build.andThen(cordova);
+    case 'hosted':
+        build.andThen(hosted);
         break;
     default:
         build.andThen(chromeExt)
              .andThen(rimChromeExt)
-             .andThen(npm)
-             .andThen(web)
-             .andThen(cordova);
+             .andThen(hosted);
     }
 
     if (opts.compress) {

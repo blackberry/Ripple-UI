@@ -18,6 +18,8 @@ var jsdom = require('jsdom'),
     path = require('path'),
     utils = require('./utils'),
     jWorkflow = require('jWorkflow'),
+    moment = require('moment'),
+    accounting = require('accounting'),
     jasmine = require('./test/jasmine-node'),
     nodeXMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     _c = require('./conf');
@@ -33,6 +35,8 @@ function _extraMocks() {
     global.XMLHttpRequest = window.XMLHttpRequest = nodeXMLHttpRequest;
     require(_c.THIRDPARTY + "Math.uuid");
     global.jWorkflow = jWorkflow;
+    global.moment = moment;
+    global.accounting = accounting;
 
     window.navigator.userAgent = "foo";
     window.navigator.geolocation = {};
@@ -72,7 +76,9 @@ function _setupEnv(ready) {
     });
 }
 
-module.exports = function (customPaths, done) {
+module.exports = function (customPaths, done, opts) {
+    if (!opts) { opts = {}; }
+
     //HACK: this should be  taken out if our pull request in jasmine is accepted.
     jasmine.core.Matchers.prototype.toThrow = function (expected) {
         var result = false,
@@ -109,7 +115,7 @@ module.exports = function (customPaths, done) {
 
     _setupEnv(function () {
         var targets;
-       
+
         if (customPaths) {
             targets = [];
             customPaths.forEach(function (customPath) {
@@ -120,7 +126,8 @@ module.exports = function (customPaths, done) {
         }
 
         global.ripple = function (p) {
-            return require(path.normalize(path.join(__dirname, "..", "lib", "client")) + "/" + p);
+            return require(path.normalize(path.join(__dirname, "..",
+                        (opts.withCoverage ? path.join("cov", "lib") : "lib"), "client")) + "/" + p);
         };
 
         jasmine.run(targets, function (runner) {
