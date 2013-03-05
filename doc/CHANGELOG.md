@@ -1,3 +1,13 @@
+## v0.9.14 - March 06, 2013
+
+Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/737
+
+* Added support for Cordova/PhoneGap Globalization API
+* Added Start / Stop methods to Cordova/PhoneGap compass API
+* Fixed Ripple not working with Cordova 2.5.0
+* Added Nexus 4 device
+* Added support for hosted Ripple through CLI
+
 ## v0.9.13 - February 05, 2013
 
 Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/710
