@@ -1048,60 +1048,6 @@ section.left { left: 0; }
 }
 
 /* ------------------------------>
-    Omni Bar */
-
-.omni-bar {
-    position: fixed;
-    width: 100%;
-    padding: 0 0 0.1em 0;
-    z-index: 999;
-}
-    .omni-bar .ui-icon-container {
-        opacity: 1;
-        display: inline-block;
-        top: .3em;
-        position: relative;
-        padding: .3em .3em .1em .3em;
-        cursor: pointer;
-    }
-
-    .omni-bar .ui-icon-container:hover {
-        opacity: 0.75;
-    }
-
-    .omni-bar .ui-icon-container:active {
-        opacity: 0.4;
-    }
-
-        .omni-bar .ui-icon-container-left {
-            margin-left: 0.25em;
-        }
-
-        .omni-bar .ui-icon-container-right {
-            margin-right: 0.25em;
-        }
-
-        .omni-bar .ui-icon {
-            display: inline-block;
-        }
-
-        .omni-bar .options {
-            float: right;
-        }
-
-        .progress {
-            font-size: 1.5em;
-            font-weight: bold;
-            letter-spacing: 2px;
-            float: right;
-            padding-right: 5px;
-        }
-
-    .omni-bar input {
-        width: 80%;
-    }
-
-/* ------------------------------>
     About Dialog */
 .about-logo {
     background-size: 100%;
