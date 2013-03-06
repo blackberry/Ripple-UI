@@ -17,8 +17,6 @@
     Style9670 (520x1338) offset (78x137)*/
 
 .viewport-wrapper-Style9670 {
-    width: 360px;
-    height: 400px;
     border: none;
 }
 
@@ -42,12 +40,11 @@
 
 .device-wrapper-Style9670 {
     position: relative;
-    padding: 137px 0 0 80px;
-    width: 440px;
-    height: 1201px;
+    padding: 130px 72px 810px 80px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    background: url('images/Style9670.png') no-repeat;
+    background: url('images/Style9670.png') top center no-repeat;
+    background-size: 509px;
 }

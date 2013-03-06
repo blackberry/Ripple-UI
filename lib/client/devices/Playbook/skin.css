@@ -17,38 +17,32 @@
     Playbook Skin (860x1278) offset (128x130)*/
 
 .viewport-wrapper-landscape-Playbook {
-    height: 600px;
-    width: 1024px;
     border: none;
 }
 
 .device-wrapper-landscape-Playbook {
     position: relative;
-    padding: 130px 0 0 127px;
-    height: 732px;
-    width: 1153px;
+    padding: 122px 152px 154px 154px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    background: url('images/Playbook_landscape.png') no-repeat;
+    background: url('images/Playbook.png') top center no-repeat;
+    background-size: 855px;
 }
 
 .viewport-wrapper-Playbook {
-    height: 1024px;
-    width: 600px;
     border: none;
 }
 
 
 .device-wrapper-Playbook {
     position: relative;
-    padding: 128px 0 0 130px;
-    width: 732px;
-    height: 1153px;
+    padding: 128px 127px 125px 127px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    background: url('images/Playbook.png') no-repeat;
+    background: url('images/Playbook_landscape.png') top center no-repeat;
+    background-size: 1274px;
 }

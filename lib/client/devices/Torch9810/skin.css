@@ -18,21 +18,17 @@
     Torch9810 Skin (591x1048) offset (55x191)*/
 
 .viewport-wrapper-Torch9810 {
-    width: 480px;
-    height: 640px;
     border: none;
 }
 
 .device-wrapper-Torch9810 {
     position: relative;
-    padding: 191px 0 0 55px;
-    width: 536px;
-    height: 857px;
+    padding: 190px 53px 236px 55px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    background: url('images/Torch9810.png') no-repeat;
+    background: url('images/Torch9810.png') top center no-repeat;
 }
 
 .menu-button-wrapper-Torch9810 {
@@ -54,21 +50,17 @@
 }
 
 .viewport-wrapper-landscape-Torch9810 {
-    width: 640px;
-    height: 480px;
     border: none;
 }
 
 .device-wrapper-landscape-Torch9810 {
     position: relative;
-    padding: 55px 0 0 191px;
-    width: 857px;
-    height: 536px;
+    padding: 56px 213px 55px 188px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    background: url('images/Torch9810_landscape.png') no-repeat;
+    background: url('images/Torch9810_landscape.png') top center no-repeat;
 }
 
 .menu-button-wrapper-landscape-Torch9810{

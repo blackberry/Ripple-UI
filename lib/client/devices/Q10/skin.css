@@ -17,30 +17,24 @@
     Q10 (848x1552) offset (268x84)*/
 
 .viewport-wrapper-Q10 {
-    width: 720px;
-    height: 720px;
     border: none;
 }
 
 .device-wrapper-Q10 {
     position: relative;
-    padding: 258px 0 0 86px;
-    width: 792px;
-    height: 1285px;
+    padding: 125px 89px 280px 97px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    background: url('images/Q10.png') no-repeat;
-    background-size: 886px;
+    background: url('images/Q10.png') top center no-repeat;
+    background-size: 429px;
 }
 
 .viewport-wrapper-landscape-Q10 {
-    width: 720px;
-    height: 720px;
     border: none;
 }
 
 #document {
-    border-radius: 7px;
+    border-radius: 4px;
 }

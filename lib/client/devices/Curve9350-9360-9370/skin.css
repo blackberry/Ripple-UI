@@ -17,8 +17,6 @@
     Curve9350-9360-9370 (560x998) offset (42x172)*/
 
 .viewport-wrapper-Curve9350-9360-9370 {
-    width: 480px;
-    height: 360px;
     border: none;
 }
 
@@ -42,12 +40,10 @@
 
 .device-wrapper-Curve9350-9360-9370 {
     position: relative;
-    padding: 172px 0 0 42px;
-    width: 518px;
-    height: 826px;
+    padding: 173px 37px 480px 42px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    background: url('images/Curve9350-9360-9370.png') no-repeat;
+    background: url('images/Curve9350-9360-9370.png') top center no-repeat;
 }
