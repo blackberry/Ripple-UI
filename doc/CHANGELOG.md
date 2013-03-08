@@ -1,3 +1,7 @@
+## v0.9.1r54 - March 08, 2013
+
+* Updated version to 0.9.15 due to republishing need on Chrome Store as per this issue: https://groups.google.com/a/chromium.org/forum/?fromgroups=#!topic/chromium-extensions/d56BP7CTU-M
+
 ## v0.9.14 - March 06, 2013
 
 Pull Request (for release commits): https://github.com/blackberry/Ripple-UI/pull/737
