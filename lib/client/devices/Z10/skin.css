@@ -17,41 +17,33 @@
     Z10 (848x1552) offset (268x84)*/
 
 .viewport-wrapper-Z10 {
-    width: 768px;
-    height: 1280px;
     border: none;
 }
 
 .device-wrapper-Z10 {
     position: relative;
-    padding: 283px 0 0 99px;
-    width: 848px;
-    height: 1552px;
+    padding: 128px 46px 135px 47px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    background: url('images/Z10.png') no-repeat;
-    background-size: 973px;
+    background: url('images/Z10.png') center top no-repeat;
+    background-size: 437px;
 }
 
 .viewport-wrapper-landscape-Z10 {
-    width: 1280px;
-    height: 768px;
     border: none;
 }
 
 .device-wrapper-landscape-Z10 {
     position: relative;
-    padding: 106px 0 0 284px;
-    width: 1552px;
-    height: 848px;
+    padding: 48px 140px 35px 126px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
     background: url('images/Z10-Landscape.png') no-repeat;
-    background-size: 1867px;
+    background-size: 832px;
 }
 
 #document {

@@ -17,15 +17,13 @@
     Bold9700 (561x1009) offset (40x181)*/
 
 .viewport-wrapper-Bold9700 {
-    width: 480px;
-    height: 360px;
     border: none;
 }
 
 .menu-button-wrapper-Bold9700{
     position: relative;
     display: inline-block;
-    margin: 30px 0 0 85px;
+    margin: 25px 0 0 90px;
     width: 100px;
     height: 80px;
     cursor: pointer;
@@ -42,12 +40,10 @@
 
 .device-wrapper-Bold9700 {
     position: relative;
-    padding: 181px 0 0 40px;
-    width: 521px;
-    height: 828px;
+    padding: 182px 37px 473px 40px;
     margin: 0 auto;
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    background: url('images/Bold9700.png') no-repeat;
+    background: url('images/Bold9700.png') top center no-repeat;
 }
