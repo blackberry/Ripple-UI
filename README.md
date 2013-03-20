@@ -4,5 +4,5 @@
 
 * Project site: http://ripple.incubator.apache.org
 * Source code: https://git-wip-us.apache.org/repos/asf?p=incubator-ripple.git;a=summary
-* Bug Tracker: https://issues.apache.org/bugzilla/describecomponents.cgi?product=Ripple
+* Bug Tracker: https://issues.apache.org/jira/browse/ripple
 
