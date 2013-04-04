@@ -1,5 +1,6 @@
-## v0.9.1r54 - March 08, 2013
+## v0.9.15 - April 4, 2013
 
+* For the BlackBerry distribution of Ripple only: included Cross Origin proxy as part of the Ripple Services
 * Updated version to 0.9.15 due to republishing need on Chrome Store as per this issue: https://groups.google.com/a/chromium.org/forum/?fromgroups=#!topic/chromium-extensions/d56BP7CTU-M
 
 ## v0.9.14 - March 06, 2013
