@@ -1,3 +1,7 @@
+## v0.9.16 - April 10, 2013
+* For the BlackBerry distribution of Ripple only: Fixed the issue that failed to start B&D service
+* Updated version to 0.9.16
+
 ## v0.9.15 - April 4, 2013
 
 * For the BlackBerry distribution of Ripple only: included Cross Origin proxy as part of the Ripple Services
