@@ -91,7 +91,7 @@
     },
 
     "node" : true,
-    "es5" : true,
+    "es5" : false,
     "browser" : false,
 
     "boss" : false,
